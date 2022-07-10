@@ -1,0 +1,9 @@
+windows請用cmd
+路徑不要有中文或符號
+
+
+npm install -g @vue/cl
+vue create hello-world
+
+cd .\hello-world\
+npm run serve
