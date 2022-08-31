@@ -1,3 +1,4 @@
+
 <template>
   <div class="container mt-5">
     <form class="row justify-content-center"
@@ -38,16 +39,16 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       user: {
         username: '',
-        password: '',
-      },
+        password: ''
+      }
     };
   },
   methods: {
-    signIn() {
+    signIn () {
       const api = `${process.env.VUE_APP_API}admin/signin`;
       this.$http.post(api, this.user)
         .then((res) => {
@@ -56,7 +57,7 @@ export default {
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
           console.log(res);
         });
-    },
-  },
+    }
+  }
 };
 </script>
