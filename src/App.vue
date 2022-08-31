@@ -1,14 +1,14 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link> |
+    <router-link to="/login">Login</router-link>
   </nav>
 
-  <router-view/>
+  <router-view />
 </template>
 
 <style lang="scss">
-
 // 不用加 已安裝ＢＳ 一開始在環境裝沒成功 後來另外開終端安裝成功了npm install boostrap
 // @import "~bootstrap/scss/bootstrap";
 // @import "./assets/all";
