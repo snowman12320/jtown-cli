@@ -46,21 +46,21 @@
 </template>
 
 <script>
-import ProductModal from "../components/ProductModal.vue";
+import ProductModal from '../components/ProductModal.vue';
 
 export default {
-  data() {
+  data () {
     return {
       products: [],
       pagination: {},
-      tempProduct: {},
+      tempProduct: {}
     };
   },
   components: {
-    ProductModal,
+    ProductModal
   },
   methods: {
-    getProducts() {
+    getProducts () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
@@ -69,14 +69,14 @@ export default {
           this.pagination = res.data.pagination;
         }
       });
-    },
+    }
   },
-  openModal() {
+  openModal () {
     this.tempProduct = {};
     const productComponent = this.$refs.productModal;
     productComponent.showModal();
   },
-  updateProduct(item) {
+  updateProduct (item) {
     this.tempProduct = item;
     const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
     const productComponent = this.$refs.productModal;
@@ -86,8 +86,8 @@ export default {
       this.getProducts();
     });
   },
-  created() {
+  created () {
     this.getProducts();
-  },
+  }
 };
 </script>

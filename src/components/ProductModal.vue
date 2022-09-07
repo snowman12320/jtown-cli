@@ -208,32 +208,32 @@ export default {
   props: {
     product: {
       type: Object,
-      default() {
+      default () {
         return {};
-      },
-    },
+      }
+    }
   },
   watch: {
-    product() {
+    product () {
       this.tempProduct = this.product;
-    },
+    }
   },
-  data() {
+  data () {
     return {
       modal: {},
-      tempProduct: {},
+      tempProduct: {}
     };
   },
   methods: {
-    showModal() {
+    showModal () {
       this.modal.show();
     },
-    hideModal() {
+    hideModal () {
       this.modal.hide();
-    },
+    }
   },
-  mounted() {
+  mounted () {
     this.modal = new Modal(this.$refs.modal);
-  },
+  }
 };
 </script>
