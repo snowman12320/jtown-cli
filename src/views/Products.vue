@@ -1,10 +1,6 @@
 <template>
   <div class="text-end mt-3">
-    <button
-      class="btn btn-primary"
-      type="button"
-      @click="$refs.productModal.showModal()"
-    >
+    <button class="btn btn-primary" type="button" @click="openModal">
       增加一個產品
     </button>
   </div>
@@ -42,24 +38,29 @@
       </tr>
     </tbody>
   </table>
-  <ProductModal ref="productModal"></ProductModal>
+  <ProductModal
+    ref="productModal"
+    :product="tempProduct"
+    @update-product="updateProduct"
+  ></ProductModal>
 </template>
 
 <script>
-import ProductModal from '../components/ProductModal.vue';
+import ProductModal from "../components/ProductModal.vue";
 
 export default {
-  data () {
+  data() {
     return {
       products: [],
-      pagination: {}
+      pagination: {},
+      tempProduct: {},
     };
   },
   components: {
-    ProductModal
+    ProductModal,
   },
   methods: {
-    getProducts () {
+    getProducts() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
@@ -68,10 +69,25 @@ export default {
           this.pagination = res.data.pagination;
         }
       });
-    }
+    },
   },
-  created () {
+  openModal() {
+    this.tempProduct = {};
+    const productComponent = this.$refs.productModal;
+    productComponent.showModal();
+  },
+  updateProduct(item) {
+    this.tempProduct = item;
+    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+    const productComponent = this.$refs.productModal;
+    this.$http.post(api, { data: this.tempProduct }).then((response) => {
+      console.log(response);
+      productComponent.hideModal();
+      this.getProducts();
+    });
+  },
+  created() {
     this.getProducts();
-  }
+  },
 };
 </script>
