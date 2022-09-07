@@ -1,13 +1,9 @@
 // Required
-@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/functions";
 @import "./helpers/variable";
-@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/mixins";
 
 // Custom.scss
 // Option A: Include all of Bootstrap
 
-// Include any default variable overrides here (though functions won't be available)
-
 @import "~bootstrap/scss/bootstrap";
-
-// Then add additional custom code here

@@ -28,7 +28,7 @@
         </div>
 
         <div class="text-end mt-4">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">
+          <button class="btn btn-lg btn-danger btn-block" type="submit">
             登入
           </button>
         </div>
@@ -60,7 +60,8 @@ export default {
         if (res.data.success) {
           const { token, expired } = res.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          this.$router.push('/dashboard');
+          // this.$router.push('/dashboard');
+          this.$router.push('/dashboard/products');
         }
       });
     }
