@@ -6,5 +6,8 @@ windows請用cmd
 npm install -g @vue/cl
 vue create hello-world
 
+刪掉node > bootstrap資料夾 >重安裝
+npm install bootstrap
+
 cd .\hello-world\
 npm run serve

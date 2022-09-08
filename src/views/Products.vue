@@ -1,6 +1,6 @@
 <template>
   <div class="text-end mt-3">
-    <button class="btn btn-primary" type="button" @click="$refs.productModal.showModal()">
+    <button class="btn btn-primary" type="button" @click="openModal">
       增加一個產品
     </button>
   </div>
