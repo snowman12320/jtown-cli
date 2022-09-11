@@ -225,7 +225,13 @@ export default {
     };
   },
   methods: {
-    showModal () {
+    showModal (isNew, item) {
+      if (isNew) {
+        this.tempProduct = {};
+      } else {
+        this.tempProduct = { ...item };
+      }
+      this.isNew = isNew;
       this.modal.show();
     },
     hideModal () {
