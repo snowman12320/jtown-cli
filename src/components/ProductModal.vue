@@ -225,13 +225,7 @@ export default {
     };
   },
   methods: {
-    showModal (isNew, item) {
-      if (isNew) {
-        this.tempProduct = {};
-      } else {
-        this.tempProduct = { ...item };
-      }
-      this.isNew = isNew;
+    showModal () {
       this.modal.show();
     },
     hideModal () {
