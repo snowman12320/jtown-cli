@@ -1,6 +1,6 @@
 <template>
   <div class="text-end mt-3">
-    <button class="btn btn-primary" type="button" @click="$refs.productModal.showModal(true)">
+    <button class="btn btn-primary" type="button" @click="openModal(true)">
       增加一個產品
     </button>
   </div>
@@ -32,7 +32,7 @@
         <td>
           <div class="btn-group">
             <button class="btn btn-outline-primary btn-sm"
-            @click="$refs.productModal.showModal(false, item)">編輯</button>
+            @click="openModal(false, item)">編輯</button>
             <button class="btn btn-outline-danger btn-sm">刪除</button>
           </div>
         </td>
@@ -71,31 +71,35 @@ export default {
           this.pagination = res.data.pagination;
         }
       });
+    },
+    openModal (isNew, item) {
+      if (isNew) {
+        this.tempProduct = {};
+      } else {
+        this.tempProduct = { ...item };
+      }
+      this.isNew = isNew;
+      const productComponent = this.$refs.productModal;
+      productComponent.showModal();
+    },
+    updateProduct (item) {
+      this.tempProduct = item;
+      console.log(item);
+      // 新增
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+      let httpMethod = 'post';
+      // 編輯
+      if (!this.isNew) {
+        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
+        httpMethod = 'put';
+      }
+      const productComponent = this.$refs.productModal;
+      this.$http[httpMethod](api, { data: this.tempProduct }).then((response) => {
+        // console.log(response);
+        productComponent.hideModal();
+        this.getProducts();
+      });
     }
-  },
-  // openModal () {
-  //   this.tempProduct = {};
-  //   const productComponent = this.$refs.productModal;
-  //   productComponent.showModal();
-  // },
-  updateProduct (item) {
-    this.tempProduct = item;
-    console.log(item);
-
-    // 新增
-    let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
-    let httpMethod = 'post';
-    // 編輯
-    if (!this.isNew) {
-      api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
-      httpMethod = 'put';
-    }
-    // const productComponent = this.$refs.productModal;
-    this.$http[httpMethod](api, { data: this.tempProduct }).then((response) => {
-      console.log(response);
-      this.$refs.productModal.hideModal();
-      this.getProducts();
-    });
   },
   created () {
     this.getProducts();
