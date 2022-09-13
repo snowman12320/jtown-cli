@@ -75,12 +75,12 @@
                     !tempProduct.images.length
                   "
                 >
-                  <button
+                  <!-- <button
                     class="btn btn-outline-primary btn-sm d-block w-100"
                     @click="tempProduct.images.push('')"
                   >
                     新增圖片
-                  </button>
+                  </button> -->
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal';
+import modalMixin from '@/mixins/modalMixin';
 export default {
   props: {
     product: {
@@ -216,6 +216,9 @@ export default {
   watch: {
     product () {
       this.tempProduct = this.product;
+      if (!this.tempProduct.images) {
+        this.tempProduct.images = [];
+      }
     }
   },
   data () {
@@ -225,15 +228,19 @@ export default {
     };
   },
   methods: {
-    showModal () {
-      this.modal.show();
-    },
-    hideModal () {
-      this.modal.hide();
+    uploadFile () {
+      const uploadedFile = this.$refs.fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file-to-upload', uploadedFile);
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+      this.$http.post(url, formData).then((response) => {
+        console.log(response);
+        if (response.data.success) {
+          this.tempProduct.imageUrl = response.data.imageUrl;
+        }
+      });
     }
   },
-  mounted () {
-    this.modal = new Modal(this.$refs.modal);
-  }
+  mixins: [modalMixin]
 };
 </script>
