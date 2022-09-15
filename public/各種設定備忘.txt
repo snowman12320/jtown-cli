@@ -4,10 +4,19 @@ windows請用cmd
 
 
 npm install -g @vue/cl
-vue create hello-world
+//vue create hello-world
 
 刪掉node > bootstrap資料夾 >重安裝
 npm install bootstrap
+把BS的variable整個複製到自己的資料夾
+
+加入訊息通知
+npm install --save mitt
+https://www.npmjs.com/package/mitt
+
+可能需要載入效果
+npm install vue3-loading-overlay
+https://www.npmjs.com/package/vue3-loading-overlay
 
 cd .\hello-world\
 npm run serve
