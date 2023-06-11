@@ -1,5 +1,4 @@
 <template>
-<Loading :active="isLoading"></Loading>
   <div class="container mt-5">
     <form class="row justify-content-center" @submit.prevent="signIn">
       <div class="col-md-6">
@@ -29,7 +28,7 @@
         </div>
 
         <div class="text-end mt-4">
-          <button class="btn btn-lg btn-danger btn-block" type="submit">
+          <button class="btn btn-lg btn-primary btn-block" type="submit">
             登入
           </button>
         </div>
@@ -45,28 +44,19 @@ export default {
       user: {
         username: '',
         password: ''
-      },
-      isLoading: false
+      }
     };
   },
   methods: {
     signIn () {
       const api = `${process.env.VUE_APP_API}admin/signin`;
-      this.isLoading = true;
       this.$http.post(api, this.user).then((res) => {
-        this.isLoading = false;
-        // const { token, expired } = res.data;
+        const { token, expired } = res.data;
         // let token = response.data.token;
         // let expired = response.data.expired;
-        // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-        // console.log(token, expired);
-        // console.log(res);
-        if (res.data.success) {
-          const { token, expired } = res.data;
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          // this.$router.push('/dashboard');
-          this.$router.push('/dashboard/products');
-        }
+        document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+        console.log(token, expired);
+        console.log(res);
       });
     }
   }
