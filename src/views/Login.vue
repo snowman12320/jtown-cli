@@ -51,12 +51,15 @@ export default {
     signIn () {
       const api = `${process.env.VUE_APP_API}admin/signin`;
       this.$http.post(api, this.user).then((res) => {
-        const { token, expired } = res.data;
-        // let token = response.data.token;
-        // let expired = response.data.expired;
-        document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-        console.log(token, expired);
-        console.log(res);
+        // console.log(res);
+        // const { token, expired } = res.data;
+        // console.log(token, expired);
+        // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+        if (res.data.success) {
+          const { token, expired } = res.data;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+          this.$router.push('/dashboard');
+        }
       });
     }
   }
