@@ -1,0 +1,32 @@
+@import "../utils/mix";
+@import "../utils/function";
+@import "../helpers/variables";
+
+// 嘗試 背景圖如果只使用一次，可以使用 inline style 但會無法響應式 故需要 !important
+@include maxpc() {
+  .allstar_banner {
+    background-image: url(../nbaWeb/allstar-update-756.png) !important;
+    height: 600px !important;
+  }
+}
+
+.allstar_bg {
+  background-image: url(../nbaWeb/CGCJtcwUoAAQX8_.jpg);
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+@include maxbigpc() {
+  .allstar_bg {
+    width: 400px;
+    height: 400px;
+  }
+  .allstartext_rwd {
+    font-size: 32px;
+    .br {
+      display: none;
+    }
+  }
+}
