@@ -1,5 +1,5 @@
-@import "../utils/mix";
-@import "../utils/function";
+@import "../helpers/mix";
+@import "../helpers/function";
 @import "../helpers/variables";
 
 // 雖然有加上active 但若權重不足 可能導致失效 加上&增加權重 不使用 ~ 可能沒有支援(是代表你寫錯了)

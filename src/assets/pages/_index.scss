@@ -1,6 +1,5 @@
-@import "../utils/mix";
-@import "../utils/function";
-@import "../utils/variables";
+@import "../helpers/mix";
+@import "../helpers/function";
 @import "../helpers/variables";
 
 //第三方CDN
@@ -56,8 +55,13 @@
   }
   .navbar-nav .nav_pill {
     // 要加& 不然會指一條直的陰影 第一層不用加 第二層要加&
+    transition: all;
+    transition-duration: 500ms;
     &:hover {
       box-shadow: 0 5px 1px $black;
+    }
+    &:hover {
+      transform: translateY(-5px);
     }
   }
 }
@@ -69,19 +73,18 @@
 
 //箭頭動畫
 .banner_arrow {
-  position: fixed;
-  bottom: 5%;
-  left: 45%;
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
   // margin-top: 50vh;
   // margin-left: 50vw;
   // margin: 0 auto;
   color: $white;
   animation: banner_arrow 1s infinite;
+  transform: translateX(-50%);
+  // transform: translateY(50%);
 }
 @include maxpad() {
-  .banner_arrow {
-    left: 40%;
-  }
   .carousel iframe,
   .carousel img {
     height: 450px;
@@ -111,6 +114,8 @@
   }
 }
 
+// $bg-image: url("../nbaWeb/Minimal-Magnifying-Glass.svg");
+
 // 要用important 因為外層有用了 會被覆蓋 導致定位在整個版面上 /關機拿掉後又好了.......
 // .img_relative {
 //   position: relative;
@@ -118,7 +123,8 @@
 // }
 .love_img_back {
   // 可用BS提供的SVG圖 但關機才出現圖的BUG而載了別的圖
-  // background-image: url("../nbaWeb/Minimal-Magnifying-Glass.svg");
+  // background-image: url(../nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg);
+  // background-image: $bg-image;
   width: 150px;
   height: 150px;
   position: absolute;
@@ -143,14 +149,18 @@
   color: $white;
   padding-left: 10px;
   background-image: linear-gradient(180deg, rgb(0, 0, 0, 0), rgb(0, 0, 0, 0.8));
-  display: none;
+  // display: none;
+  opacity: 0;
 }
 // 要使用外面那層的CLS(.card) 不然本身圖片CLS(.card-img)會沒有效果 flex排版要放在hover裡 才不會重置跑版
 .newproduct_img:hover .newproduct_cloth {
-  display: block;
+  // display: block;
+  opacity: 1;
   display: flex;
   flex-direction: column;
   justify-content: end;
+  transition: all;
+  transition-duration: 500ms;
 }
 
 .rank_card {

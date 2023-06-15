@@ -1,9 +1,9 @@
 <template>
-  <navbar class="navbar navbar-expand-md bg-white py-4">
+  <navbar class="navbar navbar-expand-md bg-white py-4 " ref="header">
     <div class="container-fluid d-flex justify-content-between">
       <div class="d-flex">
         <a class="navbar-brand" href="index.html">JerseyTown</a>
-        <h1 class="fs-3 fw-bold mb-0 ms-n2 nav_h1">JTown</h1>
+        <h1 class="fs-3 fw-bold mb-0 ms-n2 nav_h1">JTown{{ atTop }}</h1>
       </div>
       <!-- 漢堡 -->
       <button
@@ -34,16 +34,20 @@
             <a class="nav-link px-4 py-3" href="story.html">Story</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-4 py-3" href="product.html">Product</a>
+            <router-link class="nav-link px-4 py-3" to="/products"
+              >Product</router-link
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link px-4 py-3" href="rank.html">Rank</a>
           </li>
           <li class="ms-1">
-            <button class="btn btn-nbaRed rounded-pill mt-lg-2 nav_pill">
+            <button
+              class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill"
+            >
               <router-link
                 to="/login"
-                class="text-decoration-none fs-6 px-3 rounded-pill text-black"
+                class="text-decoration-none fs-6 px-3 rounded-pill text-white"
               >
                 Login/Sign up
               </router-link>
@@ -55,3 +59,10 @@
   </navbar>
   <router-view />
 </template>
+<script>
+export default {
+  props: {
+    atTop: Boolean
+  }
+};
+</script>

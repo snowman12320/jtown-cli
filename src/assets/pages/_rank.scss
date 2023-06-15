@@ -1,5 +1,5 @@
-@import "../utils/mix";
-@import "../utils/function";
+@import "../helpers/mix";
+@import "../helpers/function";
 @import "../helpers/variables";
 
 // 嘗試 背景圖如果只使用一次，可以使用 inline style 但會無法響應式 故需要 !important

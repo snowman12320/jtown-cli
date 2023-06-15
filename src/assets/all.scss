@@ -2,7 +2,8 @@
 @import "~bootstrap/scss/functions";
 
 // 2. Include any default variable overrides here (自定義變數 _variables.scss 檔案)
-@import "variables";
+@import "./helpers/variables";
+
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "~bootstrap/scss/mixins";
@@ -10,5 +11,5 @@
 // 4. Include any optional Bootstrap CSS as needed
 @import "~bootstrap/scss/bootstrap";
 
-//學生pages 、variables(自訂變數) 、mix(小型工具) 、function(需帶入參數的)
-@import "./pages/index";
+
+
