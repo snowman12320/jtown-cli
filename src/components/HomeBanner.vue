@@ -7,7 +7,7 @@
     <div class="col">
       <a
         class="example-image-link position-relative d-flex justify-content-center align-items-center"
-        href="nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
+        href="../assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
         data-lightbox="example-1"
         data-title=" welcome to apply to be members."
       >
@@ -27,23 +27,23 @@
     <!-- 用絕對定位隱藏!! -->
     <a
       class="example-image-link position-absolute"
-      href="nbaWeb/1126209.png"
+      href="../assets/nbaWeb/1126209.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <a
       class="example-image-link position-absolute"
-      href="nbaWeb/PNG-images-NBA-Players-36png.png"
+      href="../assets/nbaWeb/PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <!--  -->
     <!-- 為什麼文字會不見 是要用prop傳遞資料嗎 好像不是 -->
     <div class="col">
-      <div class="money w-100 animated_left">
+      <div class="money w-100 ">
         <a
           href="https://docs.google.com/document/d/1nDsE6pbwxq5uskEAn2S5QXuNXQ6dNlr2/edit?usp=sharing&ouid=101148024216713455456&rtpof=true&sd=true"
-          class="text-decoration-none stretched-link"
+          class="text-decoration-none "
           data-bs-toggle="tooltip"
           data-bs-placement="right"
           title="Welcome invite for interviews !"

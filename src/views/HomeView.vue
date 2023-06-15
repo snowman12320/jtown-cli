@@ -1,5 +1,5 @@
 <template>
-  <Header at-top="atTop"></Header>
+  <Header></Header>
   <HomeCarousel></HomeCarousel>
   <div class="container-xxl">
     <HomeBanner></HomeBanner>

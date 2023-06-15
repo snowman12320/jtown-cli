@@ -16,6 +16,7 @@
 @import "../../node_modules/bootstrap/scss/reboot";
 @import "../../node_modules/bootstrap/scss/type";
 //內建常用
+//* icon 直接用cdn就好
 // @import "../../node_modules/bootstrap-icons/font/bootstrap-icons.css"; //內建icon
 // @import "./bootstrap-icons.css"; //內建icon
 @import "../../node_modules/bootstrap/scss/images";
@@ -65,9 +66,9 @@
 // @import "./lightbox.min.css"; //透過 npm 安裝 Lightbox 後，將 lightbox.min.js、lightbox.min.css 及 lightbox 圖片直接複製到其他資料夾，再引入使用
 
 //學生pages 、variables(自訂變數) 、mix(小型工具) 、function(需帶入參數的)
-// @import "./pages/rank";
-// @import "./pages/story";
-// @import "./pages/storyItem";
-// @import "./pages/product";
-// @import "./pages/customzied";
+@import "./pages/rank";
+@import "./pages/story";
+@import "./pages/storyItem";
+@import "./pages/product";
+@import "./pages/customzied";
 @import "./pages/index";

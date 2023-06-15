@@ -1,9 +1,13 @@
 <template>
-  <navbar class="navbar navbar-expand-md bg-white py-4 " ref="header">
+  <navbar
+    class="navbar navbar-expand-md bg-white py-4"
+    ref="header"
+    :class="{ 'position-fixed top-0 start-0 end-0': atTop }"
+  >
     <div class="container-fluid d-flex justify-content-between">
       <div class="d-flex">
         <a class="navbar-brand" href="index.html">JerseyTown</a>
-        <h1 class="fs-3 fw-bold mb-0 ms-n2 nav_h1">JTown{{ atTop }}</h1>
+        <h1 class="fs-3 fw-bold mb-0 ms-n2 nav_h1">JTown - test{{ atTop }}</h1>
       </div>
       <!-- 漢堡 -->
       <button

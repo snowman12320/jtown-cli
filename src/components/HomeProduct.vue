@@ -4,10 +4,9 @@
     id="Product"
     class="my-5 d-flex justify-content-center align-items-center"
   >
-    <h2>NEW {{ atTop }}
-</h2>
+    <h2>NEW</h2>
     <img
-      src="nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg"
+      src="../assets/nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg"
       height="80"
       alt="recentlyLogo"
       class=""

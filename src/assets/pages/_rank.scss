@@ -5,13 +5,13 @@
 // 嘗試 背景圖如果只使用一次，可以使用 inline style 但會無法響應式 故需要 !important
 @include maxpc() {
   .allstar_banner {
-    background-image: url(../nbaWeb/allstar-update-756.png) !important;
+    // background-image: url(../nbaWeb/allstar-update-756.png) !important;
     height: 600px !important;
   }
 }
 
 .allstar_bg {
-  background-image: url(../nbaWeb/CGCJtcwUoAAQX8_.jpg);
+  // background-image: url(../nbaWeb/CGCJtcwUoAAQX8_.jpg);
   width: 200px;
   height: 200px;
   background-position: center center;
