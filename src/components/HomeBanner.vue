@@ -27,13 +27,13 @@
     <!-- 用絕對定位隱藏!! -->
     <a
       class="example-image-link position-absolute"
-      href="..\assets\nbaWeb\PNG-images-NBA-Players-36png.png"
+      href="@/assets/nbaWeb/PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <a
       class="example-image-link position-absolute"
-      href="..\assets\nbaWeb\PNG-images-NBA-Players-36png.png"
+      href="@/assets/nbaWeb/PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
