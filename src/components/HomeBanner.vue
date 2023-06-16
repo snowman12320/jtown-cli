@@ -7,7 +7,7 @@
     <div class="col">
       <a
         class="example-image-link position-relative d-flex justify-content-center align-items-center"
-        href="../assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
+        href="@/assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
         data-lightbox="example-1"
         data-title=" welcome to apply to be members."
       >
@@ -15,7 +15,7 @@
           class="of-cover w-100 love_img example-image"
           height="486"
           width="648"
-          src="../assets/nbaWeb/andre-hunter-RPKdvPcYAUo-unsplash.jpg"
+          src="@/assets/nbaWeb/andre-hunter-RPKdvPcYAUo-unsplash.jpg"
           alt="義賣球衣"
         />
         <i
@@ -55,7 +55,7 @@
         </a>
         <h2 class="text-center text-lg-start">
           EVERYBODY <br class="d-block d-lg-none" />
-          FUNDRAISING{{ atTop }}
+          FUNDRAISING
 
         </h2>
         <p class="fs-6">

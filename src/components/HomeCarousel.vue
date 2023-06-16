@@ -1,7 +1,7 @@
 <template class="">
     <div class="position-relative">
       <!-- video banner -->
-      <banner
+      <div
         id="carouselExampleIndicators"
         class="carousel slide"
         data-bs-ride="carouse"
@@ -102,7 +102,7 @@
           ></span>
           <span class="visually-hidden">Next</span>
         </button>
-      </banner>
+      </div>
       <!-- scroll down arrow -->
       <div class="">
         <svg

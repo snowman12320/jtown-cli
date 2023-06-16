@@ -9,8 +9,8 @@ const routes = [
     component: () => import('../views/HomeView.vue')
   },
   {
-    path: '/products',
-    name: 'products',
+    path: '/products-view',
+    name: 'products-view',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -18,12 +18,12 @@ const routes = [
       import(/* webpackChunkName: 'about' */ '../views/ProductsView.vue'),
     children: [
       {
-        path: '/products/product_list',
-        component: () => import('../views/ProductList.vue')
+        path: '/products-view/products-content',
+        component: () => import('../views/ProductsContent.vue')
       },
       {
-        path: '/products/product_item',
-        component: () => import('../views/ProductItem.vue')
+        path: '/products-view/products-item',
+        component: () => import('../views/ProductsItem.vue')
       }
     ]
   },

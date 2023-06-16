@@ -7,10 +7,6 @@
     <HomeRank></HomeRank>
   </div>
   <Footer></Footer>
-  <!-- <img
-    alt="Vue logo"
-    src="../assets/nbaWeb/1588928235basketball-fire-logo-silhouette-freesvg.org.svg"
-  /> -->
 </template>
 <script>
 // @ is an alias to /src

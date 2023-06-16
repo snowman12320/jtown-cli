@@ -26,7 +26,7 @@
               <img
                 class="ms-lg-auto"
                 height="130"
-                src="nbaWeb/1506074059.svg"
+                src="@/assets/nbaWeb/1506074059.svg"
                 alt=""
               />
               <div class="">
@@ -40,12 +40,12 @@
               </div>
             </div>
             <div class="col d-flex justify-content-center px-0">
-              <!-- <img
+              <img
                 class=""
                 height="130"
-                src="nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg"
+                src="@/assets/nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg"
                 alt=""
-              /> -->
+              />
               <div class="me-lg-auto">
                 <h3>JOIN TEAM</h3>
                 <p>customized jersey</p>

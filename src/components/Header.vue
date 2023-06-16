@@ -1,5 +1,5 @@
 <template>
-  <navbar
+  <head
     class="navbar navbar-expand-md bg-white py-4"
     ref="header"
     :class="{ 'position-fixed top-0 start-0 end-0': !atTop }"
@@ -38,7 +38,7 @@
             <a class="nav-link px-4 py-3" href="story.html">Story</a>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link px-4 py-3" to="/products"
+            <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
               >Product</router-link
             >
           </li>
@@ -60,7 +60,7 @@
         </ul>
       </div>
     </div>
-  </navbar>
+  </head>
   <router-view />
 </template>
 <script>
@@ -76,9 +76,9 @@ export default {
     this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
   },
-  beforeUnmount () {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
+  // beforeUnmount () {
+  //   window.removeEventListener('scroll', this.handleScroll);
+  // },
   methods: {
     handleScroll () {
       // eslint-disable-next-line no-unneeded-ternary
