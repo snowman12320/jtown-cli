@@ -1,6 +1,6 @@
 @mixin hide_text {
   /* 圖片裝入容器 */
-  // background-image: url("../nbaWeb/1588928235basketball-fire-logo-silhouette-freesvg.org.svg");
+  background-image: url("@/assets/nbaWeb/1588928235basketball-fire-logo-silhouette-freesvg.org.svg");
   background-repeat: no-repeat;
   background-size: contain;
   /* 圖片取代文字 */
@@ -8,6 +8,7 @@
   text-indent: 101%;
   overflow: hidden;
   white-space: nowrap;
+  width: 100px;
 }
 @mixin shadow {
   /* -x +x 軸  */

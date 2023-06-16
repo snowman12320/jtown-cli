@@ -26,7 +26,7 @@
           height="312"
           width="312"
           class="card-img of-cover"
-          src="nbaWeb/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
+          src="@/assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
           alt="new1"
         />
       </div>
@@ -41,7 +41,7 @@
           height="312"
           width="312"
           class="card-img of-cover newproduct_img"
-          src="nbaWeb/eddy-lackmann-6MmfmBJd8PE-unsplash.jpg"
+          src="@/assets/nbaWeb/eddy-lackmann-6MmfmBJd8PE-unsplash.jpg"
           alt="new2"
         />
       </div>
@@ -56,7 +56,7 @@
           height="312"
           width="312"
           class="card-img of-cover newproduct_img"
-          src="nbaWeb/mingxuan_leng-EXqK7oqvKhQ-unsplash.jpg"
+          src="@/assets/nbaWeb/mingxuan_leng-EXqK7oqvKhQ-unsplash.jpg"
           alt="new3"
         />
       </div>
@@ -71,7 +71,7 @@
           height="312"
           width="312"
           class="card-img of-cover newproduct_img"
-          src="nbaWeb/tyler-martoia-nVpT1jeu3f0-unsplash.jpg"
+          src="@/assets/nbaWeb/tyler-martoia-nVpT1jeu3f0-unsplash.jpg"
           alt="new4"
         />
       </div>

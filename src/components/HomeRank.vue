@@ -21,7 +21,7 @@
     <div class="col mb-5 mb-lg-0">
       <div class="card" style="height: 424px">
         <img
-          src="../assets/nbaWeb/PNG-images-NBA-Players-41png.png"
+          src="@/assets/nbaWeb/PNG-images-NBA-Players-41png.png"
           height="300"
           class="card-img-top animated_down of-none op-top position-absolute mt-n5 position-relative"
           alt="..."
@@ -50,7 +50,7 @@
     <div class="col mb-5 mb-lg-0">
       <div class="card position-relative" style="height: 424px">
         <img
-          src="../assets/nbaWeb/PNG-images-NBA-Players-28png.png"
+          src="@/assets/nbaWeb/PNG-images-NBA-Players-28png.png"
           height="300"
           class="card-img-top animated_down of-none op-top position-absolute mt-n5"
           alt="..."
@@ -75,7 +75,7 @@
     <div class="col mb-3 mb-lg-0">
       <div class="card position-relative" style="height: 424px">
         <img
-          src="../assets/nbaWeb/PNG-images-NBA-Players-1png.png"
+          src="@/assets/nbaWeb/PNG-images-NBA-Players-1png.png"
           height="300"
           class="card-img-top animated_down of-none op-top position-absolute mt-n5"
           alt="..."

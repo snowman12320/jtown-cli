@@ -27,18 +27,17 @@
     <!-- 用絕對定位隱藏!! -->
     <a
       class="example-image-link position-absolute"
-      href="../assets/nbaWeb/1126209.png"
+      href="..\assets\nbaWeb\PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <a
       class="example-image-link position-absolute"
-      href="../assets/nbaWeb/PNG-images-NBA-Players-36png.png"
+      href="..\assets\nbaWeb\PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <!--  -->
-    <!-- 為什麼文字會不見 是要用prop傳遞資料嗎 好像不是 -->
     <div class="col">
       <div class="money w-100 ">
         <a
@@ -56,7 +55,8 @@
         </a>
         <h2 class="text-center text-lg-start">
           EVERYBODY <br class="d-block d-lg-none" />
-          FUNDRAISING
+          FUNDRAISING{{ atTop }}
+
         </h2>
         <p class="fs-6">
           The Association of Jersey Charities exists to provide guidance to and

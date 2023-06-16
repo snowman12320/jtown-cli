@@ -21,12 +21,6 @@ import HomeProduct from '@/components/HomeProduct.vue';
 import HomeRank from '@/components/HomeRank.vue';
 import Footer from '@/components/Footer.vue';
 export default {
-  data () {
-    return {
-      nav: 0, //* 初始化 nav 值 atTop: false };
-      atTop: false
-    };
-  },
   name: 'HomeView',
   components: {
     Header,

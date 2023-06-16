@@ -2,12 +2,12 @@
   <navbar
     class="navbar navbar-expand-md bg-white py-4"
     ref="header"
-    :class="{ 'position-fixed top-0 start-0 end-0': atTop }"
+    :class="{ 'position-fixed top-0 start-0 end-0': !atTop }"
   >
     <div class="container-fluid d-flex justify-content-between">
-      <div class="d-flex">
-        <a class="navbar-brand" href="index.html">JerseyTown</a>
-        <h1 class="fs-3 fw-bold mb-0 ms-n2 nav_h1">JTown - test{{ atTop }}</h1>
+      <div class="d-flex position-relative">
+        <a class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0" href="index.html">JerseyTown</a>
+        <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
       </div>
       <!-- 漢堡 -->
       <button
@@ -65,8 +65,25 @@
 </template>
 <script>
 export default {
-  props: {
-    atTop: Boolean
+  data () {
+    return {
+      nav: 0, //* 初始化 nav 值 atTop: false };
+      // eslint-disable-next-line vue/no-dupe-keys
+      atTop: true
+    };
+  },
+  mounted () {
+    this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
+    window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
+  },
+  beforeUnmount () {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll () {
+      // eslint-disable-next-line no-unneeded-ternary
+      this.atTop = window.scrollY > this.nav ? false : true; //* 使用this.nav進行操作
+    }
   }
 };
 </script>
