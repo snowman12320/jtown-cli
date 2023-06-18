@@ -28,6 +28,22 @@ const routes = [
     ]
   },
   {
+    path: '/cart-view',
+    name: 'cart-view',
+    component: () =>
+      import(/* webpackChunkName: 'about' */ '../views/CartView.vue'),
+    children: [
+      {
+        path: '/cart-view/cart-list',
+        component: () => import('../views/CartList.vue')
+      },
+      {
+        path: '/cart-view/cart-done',
+        component: () => import('../views/CartDone.vue')
+      }
+    ]
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('../views/LoginView.vue')

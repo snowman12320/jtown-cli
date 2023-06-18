@@ -23,7 +23,7 @@
     </div>
     <div class="col-8">
       <!-- 因為 children 裡面的元件要顯示畫面的話
-需要在父元件 newpage 設定 router-view 
+需要在父元件 newpage 設定 router-view
 設定好後，接著網址路徑連到 /newpage/a 才會顯示子元件的畫面 -->
       <router-view></router-view>
     </div>

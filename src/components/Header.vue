@@ -30,7 +30,7 @@
         <ul class="navbar-nav ms-auto text-center">
           <li class="nav-item">
             <!-- 關於active切換時有加上 但接著就會重新整理又不見 方法：- 1. 直接寫在 HTML 上（建議 -->
-            <router-link to="/" class="nav-link px-4 py-3 active">
+            <router-link to="/" class="nav-link px-4 py-3 " :class="{'active': $route.path === '/'}">
               Home
             </router-link>
           </li>
@@ -39,6 +39,7 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
+            :class="{'active': $route.path.includes('/products-view')}"
               >Product</router-link
             >
           </li>
@@ -82,7 +83,7 @@ export default {
   methods: {
     handleScroll () {
       // eslint-disable-next-line no-unneeded-ternary
-      this.atTop = window.scrollY > this.nav ? false : true; //* 使用this.nav進行操作
+      this.atTop = window.scrollY > this.nav + 300 ? false : true; //* 使用this.nav進行操作
     }
   }
 };

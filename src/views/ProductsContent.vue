@@ -19,15 +19,15 @@
       <!-- 側欄 -->
       <ProductsSide></ProductsSide>
       <!-- 產品圖 -->
-      <section class="col-lg-9 mb-5">
-   <ProductsList></ProductsList>
+      <section class="col-lg-10 mb-5">
+        <ProductsList></ProductsList>
       </section>
     </main>
   </div>
 </template>
 <script>
 import ProductsSide from '@/components/ProductsSide.vue';
-import ProductsList from '@/views/ProductsList.vue';
+import ProductsList from '@/components/ProductsList.vue';
 export default {
   components: {
     ProductsSide,

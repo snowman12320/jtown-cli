@@ -90,7 +90,8 @@
           class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1"
         >
           <button class="btn-primary btn">加入購物車</button>
-          <button class="btn btn-danger">立即購買</button>
+
+          <router-link to="/cart-view/cart-list"><button class="btn btn-danger">立即購買</button></router-link>
         </div>
       </div>
     </div>
@@ -100,7 +101,7 @@
   </div>
 </template>
 <script>
-import ProductsList from './ProductsList.vue';
+import ProductsList from '@/components/ProductsList.vue';
 export default {
   components: {
     ProductsList
