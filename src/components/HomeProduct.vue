@@ -15,7 +15,7 @@
   </div>
   <!-- 目前的排版會感覺上下都沒有對齊，可先避免過多的水平間距調整 -->
   <section class="row row-cols-2 row-cols-lg-4 g-4">
-    <div class="col animated_left">
+    <div class="col ">
       <div class="card w-100 position-relation newproduct_img">
         <div class="newproduct_cloth">
           <h6>Player</h6>
@@ -26,12 +26,12 @@
           height="312"
           width="312"
           class="card-img of-cover"
-          src="@/assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
+          src="../assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
           alt="new1"
         />
       </div>
     </div>
-    <div class="col animated_left">
+    <div class="col ">
       <div class="card w-100 position-relation newproduct_img">
         <div class="newproduct_cloth">
           <h6>Player</h6>
@@ -41,12 +41,12 @@
           height="312"
           width="312"
           class="card-img of-cover newproduct_img"
-          src="@/assets/nbaWeb/eddy-lackmann-6MmfmBJd8PE-unsplash.jpg"
+          src="../assets/nbaWeb/eddy-lackmann-6MmfmBJd8PE-unsplash.jpg"
           alt="new2"
         />
       </div>
     </div>
-    <div class="col animated_left">
+    <div class="col ">
       <div class="card w-100 position-relation newproduct_img">
         <div class="newproduct_cloth">
           <h6>Player</h6>
@@ -61,7 +61,7 @@
         />
       </div>
     </div>
-    <div class="col animated_left">
+    <div class="col ">
       <div class="card w-100 position-relation newproduct_img">
         <div class="newproduct_cloth">
           <h6>Player</h6>

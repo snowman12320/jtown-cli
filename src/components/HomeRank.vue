@@ -23,7 +23,7 @@
         <img
           src="@/assets/nbaWeb/PNG-images-NBA-Players-41png.png"
           height="300"
-          class="card-img-top animated_down of-none op-top position-absolute mt-n5 position-relative"
+          class="card-img-top  of-none op-top position-absolute mt-n5 position-relative"
           alt="..."
         />
         <div class="img_back img_back_kobe"></div>
@@ -52,7 +52,7 @@
         <img
           src="@/assets/nbaWeb/PNG-images-NBA-Players-28png.png"
           height="300"
-          class="card-img-top animated_down of-none op-top position-absolute mt-n5"
+          class="card-img-top  of-none op-top position-absolute mt-n5"
           alt="..."
         />
         <div class="img_back img_back_lebron"></div>
@@ -77,7 +77,7 @@
         <img
           src="@/assets/nbaWeb/PNG-images-NBA-Players-1png.png"
           height="300"
-          class="card-img-top animated_down of-none op-top position-absolute mt-n5"
+          class="card-img-top  of-none op-top position-absolute mt-n5"
           alt="..."
         />
         <div class="img_back img_back_curry"></div>

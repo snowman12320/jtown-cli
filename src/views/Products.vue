@@ -69,6 +69,7 @@ export default {
   },
   inject: ['emitter'],
   methods: {
+    // 產品後台 取得遠端資料
     getProducts (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
       this.isLoading = true;

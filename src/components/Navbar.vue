@@ -14,17 +14,17 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link to="/dashboard/products" class="nav-link"
+        <div class="navbar-nav d-flex gap-5">
+          <router-link to="/dashboard/products" class="text-white "
             >產品</router-link
           >
-          <router-link to="/dashboard/orders" class="nav-link"
+          <router-link to="/dashboard/orders" class="text-white "
             >訂單</router-link
           >
-          <router-link to="/dashboard/coupons" class="nav-link"
+          <router-link to="/dashboard/coupons" class="text-white "
             >優惠券</router-link
           >
-          <a href="#" @click.prevent="logout" class="nav-link">登出</a>
+          <a href="#" @click.prevent="logout" class="text-white ">登出</a>
         </div>
       </div>
     </div>
