@@ -1,8 +1,8 @@
 <template>
   <head
-    class="navbar navbar-expand-md bg-white py-4"
+    class="navbar navbar-expand-md bg-white py-4 shadow-sm"
     ref="header"
-    :class="{ 'position-fixed top-0 start-0 end-0': !atTop }"
+    :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }"
   >
     <div class="container-fluid d-flex justify-content-between">
       <div class="d-flex position-relative">
@@ -58,13 +58,19 @@
               </router-link>
             </button>
           </li>
+          <li><button @click="openOffcanvas()" class="bg-transparent border-0"><i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-3 px-3"></i></button></li>
         </ul>
       </div>
     </div>
   </head>
-  <router-view />
+  <!-- <CartOffcanvas
+  ref="offcanvas"
+></CartOffcanvas> -->
+<router-view />
 </template>
 <script>
+// import CartOffcanvas from '@/components/CartOffcanvas.vue';
+
 export default {
   data () {
     return {
@@ -72,6 +78,9 @@ export default {
       // eslint-disable-next-line vue/no-dupe-keys
       atTop: true
     };
+  },
+  components: {
+    // CartOffcanvas
   },
   mounted () {
     this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
@@ -84,6 +93,10 @@ export default {
     handleScroll () {
       // eslint-disable-next-line no-unneeded-ternary
       this.atTop = window.scrollY > this.nav + 300 ? false : true; //* 使用this.nav進行操作
+    },
+    openOffcanvas () {
+      const cartCp = this.$refs.offcanvas;
+      cartCp.showOffcanvas();
     }
   }
 };

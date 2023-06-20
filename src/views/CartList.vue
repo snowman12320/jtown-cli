@@ -43,7 +43,7 @@
     </aside>
     <!--  -->
     <div class="col-12 col-lg-8">
-      <h2 class="mt-lg-0 mt-3">購物車內容</h2>
+      <h2 class="mt-lg-0 mt-5 pt-5">購物車內容</h2>
       <section class="border-1 rounded-3 table_overflow border p-3">
         <table class="table">
           <thead>

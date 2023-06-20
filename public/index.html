@@ -17,6 +17,11 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- animate -->
+      <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
   </head>
   <body>
     <noscript>
@@ -26,7 +31,8 @@
         continue.</strong
       >
     </noscript>
-    <div id="app">
+    <div id="app" class="">
+      <p :class="{'pt-5' : !atTop}"></p>
 
     </div>
     <!-- built files will be auto injected -->
