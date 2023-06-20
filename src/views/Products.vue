@@ -40,6 +40,7 @@
   </table>
   <Pagination :pages="pagination"
     @emit-pages="getProducts"></Pagination>
+    <!-- 更新資料，先帶原始資料進去元件，元件內修改後，再透過emit傳遞觸發函式和資料出來 -->
   <ProductModal
     ref="productModal"
     :product="tempProduct"
@@ -55,11 +56,11 @@ import DelModal from '@/components/DelModal.vue';
 export default {
   data () {
     return {
-      products: [],
+      products: [], //* 原始資料
       pagination: {},
-      tempProduct: {},
-      isNew: false,
-      isLoading: false
+      tempProduct: {}, //* 暫存區
+      isNew: false, //* 判斷有無資料
+      isLoading: false //* 載入效果開關
     };
   },
   components: {
@@ -70,6 +71,7 @@ export default {
   inject: ['emitter'],
   methods: {
     // 產品後台 取得遠端資料
+    // !透過頁數取得資料
     getProducts (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
       this.isLoading = true;
@@ -82,6 +84,7 @@ export default {
         }
       });
     },
+    //! 新增時會帶一個true，編輯時會帶false和資料
     openModal (isNew, item) {
       if (isNew) {
         this.tempProduct = {};
@@ -92,9 +95,10 @@ export default {
       const productComponent = this.$refs.productModal;
       productComponent.showModal();
     },
+    //* 以下進行新增或編輯，使用不同ＡＰＩ
     updateProduct (item) {
       this.tempProduct = item;
-      console.log(item);
+      // console.log(item);
       // 新增
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
       let httpMethod = 'post';
@@ -129,6 +133,7 @@ export default {
       delComponent.showModal();
     },
     delProduct () {
+      // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
       this.$http.delete(url).then((response) => {
         console.log(response.data);

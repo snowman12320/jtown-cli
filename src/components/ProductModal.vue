@@ -9,7 +9,7 @@
     ref="modal"
   >
     <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content border-0">
+      <div class="modal-content border-0 ">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
             <span>新增產品</span>
@@ -189,6 +189,7 @@
           >
             取消
           </button>
+          <!-- 向外傳遞需觸發的函式和傳遞資料 -->
           <button
             type="button"
             class="btn btn-primary"
@@ -214,8 +215,10 @@ export default {
     }
   },
   watch: {
+    //* 監聽傳進來的product，並自動存到暫存區
     product () {
       this.tempProduct = this.product;
+      // ?沒有圖片就塞空陣列?
       if (!this.tempProduct.images) {
         this.tempProduct.images = [];
       }

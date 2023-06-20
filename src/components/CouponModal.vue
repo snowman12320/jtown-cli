@@ -9,7 +9,7 @@
     ref="modal"
   >
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content mt-10">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">優惠券</h5>
           <button

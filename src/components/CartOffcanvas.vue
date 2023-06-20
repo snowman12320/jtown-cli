@@ -26,12 +26,15 @@ export default {
   },
   data () {
     return {
-      modal: {},
       offcanvas: {}
     };
   },
+  created () {
+    // this.$refs.offcanvas.show();
+  },
   methods: {
   },
+  //* 混用獨立的功能
   mixins: [offcanvasMixin]
 };
 </script>

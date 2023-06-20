@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index:1">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">範例作品</a>
       <button

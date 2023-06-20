@@ -1,6 +1,7 @@
 <template>
   <head
-    class="navbar navbar-expand-md bg-white py-4 shadow-sm"
+    class="navbar navbar-expand-md bg-white py-4 shadow-sm "
+    style="z-index:1"
     ref="header"
     :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }"
   >
@@ -63,13 +64,14 @@
       </div>
     </div>
   </head>
-  <!-- <CartOffcanvas
+  <!-- 加入畫布元件，取名使用 -->
+  <CartOffcanvas
   ref="offcanvas"
-></CartOffcanvas> -->
+></CartOffcanvas>
 <router-view />
 </template>
 <script>
-// import CartOffcanvas from '@/components/CartOffcanvas.vue';
+import CartOffcanvas from '@/components/CartOffcanvas.vue';
 
 export default {
   data () {
@@ -80,7 +82,7 @@ export default {
     };
   },
   components: {
-    // CartOffcanvas
+    CartOffcanvas
   },
   mounted () {
     this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
@@ -94,6 +96,7 @@ export default {
       // eslint-disable-next-line no-unneeded-ternary
       this.atTop = window.scrollY > this.nav + 300 ? false : true; //* 使用this.nav進行操作
     },
+    //* 透過名稱取操作元件的函式
     openOffcanvas () {
       const cartCp = this.$refs.offcanvas;
       cartCp.showOffcanvas();
