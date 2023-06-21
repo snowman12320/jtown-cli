@@ -1,5 +1,9 @@
 <template>
-  <Header></Header>
+  <Loading :active="isLoading"></Loading>
+  <!-- props -->
+  <!-- <Header :is-login="isLogin"></Header> -->
+  <!-- emit -->
+  <Header @update-loading="handleUpdateLoading"></Header>
   <HomeCarousel></HomeCarousel>
   <div class="container-xxl">
     <HomeBanner></HomeBanner>
@@ -16,6 +20,7 @@ import HomeBanner from '@/components/HomeBanner.vue';
 import HomeProduct from '@/components/HomeProduct.vue';
 import HomeRank from '@/components/HomeRank.vue';
 import Footer from '@/components/Footer.vue';
+// import loginMixin from '../mixins/loginMixin';
 export default {
   name: 'HomeView',
   components: {
@@ -26,8 +31,17 @@ export default {
     HomeRank,
     Footer
   },
-  created () {
-    // console.log(process.env.VUE_APP_API, process.env.VUE_APP_PATH);
+  data () {
+    return {
+      isLoading: false
+    };
+  },
+  methods: {
+    handleUpdateLoading (isLoading) {
+      this.isLoading = isLoading;
+      // alert('isLoading', this.isLoading);
+    }
   }
+  // mixins: [loginMixin]
 };
 </script>

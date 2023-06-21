@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/valid-template-root -->
 <template>
-<router-view />
+    <router-view />
 </template>
 <style lang="scss">
 // @import "@/assets/all.scss";

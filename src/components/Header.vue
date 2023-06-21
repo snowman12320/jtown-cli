@@ -1,37 +1,23 @@
 <template>
-  <head
-    class="navbar navbar-expand-md bg-white py-4 shadow-sm "
-    style="z-index:1"
-    ref="header"
-    :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }"
-  >
+  <head class="navbar navbar-expand-md bg-white py-4 shadow-sm " style="z-index:1" ref="header"
+    :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }">
     <div class="container-fluid d-flex justify-content-between">
       <div class="d-flex position-relative">
         <a class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0" href="index.html">JerseyTown</a>
         <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
       </div>
       <!-- 漢堡 -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <!--  -->
-      <div
-        class="collapse navbar-collapse mb-3 mb-md-0"
-        id="navbarSupportedContent"
-      >
+      <div class="collapse navbar-collapse mb-3 mb-md-0" id="navbarSupportedContent">
         <!-- margin-start 自動推到底 好用排版方式 -->
         <ul class="navbar-nav ms-auto text-center">
           <li class="nav-item">
             <!-- 關於active切換時有加上 但接著就會重新整理又不見 方法：- 1. 直接寫在 HTML 上（建議 -->
-            <router-link to="/" class="nav-link px-4 py-3 " :class="{'active': $route.path === '/'}">
+            <router-link to="/" class="nav-link px-4 py-3 " :class="{ 'active': $route.path === '/' }">
               Home
             </router-link>
           </li>
@@ -40,49 +26,37 @@
           </li>
           <li class="nav-item">
             <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
-            :class="{'active': $route.path.includes('/products-view')}"
-              >Product</router-link
-            >
+              :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link px-4 py-3" href="rank.html">Rank</a>
           </li>
-          <li class="ms-1"  v-if="isLogin">
-              <button
-                class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill"
-              >
-                <router-link to="/dashboard">
-                  <a
-                    class="text-decoration-none fs-6 px-3 rounded-pill text-white"
-                  >
-                    Sign out
-                  </a>
-                </router-link>
-              </button>
-            </li>
+          <li class="ms-1" v-if="isLogin">
+            <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
+              <router-link to="/dashboard">
+                <a class="text-decoration-none fs-6 px-3 rounded-pill text-white">
+                  Sign out
+                </a>
+              </router-link>
+            </button>
+          </li>
           <li class="ms-1" v-else>
-            <button
-              class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill"
-            >
-              <router-link
-                to="/login"
-                class="text-decoration-none fs-6 px-3 rounded-pill text-white"
-              >
+            <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
+              <router-link to="/login" class="text-decoration-none fs-6 px-3 rounded-pill text-white">
                 Login / Sign up
               </router-link>
             </button>
           </li>
 
-          <li><button @click="openOffcanvas()" class="bg-transparent border-0"><i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-3 px-3"></i></button></li>
+          <li><button @click="openOffcanvas()" class="bg-transparent border-0"><i
+                class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-3 px-3"></i></button></li>
         </ul>
       </div>
     </div>
   </head>
   <!-- 加入畫布元件，取名使用 -->
-  <CartOffcanvas
-  ref="offcanvas"
-></CartOffcanvas>
-<router-view />
+  <CartOffcanvas ref="offcanvas"></CartOffcanvas>
+  <router-view />
 </template>
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';
@@ -92,9 +66,14 @@ export default {
     return {
       nav: 0, //* 初始化 nav 值 atTop: false };
       // eslint-disable-next-line vue/no-dupe-keys
-      atTop: true,
-      isLogin: false
+      atTop: true, //* 動態導覽列
+      //
+      isLoading: false, //* 載入效果開關
+      isLogin: false // * 判斷登入狀態
     };
+  },
+  props: {
+    // isLogin: Boolean
   },
   components: {
     CartOffcanvas
@@ -127,6 +106,8 @@ export default {
     }
   },
   created () {
+    this.isLoading = true;
+    this.$emit('updateLoading', this.isLoading);
     //* 取出代幣
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
@@ -136,6 +117,8 @@ export default {
     this.$http.defaults.headers.common.Authorization = token; //* 存到header發送
     const api = `${process.env.VUE_APP_API}api/user/check`; //* 驗證登入狀態
     this.$http.post(api, this.user).then((res) => {
+      this.isLoading = false;
+      this.$emit('updateLoading', this.isLoading);
       if (!res.data.success) {
         // this.$router.push('/login');
         this.isLogin = false;

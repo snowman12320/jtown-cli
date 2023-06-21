@@ -1,1 +1,6 @@
-update cartOffcanvas ; fixed Header ; create productSide / 
+update  ; 
+fixed  ; 
+create uploadFile() / this.$emit() / loginMixin;
+
+HomeView 和 productsView 用emit和props去改變isLoading有建議哪種嗎
+還是直接將header移到app.vue這樣載入的效果就不會一直出現，就只會產生一次
