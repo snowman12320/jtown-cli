@@ -7,7 +7,7 @@
     <div class="col">
       <a
         class="example-image-link position-relative d-flex justify-content-center align-items-center"
-        href="../assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
+        href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
         data-lightbox="example-1"
         data-title=" welcome to apply to be members."
       >
@@ -15,7 +15,7 @@
           class="of-cover w-100 love_img example-image"
           height="486"
           width="648"
-          src="@/assets/nbaWeb/andre-hunter-RPKdvPcYAUo-unsplash.jpg"
+          src="@\assets\nbaWeb\andre-hunter-RPKdvPcYAUo-unsplash.jpg"
           alt="義賣球衣"
         />
         <i
@@ -27,13 +27,13 @@
     <!-- 用絕對定位隱藏!! -->
     <a
       class="example-image-link position-absolute"
-      href="../assets/nbaWeb/PNG-images-NBA-Players-36png.png"
+      href="@\assets\nbaWeb\PNG-images-NBA-Players-36png.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>
     <a
       class="example-image-link position-absolute"
-      href="../assets/nbaWeb/PNG-images-NBA-Players-36png.png"
+      href="@\assets\nbaWeb\1126209.png"
       data-lightbox="example-1"
       data-title=" welcome to apply to be members."
     ></a>

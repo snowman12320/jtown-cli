@@ -47,7 +47,20 @@
           <li class="nav-item">
             <a class="nav-link px-4 py-3" href="rank.html">Rank</a>
           </li>
-          <li class="ms-1">
+          <li class="ms-1"  v-if="isLogin">
+              <button
+                class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill"
+              >
+                <router-link to="/dashboard">
+                  <a
+                    class="text-decoration-none fs-6 px-3 rounded-pill text-white"
+                  >
+                    Sign out
+                  </a>
+                </router-link>
+              </button>
+            </li>
+          <li class="ms-1" v-else>
             <button
               class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill"
             >
@@ -55,10 +68,11 @@
                 to="/login"
                 class="text-decoration-none fs-6 px-3 rounded-pill text-white"
               >
-                Login/Sign up
+                Login / Sign up
               </router-link>
             </button>
           </li>
+
           <li><button @click="openOffcanvas()" class="bg-transparent border-0"><i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-3 px-3"></i></button></li>
         </ul>
       </div>
@@ -78,7 +92,8 @@ export default {
     return {
       nav: 0, //* 初始化 nav 值 atTop: false };
       // eslint-disable-next-line vue/no-dupe-keys
-      atTop: true
+      atTop: true,
+      isLogin: false
     };
   },
   components: {
@@ -100,7 +115,34 @@ export default {
     openOffcanvas () {
       const cartCp = this.$refs.offcanvas;
       cartCp.showOffcanvas();
+    },
+    logout () {
+    // const api = `${process.env.VUE_APP_API}logout`;
+    // this.$http.post(api, this.user).then((res) => {
+    //   if (res.data.success) {
+    //     this.$router.push('/login');
+    //   }
+    // });
+      confirm('確定從"123"登出?');
     }
+  },
+  created () {
+    //* 取出代幣
+    const token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1'
+    );
+    // console.log(token);
+    this.$http.defaults.headers.common.Authorization = token; //* 存到header發送
+    const api = `${process.env.VUE_APP_API}api/user/check`; //* 驗證登入狀態
+    this.$http.post(api, this.user).then((res) => {
+      if (!res.data.success) {
+        // this.$router.push('/login');
+        this.isLogin = false;
+      } else {
+        this.isLogin = true;
+      }
+    });
   }
 };
 </script>

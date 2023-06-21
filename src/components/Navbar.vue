@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index:1">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-2" style="z-index:1">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">範例作品</a>
+      <a class="navbar-brand" href="#"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,17 +14,20 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav d-flex gap-5">
-          <router-link to="/dashboard/products" class="text-white "
+        <div class="navbar-nav d-flex gap-5 align-items-center">
+          <router-link to="/" class="btn btn-nbaBlue text-decoration-none"
+            >前台預覽</router-link
+          >
+          <router-link to="/dashboard/products" class="text-white  text-decoration-none"
             >產品</router-link
           >
-          <router-link to="/dashboard/orders" class="text-white "
+          <router-link to="/dashboard/orders" class="text-white  text-decoration-none"
             >訂單</router-link
           >
-          <router-link to="/dashboard/coupons" class="text-white "
+          <router-link to="/dashboard/coupons" class="text-white  text-decoration-none"
             >優惠券</router-link
           >
-          <a href="#" @click.prevent="logout" class="text-white ">登出</a>
+          <a href="#" @click.prevent="logout" class="text-white  text-decoration-none">登出</a>
         </div>
       </div>
     </div>

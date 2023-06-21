@@ -1,7 +1,7 @@
 <template>
   <div class="container-xxl">
     <!-- <i class="fa-solid fa-heart fa-flip display-1 mt-20"></i> -->
-    <div class="row row-cols-md-2 g-5">
+    <div class="row row-cols-md-2 g-5 mt-5">
       <div
         id="carouselExampleIndicators"
         class="carousel slide col-md-6"

@@ -58,11 +58,15 @@
     // 要加& 不然會指一條直的陰影 第一層不用加 第二層要加&
     transition: all;
     transition-duration: 500ms;
+     box-shadow: 0 5px 1px $black;
+     transform: translateY(-5px);
     &:hover {
-      box-shadow: 0 5px 1px $black;
+      box-shadow: 0 6px 1px $black;
+      transform: translateY(-8px);
     }
-    &:hover {
-      transform: translateY(-5px);
+    &:focus {
+      box-shadow: 0 3px 1px $black;
+      transform: translateY(0px);
     }
   }
 }
