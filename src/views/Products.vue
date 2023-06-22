@@ -21,32 +21,30 @@
         <td>{{ item.category }}</td>
         <td>{{ item.title }}</td>
         <td class="text-right">
-          {{ $filters.currency(item.origin_price) }}        </td>
+          <!-- 使用methods/filters自定義的方法去加上千分位 -->
+          {{ $filters.currency(item.origin_price) }}
+        </td>
         <td class="text-right">
-          {{ $filters.currency(item.price) }}        </td>
+          {{ $filters.currency(item.price) }} </td>
         <td>
           <span class="text-success" v-if="item.is_enabled">啟用</span>
           <span class="text-muted" v-else>未啟用</span>
         </td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm"
-            @click="openModal(false, item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm"
-            @click="openDelProductModal(item)">刪除</button>          </div>
+            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
+            <button class="btn btn-outline-danger btn-sm" @click="openDelProductModal(item)">刪除</button>
+          </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <Pagination :pages="pagination"
-    @emit-pages="getProducts"></Pagination>
-    <!-- 更新資料，先帶原始資料進去元件，元件內修改後，再透過emit傳遞觸發函式和資料出來 -->
-  <ProductModal
-    ref="productModal"
-    :product="tempProduct"
-    @update-product="updateProduct"
-  ></ProductModal>
-  <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct"/>
+  <!-- props傳遞總頁數 emit傳出目前頁數 -->
+  <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
+  <!-- 更新資料，先帶原始資料進去元件，元件內修改後，再透過emit傳遞觸發函式和資料出來 -->
+  <ProductModal ref="productModal" :product="tempProduct" @update-product="updateProduct"></ProductModal>
+  <!--  -->
+  <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct" />
 </template>
 
 <script>
@@ -57,7 +55,7 @@ export default {
   data () {
     return {
       products: [], //* 原始資料
-      pagination: {},
+      pagination: {}, //* 頁數資料
       tempProduct: {}, //* 暫存區
       isNew: false, //* 判斷有無資料
       isLoading: false //* 載入效果開關
@@ -113,6 +111,7 @@ export default {
         productComponent.hideModal();
         if (response.data.success) {
           this.getProducts();
+          // ! mitt 跨元件互相溝通
           this.emitter.emit('push-message', {
             style: 'success',
             title: '更新成功'

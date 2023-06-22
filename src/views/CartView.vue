@@ -1,17 +1,30 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <Header :is-login="isLogin"></Header>
+  <!-- props -->
+  <!-- <Header :is-login="isLogin"></Header> -->
+  <!-- emit -->
+  <Header @update-loading="handleUpdateLoading"></Header>
   <Footer></Footer>
 </template>
 <script>
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-import loginMixin from '../mixins/loginMixin';
+// import loginMixin from '../mixins/loginMixin';
 export default {
   components: {
     Header,
     Footer
   },
-  mixins: [loginMixin]
+  data () {
+    return {
+      isLoading: false
+    };
+  },
+  methods: {
+    handleUpdateLoading (isLoading) {
+      this.isLoading = isLoading;
+    }
+  }
+  // mixins: [loginMixin]
 };
 </script>

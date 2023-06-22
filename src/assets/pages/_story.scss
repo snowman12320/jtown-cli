@@ -1,6 +1,6 @@
-@import "../helpers/mix";
-@import "../helpers/function";
-@import "../helpers/variables";
+@import '../helpers/mix';
+@import '../helpers/function';
+@import '../helpers/variables';
 
 //分頁
 .pagination {
@@ -14,13 +14,20 @@
 .pagination a {
   display: inline-block;
   padding: 10px 18px;
-  color: $pickBlack;
+  color: $nbaBlue;
   text-decoration: none;
   font-size: 20px;
   &:hover {
     color: $nbaBlue;
+    background: transparent;
   }
   &:active {
     color: $nbaBlue;
+    background: transparent;
+    box-shadow: none !important;
+    border-color: transparent;
+  }
+  &:focus {
+    box-shadow: none;
   }
 }

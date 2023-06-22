@@ -22,7 +22,7 @@
         <span class="">$ 2,999</span>
       </p>
       <!--  -->
-      <router-link to="/cart-view/cart-list" name="" id="" class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">立即結帳</router-link>
+      <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id="" class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">立即結帳</router-link>
     </div>
   </div>
 </template>

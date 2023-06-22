@@ -22,7 +22,7 @@ import HomeRank from '@/components/HomeRank.vue';
 import Footer from '@/components/Footer.vue';
 // import loginMixin from '../mixins/loginMixin';
 export default {
-  name: 'HomeView',
+  // name: 'HomeView', // ?好像非必需
   components: {
     Header,
     HomeCarousel,
@@ -39,7 +39,7 @@ export default {
   methods: {
     handleUpdateLoading (isLoading) {
       this.isLoading = isLoading;
-      // alert('isLoading', this.isLoading);
+      console.log('isLoading', this.isLoading);
     }
   }
   // mixins: [loginMixin]

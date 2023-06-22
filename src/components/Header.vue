@@ -2,10 +2,10 @@
   <head class="navbar navbar-expand-md bg-white py-4 shadow-sm " style="z-index:1" ref="header"
     :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }">
     <div class="container-fluid d-flex justify-content-between">
-      <div class="d-flex position-relative">
-        <a class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0" href="index.html">JerseyTown</a>
+      <router-link to="/" class="d-flex position-relative text-decoration-none">
+        <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0">JerseyTown</p>
         <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
-      </div>
+      </router-link>
       <!-- 漢堡 -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,8 @@
         <ul class="navbar-nav ms-auto text-center">
           <li class="nav-item">
             <!-- 關於active切換時有加上 但接著就會重新整理又不見 方法：- 1. 直接寫在 HTML 上（建議 -->
-            <router-link to="/" class="nav-link px-4 py-3 " :class="{ 'active': $route.path === '/' }">
+            <!-- router.js 自己會加上 -->
+            <router-link to="/" class="nav-link px-4 py-3 ">
               Home
             </router-link>
           </li>
@@ -25,6 +26,7 @@
             <a class="nav-link px-4 py-3" href="story.html">Story</a>
           </li>
           <li class="nav-item">
+            <!-- 透過$router.path去判斷 -->
             <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
               :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
           </li>
