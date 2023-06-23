@@ -1,7 +1,7 @@
 <template>
   <!-- 最新球衣 -->
   <div
-    class="my-5 d-flex justify-content-center align-items-center border-3 border-nbaBlue border-top pt-5"
+    class=" d-flex justify-content-center align-items-center border-3 border-nbaBlue border-top py-5"
   >
     <h2>NEW</h2>
     <img

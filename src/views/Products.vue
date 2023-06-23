@@ -111,17 +111,19 @@ export default {
         productComponent.hideModal();
         if (response.data.success) {
           this.getProducts();
-          // ! mitt 跨元件互相溝通
-          this.emitter.emit('push-message', {
-            style: 'success',
-            title: '更新成功'
-          });
+          // ! mitt 跨元件互相溝通，且全域打包
+          // this.emitter.emit('push-message', {
+          //   style: 'success',
+          //   title: '更新成功'
+          // });
+          this.$httpMessageState(response, '更新');
         } else {
-          this.emitter.emit('push-message', {
-            style: 'danger',
-            title: '更新失敗',
-            content: response.data.message.join('、')
-          });
+          // this.emitter.emit('push-message', {
+          //   style: 'danger',
+          //   title: '更新失敗',
+          //   content: response.data.message.join('、')
+          // });
+          this.$httpMessageState(response, '更新');
         }
       });
     },

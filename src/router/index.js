@@ -16,11 +16,11 @@ const routes = [
       import(/* webpackChunkName: 'about' */ '../views/ProductsView.vue'),
     children: [
       {
-        path: '/products-view/products-content',
+        path: 'products-content',
         component: () => import('../views/ProductsContent.vue')
       },
       {
-        path: '/products-view/products-item',
+        path: 'products-item/:productId',
         component: () => import('../views/ProductsItem.vue')
       }
     ]
@@ -32,11 +32,11 @@ const routes = [
       import(/* webpackChunkName: 'about' */ '../views/CartView.vue'),
     children: [
       {
-        path: '/cart-view/cart-list',
+        path: 'cart-list',
         component: () => import('../views/CartList.vue')
       },
       {
-        path: '/cart-view/cart-done',
+        path: 'cart-done',
         component: () => import('../views/CartDone.vue')
       }
     ]

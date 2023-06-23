@@ -1,7 +1,8 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <!-- <Loading :active="isLoading"></Loading> -->
   <Header :is-login="isLogin"></Header>
   <ToastMessages></ToastMessages>
+  <router-view />
   <Footer></Footer>
 </template>
 <script>

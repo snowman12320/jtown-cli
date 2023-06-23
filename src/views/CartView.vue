@@ -4,6 +4,7 @@
   <!-- <Header :is-login="isLogin"></Header> -->
   <!-- emit -->
   <Header @update-loading="handleUpdateLoading"></Header>
+  <router-view />
   <Footer></Footer>
 </template>
 <script>

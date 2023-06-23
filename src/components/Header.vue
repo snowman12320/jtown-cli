@@ -58,7 +58,6 @@
   </head>
   <!-- 加入畫布元件，取名使用 -->
   <CartOffcanvas ref="offcanvas"></CartOffcanvas>
-  <router-view />
 </template>
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';

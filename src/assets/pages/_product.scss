@@ -4,29 +4,33 @@
 
 // 雖然有加上active 但若權重不足 可能導致失效 加上&增加權重 不使用 ~ 可能沒有支援(是代表你寫錯了)
 .aside {
-  a {
-    color: $pickBlack;
-    &:active {
-      color: $nbaBlue !important;
-    }
-
-    &:active .aside_span {
+  input[type='radio']:checked + label {
+    color: $nbaBlue !important;
+    & .aside_span {
       display: inline-block !important;
     }
+  }
 
+  label {
+    color: $pickBlack;
+    & input:checked {
+      color: $nbaBlue !important;
+    }
     &:hover {
       color: $nbaBlue;
     }
 
     .aside_span {
+      display: none;
       color: $nbaBlue;
       font-weight: bold;
-      display: none;
-      transition: all;
-      transition-duration: 300ms;
+      // transition: all;
+      // transition-duration: 300ms;
       // clip-path: inset(0 100% 0 0 round 0 0 0 0);
     }
-
+    &:checked .aside_span {
+      display: inline-block !important;
+    }
     &:hover .aside_span {
       display: inline-block;
       // clip-path: inset(0 0% 0 0 round 0 0 0 0);
