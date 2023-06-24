@@ -27,13 +27,8 @@
           <td class="text-right">{{ item.total }}</td>
           <td>
             <div class="form-check form-switch">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :id="`paidSwitch${item.id}`"
-                v-model="item.is_paid"
-                @change="updatePaid(item)"
-              />
+              <input class="form-check-input" type="checkbox" :id="`paidSwitch${item.id}`" v-model="item.is_paid"
+                @change="updatePaid(item)" />
               <label class="form-check-label" :for="`paidSwitch${item.id}`">
                 <span v-if="item.is_paid">已付款</span>
                 <span v-else>未付款</span>
@@ -42,16 +37,10 @@
           </td>
           <td>
             <div class="btn-group">
-              <button
-                class="btn btn-outline-primary btn-sm"
-                @click="openModal(false, item)"
-              >
+              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
                 檢視
               </button>
-              <button
-                class="btn btn-outline-danger btn-sm"
-                @click="openDelOrderModal(item)"
-              >
+              <button class="btn btn-outline-danger btn-sm" @click="openDelOrderModal(item)">
                 刪除
               </button>
             </div>
@@ -60,20 +49,20 @@
       </template>
     </tbody>
   </table>
-  <OrderModal
-    :order="tempOrder"
-    ref="orderModal"
-    @update-paid="updatePaid"
-  ></OrderModal>
+  <OrderModal :order="tempOrder" ref="orderModal" @update-paid="updatePaid"></OrderModal>
   <DelModal :item="tempOrder" ref="delModal" @del-item="delOrder"></DelModal>
   <Pagination :pages="pagination" @emit-pages="getOrders"></Pagination>
 </template>
-
 <script>
 import DelModal from '@/components/DelModal.vue';
 import OrderModal from '@/components/orderModal.vue';
 import Pagination from '@/components/Pagination.vue';
 export default {
+  components: {
+    Pagination,
+    DelModal,
+    OrderModal
+  },
   data () {
     return {
       orders: {},
@@ -84,10 +73,9 @@ export default {
       currentPage: 1
     };
   },
-  components: {
-    Pagination,
-    DelModal,
-    OrderModal
+  created () {
+    this.getOrders();
+    console.log(process.env.VUE_APP_API);
   },
   methods: {
     getOrders (currentPage = 1) {
@@ -134,10 +122,6 @@ export default {
         this.getOrders(this.currentPage);
       });
     }
-  },
-  created () {
-    this.getOrders();
-    console.log(process.env.VUE_APP_API);
   }
 };
 </script>

@@ -44,7 +44,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -55,6 +54,9 @@ export default {
         loadingItem: ''
       }
     };
+  },
+  created () {
+    this.getProducts();
   },
   methods: {
     getProducts () {
@@ -69,9 +71,6 @@ export default {
     getProduct (id) {
       this.$router.push(`/user/product/${id}`);
     }
-  },
-  created () {
-    this.getProducts();
   }
 };
 </script>

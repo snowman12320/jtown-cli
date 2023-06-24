@@ -46,12 +46,17 @@
   <!--  -->
   <DelModal :item="tempProduct" ref="delModal" @del-item="delProduct" />
 </template>
-
 <script>
 import ProductModal from '@/components/ProductModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/DelModal.vue';
 export default {
+  components: {
+    ProductModal,
+    DelModal,
+    Pagination
+  },
+  inject: ['emitter'],
   data () {
     return {
       products: [], //* 原始資料
@@ -61,12 +66,9 @@ export default {
       isLoading: false //* 載入效果開關
     };
   },
-  components: {
-    ProductModal,
-    DelModal,
-    Pagination
+  created () {
+    this.getProducts();
   },
-  inject: ['emitter'],
   methods: {
     // 產品後台 取得遠端資料
     // !透過頁數取得資料
@@ -137,15 +139,12 @@ export default {
       // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
       this.$http.delete(url).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         const delComponent = this.$refs.delModal;
         delComponent.hideModal();
         this.getProducts();
       });
     }
-  },
-  created () {
-    this.getProducts();
   }
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <Loading :active="isLoading"></Loading>
+  <Loading :active="isLoading_big"></Loading>
   <!--  -->
   <div class="container-xxl">
     <!-- <i class="fa-solid fa-heart fa-flip display-1 mt-20"></i> -->
@@ -18,9 +18,11 @@
             <img :src="product.imageUrl" class=" w-auto  h-100" alt="..." />
           </div>
           <div class="carousel-item text-center h-100">
-            <img src="https://source.unsplash.com/random/1500x1200/?coat" class=" w-auto  h-100" alt="..." />
+            <img src="https://source.unsplash.com/random/1500x1200/?jersey" class=" w-auto  h-100" alt="..." />
           </div>
-
+          <div class="carousel-item text-center h-100">
+            <img src="https://source.unsplash.com/random/1500x1200/?basketball" class=" w-auto  h-100" alt="..." />
+          </div>
         </div>
         <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleIndicators"
           data-bs-slide="prev">
@@ -43,13 +45,14 @@
         </div>
         <div class="justify-content-center d-flex align-items-center my-3 gap-5">
           <div class="fs-1 d-flex justify-content-center gap-3 align-items-center">
-            <button style="height:40px" @click="qty--" class="btn btn-outline-secondary py-0">-</button>
+            <button style="height:40px" :disabled="qty === 1" @click="qty--"
+              class="btn btn-outline-secondary py-0">-</button>
             <span class="">{{ qty }}</span>
             <button style="height:40px" @click="qty++" class="btn btn-outline-secondary py-0">+</button>
           </div>
           <!--  -->
-          <i v-if="isFavorite" @click="updateCart" class="fa-solid fa-heart fa-beat-fade text-danger fs-3"></i>
-          <i v-else @click="updateCart" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
+          <i v-if="isFavorite" @click="updateFavo" class="fa-solid fa-heart fa-beat-fade text-danger fs-3"></i>
+          <i v-else @click="updateFavo" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
           <button class="btn-primary btn" @click="addToCart(product.id, qty)"
@@ -70,11 +73,12 @@ export default {
   components: {
     ProductsList
   },
+  inject: ['emitter'],
   data () {
     return {
       isFavorite: false,
-      qty: 0,
-      isLoading: false,
+      qty: 1,
+      isLoading_big: false,
       product: {},
       id: '',
       status: {
@@ -82,21 +86,21 @@ export default {
       }
     };
   },
-  inject: ['emitter'],
   //! mitt
   mounted () {
     this.emitter.on('customEvent1', (data) => {
-      this.isLoading = data;
+      this.isLoading_big = data;
     });
     this.emitter.on('customEvent2', (data) => {
-      this.isLoading = data;
-    });
-    this.emitter.on('customEvent3', (data) => {
       this.product = data;
     });
   },
+  created () {
+    this.id = this.$route.params.productId;
+    this.getProduct();
+  },
   methods: {
-    updateCart () {
+    updateFavo () {
       this.isFavorite = !this.isFavorite;
       if (this.isFavorite) {
         this.emitter.emit('push-message', {
@@ -115,9 +119,11 @@ export default {
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
       this.isLoading = true;
+      this.isLoading_big = true;
       this.$http.get(api).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         this.isLoading = false;
+        this.isLoading_big = false;
         if (response.data.success) {
           this.product = response.data.product;
         }
@@ -133,14 +139,12 @@ export default {
       };
       this.$http.post(url, { data: cart }).then((response) => {
         this.isLoading = false;
+        this.status.loadingItem = '';
         this.$httpMessageState(response, '加入購物車');
         // this.$router.push('/cart-view/cart-list');
+        this.emitter.emit('customEvent_getCart', this.getCart);
       });
     }
-  },
-  created () {
-    this.id = this.$route.params.productId;
-    this.getProduct();
   }
 };
 </script>
@@ -148,7 +152,6 @@ export default {
 .carousel {
   height: 500px;
 }
-
 .carousel-inner {
   height: 500px;
 }

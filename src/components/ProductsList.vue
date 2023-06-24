@@ -1,13 +1,14 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
-  {{ cacheCategory }}
+  <!-- {{ cacheCategory }} -->
   <div class="row row-cols-2 row-cols-lg-4 g-4 mb-7" ref="products_list">
     <div class="" v-for="item in filtersData" :key="item.id">
       <div class="col overflow-hidden" @click="getProduct(item.id)">
         <div class="card w-100 position-relation newproduct_img" data-num="1">
           <div class="newproduct_cloth">
             <h6>Player</h6>
-            <h4>{{ item.title }}</h4>
+            <h4>{{ typeof (item.title) }}</h4>
+            <!-- <h4>{{ typeof(item.title) }}</h4> -->
           </div>
           <img data-num="1" height="312" width="312" class="card-img of-cover op-top" :src="item.imageUrl"
             :alt="item.title" />
@@ -25,6 +26,7 @@
 </template>
 <script>
 export default {
+  inject: ['emitter'],
   data () {
     return {
       products: [], //* 原始資料
@@ -38,16 +40,44 @@ export default {
       cacheCategory: ''
     };
   },
-  inject: ['emitter'],
   mounted () {
     this.products_list = this.$refs.products_list.offsetHeight; //*
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
     this.emitter.on('customEvent_search', (data) => {
       this.cacheSearch = data;
+      // console.log(typeof (this.cacheSearch));
     });
     this.emitter.on('customEvent_category', (data) => {
-      this.cacheSearch = data;
+      // ? 都需帶入cacheSearch 才會成功，應該要帶入cacheCategory
+      this.cacheCategory = data;
+      // console.log(typeof (this.cacheCategory));
     });
+  },
+  created () {
+    this.getProducts();
+  },
+  computed: {
+    // 監聽多個變化（變數） 產生一個資料（函式），注意return位置
+    filtersData () {
+      //! 在productList正常，在productItem會找不到cacheSearch等值，故使用判斷路由
+      // let filteredData = [];
+      // if (this.$route.path.includes('products-content')) {
+      //   filteredData = this.products.filter((item) =>
+      //     item.title.toString().toLowerCase() === this.cacheSearch.toLowerCase() &&
+      // item.category.toString().toLowerCase() === this.cacheSearch.toLowerCase()
+      //   );
+      // }
+      //! 要用 &&，不然cacheCategory搜尋，會有問題，用｜｜好像都會是true，不懂為何不是｜｜
+      const filteredData = this.products.filter((item) =>
+        item.title.toLowerCase().includes(this.cacheSearch.toLowerCase()) &&
+      item.category.toLowerCase().includes(this.cacheCategory.toLowerCase())
+      );
+      if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
+        return this.products;
+      } else {
+        return filteredData;
+      }
+    }
   },
   methods: {
     handleScroll () {
@@ -58,9 +88,13 @@ export default {
     },
     getProducts (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
-      // this.isLoading = true;
+      this.isLoading = true;
+      this.isLoading_big = true;
+      this.emitter.emit('customEvent1', this.isLoading_big);
       this.$http.get(api).then((res) => {
-        // this.isLoading = false;
+        this.isLoading = false;
+        this.isLoading_big = false;
+        this.emitter.emit('customEvent1', this.isLoading_big);
         if (res.data.success) {
           // console.log(res.data);
           this.products = res.data.products;
@@ -68,6 +102,8 @@ export default {
         }
       });
     },
+    //* 捲動更新
+    // ? 可嘗試改變page的數量 比如一次四個？
     pushProducts (page) {
       if (this.pagination.has_next) {
         this.page++;
@@ -76,66 +112,35 @@ export default {
         this.$http.get(api).then((res) => {
           this.isLoading = false;
           if (res.data.success) {
-            // console.log(res.data);
             this.products.push(res.data.products);
             this.pagination = res.data.pagination;
           }
         });
       }
     },
-    getProduct (id) {
+    getProduct (id) { //! 只取一個商品
       this.$router.push(`/products-view/products-item/${id}`);
-      //*
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.isLoading = true;
-      this.emitter.emit('customEvent1', this.isLoading);
-      this.$http.get(api).then((response) => {
-        // alert(response.data);
+      this.isLoading_big = true;
+      this.emitter.emit('customEvent1', this.isLoading_big);
+      this.$http.get(api).then((res) => {
         this.isLoading = false;
-        this.emitter.emit('customEvent2', this.isLoading);
-        if (response.data.success) {
-          this.product = response.data.product;
-          //! mitt
-          this.emitter.emit('customEvent3', this.product);
+        this.isLoading_big = false;
+        this.emitter.emit('customEvent1', this.isLoading_big);
+        if (res.data.success) {
+          this.product = res.data.product;
+          this.emitter.emit('customEvent2', this.product);
+          // 取得所有的carousel-item元素，移除所有carousel-item元素的active類別
+          const carouselItems = document.querySelectorAll('.carousel-item');
+          carouselItems.forEach(function (item) {
+            item.classList.remove('active');
+          });
+          carouselItems[0].classList.add('active');
+          window.scrollTo(0, 0);
         }
       });
-      //* 資料會失敗
-      // this.$nextTick(function () {
-      //   this.emitter.emit('customEvent3', this.product);
-      // });
     }
-  },
-  computed: {
-    // 監聽多個變化（變數） 產生一個資料（函式）
-    // 注意return位置
-    // filtersData () {
-    //   let filteredData = this.products.filter((item) =>
-    //     item.title.toLowerCase().includes(this.cacheSearch)
-    //   );
-    //   filteredData = this.products.filter((item) =>
-    //     item.category.toLowerCase().includes(this.cacheSearch)
-    //   );
-    //   if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
-    //     // alert('No matching data found.');
-    //     return this.products;
-    //   } else {
-    //     return filteredData;
-    //   }
-    // }
-    filtersData () {
-      const filteredData = this.products.filter((item) =>
-        item.title.toLowerCase().includes(this.cacheSearch) ||
-      item.category.toLowerCase().includes(this.cacheSearch)
-      );
-      if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
-        return this.products;
-      } else {
-        return filteredData;
-      }
-    }
-  },
-  created () {
-    this.getProducts();
   }
 };
 </script>

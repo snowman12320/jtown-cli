@@ -10,7 +10,6 @@
     <router-view />
   </div>
 </template>
-
 <script>
 import emitter from '@/methods/emitter';
 import ToastMessages from '@/components/ToastMessages.vue';

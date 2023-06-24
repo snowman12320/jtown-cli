@@ -1,29 +1,3 @@
-windows請用cmd
-路徑不要有中文或符號
-＊自動排版的套件 會造成錯誤產生 （錯誤出現 使用上一步來避免自動排版）
 
 
-npm install -g @vue/cl
-//vue create hello-world
 
-刪掉node > bootstrap資料夾 >重安裝
-npm install bootstrap
-把BS的variable整個複製到自己的資料夾
-
-加入訊息通知
-npm install --save mitt
-https://www.npmjs.com/package/mitt
-
-可能需要載入效果
-npm install vue3-loading-overlay
-https://www.npmjs.com/package/vue3-loading-overlay
-
-cd .\hello-world\
-npm run serve
-
-
-/**
-*
-*  移至google keep
-*
-*/

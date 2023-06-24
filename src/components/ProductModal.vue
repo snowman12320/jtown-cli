@@ -112,10 +112,16 @@
     </div>
   </div>
 </template>
-
 <script>
 import modalMixin from '@/mixins/modalMixin';
 export default {
+  mixins: [modalMixin],
+  data () {
+    return {
+      modal: {},
+      tempProduct: {}
+    };
+  },
   props: {
     product: {
       type: Object,
@@ -134,12 +140,6 @@ export default {
       }
     }
   },
-  data () {
-    return {
-      modal: {},
-      tempProduct: {}
-    };
-  },
   methods: {
     // * new FormData() 是一個 JavaScript 內建的物件，用於創建一個空的 FormData 物件。
     // * 首先獲取一個 <form> 元素，FormData 物件可以用來構建一個包含鍵值對的表單數據，並且可以通過 AJAX 以 multipart/form-data 格式將這些數據發送到服務器。
@@ -155,7 +155,6 @@ export default {
         }
       });
     }
-  },
-  mixins: [modalMixin]
+  }
 };
 </script>

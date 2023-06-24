@@ -1,25 +1,13 @@
 <template>
-  <div
-    class="modal fade"
-    id="productModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-    ref="modal"
-  >
+  <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" ref="modal">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
             <span>訂單細節</span>
           </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -70,9 +58,7 @@
                   <tr>
                     <th>付款狀態</th>
                     <td>
-                      <strong v-if="tempOrder.is_paid" class="text-success"
-                        >已付款</strong
-                      >
+                      <strong v-if="tempOrder.is_paid" class="text-success">已付款</strong>
                       <span v-else class="text-muted">尚未付款</span>
                     </td>
                   </tr>
@@ -105,18 +91,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-outline-secondary"
-            data-bs-dismiss="modal"
-          >
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            @click="$emit('update-order', tempOrder)"
-          >
+          <button type="button" class="btn btn-primary" @click="$emit('update-order', tempOrder)">
             確認
           </button>
         </div>
@@ -128,14 +106,9 @@
 import modalMixin from '@/mixins/modalMixin';
 export default {
   name: 'orderModal',
-  props: {
-    order: {
-      type: Object,
-      default () {
-        return {};
-      }
-    }
-  },
+  emits: ['update-product'],
+  mixins: [modalMixin],
+  inject: ['emitter'],
   data () {
     return {
       status: {},
@@ -144,9 +117,14 @@ export default {
       isPaid: false
     };
   },
-  emits: ['update-product'],
-  mixins: [modalMixin],
-  inject: ['emitter'],
+  props: {
+    order: {
+      type: Object,
+      default () {
+        return {};
+      }
+    }
+  },
   watch: {
     order () {
       this.tempOrder = this.order;

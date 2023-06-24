@@ -24,7 +24,6 @@
     </ul>
   </nav>
 </template>
-
 <script>
 // :pages="{ 頁碼資訊 }"
 // @emitPages="更新頁面事件"
@@ -47,7 +46,6 @@ export default {
   }
 };
 </script>
-
 <style>
 .disabled {
   pointer-events: none;

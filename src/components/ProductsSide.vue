@@ -4,7 +4,7 @@
   <aside class="col-lg-2 lh-lg aside">
     <h3 class="text-center text-lg-start">Player</h3>
     <!--  -->
-    <!-- {{ cacheCategory }} -->
+    <!-- {{ typeof(cacheSearch) }} -->
     <div class="my-3">
       <input type="text" class="form-control rounded-0" name="" id="" aria-describedby="helpId" v-model="cacheSearch"
         placeholder="🍳 search player">
@@ -31,6 +31,7 @@
 </template>
 <script>
 export default {
+  inject: ['emitter'],
   data () {
     return {
       products: [],
@@ -44,7 +45,26 @@ export default {
       input_all: null
     };
   },
-  inject: ['emitter'],
+  mounted () {
+  },
+  created () {
+    this.getProducts();
+  },
+  // computed: {
+  //   cacheSearch () {
+  //     this.emitter.emit('customEvent_filter', this.cacheSearch);
+  //   }
+  // }
+  watch: {
+    cacheSearch () {
+      this.cacheCategory = '';
+      this.emitter.emit('customEvent_search', this.cacheSearch);
+    },
+    cacheCategory () {
+      this.cacheSearch = '';
+      this.emitter.emit('customEvent_category', this.cacheCategory);
+    }
+  },
   methods: {
     getProducts () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
@@ -60,25 +80,6 @@ export default {
         });
       });
     }
-  },
-  // computed: {
-  //   cacheSearch () {
-  //     this.emitter.emit('customEvent_filter', this.cacheSearch);
-  //   }
-  // }
-  watch: {
-    cacheSearch () {
-      this.emitter.emit('customEvent_search', this.cacheSearch);
-      this.cacheCategory = false;
-    },
-    cacheCategory () {
-      this.emitter.emit('customEvent_category', this.cacheCategory);
-    }
-  },
-  mounted () {
-  },
-  created () {
-    this.getProducts();
   }
 };
 </script>

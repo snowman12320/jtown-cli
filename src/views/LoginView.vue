@@ -25,12 +25,11 @@
     </form>
   </div>
 </template>
-
 <script>
 import Header from '@/components/Header.vue';
 import loginMixin from '@/mixins/loginMixin';
-
 export default {
+  mixins: [loginMixin],
   components: {
     Header
   },
@@ -57,7 +56,6 @@ export default {
         }
       });
     }
-  },
-  mixins: [loginMixin]
+  }
 };
 </script>

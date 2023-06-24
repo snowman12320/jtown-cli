@@ -1,24 +1,15 @@
 <template>
   <div class="row content container mx-auto mt-0">
     <aside class="col-12 col-lg-4">
-      <section
-        class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20"
-        style="top: 0px"
-      >
+      <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
         <div class="card w-100 p-3" style="width: 18rem">
           <ul class="list-group list-group-flush">
             <div class="accordion_cart" id="accordionExample">
               <div class="accordion-item border-0">
                 <h2>結帳金額</h2>
-                <div
-                  id="collapseOne"
-                  class="accordion-collapse show collapse"
-                  aria-labelledby="headingOne"
-                  data-bs-parent="#accordionExample"
-                >
-                  <div
-                    class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0"
-                  >
+                <div id="collapseOne" class="accordion-collapse show collapse" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
                     <p>商品小計</p>
                     <p>NT$ 3140</p>
                   </div>
@@ -59,35 +50,18 @@
           <tbody>
             <tr class="">
               <th scope="row" class="">
-                <img
-                  src="https://source.unsplash.com/random/1500x1200/?basketball"
-                  alt=""
-                  srcset=""
-                  class="product_img_rwd"
-                  width="50"
-                  height="50"
-                  style="height: 50px; width: 50px"
-                />
+                <img src="https://source.unsplash.com/random/1500x1200/?basketball" alt="" srcset=""
+                  class="product_img_rwd" width="50" height="50" style="height: 50px; width: 50px" />
               </th>
               <td class="">
-                <a
-                  href="https://www.qoqo.com.tw/product_ii.html?gID=177"
-                  class="link-dark text-decoration-none text-nowrap"
-                >
+                <a href="https://www.qoqo.com.tw/product_ii.html?gID=177"
+                  class="link-dark text-decoration-none text-nowrap">
                   球衣球衣球衣球衣
                 </a>
               </td>
               <td class="text-nowrap">NT$ 580</td>
               <td>
-                <input
-                  type="number"
-                  class="amount carAmount"
-                  min="1"
-                  max="10"
-                  step="1"
-                  value="3"
-                  data-id="0"
-                />
+                <input type="number" class="amount carAmount" min="1" max="10" step="1" value="3" data-id="0" />
               </td>
               <td class="text-nowrap">NT$ 1740</td>
               <td>
@@ -113,19 +87,12 @@
             <li class="list-group-item">
               <h3>優惠</h3>
               <div for="offTicket" style="display: none">
-                <select
-                  name="offTicket"
-                  id="offTicket"
-                  class="form-select coupon_ticket"
-                >
+                <select name="offTicket" id="offTicket" class="form-select coupon_ticket">
                   <option value="">選擇優惠券</option>
                 </select>
               </div>
 
-              <div
-                class="col-12 d-flex flex-column"
-                style="color: #ff0000"
-              ></div>
+              <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
             </li>
           </ul>
         </section>
@@ -136,14 +103,8 @@
               <h3>配送方式</h3>
               <div class="d-flex flex-column">
                 <div>
-                  <input
-                    type="radio"
-                    class="shopCarHaul"
-                    name="shopCarHaul"
-                    id="5"
-                    value="5"
-                    checked
-                  /><label for="5">宅配 </label>
+                  <input type="radio" class="shopCarHaul" name="shopCarHaul" id="5" value="5" checked /><label for="5">宅配
+                  </label>
                 </div>
               </div>
             </li>
@@ -151,32 +112,15 @@
               <h3>付款方式</h3>
               <div class="mb-2">
                 <div>
-                  <input
-                    type="radio"
-                    class="shopCarPay"
-                    name="shopCarPay"
-                    id="6"
-                    value="6"
-                  /><label for="6">信用卡(VISA、MasterCard、JCB) </label>
+                  <input type="radio" class="shopCarPay" name="shopCarPay" id="6" value="6" /><label
+                    for="6">信用卡(VISA、MasterCard、JCB) </label>
                 </div>
                 <div>
-                  <input
-                    type="radio"
-                    class="shopCarPay"
-                    name="shopCarPay"
-                    id="7"
-                    value="7"
-                    checked
-                  /><label for="7">虛擬帳號付款 </label>
+                  <input type="radio" class="shopCarPay" name="shopCarPay" id="7" value="7" checked /><label
+                    for="7">虛擬帳號付款 </label>
                 </div>
                 <div>
-                  <input
-                    type="radio"
-                    class="shopCarPay"
-                    name="shopCarPay"
-                    id="8"
-                    value="8"
-                  /><label for="8">超商付款 </label>
+                  <input type="radio" class="shopCarPay" name="shopCarPay" id="8" value="8" /><label for="8">超商付款 </label>
                 </div>
               </div>
             </li>
@@ -184,55 +128,25 @@
               <h3>購買人資訊</h3>
               <div class="col-md-12">
                 <label for="inputEmail4" class="form-label mb-0">姓名</label>
-                <input
-                  type=""
-                  class="form-control mb-2"
-                  id="nick"
-                  name="nick"
-                  value="陳威良"
-                  placeholder="購買人姓名"
-                  maxlength="10"
-                  disabled=""
-                />
+                <input type="" class="form-control mb-2" id="nick" name="nick" value="陳威良" placeholder="購買人姓名"
+                  maxlength="10" disabled="" />
               </div>
               <div class="col-md-12">
-                <label for="inputPassword4" class="form-label mb-0"
-                  >聯絡電話</label
-                >
-                <input
-                  type=""
-                  class="form-control mb-2"
-                  id="mobile"
-                  name="mobile"
-                  value="0976103738"
-                  placeholder="購買人電話"
-                  maxlength="10"
-                  disabled=""
-                />
+                <label for="inputPassword4" class="form-label mb-0">聯絡電話</label>
+                <input type="" class="form-control mb-2" id="mobile" name="mobile" value="0976103738" placeholder="購買人電話"
+                  maxlength="10" disabled="" />
               </div>
               <div class="col-md-12">
                 <label for="inputPassword4" class="form-label mb-0">地址</label>
-                <input
-                  type=""
-                  class="form-control mb-2"
-                  id="mobile"
-                  name="mobile"
-                  value="台灣省"
-                  placeholder="收件地址"
-                  maxlength="10"
-                  disabled=""
-                />
+                <input type="" class="form-control mb-2" id="mobile" name="mobile" value="台灣省" placeholder="收件地址"
+                  maxlength="10" disabled="" />
               </div>
             </li>
             <li class="list-group-item">
               <div class="col-12">
                 <div class="">
-                  <input
-                    type="radio"
-                    id="buy_person"
-                    class="d-inline-block"
-                    name="person"
-                  /><label for="buy_person" class="">同購買人 </label>
+                  <input type="radio" id="buy_person" class="d-inline-block" name="person" /><label for="buy_person"
+                    class="">同購買人 </label>
                   <div class="d-none">
                     <p class="ps-2 my-2 mb-0">取件人資訊 :</p>
                     <div class="bg-qopink ps-2 p-0 pb-0 text-black">
@@ -243,109 +157,49 @@
                   </div>
                 </div>
                 <div class="mt-3">
-                  <input
-                    type="radio"
-                    id="add_person"
-                    name="person"
-                    checked=""
-                  /><label for="add_person">新增收件人 </label>
+                  <input type="radio" id="add_person" name="person" checked="" /><label for="add_person">新增收件人 </label>
                   <div class="d-flex flex-column d-none p-1 pb-0">
                     <label for="xnick">姓名：</label>
-                    <input
-                      type="text"
-                      name="xnick"
-                      id="xnick"
-                      class="form-control w-md-50 mb-2"
-                      value=""
-                      placeholder="姓氏大名"
-                      maxlength="10"
-                    />
+                    <input type="text" name="xnick" id="xnick" class="form-control w-md-50 mb-2" value=""
+                      placeholder="姓氏大名" maxlength="10" />
                     <label for="xmobile">聯絡電話：</label>
-                    <input
-                      type="text"
-                      name="xmobile"
-                      id="xmobile"
-                      class="form-control w-md-50 mb-2"
-                      value=""
-                      placeholder="09-12345678"
-                      maxlength="10"
-                    />
+                    <input type="text" name="xmobile" id="xmobile" class="form-control w-md-50 mb-2" value=""
+                      placeholder="09-12345678" maxlength="10" />
                     <p>*取貨通知將以此電話聯繫</p>
                     <label for="xmobile">地址：</label>
-                    <input
-                      type="text"
-                      name="xmobile"
-                      id="xmobile"
-                      class="form-control w-md-50 mb-2"
-                      value=""
-                      maxlength="10"
-                      placeholder="取貨地址"
-                    />
+                    <input type="text" name="xmobile" id="xmobile" class="form-control w-md-50 mb-2" value=""
+                      maxlength="10" placeholder="取貨地址" />
                   </div>
                 </div>
               </div>
             </li>
             <li class="list-group-item">
               <p class="mb-0" for="xnote">備註</p>
-              <textarea
-                name="xnote"
-                id="xnote"
-                cols="30"
-                rows="1"
-                class="w-100 form-control"
-              ></textarea>
+              <textarea name="xnote" id="xnote" cols="30" rows="1" class="w-100 form-control"></textarea>
             </li>
             <li class="list-group-item">
               <div class="col-12">
                 <div>
-                  <label class="checkbox-inline" title=""
-                    ><input
-                      id="allow-customer-terms-check-box"
-                      name="allow-customer-terms-check-box"
-                      value="Y"
-                      checked=""
-                      type="checkbox"
-                      class="form-check-input"
-                    /><label for="allow-customer-terms-check-box"
-                      ><span
-                        data-translate-keys="agree-terms"
-                        data-translate-html="true"
-                        >同意</span
-                      ><button
-                        type="button"
-                        class="text-decoration-underline border-0 bg-white"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                        @click="atTop = true"
-                      >
+                  <label class="checkbox-inline" title=""><input id="allow-customer-terms-check-box"
+                      name="allow-customer-terms-check-box" value="Y" checked="" type="checkbox"
+                      class="form-check-input" /><label for="allow-customer-terms-check-box"><span
+                        data-translate-keys="agree-terms" data-translate-html="true">同意</span><button type="button"
+                        class="text-decoration-underline border-0 bg-white" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" @click="atTop = true">
                         會員責任規範及個資聲明
-                      </button></label
-                    ></label
-                  >
+                      </button></label></label>
                 </div>
                 <div>
-                  <label class="checkbox-inline" title=""
-                    ><input
-                      id="allow-assure-check-box"
-                      name="allow-assure-check-box"
-                      value="Y"
-                      checked=""
-                      type="checkbox"
-                      class="form-check-input"
-                    /><span for="allow-assure-check-box"
-                      >為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</span
-                    >
+                  <label class="checkbox-inline" title=""><input id="allow-assure-check-box" name="allow-assure-check-box"
+                      value="Y" checked="" type="checkbox" class="form-check-input" /><span
+                      for="allow-assure-check-box">為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</span>
                   </label>
                 </div>
               </div>
             </li>
             <div class="w-100 my-2">
               <router-link to="/cart-view/cart-done">
-                <button
-                  type="button"
-                  class="btn btn-primary w-100"
-                  id="_cartCheckout"
-                >
+                <button type="button" class="btn btn-primary w-100" id="_cartCheckout">
                   立即結帳
                 </button>
               </router-link>
@@ -356,26 +210,12 @@
     </div>
   </div>
   <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div
-      class="modal-dialog modal-dialog-scrollable mt-10 mx-auto"
-      style="height: 500px; max-width: 1000px"
-    >
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable mt-10 mx-auto" style="height: 500px; max-width: 1000px">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">服務條款</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" style="white-space: pre-wrap">
           服務條款
@@ -486,6 +326,14 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  inject: ['emitter'],
+  created () {
+    this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁都要更新
+  }
+};
+</script>
 <style scoped>
 h1,
 h2,
@@ -493,10 +341,12 @@ h3,
 p {
   font-family: Rubik, sans-serif !important;
 }
+
 .table_overflow {
   overflow-x: auto;
 }
-[type='radio']:checked ~ div {
+
+[type='radio']:checked~div {
   display: block !important;
 }
 </style>

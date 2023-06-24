@@ -1,5 +1,5 @@
 <template>
-  <!-- <Loading :active="isLoading"></Loading> -->
+  <Loading :active="isLoading"></Loading>
   <Header :is-login="isLogin"></Header>
   <ToastMessages></ToastMessages>
   <router-view />
@@ -11,7 +11,6 @@ import Footer from '@/components/Footer.vue';
 import loginMixin from '../mixins/loginMixin';
 import emitter from '@/methods/emitter';
 import ToastMessages from '@/components/ToastMessages.vue';
-
 export default {
   components: {
     Header,

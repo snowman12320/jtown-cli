@@ -61,35 +61,27 @@
 </template>
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';
-
 export default {
+  // inject: ['emitter'],
+  components: {
+    CartOffcanvas
+  },
   data () {
     return {
       nav: 0, //* 初始化 nav 值 atTop: false };
-      // eslint-disable-next-line vue/no-dupe-keys
-      atTop: true, //* 動態導覽列
-      //
-      isLoading: false, //* 載入效果開關
-      isLogin: false // * 判斷登入狀態
+      atTop: true //* 動態導覽列
     };
   },
   props: {
-    // isLogin: Boolean
-  },
-  components: {
-    CartOffcanvas
+    isLogin: Boolean
   },
   mounted () {
     this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
   },
-  // beforeUnmount () {
-  //   window.removeEventListener('scroll', this.handleScroll);
-  // },
   methods: {
     handleScroll () {
-      // eslint-disable-next-line no-unneeded-ternary
-      this.atTop = window.scrollY > this.nav + 300 ? false : true; //* 使用this.nav進行操作
+      this.atTop = !(window.scrollY > this.nav + 300); //* 使用this.nav進行操作
     },
     //* 透過名稱取操作元件的函式
     openOffcanvas () {
@@ -105,28 +97,6 @@ export default {
     // });
       confirm('確定從"123"登出?');
     }
-  },
-  created () {
-    this.isLoading = true;
-    this.$emit('updateLoading', this.isLoading);
-    //* 取出代幣
-    const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
-    // console.log(token);
-    this.$http.defaults.headers.common.Authorization = token; //* 存到header發送
-    const api = `${process.env.VUE_APP_API}api/user/check`; //* 驗證登入狀態
-    this.$http.post(api, this.user).then((res) => {
-      this.isLoading = false;
-      this.$emit('updateLoading', this.isLoading);
-      if (!res.data.success) {
-        // this.$router.push('/login');
-        this.isLogin = false;
-      } else {
-        this.isLogin = true;
-      }
-    });
   }
 };
 </script>

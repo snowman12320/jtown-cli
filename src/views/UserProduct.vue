@@ -23,25 +23,18 @@
         <div class="h5" v-if="!product.price">
           {{ product.origin_price }} 元
         </div>
-        <del class="h6" v-if="product.price"
-          >原價 {{ product.origin_price }} 元</del
-        >
+        <del class="h6" v-if="product.price">原價 {{ product.origin_price }} 元</del>
         <div class="h5" v-if="product.price">
           現在只要 {{ product.price }} 元
         </div>
         <hr />
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          @click="addToCart(product.id)"
-        >
+        <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)">
           加到購物車
         </button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data () {
@@ -49,6 +42,10 @@ export default {
       product: {},
       id: ''
     };
+  },
+  created () {
+    this.id = this.$route.params.productId;
+    this.getProduct();
   },
   methods: {
     getProduct () {
@@ -75,10 +72,6 @@ export default {
         this.$router.push('/user/cart');
       });
     }
-  },
-  created () {
-    this.id = this.$route.params.productId;
-    this.getProduct();
   }
 };
 </script>
