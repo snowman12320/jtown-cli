@@ -1,6 +1,6 @@
-update ;
-create delCart / updateCart ;
-fixed Header(isLogin) / this.emitter.emit('customEvent_getCart', this.getCart) / filterData();
+update productList ;
+create CartList /  ;
+fixed ;
 
 
 關於 "@change"
@@ -12,6 +12,10 @@ v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，想問�
 
 
   name: 'HomeView', // ?好像非必需
+  搜尋時和篩選時 開載入效果
+  分類時，nextTick input要按兩次（分類會先空 再）
+  結帳頁都改成 英文
+  coupon
 
 
 //////////////////////////////////////////////////

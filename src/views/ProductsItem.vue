@@ -55,10 +55,10 @@
           <i v-else @click="updateFavo" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
-          <button class="btn-primary btn" @click="addToCart(product.id, qty)"
+          <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
             :class="{ 'btn btn-outline-primary': product.id === status.loadingItem }"
             :disabled="product.id === status.loadingItem">加入購物車</button>
-          <router-link to="/cart-view/cart-list"><button class="btn btn-danger">立即購買</button></router-link>
+          <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">立即購買</button>
         </div>
       </div>
     </div>
@@ -88,12 +88,16 @@ export default {
   },
   //! mitt
   mounted () {
-    this.emitter.on('customEvent1', (data) => {
+    this.emitter.on('customEvent_isLoading_big', (data) => {
       this.isLoading_big = data;
     });
-    this.emitter.on('customEvent2', (data) => {
+    this.emitter.on('customEvent_getProduct', (data) => {
       this.product = data;
     });
+    // this.emitter.on('customEvent_cartList', (data) => {
+    //   console.log(2);
+    //   this.product = data;
+    // });
   },
   created () {
     this.id = this.$route.params.productId;
@@ -129,7 +133,7 @@ export default {
         }
       });
     },
-    addToCart (id, qty = 1) {
+    addToCart (id, qty = 1, isBuy) {
       this.status.loadingItem = id;
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
@@ -141,8 +145,10 @@ export default {
         this.isLoading = false;
         this.status.loadingItem = '';
         this.$httpMessageState(response, '加入購物車');
-        // this.$router.push('/cart-view/cart-list');
         this.emitter.emit('customEvent_getCart', this.getCart);
+        if (isBuy) {
+          this.$router.push('/cart-view/cart-list');
+        }
       });
     }
   }
@@ -152,6 +158,7 @@ export default {
 .carousel {
   height: 500px;
 }
+
 .carousel-inner {
   height: 500px;
 }

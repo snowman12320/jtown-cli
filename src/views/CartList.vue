@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading"></Loading>
   <div class="row content container mx-auto mt-0">
     <aside class="col-12 col-lg-4">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
@@ -11,22 +12,22 @@
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
                     <p>商品小計</p>
-                    <p>NT$ 3140</p>
+                    <p>$ {{ $filters.currency(sumFinalTotal) }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>優惠折抵</p>
-              <p>-NT$ 2858</p>
+              <p>-$ {{ 0 }}</p>
             </li>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>運費</p>
-              <p>+NT$ 0</p>
+              <p>+$ {{ $filters.currency(feeDeliver) }}</p>
             </li>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p class="pt-3">應付總額</p>
-              <p>NT$ <span class="text-qopink fs-1 fw-bold">282</span></p>
+              <p>$ <span class="text-qopink fs-1 fw-bold">{{ $filters.currency(sumFinalTotal + feeDeliver) }}</span></p>
             </li>
           </ul>
         </div>
@@ -48,24 +49,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="">
+            <tr class="" v-for="item in carts" :key="item.id">
               <th scope="row" class="">
-                <img src="https://source.unsplash.com/random/1500x1200/?basketball" alt="" srcset=""
-                  class="product_img_rwd" width="50" height="50" style="height: 50px; width: 50px" />
+                <img :src="item.product.imageUrl" alt="" srcset="" class="product_img_rwd of-cover" width="50" height="50"
+                  style="height: 50px; width: 50px" />
               </th>
               <td class="">
-                <a href="https://www.qoqo.com.tw/product_ii.html?gID=177"
-                  class="link-dark text-decoration-none text-nowrap">
-                  球衣球衣球衣球衣
+                <a @click.prevent="getProduct(item.product.id)" class="link-dark text-decoration-none text-nowrap"
+                  style="cursor:pointer">
+                  {{ item.product.title }}
                 </a>
               </td>
-              <td class="text-nowrap">NT$ 580</td>
+              <td class="text-nowrap">NT$ {{ $filters.currency(item.product.price) }} <span class="text-secondary"
+                  style="font-size:3px">/{{ item.product.unit }}</span></td>
               <td>
-                <input type="number" class="amount carAmount" min="1" max="10" step="1" value="3" data-id="0" />
+                <input type="number" class="amount carAmount" min="1" max="10" step="1" v-model.number="item.qty"
+                  data-id="0" @change="updateCart(item)" />
               </td>
-              <td class="text-nowrap">NT$ 1740</td>
+              <td class="text-nowrap">NT$ {{ $filters.currency(item.qty * item.product.price) }}</td>
               <td>
-                <a href="javascript:" data-id="0" class="link-qopink carDel">
+                <a href="javascript:" data-id="0" class="link-qopink carDel" @click="delCart(item)">
                   <i class="bi bi-x-lg"></i>
                 </a>
               </td>
@@ -73,7 +76,7 @@
           </tbody>
         </table>
         <div class="d-flex justify-content-end">
-          <span class="ms-auto">購物車 共計 2 項商品</span>
+          <span class="ms-auto">購物車 共計 {{ sumFinalQty }} 項商品</span>
         </div>
       </section>
       <form id="cartForm">
@@ -85,10 +88,11 @@
               <i class="bi bi-check-circle-fill text-danger"></i>
             </li>
             <li class="list-group-item">
-              <h3>優惠</h3>
-              <div for="offTicket" style="display: none">
+              <h3>優惠折抵</h3>
+              <div for="offTicket" style="">
                 <select name="offTicket" id="offTicket" class="form-select coupon_ticket">
-                  <option value="">選擇優惠券</option>
+                  <option value="" disabled selected>選擇優惠券</option>
+                  <option value="gooaya">gooaya</option>
                 </select>
               </div>
 
@@ -329,8 +333,79 @@
 <script>
 export default {
   inject: ['emitter'],
+  data () {
+    return {
+      carts: [],
+      sumFinalTotal: 0,
+      sumFinalQty: 0,
+      isLoading: true,
+      feeDeliver: 120,
+      status: {
+        loadingItem: '' //! 可能沒用到的參數也要先定義，不然整個函式會掛
+      },
+      product: {}
+
+    };
+  },
   created () {
-    this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁都要更新
+    this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
+    this.getCart();//* 本頁的購物車
+  },
+  methods: {
+    getCart () {
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      this.$http.get(api).then((res) => {
+        this.isLoading = false;
+        // console.log('cart', res.data.data.carts);
+        this.carts = res.data.data.carts;
+        //* 需先歸零，必需在這計算
+        this.sumFinalTotal = 0;
+        this.sumFinalQty = 0;
+        this.carts.forEach(item => {
+          this.sumFinalTotal += item.final_total;
+          this.sumFinalQty += item.qty;
+        });
+      });
+    },
+    delCart (item) {
+      this.isLoading = true;
+      // !塞入要刪除的ＩＤ
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+      this.$http.delete(url).then((res) => {
+        // console.log(res.data);
+        this.isLoading = false;
+        this.$httpMessageState(res, '移除購物車品項');
+        this.updateCart(item);
+      });
+    },
+    updateCart (item) {
+      // console.log('updateCart');
+      this.status.loadingItem = item.id;
+      this.isLoading = true;
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
+      const cart = {
+        product_id: item.product_id,
+        qty: item.qty
+      };
+      this.$http.put(url, { data: cart }).then((response) => {
+        this.status.loadingItem = '';
+        this.isLoading = false;
+        this.getCart();
+      });
+    },
+    getProduct (id) { //! 只取一個商品，product.id才能取得商品內頁，不是id
+      // console.log(id);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
+      this.$http.get(api).then((res) => {
+        if (res.data.success) {
+          this.product = res.data.product;
+          // console.log(this.product);
+          this.emitter.emit('customEvent_getProduct', this.product);
+        }
+      });
+      this.$router.push(`/products-view/products-item/${id}`);
+    }
   }
 };
 </script>

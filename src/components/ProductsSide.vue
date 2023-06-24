@@ -2,7 +2,7 @@
 <template>
   <!-- 上面row響應 下面col也要響應~~~ -->
   <aside class="col-lg-2 lh-lg aside">
-    <h3 class="text-center text-lg-start">Player</h3>
+    <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
     <!-- {{ typeof(cacheSearch) }} -->
     <div class="my-3">

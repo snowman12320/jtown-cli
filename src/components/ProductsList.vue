@@ -52,6 +52,10 @@ export default {
       this.cacheCategory = data;
       // console.log(typeof (this.cacheCategory));
     });
+    this.emitter.on('get-productId', this.id);
+    this.emitter.on('get-product', () => {
+      this.getProduct(this.id);
+    });
   },
   created () {
     this.getProducts();
@@ -60,22 +64,19 @@ export default {
     // 監聽多個變化（變數） 產生一個資料（函式），注意return位置
     filtersData () {
       //! 在productList正常，在productItem會找不到cacheSearch等值，故使用判斷路由
-      // let filteredData = [];
-      // if (this.$route.path.includes('products-content')) {
-      //   filteredData = this.products.filter((item) =>
-      //     item.title.toString().toLowerCase() === this.cacheSearch.toLowerCase() &&
-      // item.category.toString().toLowerCase() === this.cacheSearch.toLowerCase()
-      //   );
-      // }
-      //! 要用 &&，不然cacheCategory搜尋，會有問題，用｜｜好像都會是true，不懂為何不是｜｜
-      const filteredData = this.products.filter((item) =>
-        item.title.toLowerCase().includes(this.cacheSearch.toLowerCase()) &&
-      item.category.toLowerCase().includes(this.cacheCategory.toLowerCase())
-      );
-      if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
+      if (!this.$route.path.includes('products-content')) {
         return this.products;
       } else {
-        return filteredData;
+        //! 要用 &&，不然cacheCategory搜尋，會有問題，用｜｜好像都會是true，不懂為何不是｜｜
+        const filteredData = this.products.filter((item) =>
+          item.title.toLowerCase().includes(this.cacheSearch.toLowerCase()) &&
+        item.category.toLowerCase().includes(this.cacheCategory.toLowerCase())
+        );
+        if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
+          return this.products;
+        } else {
+          return filteredData;
+        }
       }
     }
   },
@@ -90,11 +91,11 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
       this.isLoading = true;
       this.isLoading_big = true;
-      this.emitter.emit('customEvent1', this.isLoading_big);
+      this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         this.isLoading_big = false;
-        this.emitter.emit('customEvent1', this.isLoading_big);
+        this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
           // console.log(res.data);
           this.products = res.data.products;
@@ -119,18 +120,19 @@ export default {
       }
     },
     getProduct (id) { //! 只取一個商品
+      // console.log(id);
       this.$router.push(`/products-view/products-item/${id}`);
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.isLoading = true;
       this.isLoading_big = true;
-      this.emitter.emit('customEvent1', this.isLoading_big);
+      this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         this.isLoading_big = false;
-        this.emitter.emit('customEvent1', this.isLoading_big);
+        this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
           this.product = res.data.product;
-          this.emitter.emit('customEvent2', this.product);
+          this.emitter.emit('customEvent_getProduct', this.product);
           // 取得所有的carousel-item元素，移除所有carousel-item元素的active類別
           const carouselItems = document.querySelectorAll('.carousel-item');
           carouselItems.forEach(function (item) {

@@ -17,9 +17,11 @@
         <div class=" w-100 p-1 ">
           <h2 class="fs-6 text-center">{{ item.product.title }}</h2>
           <p class="text-center pt-2 fs-5 ">
-            <small class="text-secondary fs-6 text-decoration-line-through fw-lighter">$ {{ item.product.origin_price
+            <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
+              $filters.currency(item.product.origin_price)
             }}</small>
-            $ {{ item.product.price }}
+            $ {{ $filters.currency(item.product.price) }}
+            <!-- <span class="" style="font-size:5px">/{{ item.product.unit }}</span> -->
           </p>
           <div class="fs-1 d-flex justify-content-center gap-1 align-items-center">
             <button style="height:30px" @click="item.qty--; $nextTick(updateCart(item))"
@@ -29,7 +31,6 @@
               @change="updateCart(item)">
             <button style="height:30px" @click="item.qty++; $nextTick(updateCart(item))"
               class="btn btn-outline-secondary py-0" :disabled="item.id === status.loadingItem">+</button>
-            <!-- <span class="fs-6">{{ item.product.unit }}</span> -->
           </div>
         </div>
         <button @click="openDelCartModel(item)" type="button" class="border-0 bg-transparent " style="height:30px"><i
