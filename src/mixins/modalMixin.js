@@ -11,6 +11,6 @@ export default {
     }
   },
   mounted () {
-    this.modal = new Modal(this.$refs.modal);
+    this.modal = new Modal(this.$refs.modal); //* 繼承一個彈窗，並取得dom去操作
   }
 };

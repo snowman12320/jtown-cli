@@ -1,5 +1,5 @@
-update productSide / ;
-create / ;
+update productSide /  ;
+create usercheck / ;
 fixed couponCode;
 
 關於 "@change"
@@ -21,10 +21,18 @@ Uncaught (in promise) TypeError: (0 , vue**WEBPACK_IMPORTED_MODULE_4**.toValue) 
 
 
 name: 'HomeView', // ?好像非必需
+
 結帳頁都改成 英文
 結帳完 導覽購物車要清空
+要做付款時間 訂單成立時間
+要做結帳確認頁面
+選擇超商（綠界物流）
+付款彈窗或confirm
 
-刪除優惠券
+確認頁面 可能要放 cartview下 才能跨元件更新購物車
+使用文章api 前後台增刪查改
+
+取消優惠券 送空的回去看看 但應該會回傳失敗 沒看到取消api
 
 //////////////////////////////////////////////////
 //\* uniqueCategories

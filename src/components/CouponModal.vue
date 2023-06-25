@@ -39,6 +39,7 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
+          <!-- 像外傳遞整包暫存設定 -->
           <button type="button" class="btn btn-primary" @click="$emit('update-coupon', tempCoupon)">
             更新優惠券
           </button>
@@ -66,14 +67,17 @@ export default {
     coupon () {
       this.tempCoupon = this.coupon;
       // 將時間格式改為 YYYY-MM-DD
-      console.log(this.tempCoupon.due_date);
+      // console.log(this.tempCoupon.due_date);
       const dateAndTime = new Date(this.tempCoupon.due_date * 1000)
         .toISOString()
         .split('T');
       [this.due_date] = dateAndTime;
+      // console.log('日期和時間', dateAndTime);
     },
     due_date () {
+      // console.log('只有日期', this.due_date);
       this.tempCoupon.due_date = Math.floor(new Date(this.due_date) / 1000);
+      // console.log('以秒为单位的时间戳', this.tempCoupon.due_date);
     }
   }
 };

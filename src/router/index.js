@@ -65,6 +65,10 @@ const routes = [
     ]
   },
   {
+    path: '/checkout/:orderId',
+    component: () => import('../views/UserCheckout.vue')
+  },
+  {
     path: '/user',
     component: () => import('../views/Userboard.vue'),
     children: [

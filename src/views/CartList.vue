@@ -1,6 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <!-- {{ couponCode }} -->
+  <!-- {{ cart }} -->
   <div class="row content container mx-auto mt-0">
     <aside class="col-12 col-lg-4" style="z-index:-1">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
@@ -13,8 +13,11 @@
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
                     <p>商品總計</p>
-                    <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(Math.round(sumFinalTotal /
-                      (couponPercent / 100))) }}</p>
+                    <!-- <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(Math.round(sumFinalTotal /
+                      (couponPercent / 100))) }}</p> -->
+                    <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(sumFinalTotal / (couponPercent /
+                      100))
+                    }}</p>
                   </div>
                 </div>
               </div>
@@ -23,7 +26,8 @@
               <p>優惠折抵</p>
               <p class="text-end"> <span :class="couponCode !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ couponCode
               }}"折抵</span>
-                -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }}
+                <!-- -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }} -->
+                -$ {{ $filters.currency(sumFinalTotal / (100 - couponPercent)) }}
               </p>
             </li>
             <li class="list-group-item d-flex justify-content-between pb-0">
@@ -56,7 +60,7 @@
           <tbody>
             <tr class="" v-for="item in carts" :key="item.id">
               <th scope="row" class="">
-                <img :src="item.product.imageUrl" alt="" srcset="" class="product_img_rwd of-cover" width="50" height="50"
+                <img :src="item.product.imageUrl" alt="" srcset="" class="product_img_rwd of-cover op-top" width="50" height="50"
                   style="height: 50px; width: 50px" />
               </th>
               <td class="">
@@ -475,23 +479,24 @@ export default {
       };
       this.isLoading = true;
       this.$http.post(url, { data: coupon }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.$httpMessageState(res, '加入優惠券');
         this.getCart();
         this.isLoading = false;
       });
     },
     onSubmit () {
-      console.log(this.user);
+      // console.log(this.user);
     },
     createOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
       this.$http.post(url, { data: order })
         .then((res) => {
-          // console.log(res);
+          console.log(res);
           this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
-          this.$router.push('/cart-view/cart-done');
+          // this.$router.push('/cart-view/cart-done');
+          this.$router.push('/checkout/res.data.orderId');
         });
     }
   }
