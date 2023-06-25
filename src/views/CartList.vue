@@ -1,6 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <!-- {{ carts }} -->
+  <!-- {{ couponCode }} -->
   <div class="row content container mx-auto mt-0">
     <aside class="col-12 col-lg-4" style="z-index:-1">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
@@ -21,7 +21,7 @@
             </div>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>優惠折抵</p>
-              <p class="text-end"> <span :class="coupon_code !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ coupon_code
+              <p class="text-end"> <span :class="couponCode !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ couponCode
               }}"折抵</span>
                 -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }}
               </p>
@@ -91,7 +91,7 @@
           <span class="ms-auto">購物車 共計 {{ sumFinalQty }} 項商品</span>
         </div>
       </section>
-      <Form id="cartForm" @submit="onSubmit">
+      <Form id="cartForm" @submit="createOrder">
         <h2 class="mt-3">會員專區</h2>
         <section>
           <ul class="list-group">
@@ -103,9 +103,9 @@
               <h3>優惠折抵</h3>
               <div for="offTicket" style="">
                 <select name="offTicket" id="offTicket" class="form-select coupon_ticket" @change="addCouponCode()"
-                  v-model="coupon_code">
+                  v-model="couponCode">
                   <option value="" disabled>選擇優惠券</option>
-                  <option value="gooaya" :selected="couponPercent !== ''">gooaya / 每件商品打9折</option>
+                  <option value="gooaya" :selected="Boolean(couponCode)">gooaya / 每件商品打9折</option>
                 </select>
               </div>
               <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
@@ -354,16 +354,16 @@
     </div>
   </div>
   <!--  -->
-  <Form v-slot="{ errors, values, validate }" @submit="onSubmit">
+  <!-- <Form v-slot="{ errors, values, validate }" @submit="onSubmit">
     {{ errors }} {{ values }}
     <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <!-- <Field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
+      <label for="email" class="form-label">Email</label> -->
+  <!-- <Field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
         placeholder="請輸入 Email" rules="email|required" v-model="user.email"></Field> -->
-    </div>
+  <!-- </div>
     <button class="btn me-2 btn-outline-primary" type="button" @click="validate">驗證</button>
     <button class="btn btn-primary" type="submit">Submit</button>
-  </Form>
+  </Form> -->
 </template>
 <script>
 export default {
@@ -379,9 +379,17 @@ export default {
         loadingItem: '' //! 可能沒用到的參數也要先定義，不然整個函式會掛
       },
       product: {},
-      coupon_code: '',
-      couponPercent: '',
-      user: {}
+      couponPercent: 1,
+      couponCode: '',
+      form: {
+        user: {
+          name: 'test',
+          email: 'test@gmail.com',
+          tel: '0912346768',
+          address: 'kaohsiung'
+        },
+        message: '這是留言'
+      }
 
     };
   },
@@ -405,7 +413,6 @@ export default {
         this.isLoading = false;
         // console.log('cart', res.data.data.carts[0].coupon.percent);
         this.carts = res.data.data.carts;
-        this.couponPercent = res.data.data.carts[0].coupon.percent;
         //* 需先歸零，必需在這計算
         this.sumFinalTotal = 0;
         this.sumFinalQty = 0;
@@ -413,6 +420,11 @@ export default {
           this.sumFinalTotal += item.final_total;
           this.sumFinalQty += item.qty;
         });
+        //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
+        if (this.couponCode || res.data.data.carts[0].coupon.code) {
+          this.couponPercent = res.data.data.carts[0].coupon.percent;
+          this.couponCode = res.data.data.carts[0].coupon.code;
+        }
       });
     },
     delCart (item) {
@@ -459,11 +471,11 @@ export default {
     addCouponCode () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
       const coupon = {
-        code: this.coupon_code
+        code: this.couponCode
       };
       this.isLoading = true;
       this.$http.post(url, { data: coupon }).then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.$httpMessageState(res, '加入優惠券');
         this.getCart();
         this.isLoading = false;
@@ -471,6 +483,16 @@ export default {
     },
     onSubmit () {
       console.log(this.user);
+    },
+    createOrder () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+      const order = this.form;
+      this.$http.post(url, { data: order })
+        .then((res) => {
+          // console.log(res);
+          this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
+          this.$router.push('/cart-view/cart-done');
+        });
     }
   }
 };

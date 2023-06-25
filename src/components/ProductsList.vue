@@ -48,7 +48,6 @@ export default {
       // console.log(typeof (this.cacheSearch));
     });
     this.emitter.on('customEvent_category', (data) => {
-      // ? 都需帶入cacheSearch 才會成功，應該要帶入cacheCategory
       this.cacheCategory = data;
       // console.log(typeof (this.cacheCategory));
     });
@@ -63,6 +62,7 @@ export default {
   computed: {
     // 監聽多個變化（變數） 產生一個資料（函式），注意return位置
     filtersData () {
+      // this.isLoading = true;
       //! 在productList正常，在productItem會找不到cacheSearch等值，故使用判斷路由
       if (!this.$route.path.includes('products-content')) {
         return this.products;
@@ -73,8 +73,10 @@ export default {
         item.category.toLowerCase().includes(this.cacheCategory.toLowerCase())
         );
         if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
+          // this.isLoading = false;
           return this.products;
         } else {
+          // this.isLoading = false;
           return filteredData;
         }
       }

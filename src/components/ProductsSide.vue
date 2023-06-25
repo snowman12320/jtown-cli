@@ -6,8 +6,8 @@
     <!--  -->
     <!-- {{ typeof(cacheSearch) }} -->
     <div class="my-3">
-      <input type="text" class="form-control rounded-0" name="" id="" aria-describedby="helpId" v-model="cacheSearch"
-        placeholder="🍳 search player">
+      <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId" v-model.lazy="cacheSearch"
+        placeholder="Search Player...">
     </div>
     <!-- BS內建margin 很多推不到位 可能要設定0 用開發者看會有淡黃區域 -->
     <ul class="list-unstyled d-flex flex-lg-column justify-content-center my-3">
@@ -44,6 +44,18 @@ export default {
       cacheCategory: '',
       input_all: null
     };
+  },
+  directives: {
+    // 'model-enter': {
+    //   bind (el, binding, vnode) {
+    //     el.addEventListener('keydown', function (event) {
+    //       if (event.key === 'Enter') {
+    //         vnode.context[binding.expression] = el.value;
+    //         vnode.context[binding.value]();
+    //       }
+    //     });
+    //   }
+    // }
   },
   mounted () {
   },
