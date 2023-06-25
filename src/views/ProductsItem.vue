@@ -148,6 +148,8 @@ export default {
         this.emitter.emit('customEvent_getCart', this.getCart);
         if (isBuy) {
           this.$router.push('/cart-view/cart-list');
+          // ? 沒有觸發該頁函式，讓下一頁資料更新
+          this.emitter.emit('customEvent_getCart', this.getCart);
         }
       });
     }

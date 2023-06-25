@@ -1,9 +1,7 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <!-- props -->
   <Header :is-login="isLogin"></Header>
-  <!-- emit -->
-  <!-- <Header @update-loading="handleUpdateLoading"></Header> -->
+  <CartForm></CartForm>
   <HomeCarousel></HomeCarousel>
   <div class="container-xxl">
     <HomeBanner></HomeBanner>
@@ -22,6 +20,7 @@ import HomeRank from '@/components/HomeRank.vue';
 import Footer from '@/components/Footer.vue';
 import loginMixin from '../mixins/loginMixin';
 import emitter from '@/methods/emitter';
+import CartForm from '@/components/CartForm.vue';
 export default {
   name: 'HomeView',
   mixins: [loginMixin],
@@ -36,7 +35,8 @@ export default {
     HomeBanner,
     HomeProduct,
     HomeRank,
-    Footer
+    Footer,
+    CartForm
   }
 };
 </script>

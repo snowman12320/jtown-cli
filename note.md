@@ -1,21 +1,36 @@
-update productList ;
-create CartList /  ;
+update  ;
+create coupon /  ;
 fixed ;
 
 
 關於 "@change"
-CartOffcanvas 中 @change="updateCart(item)" 嘗試讓 input 數值變動就觸發函式，但沒有效果
-v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，想問他們兩個有差別嗎
-
+CartOffcanvas 中 @change="updateCart(item)" 嘗試讓 input 數值變動就觸發函式，但沒有觸發函式
+v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，要使用＠click在增加或減少按鈕上才會觸發
 關於"computed"
-在productList使用filtersData，為啥要用 &&，不然cacheCategory搜尋會有問題，但用｜｜好像才是判斷，cacheCategory或cacheSearch符合的都返回才對
+在productList使用filtersData，為啥要用 &&，不然cacheCategory搜尋會有問題，但我的認知是，用｜｜才是判斷，cacheCategory或cacheSearch有符合的都返回才對
+，還有在我點選cacheCategory時，我設定清空cacheSearch，當我要再搜尋時要點兩下才能輸入，點一下就會讓一個字輸入失敗
+關於"CartList"中
+我在productItem中，按直接購買，跳轉到CartList，我的carts不會更新，有使用emitter去getCart()和該created(){getCart()}，但也沒用，在要套用優惠券時才會更新
 
+關於"seleted"
+在CartList中，想讓勾選優惠券後，固定在勾選該優惠券，但無法依照判斷有優惠碼時就固定勾選它，會一直回復到無勾選狀態
+>應該要存進去api
 
   name: 'HomeView', // ?好像非必需
   搜尋時和篩選時 開載入效果
   分類時，nextTick input要按兩次（分類會先空 再）
   結帳頁都改成 英文
-  coupon
+  
+  刪除優惠券
+
+  
+  安裝的指令 npm i vee-validate @vee-validate/rules @vee-validate/i18n  --save --force
+  在CartList和CartForm中 嘗試使用驗證表單 
+  但會出現export 'toValue' (imported as 'toValue') was not found in 'vue'錯誤 ，
+  Uncaught (in promise) TypeError: (0 , vue__WEBPACK_IMPORTED_MODULE_4__.toValue) is not a function （開發者工具）
+  ，好像是vee-validate版本要改，不太確定
+  只要註解的field打開都會出現上述錯誤
+
 
 
 //////////////////////////////////////////////////

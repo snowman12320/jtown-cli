@@ -1,7 +1,8 @@
 <template>
   <Loading :active="isLoading"></Loading>
+  <!-- {{ carts }} -->
   <div class="row content container mx-auto mt-0">
-    <aside class="col-12 col-lg-4">
+    <aside class="col-12 col-lg-4" style="z-index:-1">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
         <div class="card w-100 p-3" style="width: 18rem">
           <ul class="list-group list-group-flush">
@@ -11,15 +12,19 @@
                 <div id="collapseOne" class="accordion-collapse show collapse" aria-labelledby="headingOne"
                   data-bs-parent="#accordionExample">
                   <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
-                    <p>商品小計</p>
-                    <p>$ {{ $filters.currency(sumFinalTotal) }}</p>
+                    <p>商品總計</p>
+                    <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(Math.round(sumFinalTotal /
+                      (couponPercent / 100))) }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>優惠折抵</p>
-              <p>-$ {{ 0 }}</p>
+              <p class="text-end"> <span :class="coupon_code !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ coupon_code
+              }}"折抵</span>
+                -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }}
+              </p>
             </li>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>運費</p>
@@ -74,12 +79,19 @@
               </td>
             </tr>
           </tbody>
+          <tfoot v-if="carts.length === 0">
+            <tr>
+              <td colspan="6">
+                <p class="text-center py-4">無加入任何商品</p>
+              </td>
+            </tr>
+          </tfoot>
         </table>
         <div class="d-flex justify-content-end">
           <span class="ms-auto">購物車 共計 {{ sumFinalQty }} 項商品</span>
         </div>
       </section>
-      <form id="cartForm">
+      <Form id="cartForm" @submit="onSubmit">
         <h2 class="mt-3">會員專區</h2>
         <section>
           <ul class="list-group">
@@ -90,12 +102,12 @@
             <li class="list-group-item">
               <h3>優惠折抵</h3>
               <div for="offTicket" style="">
-                <select name="offTicket" id="offTicket" class="form-select coupon_ticket">
-                  <option value="" disabled selected>選擇優惠券</option>
-                  <option value="gooaya">gooaya</option>
+                <select name="offTicket" id="offTicket" class="form-select coupon_ticket" @change="addCouponCode()"
+                  v-model="coupon_code">
+                  <option value="" disabled>選擇優惠券</option>
+                  <option value="gooaya" :selected="couponPercent !== ''">gooaya / 每件商品打9折</option>
                 </select>
               </div>
-
               <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
             </li>
           </ul>
@@ -107,7 +119,8 @@
               <h3>配送方式</h3>
               <div class="d-flex flex-column">
                 <div>
-                  <input type="radio" class="shopCarHaul" name="shopCarHaul" id="5" value="5" checked /><label for="5">宅配
+                  <input required type="radio" class="shopCarHaul" name="shopCarHaul" id="5" value="120" checked /><label
+                    for="5">宅配
                   </label>
                 </div>
               </div>
@@ -131,18 +144,23 @@
             <li class="list-group-item">
               <h3>購買人資訊</h3>
               <div class="col-md-12">
+                <label for="inputEmail4" class="form-label mb-0">信箱</label>
+                <input type="mail" class="form-control mb-2" id="email" name="email" value="snowman12320@gmail.com"
+                  placeholder="購買人姓名" maxlength="10" disabled="" />
+              </div>
+              <div class="col-md-12">
                 <label for="inputEmail4" class="form-label mb-0">姓名</label>
-                <input type="" class="form-control mb-2" id="nick" name="nick" value="陳威良" placeholder="購買人姓名"
+                <input type="text" class="form-control mb-2" id="nick" name="nick" value="陳O良" placeholder="購買人姓名"
                   maxlength="10" disabled="" />
               </div>
               <div class="col-md-12">
-                <label for="inputPassword4" class="form-label mb-0">聯絡電話</label>
-                <input type="" class="form-control mb-2" id="mobile" name="mobile" value="0976103738" placeholder="購買人電話"
-                  maxlength="10" disabled="" />
+                <label for="inputPassword4" class="form-label mb-0">手機</label>
+                <input type="tel" class="form-control mb-2" id="mobile" name="mobile" value="0912345678"
+                  placeholder="購買人電話" maxlength="10" disabled="" />
               </div>
               <div class="col-md-12">
                 <label for="inputPassword4" class="form-label mb-0">地址</label>
-                <input type="" class="form-control mb-2" id="mobile" name="mobile" value="台灣省" placeholder="收件地址"
+                <input type="text" class="form-control mb-2" id="mobile" name="mobile" value="台南市新營區" placeholder="收件地址"
                   maxlength="10" disabled="" />
               </div>
             </li>
@@ -154,32 +172,38 @@
                   <div class="d-none">
                     <p class="ps-2 my-2 mb-0">取件人資訊 :</p>
                     <div class="bg-qopink ps-2 p-0 pb-0 text-black">
+                      <p class="m-0 p-0">信箱：snowman12320@gmail.com</p>
                       <p class="m-0 p-0">姓名：陳威良</p>
-                      <p class="m-0 p-0">聯絡電話：0976103738</p>
+                      <p class="m-0 p-0">手機：0976103738</p>
                       <p class="m-0 p-0">地址：台灣省</p>
                     </div>
                   </div>
                 </div>
+                <!--  -->
                 <div class="mt-3">
                   <input type="radio" id="add_person" name="person" checked="" /><label for="add_person">新增收件人 </label>
                   <div class="d-flex flex-column d-none p-1 pb-0">
-                    <label for="xnick">姓名：</label>
-                    <input type="text" name="xnick" id="xnick" class="form-control w-md-50 mb-2" value=""
-                      placeholder="姓氏大名" maxlength="10" />
-                    <label for="xmobile">聯絡電話：</label>
-                    <input type="text" name="xmobile" id="xmobile" class="form-control w-md-50 mb-2" value=""
+                    <label for="email">信件：</label>
+                    <!-- <Field type="email" name="email" id="email" class="form-control w-md-50 mb-2" placeholder="電子信箱"
+                      maxlength="30" v-model="user.email"  /> -->
+                    <label for="name">姓名：</label>
+                    <input type="text" name="name" id="name" class="form-control w-md-50 mb-2" value="" placeholder="姓氏大名"
+                      maxlength="10" />
+                    <label for="phone">手機：</label>
+                    <input type="tel" name="phone" id="phone" class="form-control w-md-50 mb-2" value=""
                       placeholder="09-12345678" maxlength="10" />
                     <p>*取貨通知將以此電話聯繫</p>
-                    <label for="xmobile">地址：</label>
-                    <input type="text" name="xmobile" id="xmobile" class="form-control w-md-50 mb-2" value=""
-                      maxlength="10" placeholder="取貨地址" />
+                    <label for="address">地址：</label>
+                    <input type="text" name="address" id="address" class="form-control w-md-50 mb-2" value=""
+                      maxlength="10" placeholder="取貨地址(縣市鄉鎮區巷弄樓層)" />
                   </div>
                 </div>
               </div>
             </li>
             <li class="list-group-item">
               <p class="mb-0" for="xnote">備註</p>
-              <textarea name="xnote" id="xnote" cols="30" rows="1" class="w-100 form-control"></textarea>
+              <textarea name="xnote" id="xnote" cols="30" rows="1" class="w-100 form-control"
+                placeholder="特別提醒事項..."></textarea>
             </li>
             <li class="list-group-item">
               <div class="col-12">
@@ -202,15 +226,15 @@
               </div>
             </li>
             <div class="w-100 my-2">
-              <router-link to="/cart-view/cart-done">
-                <button type="button" class="btn btn-primary w-100" id="_cartCheckout">
-                  立即結帳
-                </button>
-              </router-link>
+              <!-- <router-link to="/cart-view/cart-done"> -->
+              <button type="submit" class="btn btn-primary w-100" id="_cartCheckout">
+                立即結帳
+              </button>
+              <!-- </router-link> -->
             </div>
           </ul>
         </section>
-      </form>
+      </Form>
     </div>
   </div>
   <!-- Modal -->
@@ -329,6 +353,17 @@
       </div>
     </div>
   </div>
+  <!--  -->
+  <Form v-slot="{ errors, values, validate }" @submit="onSubmit">
+    {{ errors }} {{ values }}
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <!-- <Field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
+        placeholder="請輸入 Email" rules="email|required" v-model="user.email"></Field> -->
+    </div>
+    <button class="btn me-2 btn-outline-primary" type="button" @click="validate">驗證</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </Form>
 </template>
 <script>
 export default {
@@ -343,7 +378,10 @@ export default {
       status: {
         loadingItem: '' //! 可能沒用到的參數也要先定義，不然整個函式會掛
       },
-      product: {}
+      product: {},
+      coupon_code: '',
+      couponPercent: '',
+      user: {}
 
     };
   },
@@ -351,14 +389,23 @@ export default {
     this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
     this.getCart();//* 本頁的購物車
   },
+  mounted () {
+    this.emitter.on('customEvent_getCart', () => {
+      this.getCart();
+      // console.log('mounted', this.carts);
+      // this.addCouponCode();
+    });
+  },
   methods: {
     getCart () {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+
       this.$http.get(api).then((res) => {
         this.isLoading = false;
-        // console.log('cart', res.data.data.carts);
+        // console.log('cart', res.data.data.carts[0].coupon.percent);
         this.carts = res.data.data.carts;
+        this.couponPercent = res.data.data.carts[0].coupon.percent;
         //* 需先歸零，必需在這計算
         this.sumFinalTotal = 0;
         this.sumFinalQty = 0;
@@ -378,6 +425,9 @@ export default {
         this.$httpMessageState(res, '移除購物車品項');
         this.updateCart(item);
       });
+      if (this.carts.length === 0) {
+        this.getCart();
+      }
     },
     updateCart (item) {
       // console.log('updateCart');
@@ -405,6 +455,22 @@ export default {
         }
       });
       this.$router.push(`/products-view/products-item/${id}`);
+    },
+    addCouponCode () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
+      const coupon = {
+        code: this.coupon_code
+      };
+      this.isLoading = true;
+      this.$http.post(url, { data: coupon }).then((res) => {
+        // console.log(res.data);
+        this.$httpMessageState(res, '加入優惠券');
+        this.getCart();
+        this.isLoading = false;
+      });
+    },
+    onSubmit () {
+      console.log(this.user);
     }
   }
 };
