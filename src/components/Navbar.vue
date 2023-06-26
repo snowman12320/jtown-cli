@@ -16,7 +16,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav d-flex gap-5 align-items-center">
           <router-link to="/" class="btn btn-nbaBlue text-decoration-none"
-            >前台預覽</router-link
+            >前台</router-link
           >
           <router-link to="/dashboard/products" class="text-white  text-decoration-none"
             >產品</router-link

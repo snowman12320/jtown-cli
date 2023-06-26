@@ -90,7 +90,7 @@ export default {
       }
     },
     getProducts (page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;
       this.isLoading = true;
       this.isLoading_big = true;
       this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
@@ -110,7 +110,7 @@ export default {
     pushProducts (page) {
       if (this.pagination.has_next) {
         this.page++;
-        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;
         this.isLoading = true;
         this.$http.get(api).then((res) => {
           this.isLoading = false;

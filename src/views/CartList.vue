@@ -60,8 +60,8 @@
           <tbody>
             <tr class="" v-for="item in carts" :key="item.id">
               <th scope="row" class="">
-                <img :src="item.product.imageUrl" alt="" srcset="" class="product_img_rwd of-cover op-top" width="50" height="50"
-                  style="height: 50px; width: 50px" />
+                <img :src="item.product.imageUrl" alt="" srcset="" class="product_img_rwd of-cover op-top" width="50"
+                  height="50" style="height: 50px; width: 50px" />
               </th>
               <td class="">
                 <a @click.prevent="getProduct(item.product.id)" class="link-dark text-decoration-none text-nowrap"
@@ -95,7 +95,7 @@
           <span class="ms-auto">購物車 共計 {{ sumFinalQty }} 項商品</span>
         </div>
       </section>
-      <Form id="cartForm" @submit="createOrder">
+      <Form id="cartForm" @submit="createOrder" v-slot="{ errors }">
         <h2 class="mt-3">會員專區</h2>
         <section>
           <ul class="list-group">
@@ -110,6 +110,7 @@
                   v-model="couponCode">
                   <option value="" disabled>選擇優惠券</option>
                   <option value="gooaya" :selected="Boolean(couponCode)">gooaya / 每件商品打9折</option>
+                  <option value="howhowhasfriend" :selected="Boolean(couponCode)">howhow / 每件商品打8折</option>
                 </select>
               </div>
               <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
@@ -178,7 +179,7 @@
                     <div class="bg-qopink ps-2 p-0 pb-0 text-black">
                       <p class="m-0 p-0">信箱：snowman12320@gmail.com</p>
                       <p class="m-0 p-0">姓名：陳威良</p>
-                      <p class="m-0 p-0">手機：0976103738</p>
+                      <p class="m-0 p-0">手機：0977777777</p>
                       <p class="m-0 p-0">地址：台灣省</p>
                     </div>
                   </div>
@@ -187,19 +188,37 @@
                 <div class="mt-3">
                   <input type="radio" id="add_person" name="person" checked="" /><label for="add_person">新增收件人 </label>
                   <div class="d-flex flex-column d-none p-1 pb-0">
-                    <label for="email">信件：</label>
-                    <!-- <Field type="email" name="email" id="email" class="form-control w-md-50 mb-2" placeholder="電子信箱"
-                      maxlength="30" v-model="user.email"  /> -->
+                    <!-- {{ errors['email'] }} -->
+                    <label for="email">信箱：</label>
+                    <Field id="email" name="email" type="email" class="form-control " placeholder="請輸入 Email"
+                      rules="email|required"
+                      :class="{ 'is-invalid': errors['email'], 'is-valid': !errors['email'] && form.user.email }"
+                      v-model="form.user.email"></Field>
+                    <error-message name="email" class="invalid-feedback"></error-message>
+                    <!-- ! name要對到錯誤標籤的name / error['跟name一樣'] / :rule="自訂規則函式或vee內建" / -->
                     <label for="name">姓名：</label>
-                    <input type="text" name="name" id="name" class="form-control w-md-50 mb-2" value="" placeholder="姓氏大名"
-                      maxlength="10" />
-                    <label for="phone">手機：</label>
-                    <input type="tel" name="phone" id="phone" class="form-control w-md-50 mb-2" value=""
-                      placeholder="09-12345678" maxlength="10" />
+                    <Field type="text" name="姓名" id="name" class="form-control w-md-50 mb-2" value="" placeholder="姓氏大名"
+                      maxlength="10" :rules="isName"
+                      :class="{ 'is-invalid': errors['姓名'], 'is-valid': !errors['姓名'] && form.user.name }"
+                      v-model="form.user.name">
+                    </Field>
+                    <error-message name="姓名" class="invalid-feedback"></error-message>
+                    <!--  -->
+                    <label for="tel">手機：</label>
+                    <Field type="tel" name="手機" id="tel" class="form-control w-md-50 mb-2" value=""
+                      placeholder="09-12345678" maxlength="10" :rules="isPhone"
+                      :class="{ 'is-invalid': errors['手機'], 'is-valid': !errors['手機'] && form.user.name }"
+                      v-model="form.user.tel"> </Field>
+                    <error-message name="手機" class="invalid-feedback"></error-message>
+                    <!--  -->
                     <p>*取貨通知將以此電話聯繫</p>
                     <label for="address">地址：</label>
-                    <input type="text" name="address" id="address" class="form-control w-md-50 mb-2" value=""
-                      maxlength="10" placeholder="取貨地址(縣市鄉鎮區巷弄樓層)" />
+                    <Field type="text" name="地址" id="address" class="form-control w-md-50 mb-2"
+                      placeholder="取貨地址(縣市鄉鎮區巷弄樓層)" :rules="isAddress"
+                      :class="{ 'is-invalid': errors['地址'], 'is-valid': !errors['地址'] && form.user.address }"
+                      v-model="form.user.address"> </Field>
+                    <error-message name="地址" class="invalid-feedback"></error-message>
+                    <!--  -->
                   </div>
                 </div>
               </div>
@@ -358,16 +377,6 @@
     </div>
   </div>
   <!--  -->
-  <!-- <Form v-slot="{ errors, values, validate }" @submit="onSubmit">
-    {{ errors }} {{ values }}
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label> -->
-  <!-- <Field id="email" name="email" type="email" class="form-control" :class="{ 'is-invalid': errors['email'] }"
-        placeholder="請輸入 Email" rules="email|required" v-model="user.email"></Field> -->
-  <!-- </div>
-    <button class="btn me-2 btn-outline-primary" type="button" @click="validate">驗證</button>
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </Form> -->
 </template>
 <script>
 export default {
@@ -387,14 +396,13 @@ export default {
       couponCode: '',
       form: {
         user: {
-          name: 'test',
-          email: 'test@gmail.com',
+          name: '',
+          email: '',
           tel: '0912346768',
-          address: 'kaohsiung'
-        },
-        message: '這是留言'
-      }
-
+          address: ''
+        }
+      },
+      message: '這是留言'
     };
   },
   created () {
@@ -488,15 +496,39 @@ export default {
     onSubmit () {
       // console.log(this.user);
     },
+    isName (value) {
+      if (!value) {
+        return '此欄為必填';
+      }
+      return true;
+    },
+    isPhone (value) {
+      const phoneNumber = /^(09)[0-9]{8}$/;
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼';
+    },
+    isAddress (value) {
+      if (!value) {
+        return '地址為必填';
+      }
+      return true;
+    },
+    // isRegion (value) {
+    //   if (!value) {
+    //     return '此欄為必填';
+    //   }
+    //   return true;
+    // },
     createOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
+      console.log(order);
       this.$http.post(url, { data: order })
         .then((res) => {
-          console.log(res);
+          console.log(res.data.orderId);
           this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
           // this.$router.push('/cart-view/cart-done');
-          this.$router.push('/checkout/res.data.orderId');
+          // this.$router.push('/checkout/res.data.orderId');
+          this.$router.push(`checkout/${res.data.orderId}`);
         });
     }
   }

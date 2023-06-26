@@ -28,17 +28,25 @@
 <script>
 import Header from '@/components/Header.vue';
 import loginMixin from '@/mixins/loginMixin';
+import emitter from '@/methods/emitter';
+
 export default {
   mixins: [loginMixin],
   components: {
     Header
+  },
+  provide () {
+    return {
+      emitter
+    };
   },
   data () {
     return {
       user: {
         username: '',
         password: ''
-      }
+      },
+      isLoading: false
     };
   },
   methods: {
