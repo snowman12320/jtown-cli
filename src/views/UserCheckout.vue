@@ -1,6 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <Header :is-login="isLogin"></Header>
+  <!-- <Header :is-login="isLogin"></Header> -->
   <div class="my-5 row justify-content-center">
     <form class="col-md-6" @submit.prevent="payOrder">
       <table class="table align-middle">
@@ -13,13 +13,13 @@
           <tr v-for="item in order.products" :key="item.id">
             <td>{{ item.product.title }}</td>
             <td>{{ item.qty }}/{{ item.product.unit }}</td>
-            <td class="text-end">{{ item.final_total }}</td>
+            <td class="text-end">$ {{ $filters.currency(Math.round(item.final_total)) }}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="2" class="text-end">總計</td>
-            <td class="text-end">{{ order.total }}</td>
+            <td class="text-end">$ {{ $filters.currency(Math.round(order.total)) }}</td>
           </tr>
         </tfoot>
       </table>
@@ -55,7 +55,7 @@
           </tr>
           <tr>
             <th>付款時間</th>
-            <td>{{ paid_date }}</td>
+            <td v-if="!!order.is_paid">{{ paid_date }}</td>
           </tr>
         </tbody>
       </table>
@@ -64,24 +64,12 @@
       </div>
     </form>
   </div>
-  <Footer></Footer>
 </template>
 <script>
-import Header from '@/components/Header.vue';
-import Footer from '@/components/Footer.vue';
 import loginMixin from '../mixins/loginMixin';
-import emitter from '@/methods/emitter';
 export default {
   mixins: [loginMixin],
-  provide () {
-    return {
-      emitter
-    };
-  },
-  components: {
-    Header,
-    Footer
-  },
+  inject: ['emitter'],
   data () {
     return {
       order: {
@@ -100,22 +88,8 @@ export default {
         .then((res) => {
           if (res.data.success) {
             this.order = res.data.order;
-            // console.log(this.order);
-            this.create_at = this.order.create_at;
-            const date = new Date(this.create_at * 1000); // 将秒转换为毫秒
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1; // 月份从0开始，所以要加1
-            const day = date.getDate();
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const seconds = date.getSeconds();
-            this.create_at = year + '-' + month.toString().padStart(2, '0') + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-            //*
-            // 去掉小数部分
-            // this.paid_date.setMilliseconds(0);
-            // 将日期时间对象转为字符串
-            this.paid_date = new Date(this.order.paid_date * 1000).toISOString().slice(0, 19).replace('T', ' ');
-            // console.log(this.paid_date);
+            this.create_at = new Date(this.order.create_at * 1000).toLocaleString();
+            this.paid_date = new Date(this.order.paid_date * 1000).toLocaleString();
           }
         });
     },
@@ -123,7 +97,7 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
       this.$http.post(url)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.success) {
             this.getOrder();
           }

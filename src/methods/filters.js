@@ -6,3 +6,7 @@ export function date (time) {
   const localDate = new Date(time * 1000);
   return localDate.toLocaleDateString();
 }
+//* 使用優惠券，折價後價格
+export function coupon (price, coupon) {
+  return price / (coupon / 100);
+}

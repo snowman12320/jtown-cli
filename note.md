@@ -1,10 +1,13 @@
 update  /  ;
 create  / ;
-fixed vee-validate / API / login;
+fixed CartList / UserCheckout / created_at / tempForm;
 
 
 
 name: 'HomeView', // ?好像非必需
+首頁加入視差 用WOW 或AOS 
+首頁的產品要渲染 改回圈或用extend
+會員條款談窗
 
 結帳頁都改成 英文 / 結帳完 導覽購物車要清空
 要做付款時間 訂單成立時間
@@ -16,12 +19,7 @@ name: 'HomeView', // ?好像非必需
 確認頁面 可能要放 cartview下 才能跨元件更新購物車
 使用文章api 前後台增刪查改
 
-取消優惠券 送空的回去看看 但應該會回傳失敗 沒看到取消api
 
-新增的優惠券要渲染
-
-首頁加入視差 用WOW 或AOS 
-首頁的產品要渲染 改回圈或用extend
 
 HomeBanner 的lightbox使用的href的圖片路徑就無法顯示，
 嘗試兩種寫法：
@@ -43,7 +41,19 @@ href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 // 最后，我们使用 map 方法来提取结果数组中每个对象的"category"值，生成一个最终的唯一"category"值的数组。
 
 
-
+//* UserCheckout
+// const date = new Date(this.create_at * 1000); // 将秒转换为毫秒
+// const year = date.getFullYear();
+// const month = date.getMonth() + 1; // 月份从0开始，所以要加1
+// const day = date.getDate();
+// const hours = date.getHours();
+// const minutes = date.getMinutes();
+// const seconds = date.getSeconds();
+// this.create_at = year + '-' + month.toString().padStart(2, '0') + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds; 
+> 怪怪的日期
+//*
+// 将日期时间对象转为字符串 > 錯誤
+// this.paid_date = new Date(this.order.paid_date * 1000).toISOString().slice(0, 19).replace('T', ' ');
 
 ///////////////////////////////////////////技術問題
 x 關於 元件傳遞資料的使用

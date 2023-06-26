@@ -1,6 +1,6 @@
 <template>
   <Loading :active="isLoading"></Loading>
-  <!-- {{ cart }} -->
+  <!-- {{ carts }} -->
   <div class="row content container mx-auto mt-0">
     <aside class="col-12 col-lg-4" style="z-index:-1">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
@@ -15,8 +15,7 @@
                     <p>商品總計</p>
                     <!-- <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(Math.round(sumFinalTotal /
                       (couponPercent / 100))) }}</p> -->
-                    <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(sumFinalTotal / (couponPercent /
-                      100))
+                    <p style="    width: 100px; text-align: end;">$ {{ sumTotal
                     }}</p>
                   </div>
                 </div>
@@ -172,11 +171,11 @@
             <li class="list-group-item">
               <div class="col-12">
                 <div class="">
-                  <input type="radio" id="buy_person" class="d-inline-block" name="person" /><label for="buy_person"
-                    class="">同購買人 </label>
+                  <input @click="funBuyPerson()" type="radio" id="buy_person" class="d-inline-block"
+                    name="person" /><label for="buy_person" class="">同購買人 </label>
                   <div class="d-none">
                     <p class="ps-2 my-2 mb-0">取件人資訊 :</p>
-                    <div class="bg-qopink ps-2 p-0 pb-0 text-black">
+                    <div class="bg-light rounded-3 p-2 text-black">
                       <p class="m-0 p-0">信箱：snowman12320@gmail.com</p>
                       <p class="m-0 p-0">姓名：陳威良</p>
                       <p class="m-0 p-0">手機：0977777777</p>
@@ -386,23 +385,33 @@ export default {
       carts: [],
       sumFinalTotal: 0,
       sumFinalQty: 0,
+      sumTotal: 0,
       isLoading: true,
       feeDeliver: 120,
       status: {
         loadingItem: '' //! 可能沒用到的參數也要先定義，不然整個函式會掛
       },
       product: {},
-      couponPercent: 1,
+      couponPercent: '',
       couponCode: '',
       form: {
         user: {
-          name: '',
           email: '',
-          tel: '0912346768',
+          name: '',
+          tel: '',
           address: ''
         }
       },
-      message: '這是留言'
+      message: '這是留言',
+      buyPerson: false,
+      tempForm: {
+        user: {
+          email: 'snowman12320@gmail.com',
+          name: '陳威良',
+          tel: '0912346768',
+          address: '台灣省'
+        }
+      }
     };
   },
   created () {
@@ -426,9 +435,11 @@ export default {
         // console.log('cart', res.data.data.carts[0].coupon.percent);
         this.carts = res.data.data.carts;
         //* 需先歸零，必需在這計算
+        this.sumTotal = 0;
         this.sumFinalTotal = 0;
         this.sumFinalQty = 0;
         this.carts.forEach(item => {
+          this.sumTotal += item.total;
           this.sumFinalTotal += item.final_total;
           this.sumFinalQty += item.qty;
         });
@@ -518,19 +529,33 @@ export default {
     //   }
     //   return true;
     // },
+    funBuyPerson () {
+      this.buyPerson = !this.buyPerson;
+      if (this.buyPerson) {
+        this.form = { ...this.tempForm };
+      } else {
+        this.form = {
+          user: {
+            email: '',
+            name: '',
+            tel: '',
+            address: ''
+          }
+        };
+      }
+    },
     createOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
-      console.log(order);
+      // console.log(order);
       this.$http.post(url, { data: order })
         .then((res) => {
-          console.log(res.data.orderId);
+          // console.log(res.data.orderId);
           this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
-          // this.$router.push('/cart-view/cart-done');
-          // this.$router.push('/checkout/res.data.orderId');
           this.$router.push(`checkout/${res.data.orderId}`);
         });
     }
+
   }
 };
 </script>

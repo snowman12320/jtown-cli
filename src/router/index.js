@@ -38,6 +38,10 @@ const routes = [
       {
         path: 'cart-done',
         component: () => import('../views/CartDone.vue')
+      },
+      {
+        path: 'checkout/:orderId',
+        component: () => import('../views/UserCheckout.vue')
       }
     ]
   },
@@ -64,10 +68,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/checkout/:orderId',
-    component: () => import('../views/UserCheckout.vue')
-  },
+
   {
     path: '/user',
     component: () => import('../views/Userboard.vue'),
