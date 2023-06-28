@@ -20,7 +20,7 @@ import Footer from '@/components/Footer.vue';
 import loginMixin from '../mixins/loginMixin';
 import emitter from '@/methods/emitter';
 export default {
-  name: 'HomeView',
+  // name: 'HomeView', //*过设置name属性，可以为组件指定一个唯一的名称。这对于在组件之间进行通信
   mixins: [loginMixin],
   provide () {
     return {

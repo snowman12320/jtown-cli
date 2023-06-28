@@ -4,9 +4,8 @@ fixed CartList / UserCheckout / created_at / tempForm;
 
 
 
-name: 'HomeView', // ?好像非必需
 首頁加入視差 用WOW 或AOS 
-首頁的產品要渲染 改回圈或用extend
+首頁的產品要渲染 改回圈或用extend >  .slice(0, 4)
 會員條款談窗
 
 結帳頁都改成 英文 / 結帳完 導覽購物車要清空
@@ -112,3 +111,10 @@ x 關於"CartList"中
 不過我在 ProductsList.vue 修改了 API 的路徑
 變成：https://vue3-course-api.hexschool.io/api/william-api/products/?page=1
 這樣使用者不需登入也能看到產品列表
+
+「extends 和 mixins 表达了不同的意图。mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
+也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
+希望有幫助到你，有問題歡迎發問，我們會在線上等你。
+
+
+

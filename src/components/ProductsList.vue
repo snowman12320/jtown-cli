@@ -7,7 +7,7 @@
         <div class="card w-100 position-relation newproduct_img" data-num="1">
           <div class="newproduct_cloth">
             <h6>Player</h6>
-            <h4>{{ typeof (item.title) }}</h4>
+            <h4>{{ item.title }}</h4>
             <!-- <h4>{{ typeof(item.title) }}</h4> -->
           </div>
           <img data-num="1" height="312" width="312" class="card-img of-cover op-top" :src="item.imageUrl"
