@@ -12,6 +12,8 @@ import App from './App.vue';
 import router from './router';
 import { currency, date } from './methods/filters';
 import $httpMessageState from './methods/pushMessageState';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // 定義驗證規則
 defineRule('required', required);
@@ -44,3 +46,4 @@ app.use(VueAxios, axios);
 app.use(router);
 app.component('Loading', Loading);
 app.mount('#app');
+AOS.init();

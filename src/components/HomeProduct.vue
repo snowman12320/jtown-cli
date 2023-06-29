@@ -8,7 +8,8 @@
   <!-- <ProductsList></ProductsList> -->
   <div class="" style="height:1000px !important;overflow:hidden">
     <div class="masonry">
-      <div class="item" v-for="item in products" :key="item.id">
+      <div class="item" v-for="(item, index) in products" :key="item.id" data-aos="fade-up"
+        :data-aos-duration="`${index}000`">
         <div class=" overflow-hidden" @click="getProduct(item.id)">
           <div class="card w-100 position-relation newproduct_img" data-num="1">
             <div class="newproduct_cloth">
@@ -23,7 +24,7 @@
     </div>
   </div>
 
-  <div class="text-center mt-4 d-flex flex-column flex-md-row justify-content-center">
+  <div class="text-center my-5 d-flex flex-column flex-md-row justify-content-center">
     <router-link to="/products-view/products-content"
       class="btn btn-outline-dark rounded-pill fs-5 me-md-3 me-0 mb-3 mb-md-0">
       MORE
