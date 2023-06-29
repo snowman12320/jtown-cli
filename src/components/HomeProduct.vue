@@ -1,97 +1,115 @@
 <template>
   <!-- 最新球衣 -->
-  <div
-    id="Product"
-    class="my-5 d-flex justify-content-center align-items-center"
-  >
+  <div id="Product" class="my-5 d-flex justify-content-center align-items-center">
     <h2>NEW</h2>
-    <img
-      src="../assets/nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg"
-      height="80"
-      alt="recentlyLogo"
-      class=""
-    />
+    <img src="../assets/nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg" height="80" alt="recentlyLogo" class="" />
     <h2>PRODUCTS</h2>
   </div>
-  <!-- 目前的排版會感覺上下都沒有對齊，可先避免過多的水平間距調整 -->
-  <section class="row row-cols-2 row-cols-lg-4 g-4">
-    <div class="col ">
-      <div class="card w-100 position-relation newproduct_img">
-        <div class="newproduct_cloth">
-          <h6>Player</h6>
-          <h4>Kobe Bryant</h4>
+  <!-- <ProductsList></ProductsList> -->
+  <div class="" style="height:1000px !important;overflow:hidden">
+    <div class="masonry">
+      <div class="item" v-for="item in products" :key="item.id">
+        <div class=" overflow-hidden" @click="getProduct(item.id)">
+          <div class="card w-100 position-relation newproduct_img" data-num="1">
+            <div class="newproduct_cloth">
+              <h6>Player</h6>
+              <h4>{{ item.title }}</h4>
+            </div>
+            <img data-num="1" style="height:auto " class="card-img of-cover op-top w-100" :src="item.imageUrl"
+              :alt="item.title" />
+          </div>
         </div>
-        <!-- 嘗試前面加上 ../../assets/ 還是無法 -->
-        <img
-          height="312"
-          width="312"
-          class="card-img of-cover"
-          src="../assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg"
-          alt="new1"
-        />
       </div>
     </div>
-    <div class="col ">
-      <div class="card w-100 position-relation newproduct_img">
-        <div class="newproduct_cloth">
-          <h6>Player</h6>
-          <h4>Derrick Rose</h4>
-        </div>
-        <img
-          height="312"
-          width="312"
-          class="card-img of-cover newproduct_img"
-          src="../assets/nbaWeb/eddy-lackmann-6MmfmBJd8PE-unsplash.jpg"
-          alt="new2"
-        />
-      </div>
-    </div>
-    <div class="col ">
-      <div class="card w-100 position-relation newproduct_img">
-        <div class="newproduct_cloth">
-          <h6>Player</h6>
-          <h4>Kevin Durant</h4>
-        </div>
-        <img
-          height="312"
-          width="312"
-          class="card-img of-cover newproduct_img"
-          src="@/assets/nbaWeb/mingxuan_leng-EXqK7oqvKhQ-unsplash.jpg"
-          alt="new3"
-        />
-      </div>
-    </div>
-    <div class="col ">
-      <div class="card w-100 position-relation newproduct_img">
-        <div class="newproduct_cloth">
-          <h6>Player</h6>
-          <h4>Stephen Curry</h4>
-        </div>
-        <img
-          height="312"
-          width="312"
-          class="card-img of-cover newproduct_img"
-          src="@/assets/nbaWeb/tyler-martoia-nVpT1jeu3f0-unsplash.jpg"
-          alt="new4"
-        />
-      </div>
-    </div>
-  </section>
+  </div>
 
-  <div
-    class="text-center mt-4 d-flex flex-column flex-md-row justify-content-center"
-  >
-    <a
-      type="button"
-      href="product.html"
-      class="btn btn-outline-dark rounded-pill fs-5 me-md-3 me-0 mb-3 mb-md-0"
-      >MORE PRODUCT</a
-    >
-    <a
-      type="button"
-      href="customzied.html"
-      class="btn btn-nbaBlue rounded-pill fs-5"
-      >CUSTOMIZED JERSEY</a
-    >
+  <div class="text-center mt-4 d-flex flex-column flex-md-row justify-content-center">
+    <router-link to="/products-view/products-content"
+      class="btn btn-outline-dark rounded-pill fs-5 me-md-3 me-0 mb-3 mb-md-0">
+      MORE
+      PRODUCT
+    </router-link>
   </div>
 </template>
+<script>
+// import ProductsList from '@/components/ProductsList.vue';
+export default {
+  components: {
+    // ProductsList
+  },
+  data () {
+    return {
+      products: {}
+    };
+  },
+  created () {
+    this.getProducts();
+  },
+  methods: {
+    getProducts () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+      this.isLoading = true;
+      this.$http.get(api).then((res) => {
+        if (res.data.success) {
+          this.isLoading = true;
+          this.products = res.data.products;
+        }
+      });
+    },
+    getProduct (id) { //! 只取一個商品
+      // console.log(id);
+      this.$router.push(`/products-view/products-item/${id}`);
+      this.isLoading = true;
+      this.isLoading_big = true;
+      this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
+      this.$http.get(api).then((res) => {
+        this.isLoading = false;
+        this.isLoading_big = false;
+        this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+        if (res.data.success) {
+          this.product = res.data.product;
+          this.emitter.emit('customEvent_getProduct', this.product);
+          // 取得所有的carousel-item元素，移除所有carousel-item元素的active類別
+          const carouselItems = document.querySelectorAll('.carousel-item');
+          carouselItems.forEach(function (item) {
+            item.classList.remove('active');
+          });
+          carouselItems[0].classList.add('active');
+          window.scrollTo(0, 0);
+        }
+      });
+    }
+  }
+};
+</script>
+<style>
+.masonry {
+  column-count: 4;
+  column-gap: 0;
+  position: relative;
+}
+
+.masonry::after {
+  content: '';
+  background: linear-gradient(to bottom, transparent, white);
+  height: 100px;
+  position: absolute;
+  top: 900px;
+  left: 0;
+  right: 0;
+}
+
+.item {
+  padding: 2px;
+  position: relative;
+  counter-increment: item-counter;
+  cursor: pointer;
+}
+
+.item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>

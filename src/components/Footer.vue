@@ -6,7 +6,7 @@
       src="@\assets\nbaWeb\silhouette-basket-05.svg" alt="" height="150" width="150"
       class="custom_img position-fixed bottom-0 end-0 me-5" data-bs-toggle="tooltip" data-bs-placement="top"
       title="Let's customized jersey !" />
-    <i class="bi bi-messenger position-absolute top-0 left-0 text-black"></i>
+    <i class="bi bi-messenger position-absolute top-0 right-0 display-1 text-black"></i>
   </a>
   <!-- 徵才 -->
   <section class="container-lg border-nbaBlue border-top border-3 talent">

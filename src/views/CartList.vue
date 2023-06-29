@@ -229,15 +229,18 @@
             </li>
             <li class="list-group-item">
               <div class="col-12">
-                <div :style="{ 'opacity: 0.1': !isLookOver }">
-                  <label class="checkbox-inline" title=""><input :disabled="!isLookOver"
-                      id="allow-customer-terms-check-box" name="allow-customer-terms-check-box" value="Y" type="checkbox"
-                      class="form-check-input" /><label for="allow-customer-terms-check-box"><span
-                        data-translate-keys="agree-terms" data-translate-html="true">同意</span><button type="button"
-                        class="text-decoration-underline border-0 bg-white" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal" @click="atTop = true">
-                        會員責任規範及個資聲明
-                      </button></label></label>
+                <div :class="{ 'opacity-50': !isLookOver }">
+                  <Field :disabled="!isLookOver" :rules="isCheck" required id="termCheck" name="termCheck" value=""
+                    type="checkbox" class="form-check-input">
+                  </Field>
+                  <error-message name="termCheck" class="invalid-feedback"></error-message>
+                  <label for="termCheck">
+                    <span data-translate-keys="agree-terms" data-translate-html="true">同意</span>
+                    <button type="button" class="text-decoration-underline border-0 bg-white" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal" @click="atTop = true">
+                      會員責任規範及個資聲明
+                    </button>
+                  </label>
                 </div>
                 <div>
                   <label class="checkbox-inline" title=""><input id="allow-assure-check-box" name="allow-assure-check-box"
@@ -415,12 +418,12 @@ export default {
       }
       return true;
     },
-    // isRegion (value) {
-    //   if (!value) {
-    //     return '此欄為必填';
-    //   }
-    //   return true;
-    // },
+    isCheck (value) {
+      if (value) {
+        return '請閱讀"規範與聲明"文件，並將卷軸拉至底部，決定是否勾選同意';
+      }
+      return true;
+    },
     funBuyPerson () {
       this.buyPerson = !this.buyPerson;
       if (this.buyPerson) {

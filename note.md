@@ -1,12 +1,12 @@
-update  /  ;
-create  / ;
-fixed CartList / UserCheckout / created_at / tempForm;
+update    ;
+create  isCheck ;
+fixed  ;
 
-
+CartList中 :rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋submit行為
 
 首頁加入視差 用WOW 或AOS 
 首頁的產品要渲染 改回圈或用extend >  .slice(0, 4)
-會員條款談窗
+
 
 結帳頁都改成 英文 / 結帳完 導覽購物車要清空
 要做付款時間 訂單成立時間

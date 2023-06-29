@@ -1,6 +1,6 @@
 <template>
-  <head class="navbar navbar-expand-md bg-white py-4 shadow-sm " style="z-index:1" ref="header"
-    :class="{ 'position-fixed top-0 start-0 end-0 animate__animated  animate__slideInDown  animate__animated ': !atTop }">
+  <head class="navbar navbar-expand-md  py-4  position-fixed top-0 start-0 end-0" style="z-index:10" ref="header"
+    :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
     <div class="container-fluid d-flex justify-content-between">
       <router-link to="/" class="d-flex position-relative text-decoration-none">
         <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0">JerseyTown</p>
@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     handleScroll () {
-      this.atTop = !(window.scrollY > this.nav + 300); //* 使用this.nav進行操作
+      this.atTop = !(window.scrollY > this.nav + 10); //* 使用this.nav進行操作
     },
     //* 透過名稱取操作元件的函式
     openOffcanvas () {
