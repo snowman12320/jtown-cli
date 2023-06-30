@@ -1,33 +1,17 @@
-update    ;
-create  isCheck ;
-fixed  ;
+CartList 中 :rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
 
-CartList中 :rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋submit行為
+header 中
+:style="{ 'backdrop-filter: blur(5px)': atTop }"
 
-首頁加入視差 用WOW 或AOS 
-首頁的產品要渲染 改回圈或用extend >  .slice(0, 4)
-
-
-結帳頁都改成 英文 / 結帳完 導覽購物車要清空
-要做付款時間 訂單成立時間
-要做結帳確認頁面
-結帳完 商品總計經過計算會 變成十倍 但原始資料無誤 推測經過計算會錯誤 可能要先算過再塞回去
-選擇超商（綠界物流）
-付款彈窗或confirm
-
-確認頁面 可能要放 cartview下 才能跨元件更新購物車
-使用文章api 前後台增刪查改
-
-
-
-HomeBanner 的lightbox使用的href的圖片路徑就無法顯示，
+storyItem 中，背景圖片引入問題：
+style="background-image: url(@/assets/nbaWeb/1126209.png)"
+style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\1126209.png)"
+還有之前，HomeBanner 的 lightbox 使用的 href 的圖片路徑就無法顯示，
 嘗試兩種寫法：
 href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
-href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg" 
+href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 
-
-
-//////////////////////////////////////////////////技術筆記
+//////////////////////////////////////////////////////////////////////////////////////////////////////////技術筆記
 //\* uniqueCategories
 // this.uniqueCategories = this.products
 // .filter((product, index, self) => self.findIndex(p => p.category === product.category) === index)
@@ -39,22 +23,29 @@ href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 // 如果 findIndex 方法返回的索引与当前元素在数组中的索引相等，则表示当前元素是第一个具有该"category"值的元素，我们将其保留在结果数组中。
 // 最后，我们使用 map 方法来提取结果数组中每个对象的"category"值，生成一个最终的唯一"category"值的数组。
 
-
-//* UserCheckout
-// const date = new Date(this.create_at * 1000); // 将秒转换为毫秒
+//_ UserCheckout
+// const date = new Date(this.create_at _ 1000); // 将秒转换为毫秒
 // const year = date.getFullYear();
-// const month = date.getMonth() + 1; // 月份从0开始，所以要加1
+// const month = date.getMonth() + 1; // 月份从 0 开始，所以要加 1
 // const day = date.getDate();
 // const hours = date.getHours();
 // const minutes = date.getMinutes();
 // const seconds = date.getSeconds();
-// this.create_at = year + '-' + month.toString().padStart(2, '0') + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds; 
-> 怪怪的日期
-//*
-// 将日期时间对象转为字符串 > 錯誤
-// this.paid_date = new Date(this.order.paid_date * 1000).toISOString().slice(0, 19).replace('T', ' ');
+// this.create_at = year + '-' + month.toString().padStart(2, '0') + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 
-///////////////////////////////////////////技術問題
+> 怪怪的日期
+> //_
+> // 将日期时间对象转为字符串 > 錯誤
+> // this.paid_date = new Date(this.order.paid_date _ 1000).toISOString().slice(0, 19).replace('T', ' ');
+
+{{}} 用于插值表达式，用于将数据绑定到模板中。除了基本的插值表达式外，Vue 还提供了一些进阶的写法，包括：
+1. 过滤器（Filters）：可以在插值表达式中使用过滤器来对数据进行处理和格式化。例如： {{ message | capitalize }} ，其中 capitalize 是一个自定义的过滤器。
+2. 计算属性（Computed Properties）：可以在 Vue 组件中定义计算属性，并在插值表达式中使用它们。计算属性可以根据响应式数据的变化自动更新。例如： {{ fullName }} ，其中 fullName 是一个计算属性。
+3. 方法调用（Method Calls）：在插值表达式中可以调用 Vue 组件中定义的方法。例如： {{ getMessage() }} ，其中 getMessage 是一个方法。
+4. 动态绑定属性（Dynamic Binding）：可以在插值表达式中动态绑定 HTML 属性。例如：`<div :class="{'active': isActive}"></div> ，其中 isActive 是一个布尔值，根据其值动态绑定 active 类。
+5. 表达式（Expressions）：插值表达式支持 JavaScript 表达式的语法。可以在表达式中使用条件语句、三元表达式等。例如： {{ isTrue ? 'Yes' : 'No' }}`。
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
 x 關於 元件傳遞資料的使用
 "HomeView"用 props 和 "productsView"用 emit 去改變，isLoading 和 isLogin 的布林值，開發上有建議用哪種嗎
 看起來 props+mixin(每個 view) 程式碼比較簡潔好懂 > emit 要用兩次傳兩次 isLoading
@@ -69,24 +60,28 @@ x 關於 "emitter"
 請問使用 emitter
 this.emitter.emit('customEvent_getCart', this.getCart);
 那在另一個元件有辦法跨元件觸發函式嗎，試過幾次沒辦法，不知道哪裡寫錯
+
 > this.emitter.on('customEvent_getCart', () => {
-this.getCart();
-});
+> this.getCart();
+> });
 
 x 關於"seleted"
 在 CartList 中，想讓勾選優惠券後，固定在勾選該優惠券，但無法依照判斷有優惠碼時就固定勾選它，會一直回復到無勾選狀態
-> 應該要存進去 api 已存但無法
-<!-- !! 雙重否定運算子：將值強制轉換為布林值。將值兩次否定後，結果就是該值的布林表示 ，:selected="Boolean(couponCode)-->
-> //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
 
+> 應該要存進去 api 已存但無法
+
+<!-- !! 雙重否定運算子：將值強制轉換為布林值。將值兩次否定後，結果就是該值的布林表示 ，:selected="Boolean(couponCode)-->
+
+> //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
 
 x 關於"computed"
 在 productList 使用 filtersData，為啥要用 &&，不然 cacheCategory 搜尋會有問題，但我的認知是，用｜｜才是判斷，cacheCategory 或 cacheSearch 有符合的都返回才對
 ，還有在我點選 cacheCategory 時，我設定清空 cacheSearch，當我要再搜尋時要點兩下才能輸入，點一下就會讓一個字輸入失敗
->如果是 || 的話代表"或"，意思是兩個條件符合一個就可以
-至於有問題推測主因是目前在 ProductsSide.vue 分別 watch cacheSearch 和 cacheCategory
-只要任何一方改變就會清空另一個變數
-因此推論這個功能一次僅能使用 cacheSearch 或是 cacheCategory 兩者其一
+
+> 如果是 || 的話代表"或"，意思是兩個條件符合一個就可以
+> 至於有問題推測主因是目前在 ProductsSide.vue 分別 watch cacheSearch 和 cacheCategory
+> 只要任何一方改變就會清空另一個變數
+> 因此推論這個功能一次僅能使用 cacheSearch 或是 cacheCategory 兩者其一
 
 x 關於"vee-validate""
 安裝的指令 npm i vee-validate @vee-validate/rules @vee-validate/i18n --save --force
@@ -96,25 +91,24 @@ Uncaught (in promise) TypeError: (0 , vue**WEBPACK_IMPORTED_MODULE_4**.toValue) 
 ，好像是 vee-validate 版本要改，不太確定
 只要註解的 field 打開都會出現上述錯誤
 x 關於"編譯後的終端機中"
-出現以下警告資訊，是指我需要 npm run build，然後再運行伺服器嗎，修正VEE套件錯誤(降版本號/老師的commit有版本)就消失
-  Note that the development build is not optimized.
-  To create a production build, run npm run build.
-  >直接輸入 npm i vee-validate@4.9.6 即可降回
+出現以下警告資訊，是指我需要 npm run build，然後再運行伺服器嗎，修正 VEE 套件錯誤(降版本號/老師的 commit 有版本)就消失
+Note that the development build is not optimized.
+To create a production build, run npm run build.
+
+> 直接輸入 npm i vee-validate@4.9.6 即可降回
 
 x 關於 "@change"
 CartOffcanvas 中 @change="updateCart(item)" 嘗試讓 input 數值變動就觸發函式，但沒有觸發函式
 v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，要使用＠click 在增加或減少按鈕上才會觸發
- > 在 input 輸入完後要點旁邊的任意空白處才會觸發
-x 關於"CartList"中
-我在 productItem 中，按直接購買，跳轉到 CartList，我的 carts 不會更新，有使用 emitter 去 getCart()和該 created(){getCart()}，但也沒用，在要套用優惠券時才會更新
+
+> 在 input 輸入完後要點旁邊的任意空白處才會觸發
+> x 關於"CartList"中
+> 我在 productItem 中，按直接購買，跳轉到 CartList，我的 carts 不會更新，有使用 emitter 去 getCart()和該 created(){getCart()}，但也沒用，在要套用優惠券時才會更新
 > 助教這裡測試會直接更新
-不過我在 ProductsList.vue 修改了 API 的路徑
-變成：https://vue3-course-api.hexschool.io/api/william-api/products/?page=1
-這樣使用者不需登入也能看到產品列表
+> 不過我在 ProductsList.vue 修改了 API 的路徑
+> 變成：https://vue3-course-api.hexschool.io/api/william-api/products/?page=1
+> 這樣使用者不需登入也能看到產品列表
 
 「extends 和 mixins 表达了不同的意图。mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
 也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
 希望有幫助到你，有問題歡迎發問，我們會在線上等你。
-
-
-

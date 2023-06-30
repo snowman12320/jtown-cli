@@ -26,7 +26,8 @@
               <p class="text-end"> <span :class="couponCode !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ couponCode
               }}"折抵</span>
                 <!-- -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }} -->
-                -$ {{ $filters.currency(sumFinalTotal / (100 - couponPercent)) }}
+                <!-- 可以在表达式中使用条件语句、三元表达式 -->
+                -$ {{ couponPercent ? $filters.currency(sumFinalTotal / (100 - couponPercent)) : 0 }}
               </p>
             </li>
             <li class="list-group-item d-flex justify-content-between pb-0">
@@ -339,9 +340,13 @@ export default {
         });
         //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
         //!  加這段剛開始沒有值會錯 || res.data.data.carts[0].coupon.code
-        if (!this.couponCode) {
-          this.couponPercent = res.data.data.carts[0].coupon.percent;
+        if (this.couponPercent) {
+          // this.couponCode = res.data.data.carts[0].coupon.code;
+          // return;
           this.couponCode = res.data.data.carts[0].coupon.code;
+        }
+        if (this.couponCode) {
+          this.couponPercent = res.data.data.carts[0].coupon.percent;
         }
       });
     },

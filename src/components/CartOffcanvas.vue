@@ -116,7 +116,7 @@ export default {
         this.sumFinalTotal = 0;
         this.sumFinalQty = 0;
         this.carts.forEach(item => {
-          this.sumFinalTotal += item.final_total;
+          this.sumFinalTotal += item.total;
           this.sumFinalQty += item.qty;
         });
       });

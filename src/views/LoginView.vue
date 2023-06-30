@@ -1,7 +1,8 @@
 <template>
   <Loading :active="isLoading"></Loading>
   <Header :is-login="isLogin"></Header>
-  <div class="container mt-5">
+  <div class="container mt-5" style="margin-top: 104px !important">
+
     <form class="row justify-content-center" @submit.prevent="signIn">
       <div class="col-md-6">
         <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>

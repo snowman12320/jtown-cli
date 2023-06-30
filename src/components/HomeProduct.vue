@@ -9,7 +9,7 @@
   <div class="" style="height:1000px !important;overflow:hidden">
     <div class="masonry">
       <div class="item" v-for="(item, index) in products" :key="item.id" data-aos="fade-up"
-        :data-aos-duration="`${index}000`">
+        :data-aos-duration="`${index * 1000}`" :data-aos-delay="`${index * 100}`" data-aos-offset="0">
         <div class=" overflow-hidden" @click="getProduct(item.id)">
           <div class="card w-100 position-relation newproduct_img" data-num="1">
             <div class="newproduct_cloth">
@@ -89,6 +89,12 @@ export default {
   column-count: 4;
   column-gap: 0;
   position: relative;
+}
+
+@media (max-width:768px) {
+  .masonry {
+    column-count: 3
+  }
 }
 
 .masonry::after {

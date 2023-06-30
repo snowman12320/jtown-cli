@@ -23,7 +23,9 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-4 py-3" href="story.html">Story</a>
+            <router-link to="/story/list" class="nav-link px-4 py-3 ">
+              Story
+            </router-link>
           </li>
           <li class="nav-item">
             <!-- 透過$router.path去判斷 -->
@@ -31,16 +33,16 @@
               :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link px-4 py-3" href="rank.html">Rank</a>
+            <router-link to="/rank" class="nav-link px-4 py-3 ">
+              Rank
+            </router-link>
           </li>
           <li class="ms-1" v-if="isLogin">
-            <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
-              <router-link to="/dashboard">
-                <a class="text-decoration-none fs-6 px-3 rounded-pill text-white">
-                  Sign out
-                </a>
-              </router-link>
-            </button>
+            <router-link to="/dashboard" class="fs-6 px-3 rounded-pill text-white">
+              <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
+                Sign out
+              </button>
+            </router-link>
           </li>
           <li class="ms-1" v-else>
             <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
@@ -49,9 +51,16 @@
               </router-link>
             </button>
           </li>
-
-          <li><button @click="openOffcanvas()" class="bg-transparent border-0"><i
-                class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-3 px-3"></i></button></li>
+          <li>
+            <button @click="openOffcanvas()" class="bg-transparent border-0">
+              <i class="fa-regular fa-heart  text-nbaRed fs-3   mt-2 px-1 ms-md-2"></i>
+            </button>
+          </li>
+          <li>
+            <button @click="openOffcanvas()" class="bg-transparent border-0">
+              <i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-2 px-1"></i>
+            </button>
+          </li>
         </ul>
       </div>
     </div>

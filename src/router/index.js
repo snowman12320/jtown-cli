@@ -68,7 +68,6 @@ const routes = [
       }
     ]
   },
-
   {
     path: '/user',
     component: () => import('../views/Userboard.vue'),
@@ -82,6 +81,24 @@ const routes = [
         component: () => import('../views/UserProduct.vue')
       }
     ]
+  },
+  {
+    path: '/story',
+    component: () => import('../views/StoryView.vue'),
+    children: [
+      {
+        path: 'list',
+        component: () => import('../views/StoryList.vue')
+      },
+      {
+        path: 'item',
+        component: () => import('../views/StoryItem.vue')
+      }
+    ]
+  },
+  {
+    path: '/rank',
+    component: () => import('../views/RankView.vue')
   }
 ];
 
