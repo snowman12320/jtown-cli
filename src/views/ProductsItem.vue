@@ -107,6 +107,7 @@ export default {
     updateFavo () {
       this.isFavorite = !this.isFavorite;
       if (this.isFavorite) {
+        //! 直接跨元件溝通，使用土司元件，不經過httpMessageState，去判斷res
         this.emitter.emit('push-message', {
           style: 'success',
           title: '加入我的最愛'

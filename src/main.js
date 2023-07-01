@@ -11,7 +11,7 @@ import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json';// 匯入繁體中�
 import App from './App.vue';
 import router from './router';
 import { currency, date } from './methods/filters';
-import $httpMessageState from './methods/pushMessageState';
+import $httpMessageState from './methods/pushMessageState'; //* 全域函式
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 

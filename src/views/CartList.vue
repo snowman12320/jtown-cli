@@ -2,7 +2,7 @@
   <Loading :active="isLoading"></Loading>
   <!-- {{ carts }} -->
   <div class="row content container mx-auto mt-0">
-    <aside class="col-12 col-lg-4" style="z-index:-1">
+    <aside class="col-12 col-lg-4" style="z-index:1">
       <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
         <div class="card w-100 p-3" style="width: 18rem">
           <ul class="list-group list-group-flush">
@@ -23,8 +23,12 @@
             </div>
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>優惠折抵</p>
-              <p class="text-end"> <span :class="couponCode !== '' ? 'd-block text-danger' : 'd-none'">已使用"{{ couponCode
-              }}"折抵</span>
+              <p class="text-end">
+                <span :class="couponCode !== null ? 'd-block text-danger' : 'd-none'">
+                  <i @click="addCouponCode(couponCode = '')" class="bi bi-x-lg" style="cursor:pointer"></i>
+                  已使用"{{ couponCode
+                  }}"折抵
+                </span>
                 <!-- -$ {{ $filters.currency(Math.round((sumFinalTotal / (couponPercent / 100)) - sumFinalTotal)) }} -->
                 <!-- 可以在表达式中使用条件语句、三元表达式 -->
                 -$ {{ couponPercent ? $filters.currency(sumFinalTotal / (100 - couponPercent)) : 0 }}
@@ -108,7 +112,7 @@
               <div for="offTicket" style="">
                 <select name="offTicket" id="offTicket" class="form-select coupon_ticket" @change="addCouponCode()"
                   v-model="couponCode">
-                  <option value="" disabled>選擇優惠券</option>
+                  <option value="" :selected="Boolean(!couponCode)" disabled>選擇優惠券</option>
                   <option value="gooaya" :selected="Boolean(couponCode)">gooaya / 每件商品打9折</option>
                   <option value="howhowhasfriend" :selected="Boolean(couponCode)">howhow / 每件商品打8折</option>
                 </select>
@@ -172,7 +176,7 @@
             <li class="list-group-item">
               <div class="col-12">
                 <div class="">
-                  <input @click="funBuyPerson()" type="radio" id="buy_person" class="d-inline-block"
+                  <input @click="funcBuyPerson()" type="radio" id="buy_person" class="d-inline-block"
                     name="person" /><label for="buy_person" class="">同購買人 </label>
                   <div class="d-none">
                     <p class="ps-2 my-2 mb-0">取件人資訊 :</p>
@@ -297,8 +301,8 @@ export default {
         }
       },
       message: '這是留言',
-      buyPerson: false,
-      tempForm: {
+      isBuyPerson: false, //* 是否同購買人
+      tempForm: { //* 已登入會員的資料
         user: {
           email: 'snowman12320@gmail.com',
           name: '陳威良',
@@ -306,7 +310,7 @@ export default {
           address: '台灣省'
         }
       },
-      isLookOver: false
+      isLookOver: false //* 是否閱讀條款
     };
   },
   created () {
@@ -340,11 +344,7 @@ export default {
         });
         //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
         //!  加這段剛開始沒有值會錯 || res.data.data.carts[0].coupon.code
-        if (this.couponPercent) {
-          // this.couponCode = res.data.data.carts[0].coupon.code;
-          // return;
-          this.couponCode = res.data.data.carts[0].coupon.code;
-        }
+        this.couponCode = localStorage.getItem('local-couponCode');
         if (this.couponCode) {
           this.couponPercent = res.data.data.carts[0].coupon.percent;
         }
@@ -398,10 +398,23 @@ export default {
       };
       this.isLoading = true;
       this.$http.post(url, { data: coupon }).then((res) => {
-        // console.log(res.data);
-        this.$httpMessageState(res, '加入優惠券');
-        this.getCart();
-        this.isLoading = false;
+        if (res.data.success) {
+          localStorage.setItem('local-couponCode', this.couponCode);
+          this.$httpMessageState(res, '加入優惠券');
+          this.getCart();
+          this.isLoading = false;
+        } else {
+          //! 實際狀況：透過取消優惠券api，去接收成功取消訊息
+          localStorage.removeItem('local-couponCode', this.couponCode);
+          // this.$httpMessageState(res.data.success, '取消優惠券');
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: '取消優惠券'
+          });
+          this.couponPercent = '';
+          this.getCart();
+          this.isLoading = false;
+        }
       });
     },
     onSubmit () {
@@ -429,9 +442,9 @@ export default {
       }
       return true;
     },
-    funBuyPerson () {
-      this.buyPerson = !this.buyPerson;
-      if (this.buyPerson) {
+    funcBuyPerson () {
+      this.isBuyPerson = !this.isBuyPerson;
+      if (this.isBuyPerson) {
         this.form = { ...this.tempForm };
       } else {
         this.form = {

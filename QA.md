@@ -1,16 +1,43 @@
-CartList 中 :rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
 
-header 中
-:style="{ 'backdrop-filter: blur(5px)': atTop }"
 
-storyItem 中，背景圖片引入問題：
+CartList 中 
+1.
+:rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
+2.
+:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
+
+
+storyItem 中
+背景圖片引入問題：
 style="background-image: url(@/assets/nbaWeb/1126209.png)"
 style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\1126209.png)"
-還有之前，HomeBanner 的 lightbox 使用的 href 的圖片路徑就無法顯示，
+還有之前，有使用lightbox，彈窗的圖片會使用的， 或在href屬性中，使用圖片路徑就無法顯示
 嘗試兩種寫法：
 href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 
+下滾載入有問題
+
+StoryModal中
+1.
+v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有
+但description卻有
+2.
+想在description增加一個height的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實機開發時，只能請後端改api呢？
+<div class="mb-3 col-md-6">
+    <label for="height" class="form-label">身高</label>
+    <input type="number" class="form-control" id="height" v-model="tempStory.description.height"
+    placeholder="請輸入身高" />
+</div>
+couponModal中的watch的功用
+ 是due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
+可是 好像只要due_date ()後， 加上$filters.data就會轉成日期
+
+storys中openModal
+嘗試將原本的時間秒數轉成日期格式，並顯示在彈窗的日期中，但都失敗
+
+
+https://github.com/snowman12320/hexschool-question
 //////////////////////////////////////////////////////////////////////////////////////////////////////////技術筆記
 //\* uniqueCategories
 // this.uniqueCategories = this.products
@@ -44,6 +71,12 @@ href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 3. 方法调用（Method Calls）：在插值表达式中可以调用 Vue 组件中定义的方法。例如： {{ getMessage() }} ，其中 getMessage 是一个方法。
 4. 动态绑定属性（Dynamic Binding）：可以在插值表达式中动态绑定 HTML 属性。例如：`<div :class="{'active': isActive}"></div> ，其中 isActive 是一个布尔值，根据其值动态绑定 active 类。
 5. 表达式（Expressions）：插值表达式支持 JavaScript 表达式的语法。可以在表达式中使用条件语句、三元表达式等。例如： {{ isTrue ? 'Yes' : 'No' }}`。
+
+「extends 和 mixins 表达了不同的意图。
+mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
+也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
+希望有幫助到你，有問題歡迎發問，我們會在線上等你。
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
 x 關於 元件傳遞資料的使用
@@ -100,7 +133,6 @@ To create a production build, run npm run build.
 x 關於 "@change"
 CartOffcanvas 中 @change="updateCart(item)" 嘗試讓 input 數值變動就觸發函式，但沒有觸發函式
 v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，要使用＠click 在增加或減少按鈕上才會觸發
-
 > 在 input 輸入完後要點旁邊的任意空白處才會觸發
 > x 關於"CartList"中
 > 我在 productItem 中，按直接購買，跳轉到 CartList，我的 carts 不會更新，有使用 emitter 去 getCart()和該 created(){getCart()}，但也沒用，在要套用優惠券時才會更新
@@ -109,6 +141,8 @@ v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，要使�
 > 變成：https://vue3-course-api.hexschool.io/api/william-api/products/?page=1
 > 這樣使用者不需登入也能看到產品列表
 
-「extends 和 mixins 表达了不同的意图。mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
-也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
-希望有幫助到你，有問題歡迎發問，我們會在線上等你。
+
+x header 中
+https://v2.cn.vuejs.org/v2/guide/class-and-style.html
+:style="{ 'backdrop-filter: blur(5px)': atTop }"
+> 按照官網方式寫成物件  > 寫成class去使用即可

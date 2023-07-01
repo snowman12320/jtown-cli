@@ -1,7 +1,7 @@
 <template>
   <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0" style="z-index:10" ref="header"
     :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
-    <div class="container-fluid d-flex justify-content-between p-3" style="backdrop-filter: blur(5px);">
+    <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'backdrop': atTop }">
       <router-link to="/" class="d-flex position-relative text-decoration-none">
         <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0">JerseyTown</p>
         <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
@@ -109,3 +109,8 @@ export default {
   }
 };
 </script>
+<style>
+.navbar .backdrop {
+  backdrop-filter: blur(5px);
+}
+</style>

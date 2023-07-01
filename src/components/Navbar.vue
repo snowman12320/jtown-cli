@@ -2,37 +2,27 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-2" style="z-index:1">
     <div class="container-fluid">
       <a class="navbar-brand" href="#"></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav d-flex gap-5 align-items-center">
-          <router-link to="/" class="btn btn-nbaBlue text-decoration-none"
-            >前台</router-link
-          >
-          <router-link to="/dashboard/products" class="text-white  text-decoration-none"
-            >產品</router-link
-          >
-          <router-link to="/dashboard/orders" class="text-white  text-decoration-none"
-            >訂單</router-link
-          >
-          <router-link to="/dashboard/coupons" class="text-white  text-decoration-none"
-            >優惠券</router-link
-          >
-          <a href="#" @click.prevent="logout" class="text-white  text-decoration-none">登出</a>
+        <div class="navbar-nav d-flex gap-5 w-100 align-items-center justify-content-between">
+          <div class="d-flex gap-2">
+            <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
+            <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
+          </div>
+          <div class="d-flex gap-5">
+            <router-link to="/dashboard/products" class="text-white  text-decoration-none">產品</router-link>
+            <router-link to="/dashboard/orders" class="text-white  text-decoration-none">訂單</router-link>
+            <router-link to="/dashboard/coupons" class="text-white  text-decoration-none">優惠券</router-link>
+            <router-link to="/dashboard/storys" class="text-white  text-decoration-none">文章</router-link>
+            <a href="#" @click.prevent="logout" class="text-white  text-decoration-none">登出</a>
+          </div>
         </div>
       </div>
     </div>
   </nav>
-
 </template>
 
 <script>

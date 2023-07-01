@@ -65,20 +65,10 @@ const routes = [
       {
         path: 'coupons',
         component: () => import('../views/Coupons.vue')
-      }
-    ]
-  },
-  {
-    path: '/user',
-    component: () => import('../views/Userboard.vue'),
-    children: [
-      {
-        path: 'cart',
-        component: () => import('../views/UserCart.vue')
       },
       {
-        path: 'product/:productId',
-        component: () => import('../views/UserProduct.vue')
+        path: 'storys',
+        component: () => import('../views/Storys.vue')
       }
     ]
   },
@@ -99,6 +89,21 @@ const routes = [
   {
     path: '/rank',
     component: () => import('../views/RankView.vue')
+  },
+  //*
+  {
+    path: '/user',
+    component: () => import('../views/Userboard.vue'),
+    children: [
+      {
+        path: 'cart',
+        component: () => import('../views/UserCart.vue')
+      },
+      {
+        path: 'product/:productId',
+        component: () => import('../views/UserProduct.vue')
+      }
+    ]
   }
 ];
 
