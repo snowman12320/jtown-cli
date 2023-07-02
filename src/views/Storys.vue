@@ -22,7 +22,7 @@
         <td>{{ $filters.date(item.create_at) }}</td>
         <td>{{ item.title }}</td>
         <td>{{ item.author }}</td>
-        <td>{{ item.description }}</td>
+        <td class="multiline-ellipsis">{{ item.description }}</td>
         <td>{{ item.content }}</td>
         <td>
           <span class="text-success" v-if="item.isPublic">啟用</span>
@@ -149,3 +149,21 @@ export default {
   }
 };
 </script>
+<style scope >
+.single-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  /*  有寬度才能多行  */
+  width: 100%;
+  height: 85px;
+}
+</style>

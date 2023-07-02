@@ -45,7 +45,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
     this.emitter.on('customEvent_search', (data) => {
       this.cacheSearch = data;
-      // console.log(typeof (this.cacheSearch));
+      // console.log(this.cacheSearch);
     });
     this.emitter.on('customEvent_category', (data) => {
       this.cacheCategory = data;

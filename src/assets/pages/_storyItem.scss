@@ -1,6 +1,6 @@
-@import "../helpers/mix";
-@import "../helpers/function";
-@import "../helpers/variables";
+@import '../helpers/mix';
+@import '../helpers/function';
+@import '../helpers/variables';
 
 .allstaritem_back {
   border-radius: 2%;
@@ -21,7 +21,8 @@
 }
 @include maxpc() {
   .imgRwd {
-    left: 40%;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .fsRwd {
     font-size: 32px;
@@ -42,6 +43,7 @@
 }
 @include minipc() {
   .imgRwd {
-    left: 20%;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

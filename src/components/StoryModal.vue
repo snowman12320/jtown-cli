@@ -58,9 +58,11 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="description" class="form-label">內文</label>
-                <textarea type="text" class="form-control" id="description" v-model="tempStory.description"
+                <label for="editor1" class="form-label">內文</label>
+                <textarea type="text" class="form-control" v-model="tempStory.description"
                   placeholder="請輸入文章內容"></textarea>
+                <!-- <TinyMCE></TinyMCE> -->
+                <!-- <textarea id="editor1"></textarea> -->
               </div>
               <div class="mb-3">
                 <label for="content" class="form-label">內文</label>
@@ -100,8 +102,10 @@
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin';
+// import TinyMCE from '@/components/TinyMCE.vue';
 export default {
   mixins: [modalMixin],
+  // components: { TinyMCE },
   data () {
     return {
       modal: {},

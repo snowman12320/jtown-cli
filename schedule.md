@@ -23,11 +23,12 @@ x 首頁的產品要渲染 改回圈或用extend / mixin (都是JS擴增) >  .sl
 x 左側購物車 小計要整數(final_total > total)
 
 最後 ：
-整理SCSS > 繳交時再整理 
+整理SCSS / 拿掉非必要註解 > 繳交時再整理 
 結帳頁都改成 英文 > 最後再轉
 圖片檔語意化
 RWD
 客製頁面改聯絡我們
+
 
 簡單 ：
 
@@ -35,16 +36,7 @@ RWD
 
 
 嚴肅的  :
-story
-使用文章api 前後台增刪查改
-x準備畫面
-x新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料
-後台刪除
-後台使用編輯器
-前台取得資料
--
-頁數切換
-搜尋API
+
 
 
 offcanvas
@@ -73,7 +65,6 @@ dashbord
 
 
 
-
 footer
 關於我們 （左邊
 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷 
@@ -81,3 +72,20 @@ footer
 徵才用彈窗 / 表單驗證 / 上傳文件
 
 
+後台使用編輯器：
+let reData = [
+    { 'left_wifeName': 'Happy' },
+    { 'right_wifeName': 'Happy2' },
+];
+localStorage.setItem('neiDetail', JSON.stringify(reData));
+//將陣列&物件資料印在網頁上
+let childNameLeft = localStorage.getItem('neiDetail');
+let childNameLeftObj = JSON.parse(childNameLeft) 
+https://5xruby.tw/posts/localstorage
+https://codepen.io/ice12031110/full/PomoBOR
+https://codepen.io/snowman12320/pen/mdQEXZq?editors=1010
+
+story
+使用文章api 前後台增刪查改
+x準備畫面 x新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x後台刪除 x前台取得資料 x頁數切換
+搜尋API

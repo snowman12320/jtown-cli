@@ -81,7 +81,7 @@ const routes = [
         component: () => import('../views/StoryList.vue')
       },
       {
-        path: 'item',
+        path: 'item/:storyId',
         component: () => import('../views/StoryItem.vue')
       }
     ]

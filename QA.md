@@ -6,7 +6,6 @@ CartList 中
 2.
 :selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
 
-
 storyItem 中
 背景圖片引入問題：
 style="background-image: url(@/assets/nbaWeb/1126209.png)"
@@ -16,6 +15,8 @@ style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\ass
 href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 
+---------------------
+productList中
 下滾載入有問題
 
 StoryModal中
@@ -29,12 +30,18 @@ v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有
     <input type="number" class="form-control" id="height" v-model="tempStory.description.height"
     placeholder="請輸入身高" />
 </div>
+3.
+storys中openModal
+嘗試將原本的時間秒數轉成日期格式，並顯示在彈窗的日期中，但都失敗
+
 couponModal中的watch的功用
  是due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
 可是 好像只要due_date ()後， 加上$filters.data就會轉成日期
 
-storys中openModal
-嘗試將原本的時間秒數轉成日期格式，並顯示在彈窗的日期中，但都失敗
+// 確認收藏狀態
+//! 要用this.id ，用product.id會錯 ，需分清楚差別
+美個產品共用收藏狀態了 ，可能要換一下id
+
 
 
 https://github.com/snowman12320/hexschool-question

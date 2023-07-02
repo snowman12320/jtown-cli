@@ -12,176 +12,97 @@
       how to become the NBA all star player?
     </p>
     <section class="row row-cols-1 row-cols-lg-3 rank_card mx-2">
-      <div class="col mb-5 mt-7 mb-lg-0">
+      <div class="col mb-5 mt-7 mb-lg-0" v-for="(item, index) in storyList" :key="index" @click="getStory(item.id)">
         <div class="card" style="height: 424px">
-          <img data-num="001" src="../assets/nbaWeb/PNG-images-NBA-Players-41png.png" height="300"
+          <img data-num="001" :src="item.imageUrl" height="300"
             class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
           <div data-num="001" class="img_back img_back_kobe"></div>
           <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">kobe bryant</h3>
-            <p class="card-text fs-6">
-              Bryant won five NBA championships, was an 18-time All-Star, a
-              15-time member of the All-NBA Team, a 12-time member of the
-              All-Defensive Team, the 2008 NBA Most Valuable Player (MVP), and
-              a two-time NBA Finals MVP. Bryant also led the NBA in scoring
-              twice, and ranks fourth in league all-time regular season and
-              postseason scoring. He was posthumously voted into the Naismith
-              Memorial Basketball Hall of Fame in 2020 and named to the NBA
-              75th Anniversary Team in 2021.
+            <h3 class="card-title fw-bold fs-6">{{ item.title }}</h3>
+            <p class="card-text fs-6 multiline-ellipsis">
+              {{ item.description }}
             </p>
 
-            <router-link to="/story/item"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</router-link>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5 mt-7 mb-lg-0">
-        <div class="card" style="height: 424px">
-          <img data-num="002" src="../assets/nbaWeb/PNG-images-NBA-Players-28png.png" height="300"
-            class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
-          <div data-num="002" class="img_back img_back_lebron"></div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">LeBron James</h3>
-            <p class="card-text fs-6">
-              James has won four NBA championships, four NBA MVP awards, four
-              NBA Finals MVP awards, three All-Star MVP awards, and two
-              Olympic gold medals. James has scored the most points in the
-              playoffs, the second most career points, and has the seventh
-              most career assists.
-            </p>
-            <a href="storyItem.html"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5 mt-7 mb-lg-0">
-        <div class="card" style="height: 424px">
-          <img data-num="003" src="../assets/nbaWeb/PNG-images-NBA-Players-1png.png" height="300"
-            class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
-          <div data-num="003" class="img_back img_back_curry"></div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">Stephen Curry</h3>
-            <p class="card-text fs-6">
-              Curry won his first league MVP award and led the Warriors to
-              their first championship since 1975. The following season, he
-              became the first player to be elected MVP by a unanimous vote
-              and lead the league in scoring while shooting above 50–40–90.
-              That same year, the Warriors broke the record for the most wins
-              in an NBA season en route to reaching the 2016 NBA Finals, which
-              they lost to the Cleveland Cavaliers in seven games.
-            </p>
-            <a href="storyItem.html"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5 mt-7 mb-lg-0">
-        <div class="card" style="height: 424px">
-          <img data-num="004" src="../assets/nbaWeb/PNG-images-NBA-Players-58png.png" height="300"
-            class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
-          <div data-num="004" class="img_back img_back_westbrook"></div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">Russlue Westbrook</h3>
-            <p class="card-text fs-6">
-              Westbrook won his first league MVP award and led the Warriors to
-              their first championship since 1975. The following season, he
-              became the first player to be elected MVP by a unanimous vote
-              and lead the league in scoring while shooting above 50–40–90.
-              That same year, the Warriors broke the record for the most wins
-              in an NBA season en route to reaching the 2016 NBA Finals, which
-              they lost to the Cleveland Cavaliers in seven games.
-            </p>
-            <a href="storyItem.html"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5 mt-7 mb-lg-0">
-        <div class="card" style="height: 424px">
-          <img data-num="005" src="../assets/nbaWeb/PNG-images-NBA-Players-60png.png" height="300"
-            class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
-          <div data-num="005" class="img_back img_back_irving"></div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">Krie Irving</h3>
-            <p class="card-text fs-6">
-              Irving won his first league MVP award and led the Warriors to
-              their first championship since 1975. The following season, he
-              became the first player to be elected MVP by a unanimous vote
-              and lead the league in scoring while shooting above 50–40–90.
-              That same year, the Warriors broke the record for the most wins
-              in an NBA season en route to reaching the 2016 NBA Finals, which
-              they lost to the Cleveland Cavaliers in seven games.
-            </p>
-            <a href="storyItem.html"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</a>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5 mt-7 mb-lg-0">
-        <div class="card" style="height: 424px">
-          <img data-num="006" src="../assets/nbaWeb/PNG-images-NBA-Players-70png.png" height="300"
-            class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
-          <div data-num="006" class="img_back img_back_wall"></div>
-          <div class="card-body">
-            <h3 class="card-title fw-bold fs-6">John Wall</h3>
-            <p class="card-text fs-6">
-              Wall won his first league MVP award and led the Warriors to
-              their first championship since 1975. The following season, he
-              became the first player to be elected MVP by a unanimous vote
-              and lead the league in scoring while shooting above 50–40–90.
-              That same year, the Warriors broke the record for the most wins
-              in an NBA season en route to reaching the 2016 NBA Finals, which
-              they lost to the Cleveland Cavaliers in seven games.
-            </p>
-            <a href="storyItem.html"
-              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center">MORE</a>
+            <button
+              class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center bg-transparent">MORE</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 分頁 -->
-    <!-- nav 不加class / 分頁有內建d-flex -->
-    <div class="pagination justify-content-center my-5">
-      <ul class="">
-        <a href="#">
-          <li>&laquo;</li>
-        </a>
-        <a href="#">
-          <li>1</li>
-        </a>
-        <a href="#">
-          <li>2</li>
-        </a>
-        <a href="#">
-          <li>3</li>
-        </a>
-        <a href="#">
-          <li>4</li>
-        </a>
-        <a href="#">
-          <li>5</li>
-        </a>
-        <a href="#">
-          <li>&raquo;</li>
-        </a>
-      </ul>
-    </div>
+    <!-- props傳遞總頁數 emit傳出目前頁數 -->
+    <Pagination :pages="pagination" @emit-pages="getStoryList"></Pagination>
 
   </div>
 </template>
 <script>
 import loginMixin from '../mixins/loginMixin';
-import emitter from '@/methods/emitter';
+import Pagination from '@/components/Pagination.vue';
 
 export default {
   mixins: [loginMixin],
+  inject: ['emitter'],
   components: {
+    Pagination
   },
-  provide () {
+  data () {
     return {
-      emitter
+      storyList: [],
+      pagination: {},
+      story: {}
     };
+  },
+  created () {
+    this.getStoryList();
+  },
+  methods: {
+    getStoryList (page = 1) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles/?page=${page}`;
+      this.isLoading = true;
+      this.$http.get(api).then((res) => {
+        this.isLoading = false;
+        if (res.data.success) {
+          this.storyList = res.data.articles;
+          this.pagination = res.data.pagination;
+          console.log(this.pagination);
+        }
+      });
+    },
+    getStory (id) { //! 只取一個商品
+      // console.log(id);
+      this.$router.push(`/story/item/${id}`);
+      this.isLoading = true;
+      this.isLoading_big = true;
+      // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${id}`;
+      this.$http.get(api).then((res) => {
+        this.isLoading = false;
+        this.isLoading_big = false;
+        // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+        if (res.data.success) {
+          this.story = res.data.article;
+          console.log(this.story);
+          // this.emitter.emit('customEvent_getStory', this.story);
+        }
+      });
+    }
   }
 };
 </script>
+<style>
+.single-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 50%;
+}
+
+.multiline-ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  /*  有寬度才能多行  */
+  width: 100%;
+}
+</style>

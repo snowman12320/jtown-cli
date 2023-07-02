@@ -51,8 +51,9 @@
             <button style="height:40px" @click="qty++" class="btn btn-outline-secondary py-0">+</button>
           </div>
           <!--  -->
-          <i v-if="isFavorite" @click="updateFavo" class="fa-solid fa-heart fa-beat-fade text-danger fs-3"></i>
-          <i v-else @click="updateFavo" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
+          <i v-if="isFavorite" @click="updateFavo(product.id)"
+            class="fa-solid fa-heart fa-beat-fade text-danger fs-3"></i>
+          <i v-else @click="updateFavo(product.id)" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
           <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
@@ -84,6 +85,7 @@ export default {
       status: {
         loadingItem: ''
       }
+      // favoriteId: ''
     };
   },
   //! mitt
@@ -104,21 +106,52 @@ export default {
     this.getProduct();
   },
   methods: {
-    updateFavo () {
-      this.isFavorite = !this.isFavorite;
-      if (this.isFavorite) {
-        //! 直接跨元件溝通，使用土司元件，不經過httpMessageState，去判斷res
-        this.emitter.emit('push-message', {
-          style: 'success',
-          title: '加入我的最愛'
-        });
-        // this.$httpMessageState(response, '加入我的最愛');
-      } else {
+    updateFavo (id) {
+      // this.isFavorite = !this.isFavorite;
+      // if (this.isFavorite) {
+      //   //! 直接跨元件溝通，使用土司元件，不經過httpMessageState，去判斷res
+      //   this.emitter.emit('push-message', {
+      //     style: 'success',
+      //     title: '加入我的收藏'
+      //   });
+      //   // this.$httpMessageState(response, '加入我的收藏');
+      // } else {
+      //   this.emitter.emit('push-message', {
+      //     style: 'danger',
+      //     title: '移除我的收藏'
+      //   });
+      //   // this.$httpMessageState(response, '移除我的收藏');
+      // }
+      // 比對
+      // this.favoriteId = id;//* 儲存目標
+      const checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
+      console.log(checkFavorite);
+      if (checkFavorite) { //* 存在就刪除
+        this.isFavorite = false;//* 改成無收藏按鈕
         this.emitter.emit('push-message', {
           style: 'danger',
-          title: '移除我的最愛'
+          title: '移除我的收藏'
         });
-        // this.$httpMessageState(response, '移除我的最愛');
+        // 刪除
+        let data = [];
+        data = JSON.parse(localStorage.getItem('favorite'));
+        // console.log(data);
+        const index = data.indexOf(id);
+        // console.log(index);
+        if (index > -1) {
+          data.splice(index, 1);
+          localStorage.setItem('favorite', JSON.stringify(data));
+        }
+      } else { //* 不存在就儲存
+        this.isFavorite = true;//* 改成收藏按鈕
+        this.emitter.emit('push-message', {
+          style: 'success',
+          title: '加入我的收藏'
+        });
+        // 新增
+        const data = [];
+        data.push(id);
+        localStorage.setItem('favorite', JSON.stringify(data));
       }
     },
     getProduct () {
@@ -133,6 +166,15 @@ export default {
           this.product = response.data.product;
         }
       });
+      // 確認收藏狀態
+      //! 要用this.id ，用product.id會錯 ，需分清楚差別
+      const checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(this.id) !== -1); //* 搜尋目標
+      console.log(checkFavorite);
+      if (checkFavorite) {
+        this.isFavorite = true;
+      } else {
+        this.isFavorite = false;
+      }
     },
     addToCart (id, qty = 1, isBuy) {
       this.status.loadingItem = id;
