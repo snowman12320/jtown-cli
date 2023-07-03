@@ -37,7 +37,8 @@ export default {
       id: '',
       product: {},
       cacheSearch: '',
-      cacheCategory: ''
+      cacheCategory: '',
+      isFavorite: false
     };
   },
   mounted () {
@@ -51,10 +52,10 @@ export default {
       this.cacheCategory = data;
       // console.log(typeof (this.cacheCategory));
     });
-    this.emitter.on('get-productId', this.id);
-    this.emitter.on('get-product', () => {
-      this.getProduct(this.id);
-    });
+    // this.emitter.on('get-productId', this.id);
+    // this.emitter.on('get-product', () => {
+    //   this.getProduct(this.id);
+    // });
   },
   created () {
     this.getProducts();
@@ -122,7 +123,6 @@ export default {
       }
     },
     getProduct (id) { //! 只取一個商品
-      // console.log(id);
       this.$router.push(`/products-view/products-item/${id}`);
       this.isLoading = true;
       this.isLoading_big = true;
@@ -144,6 +144,20 @@ export default {
           window.scrollTo(0, 0);
         }
       });
+      // 確認收藏狀態
+      //! 要用this.id ，用product.id會錯 ，需分清楚差別
+      //! 在其他電腦，若先判斷會錯誤
+      // console.log(Boolean(JSON.parse(localStorage.getItem('favorite'))));
+      if (JSON.parse(localStorage.getItem('favorite'))) {
+        const checkFavorite = Boolean(JSON.parse(localStorage.getItem('favorite')).indexOf(id) !== -1); //* 搜尋目標
+        if (checkFavorite) {
+          this.isFavorite = true;
+          this.emitter.emit('customEvent_isFavorite', this.isFavorite);
+        } else {
+          this.isFavorite = false;
+          this.emitter.emit('customEvent_isFavorite', this.isFavorite);
+        }
+      }
     }
   }
 };

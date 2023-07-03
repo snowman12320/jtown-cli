@@ -42,6 +42,9 @@ couponModal中的watch的功用
 //! 要用this.id ，用product.id會錯 ，需分清楚差別
 美個產品共用收藏狀態了 ，可能要換一下id
 
+收藏的陣列要可以要多個
+商品切換時 路徑ID也要改
+
 
 
 https://github.com/snowman12320/hexschool-question
@@ -83,6 +86,12 @@ https://github.com/snowman12320/hexschool-question
 mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
 也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
 希望有幫助到你，有問題歡迎發問，我們會在線上等你。
+
+//! 直接跨元件溝通，使用土司元件，不經過httpMessageState，去判斷res
+this.emitter.emit('push-message', {
+    style: 'danger',
+    title: '移除我的收藏'
+});
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
@@ -148,16 +157,15 @@ v-model.number="item.qty" 和:value="item.qty"都嘗試過也是無法，要使�
 > 變成：https://vue3-course-api.hexschool.io/api/william-api/products/?page=1
 > 這樣使用者不需登入也能看到產品列表
 
-「extends 和 mixins 表达了不同的意图。mixins 选项主要用来组合功能，而 extends 主要用来考虑继承性。」
-也可以說 extends 主要擴展元件功能， mixins 則可組合不同的功能
-希望有幫助到你，有問題歡迎發問，我們會在線上等你。
 
+(公司更改沒紀錄的 - 選都保留才都有)
 warning: in the working copy of 'storyItem.html', LF will be replaced by CRLF the next time Git touches it
 這個警告意味著在 Git 下一次操作 storyItem.html 檔案時，LF（Unix/Linux 系統的換行符號）將會被 CRLF（Windows 系統的換行符號）取代。
 這通常發生在跨不同作業系統的團隊合作中，因為不同的作業系統使用不同的換行符號。Unix/Linux 使用 LF 作為換行符號，而 Windows 使用 CRLF。
 當 Git 操作檔案時，它會自動調整換行符號以符合當前作業系統的預設設定。在這種情況下，Git 準備將 storyItem.html 檔案中的 LF 換行符號轉換為 CRLF 換行符號，以符合 Windows 系統的預設設定。
 這個警告只是提醒你在 Git 操作 storyItem.html 檔案時，換行符號將會被調整。如果你的專案中不需要特定的換行符號格式，你可以忽略這個警告。否則，你可能需要在 Git 設定中進行相應的配置以避免換行符號的自動轉換。
 
+(在家更改有紀錄的)
 x header 中
 https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 :style="{ 'backdrop-filter: blur(5px)': atTop }"

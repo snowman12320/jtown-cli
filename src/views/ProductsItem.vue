@@ -84,8 +84,9 @@ export default {
       id: '',
       status: {
         loadingItem: ''
-      }
-      // favoriteId: ''
+      },
+      favoriteData: [],
+      checkFavorite: false
     };
   },
   //! mitt
@@ -96,51 +97,38 @@ export default {
     this.emitter.on('customEvent_getProduct', (data) => {
       this.product = data;
     });
+    this.emitter.on('customEvent_isFavorite', (data) => {
+      this.isFavorite = data;
+    });
     // this.emitter.on('customEvent_cartList', (data) => {
     //   console.log(2);
     //   this.product = data;
     // });
   },
   created () {
-    this.id = this.$route.params.productId;
+    this.id = this.$route.params.productId;//! 統一商品唯一的ID(item.id)
     this.getProduct();
+    this.getFavoriteData();
   },
   methods: {
     updateFavo (id) {
-      // this.isFavorite = !this.isFavorite;
-      // if (this.isFavorite) {
-      //   //! 直接跨元件溝通，使用土司元件，不經過httpMessageState，去判斷res
-      //   this.emitter.emit('push-message', {
-      //     style: 'success',
-      //     title: '加入我的收藏'
-      //   });
-      //   // this.$httpMessageState(response, '加入我的收藏');
-      // } else {
-      //   this.emitter.emit('push-message', {
-      //     style: 'danger',
-      //     title: '移除我的收藏'
-      //   });
-      //   // this.$httpMessageState(response, '移除我的收藏');
-      // }
-      // 比對
-      // this.favoriteId = id;//* 儲存目標
-      const checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
-      console.log(checkFavorite);
-      if (checkFavorite) { //* 存在就刪除
+      this.checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
+      if (this.checkFavorite) { //* 存在就刪除
+        // 比對
+        // console.log(checkFavorite);
         this.isFavorite = false;//* 改成無收藏按鈕
         this.emitter.emit('push-message', {
           style: 'danger',
           title: '移除我的收藏'
         });
         // 刪除
-        let data = [];
-        data = JSON.parse(localStorage.getItem('favorite'));
-        // console.log(data);
-        const index = data.indexOf(id);
+        this.favoriteData = JSON.parse(localStorage.getItem('favorite'));
+        // console.log(this.favoriteData);
+        const index = this.favoriteData.indexOf(id);
         // console.log(index);
         if (index > -1) {
-          data.splice(index, 1);
-          localStorage.setItem('favorite', JSON.stringify(data));
+          this.favoriteData.splice(index, 1);
+          localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
         }
       } else { //* 不存在就儲存
         this.isFavorite = true;//* 改成收藏按鈕
@@ -149,10 +137,14 @@ export default {
           title: '加入我的收藏'
         });
         // 新增
-        const data = [];
-        data.push(id);
-        localStorage.setItem('favorite', JSON.stringify(data));
+        this.favoriteData.push(id);
+        localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
       }
+      //! 用其他電腦，直接先收藏
+      // this.isFavorite = true;//* 改成收藏按鈕
+      // // 第一次新增
+      // this.favoriteData.push(id);
+      // localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
     },
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
@@ -166,15 +158,6 @@ export default {
           this.product = response.data.product;
         }
       });
-      // 確認收藏狀態
-      //! 要用this.id ，用product.id會錯 ，需分清楚差別
-      const checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(this.id) !== -1); //* 搜尋目標
-      console.log(checkFavorite);
-      if (checkFavorite) {
-        this.isFavorite = true;
-      } else {
-        this.isFavorite = false;
-      }
     },
     addToCart (id, qty = 1, isBuy) {
       this.status.loadingItem = id;
@@ -195,6 +178,20 @@ export default {
           this.emitter.emit('customEvent_getCart', this.getCart);
         }
       });
+    },
+    getFavoriteData () {
+      // localStorage.clear();
+      if (localStorage.getItem('favorite')) {
+        this.favoriteData = JSON.parse(localStorage.getItem('favorite'));
+        const checkFavorite = Boolean(JSON.parse(localStorage.getItem('favorite')).indexOf(this.id) !== -1); //* 搜尋目標
+        if (checkFavorite) {
+          this.isFavorite = true;
+        } else {
+          this.isFavorite = false;
+        }
+      } else {
+        localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
+      }
     }
   }
 };
