@@ -1,7 +1,7 @@
 <template>
-  <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0" style="z-index:10" ref="header"
+  <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop" style="z-index:10" ref="header"
     :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
-    <div class="container-fluid d-flex justify-content-between p-3" style="backdrop-filter: blur(5px);">
+    <div class="container-fluid d-flex justify-content-between p-3" :class="{}">
       <router-link to="/" class="d-flex position-relative text-decoration-none">
         <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0">JerseyTown</p>
         <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
@@ -52,7 +52,7 @@
             </button>
           </li>
           <li>
-            <button @click="openOffcanvas()" class="bg-transparent border-0">
+            <button @click="openFavoriteOffcanvas()" class="bg-transparent border-0">
               <i class="fa-regular fa-heart  text-nbaRed fs-3   mt-2 px-1 ms-md-2"></i>
             </button>
           </li>
@@ -67,13 +67,16 @@
   </head>
   <!-- 加入畫布元件，取名使用 -->
   <CartOffcanvas ref="offcanvas"></CartOffcanvas>
+  <FavoriteOffcanvas ref="favorite"></FavoriteOffcanvas>
 </template>
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';
+import FavoriteOffcanvas from '@/components/FavoriteOffcanvas.vue';
 export default {
   // inject: ['emitter'],
   components: {
-    CartOffcanvas
+    CartOffcanvas,
+    FavoriteOffcanvas
   },
   data () {
     return {
@@ -97,6 +100,10 @@ export default {
       const cartCp = this.$refs.offcanvas;
       cartCp.showOffcanvas();
     },
+    openFavoriteOffcanvas () {
+      const favoriteCp = this.$refs.favorite;
+      favoriteCp.showOffcanvas();
+    },
     logout () {
     // const api = `${process.env.VUE_APP_API}logout`;
     // this.$http.post(api, this.user).then((res) => {
@@ -109,3 +116,8 @@ export default {
   }
 };
 </script>
+<style>
+.navbar.backdrop {
+  backdrop-filter: blur(5px);
+}
+</style>

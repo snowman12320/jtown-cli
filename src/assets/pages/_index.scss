@@ -167,14 +167,14 @@
 
 .rank_card {
   // 連動hover 前面不用& 但要用:不能用. 後面不能用 ~
-  :hover a {
+  :hover button {
     color: $nbaBlue !important;
   }
   :hover .card {
     box-shadow: 0 20px 20px $shadow;
   }
   :hover .img_back_kobe {
-    background-image: url(@/assets/nbaWeb/olivier-collet-H7cIqigZOBo-unsplash.jpg);
+    background-image: url(@/assets/nbaWeb/CYOKWOiUoAIJGu4.png);
     background-position: center center;
     background-size: cover;
   }
@@ -224,11 +224,11 @@
   }
   // 建議可以顯示三行（讓它自動斷行），多的部分隱藏即可，另外多行無法使用 `...` 喔
   .card-text {
-    white-space: wrap; /*段落自動換行*/
-    overflow: hidden; /*超過寬度隱藏*/
+    // white-space: wrap; /*段落自動換行*/
+    // overflow: hidden; /*超過寬度隱藏*/
     // text-overflow: ellipsis; /*文字省略號*/
-    height: 75px;
-    margin-bottom: 0;
+    // height: 75px;
+    // margin-bottom: 0;
   }
   // stretched-link 這個原理是使用偽元素，你把它覆蓋掉了勒
   // .rank_a:after {
@@ -242,6 +242,9 @@
     //   height: 1px;
     border-top: 1px $gray-500 solid;
     padding-top: 10px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
   }
 }
 @include sellbtn_Rwd;

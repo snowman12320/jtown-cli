@@ -6,7 +6,7 @@
       <div class="modal-content border-0 ">
         <div class="modal-header bg-dark text-white">
           <h5 class="modal-title" id="exampleModalLabel">
-            <span>新增產品</span>
+            <span>新增文章</span>
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -53,44 +53,32 @@
 
               <div class="row gx-2">
                 <div class="mb-3 col-md-6">
-                  <label for="category" class="form-label">分類</label>
-                  <input type="text" class="form-control" id="category" v-model="tempStory.category"
-                    placeholder="請輸入分類" />
-                </div>
-                <div class="mb-3 col-md-6">
-                  <label for="price" class="form-label">單位</label>
-                  <input type="text" class="form-control" id="unit" v-model="tempStory.unit" placeholder="請輸入單位" />
+                  <label for="category" class="form-label">作者</label>
+                  <input type="text" class="form-control" id="category" v-model="tempStory.author" placeholder="請輸入分類" />
                 </div>
               </div>
-
-              <div class="row gx-2">
-                <div class="mb-3 col-md-6">
-                  <label for="origin_price" class="form-label">原價</label>
-                  <input type="number" class="form-control" id="origin_price" v-model.number="tempStory.origin_price"
-                    placeholder="請輸入原價" />
-                </div>
-                <div class="mb-3 col-md-6">
-                  <label for="price" class="form-label">售價</label>
-                  <input type="number" class="form-control" id="price" v-model.number="tempStory.price"
-                    placeholder="請輸入售價" />
-                </div>
+              <div class="mb-3">
+                <label for="editor1" class="form-label">內文</label>
+                <textarea type="text" class="form-control" v-model="tempStory.description"
+                  placeholder="請輸入文章內容"></textarea>
+                <!-- <TinyMCE></TinyMCE> -->
+                <!-- <textarea id="editor1"></textarea> -->
+              </div>
+              <div class="mb-3">
+                <label for="content" class="form-label">內文</label>
+                <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
+                  placeholder="請輸入文章內容"></textarea>
               </div>
               <hr />
+              <div class="mb-3">
+                <label for="create_at">新增日期</label>
+                <input type="date" class="form-control" id="create_at" v-model="create_at" />
+              </div>
 
               <div class="mb-3">
-                <label for="description" class="form-label">產品描述</label>
-                <textarea type="text" class="form-control" id="description" v-model="tempStory.description"
-                  placeholder="請輸入產品描述"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="content" class="form-label">說明內容</label>
-                <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
-                  placeholder="請輸入產品說明內容"></textarea>
-              </div>
-              <div class="mb-3">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" v-model="tempStory.isPublic" :true-value="1"
-                    :false-value="0" id="is_enabled" />
+                  <input class="form-check-input" type="checkbox" v-model="tempStory.isPublic" :true-value="true"
+                    :false-value="false" id="is_enabled" />
                   <label class="form-check-label" for="is_enabled">
                     是否啟用
                   </label>
@@ -114,12 +102,15 @@
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin';
+// import TinyMCE from '@/components/TinyMCE.vue';
 export default {
   mixins: [modalMixin],
+  // components: { TinyMCE },
   data () {
     return {
       modal: {},
-      tempStory: {}
+      tempStory: {},
+      create_at: '' //! 限制數字存入資料
     };
   },
   props: {
@@ -138,6 +129,11 @@ export default {
       if (!this.tempStory.images) {
         this.tempStory.images = [];
       }
+    },
+    create_at () { //! 限制數字存入資料
+      console.log('先是輸入日期', this.create_at);
+      this.tempStory.create_at = Math.floor(new Date(this.create_at) / 1000);
+      console.log('後轉以秒为单位的时间戳', this.tempStory.create_at);
     }
   },
   methods: {
