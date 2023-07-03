@@ -5,48 +5,39 @@
     <Loading :active="isLoading"></Loading>
     <div class="offcanvas-header d-flex justify-content-between align-items-center">
       <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
-          aria-hidden="true"></i> 加入我的收藏
+          aria-hidden="true"></i> 我的收藏
       </h5>
       <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body ">
-      <div class="d-flex p-2 border border-2 border-light rounded-3 my-2 gap-2" v-for="(item, id) in carts" :key="id">
-        <div class="" style="width:150px !important;height:150px !important">
-          <img class="of-cover op-top w-100 h-100" :src="item.product.imageUrl" alt="">
+      <div class="d-flex p-2 border border-2 border-light rounded-3 my-2 gap-2" v-for="(item, id) in filteredProducts"
+        :key="id">
+        <div class="" style="width:100px !important;height:70px !important">
+          <img class="of-cover op-top w-100 h-100" :src="item.imageUrl" alt="">
         </div>
         <div class=" w-100 p-1 ">
-          <h2 class="fs-6 text-center">{{ item.product.title }}</h2>
-          <p class="text-center pt-2 fs-5 ">
+          <h2 class="fs-6 text-center">{{ item.title }}</h2>
+          <p class="text-center pt-2 fs-5 mb-0 ">
             <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
-              $filters.currency(item.product.origin_price)
+              $filters.currency(item.origin_price)
             }}</small>
-            $ {{ $filters.currency(item.product.price) }}
-            <!-- <span class="" style="font-size:5px">/{{ item.product.unit }}</span> -->
+            $ {{ $filters.currency(item.price) }}
+            <span class="" style="font-size:5px">/{{ item.unit }}</span>
           </p>
-          <div class="fs-1 d-flex justify-content-center gap-1 align-items-center">
-            <button style="height:30px" @click="item.qty--; $nextTick(updateCart(item))"
-              class="btn btn-outline-secondary py-0"
-              :disabled="item.qty === 1 || item.id === status.loadingItem">-</button>
-            <input type="number" min="1" class="fs-5 border-0 ps-3 no-spin" style="width:50px" v-model.number="item.qty"
-              @change="updateCart(item)">
-            <button style="height:30px" @click="item.qty++; $nextTick(updateCart(item))"
-              class="btn btn-outline-secondary py-0" :disabled="item.id === status.loadingItem">+</button>
-          </div>
         </div>
-        <button @click="openDelCartModel(item)" type="button" class="border-0 bg-transparent " style="height:30px"><i
+        <button @click="openDelModel(item)" type="button" class="border-0 bg-transparent " style="height:30px"><i
             class="bi bi-trash"></i></button>
       </div>
       <!--  -->
-      <p class="d-flex justify-content-between fs-4 mt-3  ">
-        <span class="">小計( {{ sumFinalQty }} 商品)</span>
-        <span class="">$ {{ sumFinalTotal }}</span>
+      <p class="d-flex justify-content-end fs-4 mt-3  ">
+        <span class="">共收藏 {{ favoriteIds.length }} 件商品</span>
       </p>
       <!--  -->
-      <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
-        class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">立即結帳</router-link>
+      <!-- <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
+        class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">移除全部</router-link> -->
     </div>
   </div>
-  <DelModal :item="tempCartTitle" ref="delModal" @del-item="delCart" />
+  <DelModal :item="tempFavorite" ref="delModal" @del-item="delFavorite" />
 </template>
 <script>
 import offcanvasMixin from '@/mixins/offcanvasMixin';
@@ -60,52 +51,59 @@ export default {
   data () {
     return {
       offcanvas: {},
-      carts: [],
-      sumFinalTotal: 0,
-      sumFinalQty: 0,
-      status: {
-        loadingItem: ''
-      },
       isLoading: false,
-      tempCart: {},
-      tempCartTitle: {}
+      products: [],
+      filteredProducts: [],
+      favoriteIds: [],
+      tempFavorite: ''
     };
   },
-  props: {
-    product: {
-      type: Object,
-      default () {
-        return {};
-      }
-    }
-  },
   mounted () {
-    this.emitter.on('customEvent_getCart', () => {
+    this.emitter.on('customEvent_updateFavorite', () => {
       this.getFavorite();
-      // console.log('mounted', this.carts);
+      this.getFavoriteId();
     });
   },
   created () {
-    // console.log('created');
+    this.getFavoriteId();
     this.getFavorite();
   },
+  computed: {
+  },
   methods: {
-    updateCart (item) {
-    },
     getFavorite () {
       this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+      this.$http.get(api).then((res) => {
+        if (res.data.success) {
+          this.isLoading = false;
+          this.products = res.data.products;
+          this.filteredProducts = this.products.filter(item => this.favoriteIds.includes(item.id));
+        }
+      });
     },
-    openDelCartModel (item) {
-      this.tempCart = { ...item };
-      this.tempCartTitle = { ...item.product };
+    getFavoriteId () {
+      this.favoriteIds = JSON.parse(localStorage.getItem('favorite'));
+    },
+    openDelModel (item) {
+      this.tempFavorite = { ...item };
       const delCp = this.$refs.delModal;
       delCp.showModal();
     },
-    delCart () {
+    delFavorite () {
+      const checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(this.tempFavorite.id) !== -1); //* 搜尋目標
+      if (checkFavorite) { //* 存在就刪除
+        const favoriteData = JSON.parse(localStorage.getItem('favorite'));
+        const index = favoriteData.indexOf(this.tempFavorite.id);
+        favoriteData.splice(index, 1);
+        localStorage.setItem('favorite', JSON.stringify(favoriteData));
+        this.getFavoriteId();
+        this.getFavorite();
+      }
+      this.emitter.emit('customEvent_updateFavorite');//! 觸發商品內頁的收藏更新
+      const delCp = this.$refs.delModal;
+      delCp.hideModal();
     }
-  },
-  updated () {
-    // console.log('updated');
   }
 };
 </script>

@@ -100,15 +100,14 @@ export default {
     this.emitter.on('customEvent_isFavorite', (data) => {
       this.isFavorite = data;
     });
-    // this.emitter.on('customEvent_cartList', (data) => {
-    //   console.log(2);
-    //   this.product = data;
-    // });
+    this.emitter.on('customEvent_updateFavorite', () => {
+      this.getFavoriteData();
+    });
   },
   created () {
     this.id = this.$route.params.productId;//! 統一商品唯一的ID(item.id)
     this.getProduct();
-    this.getFavoriteData();
+    this.getFavoriteData(); //! 用其他電腦，先新增本地陣列
   },
   methods: {
     updateFavo (id) {
@@ -140,11 +139,7 @@ export default {
         this.favoriteData.push(id);
         localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
       }
-      //! 用其他電腦，直接先收藏
-      // this.isFavorite = true;//* 改成收藏按鈕
-      // // 第一次新增
-      // this.favoriteData.push(id);
-      // localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
+      this.emitter.emit('customEvent_updateFavorite');//! 觸發收藏表更新
     },
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;

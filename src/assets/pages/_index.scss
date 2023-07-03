@@ -36,6 +36,7 @@
   .nav_h1 {
     color: $black;
     padding-top: 10px;
+    text-shadow: 2px 2px 4px white, -2px -2px 4px white;
     &:hover {
       color: $nbaRed;
     }
@@ -43,6 +44,7 @@
   .navbar-nav .nav-link {
     color: $black;
     font-weight: bold;
+    text-shadow: 2px 2px 4px white, -2px -2px 4px white;
     &:hover {
       color: $nbaRed;
     }
@@ -68,6 +70,9 @@
       box-shadow: 0 3px 1px $black;
       transform: translateY(0px);
     }
+  }
+  i {
+    text-shadow: 2px 2px 4px white, -2px -2px 4px white;
   }
 }
 .nav_shadow {

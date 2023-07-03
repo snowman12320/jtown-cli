@@ -5,7 +5,7 @@
     <Loading :active="isLoading"></Loading>
     <div class="offcanvas-header d-flex justify-content-between align-items-center">
       <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
-          aria-hidden="true"></i> 加入購物車
+          aria-hidden="true"></i> 我的購物車
       </h5>
       <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
