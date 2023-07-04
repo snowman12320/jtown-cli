@@ -100,6 +100,7 @@
         </div>
       </section>
       <Form id="cartForm" @submit="createOrder" v-slot="{ errors }">
+        <!-- :validation-schema="schema" -->
         <h2 class="mt-3">會員專區</h2>
         <section>
           <ul class="list-group">
@@ -233,13 +234,17 @@
                 placeholder="特別提醒事項..."></textarea>
             </li>
             <li class="list-group-item">
-              <div class="col-12">
-                <div :class="{ 'opacity-50': !isLookOver }">
-                  <Field :disabled="!isLookOver" :rules="isCheck" required id="termCheck" name="termCheck" value=""
-                    type="checkbox" class="form-check-input">
-                  </Field>
-                  <error-message name="termCheck" class="invalid-feedback"></error-message>
-                  <label for="termCheck">
+              <div class="col-12 ">
+                <div class="mb-3 position-relative " :class="{ 'opacity-50': !isLookOver }">
+                  <!-- 無法顯示錯誤訊息原因是你沒有透過 :class 的方式去判斷 error-message何時該顯示，
+                   另外 Field 後面也要記得利用 v-bind 去綁定 value  -->
+                  <!--  check :value="true" 預設應該是false， 口空的 -->
+                  <Field :disabled="!isLookOver" :rules="termCheck" required id="termCheck" name="termCheck" :value="true"
+                    type="checkbox" class="form-check-input"
+                    :class="{ 'is-invalid': errors['termCheck'], 'is-valid': !errors['termCheck'] }"> </Field>
+                  <error-message name="termCheck" class="invalid-feedback position-absolute "
+                    style="bottom:-18px"></error-message>
+                  <label for=" termCheck" class="">
                     <span data-translate-keys="agree-terms" data-translate-html="true">同意</span>
                     <button type="button" class="text-decoration-underline border-0 bg-white" data-bs-toggle="modal"
                       data-bs-target="#exampleModal" @click="atTop = true">
@@ -247,10 +252,21 @@
                     </button>
                   </label>
                 </div>
-                <div>
-                  <label class="checkbox-inline" title=""><input id="allow-assure-check-box" name="allow-assure-check-box"
-                      value="Y" checked="" type="checkbox" class="form-check-input" /><span
-                      for="allow-assure-check-box">為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</span>
+                <!--  -->
+                <!-- <Field name="acceptTerms" type="checkbox" id="acceptTerms" :value="true" class="form-check-input"
+                  :class="{ 'is-invalid': errors.acceptTerms }" />
+                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                <div class="invalid-feedback">{{ errors.acceptTerms }}</div> -->
+                <!--  -->
+                <div class="mb-3 position-relative ">
+                  <Field :rules="buyCheck" required id="buyCheck" name="buyCheck" :value="true" type="checkbox"
+                    class="form-check-input"
+                    :class="{ 'is-invalid': errors['buyCheck'], 'is-valid': !errors['buyCheck'] }"> </Field>
+                  <error-message name="buyCheck" class="invalid-feedback position-absolute "
+                    style="bottom:-18px"></error-message>
+                  <label for=" buyCheck" class="">
+                    <span data-translate-keys="agree-terms"
+                      data-translate-html="true">同意，為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</span>
                   </label>
                 </div>
               </div>
@@ -273,12 +289,21 @@
 </template>
 <script>
 import CartModal from '@/components/CartModal.vue';
+import * as Yup from 'yup';
+
 export default {
   inject: ['emitter'],
   components: {
     CartModal
   },
   data () {
+    const schema = Yup.object().shape({
+      acceptTerms: Yup.bool()
+        .required('Accept Ts & Cs is required'),
+      name: Yup.string().required('Name is required'),
+      email: Yup.string().email('Invalid email').required('Email is required'),
+      age: Yup.number().min(18, 'Age must be at least 18').required('Age is required')
+    });
     return {
       carts: [],
       sumFinalTotal: 0,
@@ -310,7 +335,8 @@ export default {
           address: '台灣省'
         }
       },
-      isLookOver: false //* 是否閱讀條款
+      isLookOver: false, //* 是否閱讀條款
+      schema//* yup驗證套件
     };
   },
   created () {
@@ -436,9 +462,15 @@ export default {
       }
       return true;
     },
-    isCheck (value) {
-      if (value) {
+    termCheck (value) {
+      if (!value) {
         return '請閱讀"規範與聲明"文件，並將卷軸拉至底部，決定是否勾選同意';
+      }
+      return true;
+    },
+    buyCheck (value) {
+      if (!value) {
+        return '請勾選同意';
       }
       return true;
     },
