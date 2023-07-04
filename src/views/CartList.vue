@@ -24,8 +24,8 @@
             <li class="list-group-item d-flex justify-content-between pb-0">
               <p>優惠折抵</p>
               <p class="text-end">
-                <span :class="couponCode !== null ? 'd-block text-danger' : 'd-none'">
-                  <i @click="addCouponCode(couponCode = '')" class="bi bi-x-lg" style="cursor:pointer"></i>
+                <span :class="couponCode !== 'default' ? 'd-block text-danger' : 'd-none'">
+                  <i @click="addCouponCode(couponCode = 'default')" class="bi bi-x-lg" style="cursor:pointer"></i>
                   已使用"{{ couponCode
                   }}"折抵
                 </span>
@@ -100,7 +100,6 @@
         </div>
       </section>
       <Form id="cartForm" @submit="createOrder" v-slot="{ errors }">
-        <!-- :validation-schema="schema" -->
         <h2 class="mt-3">會員專區</h2>
         <section>
           <ul class="list-group">
@@ -113,9 +112,9 @@
               <div for="offTicket" style="">
                 <select name="offTicket" id="offTicket" class="form-select coupon_ticket" @change="addCouponCode()"
                   v-model="couponCode">
-                  <option value="" :selected="Boolean(!couponCode)" disabled>選擇優惠券</option>
-                  <option value="gooaya" :selected="Boolean(couponCode)">gooaya / 每件商品打9折</option>
-                  <option value="howhowhasfriend" :selected="Boolean(couponCode)">howhow / 每件商品打8折</option>
+                  <option value="default" selected disabled>選擇優惠券</option>
+                  <option :value="item.value" v-for="(item, index) in options" :key="index">
+                    {{ item.text }}</option>
                 </select>
               </div>
               <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
@@ -229,42 +228,37 @@
               </div>
             </li>
             <li class="list-group-item">
-              <p class="mb-0" for="xnote">備註</p>
-              <textarea name="xnote" id="xnote" cols="30" rows="1" class="w-100 form-control"
-                placeholder="特別提醒事項..."></textarea>
+              <p class="mb-0">備註</p>
+              <textarea cols="30" rows="1" class="w-100 form-control" placeholder="特別提醒事項..."></textarea>
             </li>
             <li class="list-group-item">
               <div class="col-12 ">
-                <div class="mb-3 position-relative " :class="{ 'opacity-50': !isLookOver }">
+                <div class="mb-3 position-relative ">
                   <!-- 無法顯示錯誤訊息原因是你沒有透過 :class 的方式去判斷 error-message何時該顯示，
                    另外 Field 後面也要記得利用 v-bind 去綁定 value  -->
                   <!--  check :value="true" 預設應該是false， 口空的 -->
                   <Field :disabled="!isLookOver" :rules="termCheck" required id="termCheck" name="termCheck" :value="true"
                     type="checkbox" class="form-check-input"
-                    :class="{ 'is-invalid': errors['termCheck'], 'is-valid': !errors['termCheck'] }"> </Field>
-                  <error-message name="termCheck" class="invalid-feedback position-absolute "
+                    :class="{ 'is-invalid': errors['termCheck'], 'is-valid': !errors['termCheck'], 'opacity-50': !isLookOver }">
+                  </Field>
+                  <error-message name="termCheck" class="ms-3 invalid-feedback position-absolute "
                     style="bottom:-18px"></error-message>
-                  <label for=" termCheck" class="">
+                  <label for="termCheck" class="">
                     <span data-translate-keys="agree-terms" data-translate-html="true">同意</span>
-                    <button type="button" class="text-decoration-underline border-0 bg-white" data-bs-toggle="modal"
-                      data-bs-target="#exampleModal" @click="atTop = true">
+                    <button type="button" class="text-decoration-underline text-nbaBlue border-0 bg-white"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal" @click="atTop = true">
                       會員責任規範及個資聲明
                     </button>
                   </label>
                 </div>
                 <!--  -->
-                <!-- <Field name="acceptTerms" type="checkbox" id="acceptTerms" :value="true" class="form-check-input"
-                  :class="{ 'is-invalid': errors.acceptTerms }" />
-                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
-                <div class="invalid-feedback">{{ errors.acceptTerms }}</div> -->
-                <!--  -->
                 <div class="mb-3 position-relative ">
                   <Field :rules="buyCheck" required id="buyCheck" name="buyCheck" :value="true" type="checkbox"
-                    class="form-check-input"
+                    class="form-check-input "
                     :class="{ 'is-invalid': errors['buyCheck'], 'is-valid': !errors['buyCheck'] }"> </Field>
-                  <error-message name="buyCheck" class="invalid-feedback position-absolute "
+                  <error-message name="buyCheck" class="ms-3 invalid-feedback position-absolute "
                     style="bottom:-18px"></error-message>
-                  <label for=" buyCheck" class="">
+                  <label for="buyCheck" class="">
                     <span data-translate-keys="agree-terms"
                       data-translate-html="true">同意，為保障彼此之權益，賣家在收到您的訂單後仍保有決定是否接受訂單及出貨與否之權利</span>
                   </label>
@@ -289,7 +283,6 @@
 </template>
 <script>
 import CartModal from '@/components/CartModal.vue';
-import * as Yup from 'yup';
 
 export default {
   inject: ['emitter'],
@@ -297,13 +290,6 @@ export default {
     CartModal
   },
   data () {
-    const schema = Yup.object().shape({
-      acceptTerms: Yup.bool()
-        .required('Accept Ts & Cs is required'),
-      name: Yup.string().required('Name is required'),
-      email: Yup.string().email('Invalid email').required('Email is required'),
-      age: Yup.number().min(18, 'Age must be at least 18').required('Age is required')
-    });
     return {
       carts: [],
       sumFinalTotal: 0,
@@ -316,7 +302,15 @@ export default {
       },
       product: {},
       couponPercent: '',
-      couponCode: '',
+      couponCode: 'default',
+      options: [
+        {
+          value: 'gooaya',
+          text: 'gooaya / 每件商品打9折'
+        }, {
+          value: 'howhowhasfriend',
+          text: 'howhow / 每件商品打8折'
+        }],
       form: {
         user: {
           email: '',
@@ -335,8 +329,7 @@ export default {
           address: '台灣省'
         }
       },
-      isLookOver: false, //* 是否閱讀條款
-      schema//* yup驗證套件
+      isLookOver: false //* 是否閱讀條款
     };
   },
   created () {
@@ -370,8 +363,9 @@ export default {
         });
         //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
         //!  加這段剛開始沒有值會錯 || res.data.data.carts[0].coupon.code
+        localStorage.setItem('local-couponCode', this.couponCode);
         this.couponCode = localStorage.getItem('local-couponCode');
-        if (this.couponCode) {
+        if (this.couponCode !== 'default') {
           this.couponPercent = res.data.data.carts[0].coupon.percent;
         }
       });
@@ -432,11 +426,11 @@ export default {
         } else {
           //! 實際狀況：透過取消優惠券api，去接收成功取消訊息
           localStorage.removeItem('local-couponCode', this.couponCode);
-          // this.$httpMessageState(res.data.success, '取消優惠券');
           this.emitter.emit('push-message', {
             style: 'danger',
             title: '取消優惠券'
           });
+          this.couponCode = 'default';
           this.couponPercent = '';
           this.getCart();
           this.isLoading = false;
@@ -525,5 +519,11 @@ p {
 
 [type='radio']:checked~div {
   display: block !important;
+}
+
+.was-validated .form-check-input:valid:checked,
+.form-check-input.is-valid:checked {
+  background-color: blue;
+  border-color: blue;
 }
 </style>

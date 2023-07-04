@@ -5,8 +5,8 @@
   <p style="margin-top: 104px !important"></p>
   <!-- banner -->
   <!-- 記得外推 圖才會完整 -->
-  <section class="allstar_banner bgp-bottom bgs-cover mb-3" style="
-        background-image: url(../assets/nbaWeb/allstar-2016-011016-top-1.jpg);
+  <section class="allstar_banner bgp-bottom bgs-cover mb-3"
+    :style="{ 'background-image': `url(${require('@/assets/nbaWeb/allstar-2016-011016-top-1.jpg')})` }" style="
         background-repeat: no-repeat;
         height: 500px;
         margin-top: 104px !important;
@@ -17,7 +17,8 @@
       <!-- col-12 col-xl-2 多餘的 -->
       <div class="d-flex flex-xl-column align-items-center justify-content-start">
         <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
-          <img class="of-contain" src="@/assets/nbaWeb/PNG-images-NBA-Players-36png.png" height="200" width="200" alt="" />
+          <img class="of-contain" src="@/assets/nbaWeb/PNG-images-NBA-Players-36png.png" height="200" width="200"
+            alt="" />
         </div>
         <div class="text-center allstartext_rwd">
           <p class="text-nbaBlue mt-3">NO.1</p>
@@ -40,7 +41,8 @@
       </div>
       <div class="d-flex flex-xl-column align-items-center justify-content-start">
         <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
-          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-1png.png" height="200" width="200" alt="" />
+          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-1png.png" height="200" width="200"
+            alt="" />
         </div>
         <div class="text-center allstartext_rwd">
           <p class="text-nbaBlue mt-3">NO.3</p>
@@ -50,7 +52,8 @@
       </div>
       <div class="d-flex flex-xl-column align-items-center justify-content-start">
         <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
-          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-58png.png" height="200" width="200" alt="" />
+          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-58png.png" height="200" width="200"
+            alt="" />
         </div>
         <div class="text-center allstartext_rwd">
           <p class="text-nbaBlue mt-3">NO.4</p>
@@ -63,7 +66,8 @@
       </div>
       <div class="d-flex flex-xl-column align-items-center justify-content-start">
         <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
-          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-60png.png" height="200" width="200" alt="" />
+          <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-60png.png" height="200" width="200"
+            alt="" />
         </div>
         <div class="text-center allstartext_rwd">
           <p class="text-nbaBlue mt-3">NO.5</p>

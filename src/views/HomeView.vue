@@ -3,7 +3,9 @@
   <Header :is-login="isLogin"></Header>
   <HomeCarousel></HomeCarousel>
   <div class="container-xxl">
+    <!-- <HomeBanner></HomeBanner> -->
     <HomeStory></HomeStory>
+    <HomeProduct></HomeProduct>
     <HomeProduct></HomeProduct>
   </div>
   <Footer></Footer>
@@ -12,6 +14,7 @@
 // @ is an alias to /src
 import Header from '@/components/Header.vue';
 import HomeCarousel from '@/components/HomeCarousel.vue';
+// import HomeBanner from '@/components/HomeBanner.vue';
 import HomeProduct from '@/components/HomeProduct.vue';
 import HomeStory from '@/components/HomeStory.vue';
 import Footer from '@/components/Footer.vue';

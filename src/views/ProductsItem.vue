@@ -64,7 +64,7 @@
       </div>
     </div>
     <!--  -->
-    <h3 class="mt-7">相關商品</h3>
+    <h3 class="mt-7">類似商品</h3>
     <ProductsList></ProductsList>
   </div>
 </template>

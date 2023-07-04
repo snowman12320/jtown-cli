@@ -118,6 +118,7 @@ export default {
 </script>
 <style>
 .navbar.backdrop {
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(7px);
+  background: rgb(255, 255, 255, .1);
 }
 </style>

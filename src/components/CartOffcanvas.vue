@@ -39,7 +39,7 @@
       <!--  -->
       <p class="d-flex justify-content-between fs-4 mt-3  ">
         <span class="">小計( {{ sumFinalQty }} 商品)</span>
-        <span class="">$ {{ sumFinalTotal }}</span>
+        <span class="">$ {{ $filters.currency(sumFinalTotal) }}</span>
       </p>
       <!--  -->
       <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""

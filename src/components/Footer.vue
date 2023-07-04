@@ -10,7 +10,7 @@
   </a>
   <!--  -->
   <footer class="footer bg-dark text-center text-white py-2 pt-4">
-    <p>Copyright © 2022 JerseyTown.All rights reserved.</p>
+    <p>Copyright © {{ new Date().getFullYear() }} JerseyTown.All rights reserved.</p>
   </footer>
 </template>
 <script>
