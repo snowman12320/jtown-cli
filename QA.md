@@ -1,30 +1,15 @@
 
 
-CartList 中 
-1.
-:rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
-2.
-:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
 
-storyItem 中
-背景圖片引入問題：
-style="background-image: url(@/assets/nbaWeb/1126209.png)"
-style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\1126209.png)"
-還有之前，有使用lightbox，彈窗的圖片會使用的， 或在href屬性中，使用圖片路徑就無法顯示
-嘗試兩種寫法：
-href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
-href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
-
----------------------
 productList中
 下滾載入有問題
 
 StoryModal中
 1.
-v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有
+v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有，但有寫入v-model?{{}}
 但description卻有
 2.
-想在description增加一個height的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實機開發時，只能請後端改api呢？
+想在description增加一個height的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改api呢？
 <div class="mb-3 col-md-6">
     <label for="height" class="form-label">身高</label>
     <input type="number" class="form-control" id="height" v-model="tempStory.description.height"
@@ -34,16 +19,40 @@ v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有
 storys中openModal
 嘗試將原本的時間秒數轉成日期格式，並顯示在彈窗的日期中，但都失敗
 
-couponModal中的watch的功用
- 是due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
-可是 好像只要due_date ()後， 加上$filters.data就會轉成日期
+想確認 couponModal中的watch的功用
+ 是先使用due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
+可是 好像只要due_date ()後， 加上$filters.data就會轉成日期 > 所以兩個方式都可吧
 
-// 確認收藏狀態
-//! 要用this.id ，用product.id會錯 ，需分清楚差別
-美個產品共用收藏狀態了 ，可能要換一下id
 
-收藏的陣列要可以要多個
-商品切換時 路徑ID也要改
+
+
+
+x id 和 productId
+要用this.id ，用product.id會錯 ，需分清楚差別 > 看API文件 / 產品本身ID和陣列中帶的ID > 當初用陣列ID去跑回圈，故之後點擊都要透過這個ID分辨或比對
+> $route.params.productId帶的ID是$router.push推的 (所以並非產品本身ID)
+> 沒有這個產品本身ID ，只有訂單產生時會有新的產品陣列並帶ID
+取得訂單列表
+"orders": [
+{
+"create_at": 1523539834,
+"id": "-L9u2EUkQSoEmW7QzGLF",
+"is_paid": true,
+"message": "這是留言",
+"paid_date": 1523539924,
+"payment_method": "credit_card",
+"products": {
+    "L8nBrq8Ym4ARI1Kog4t": {
+    "id": "L8nBrq8Ym4ARI1Kog4t",
+    "product_id": "-L8moRfPlDZZ2e-1ritQ",
+    "qty": "3"
+    }
+},
+
+x 收藏的陣列要可以要多個 > 先存成陣列或物件，再轉型json字串存入，取出時要轉解析parse
+x 商品切換時 路徑ID也要改 > 透過$router傳遞id，並轉換商品頁，先儲存收藏，再確認目前商品id和收藏id是否相同
+
+
+
 
 
 
@@ -119,18 +128,15 @@ x 關於 "emitter"
 請問使用 emitter
 this.emitter.emit('customEvent_getCart', this.getCart);
 那在另一個元件有辦法跨元件觸發函式嗎，試過幾次沒辦法，不知道哪裡寫錯
-
 > this.emitter.on('customEvent_getCart', () => {
 > this.getCart();
 > });
 
 x 關於"seleted"
 在 CartList 中，想讓勾選優惠券後，固定在勾選該優惠券，但無法依照判斷有優惠碼時就固定勾選它，會一直回復到無勾選狀態
-
 > 應該要存進去 api 已存但無法
 
 <!-- !! 雙重否定運算子：將值強制轉換為布林值。將值兩次否定後，結果就是該值的布林表示 ，:selected="Boolean(couponCode)-->
-
 > //! 有新增優惠券時 或 重新整理判斷有無優惠券，避免沒有變數錯誤或下拉選單重整
 
 x 關於"computed"
@@ -153,7 +159,6 @@ x 關於"編譯後的終端機中"
 出現以下警告資訊，是指我需要 npm run build，然後再運行伺服器嗎，修正 VEE 套件錯誤(降版本號/老師的 commit 有版本)就消失
 Note that the development build is not optimized.
 To create a production build, run npm run build.
-
 > 直接輸入 npm i vee-validate@4.9.6 即可降回
 
 x 關於 "@change"
@@ -180,3 +185,23 @@ x header 中
 https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 :style="{ 'backdrop-filter: blur(5px)': atTop }"
 > 按照官網方式寫成物件  > 寫成class去使用即可
+
+CartList 中 
+1.
+:rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
+>沒有透過 :class 的方式去判斷 error-message何時該顯示
+另外 Field 後面也要記得利用 v-bind 去綁定 value 
+2.
+:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
+>把 option 改用動態屬性 :value 的方式傳入 couponCode
+接著把「請選擇優惠卷」的那個 option 改成一般 value 的方式並且加上 selected
+
+storyItem 中
+背景圖片引入問題：
+style="background-image: url(@/assets/nbaWeb/1126209.png)"
+style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\1126209.png)"
+還有之前，有使用lightbox，彈窗的圖片會使用的， 或在href屬性中，使用圖片路徑就無法顯示
+嘗試兩種寫法：
+href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
+href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
+>:style="{'background-image': `url(${require('@/assets/nbaWeb/1126209.png')})`}"

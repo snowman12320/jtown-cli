@@ -97,3 +97,69 @@ story
 使用文章api 前後台增刪查改
 x準備畫面 x新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x後台刪除 x前台取得資料 x頁數切換
 搜尋API
+
+
+---------------------
+https://www.newrocktw.com/
+git readme / gitpages https://github.com/a94s84/Hermosa
+
+設計：
+首頁 
+x 拿球衣當用淡入效果
+x 導覽列上滑出現效果
+x 臉書聊天機器人 (股歌雲端上應該有教學) / 開關不同圖 / 頭上加icon
+xUSD
+https://shop.lululemon.com/shop/luluGiftCards.jsp
+加favicon.ico
+倒數兩天領優惠券 
+股歌翻譯的按鈕
++
+彈窗加入會員  80%領優惠卷資訊 
+產品圖左右 大圖
+https://www.outdoorvoices.com/
++我的收藏 愛心 / 結帳折扣馬 >有會員登入的了　因沒設輸入欄
+https://a94s84.github.io/Hermosa/#/wishlist
+https://jordan-ttc-design.github.io/boaboly-art-store/#/products
+
+產品
+hover放大
+上滑 最愛和購物車
+內頁
+有尺寸 看有沒有api的位置 > 選單可以存本地，選擇時就加入 商品名稱後面去送出
+手風琴 產品說明
+https://www.bandier.com/collections/shoes
+
+文章
+列表大圖
+不改結構 球衣圖+名字 / hover 浮出球員
+https://carbon38.com/en-tw
+內文
+不要框 底色反差 不改結構(紫金 ) > 某一個欄位存色碼，後台設定時增加色碼欄位 ，渲染到內文背景裡
+
+排行
+改直的
+底色換掉 > 換相關的圖 並fixed 
+加上商品連結  > 名稱帶到搜尋欄有問題
+底下其他球員
+加上aos
+
+登入 社群登入 賴和臉書和古歌
+> 嘗試串接 
+
+footer
+信箱 電話 @2023
+
+英文表單
+https://azusa5526.github.io/vue-computer-parts/#/shopping_cart/front_orderlist
+
+運動課
+https://wen0720.github.io/vueShop/#/lesson/-LYeJo0S7A7Mfv0cbQL0
+https://hsuan777.github.io/VFitness/#/productsList
+
+test123  / 編輯器 / 訂單列表
+https://front-gym.web.app/#/admin/course-edit
+抽獎
+https://nahugd.github.io/vueshopping/#/discount/turn
+篩選多個 / 評論 /登入登出
+https://aureate0116.github.io/VueProjectLR/#/resource-list/Python
+
