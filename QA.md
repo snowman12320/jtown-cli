@@ -9,7 +9,7 @@ StoryModal中
 v-model="tempStory.content" 寫不進去資料庫，data讀出來都沒有，但有寫入v-model?{{}}
 但description卻有
 2.
-想在description增加一個height的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改api呢？
+想在description增加一個height的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改api呢？ > 轉字串存
 <div class="mb-3 col-md-6">
     <label for="height" class="form-label">身高</label>
     <input type="number" class="form-control" id="height" v-model="tempStory.description.height"
@@ -112,6 +112,9 @@ Yup (npm install yup
 總結來說，Yup 是一個功能強大且易於使用的 JavaScript 驗證庫，可以幫助開發人員輕鬆地對對象進行驗證，從而提高應用程序的可靠性和安全性。
 https://stackblitz.com/edit/vue-3-veevalidate-required-checkbox?file=src%2FApp.vue
 https://jasonwatmore.com/post/2020/10/11/vue-3-veevalidate-required-checkbox-example
+
+https://github.com/avil13/vue-sweetalert2
+https://sweetalert2.github.io/
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
 x 關於 元件傳遞資料的使用
