@@ -23,21 +23,22 @@
                   rules="email|required"
                   :class="{ 'is-invalid': errors['email'], 'is-valid': !errors['email'] && user.username }" autofocus
                   v-model="user.username"></Field>
-                <error-message name="email" class="invalid-feedback"></error-message>
+                <error-message name="email" class="invalid-feedback ms-5"
+                  style="text-shadow:0 2px 5px #fff"></error-message>
               </div>
 
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <i class="fas fa-key"></i>
                 </div>
-                <Field type="password" name="password" class="form-control rounded-3" placeholder="password" required
-                  v-model="user.password" maxlength="20" :rules="validatePassword"
-                  :class="{ 'is-invalid': errors['密碼'], 'is-valid': !errors['密碼'] && user.password }"></Field>
-                <error-message name="密碼" class="invalid-feedback"></error-message>
+                <Field type="password" name="密碼" id="password" class="form-control rounded-3" placeholder="password"
+                  required v-model="user.password" maxlength="20" :rules="validatePassword"
+                  :class="{ 'is-invalid': errors['密碼'], 'is-valid': !errors['密碼'] }"></Field>
+                <error-message name="密碼" class="invalid-feedback ms-5" style="text-shadow:0 2px 5px #fff"></error-message>
               </div>
               <!--  -->
               <div class="mt-2 d-flex gap-1 align-items-center  justify-content-end me-2">
-                <input id="remember" type="checkbox">
+                <input id="remember" type="checkbox" v-model="rememberMe">
                 <label for="remember" class=" text-white">Remember Me</label>
               </div>
               <div class="form-group text-center mt-5">
@@ -47,7 +48,7 @@
           </div>
           <div class="card-footer">
             <div class="d-flex justify-content-center links">
-              Don't have an account?<a href="#">Sign Up</a>
+              Don't have an account?<a style="text-shadow:0 2px 5px #fff" href="#">Sign Up</a>
             </div>
             <!-- <div class="d-flex justify-content-center">
               <a href="#">Forgot your password?</a>
@@ -82,28 +83,76 @@ export default {
         username: '',
         password: ''
       },
-      isLoading: false
+      isLoading: false,
+      rememberMe: false
     };
+  },
+  created () {
+    this.checkRemember();
+  },
+  watch: {
+    rememberMe () {
+      if (this.rememberMe) {
+        this.$swal.fire({
+          title: 'Are you sure remember it?',
+          text: ' Please verify and correct it if necessary!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$swal.fire(
+              'Remember!',
+              'Your password has been saved.',
+              'success'
+            );
+            // 保存用户名和密码到localStorage
+            localStorage.setItem('username', this.user.username);
+            localStorage.setItem('password', this.user.password);
+            localStorage.setItem('rememberMe', true);
+          }
+        });
+      } else {
+        // 清除localStorage中的记住我选项
+        localStorage.removeItem('username');
+        localStorage.removeItem('password');
+        localStorage.removeItem('rememberMe');
+      }
+    }
   },
   methods: {
     signIn () {
       const api = `${process.env.VUE_APP_API}admin/signin`;
       this.$http.post(api, this.user).then((res) => {
-        // console.log(res);
         // const { token, expired } = res.data;
         // console.log(token, expired);
         // document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+        this.isLoading = true;
         if (res.data.success) {
+          this.isLoading = false;
           const { token, expired } = res.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
           // this.$router.push('/dashboard');
           this.$router.go(-1);
+        } else {
+          this.$swal.fire('Incorrect', ' username or password.', 'warning');
         }
       });
     },
     validatePassword (value) {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
-      return regex.test(value) ? true : '密碼需包含英文大小寫和數字，且超過六位數以上';
+      return regex.test(value) ? true : '密碼需包含英文大小寫和數字，且超過十位數以上';
+    },
+    checkRemember () {
+      // 检查localStorage中是否已保存了记住我选项
+      if (localStorage.getItem('rememberMe') === 'true') {
+        this.rememberMe = true;
+        // 填充登录表单中的用户名和密码
+        this.user.username = localStorage.getItem('username');
+        this.user.password = localStorage.getItem('password');
+      }
     }
   }
 };

@@ -196,8 +196,15 @@ https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 >沒有透過 :class 的方式去判斷 error-message何時該顯示
 另外 Field 後面也要記得利用 v-bind 去綁定 value 
 2.:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
->把 option 改用動態屬性 :value 的方式傳入 couponCode
+> 把 option 改用動態屬性 :value 的方式傳入 couponCode
 接著把「請選擇優惠卷」的那個 option 改成一般 value 的方式並且加上 selected
+>  name要對，這樣error[]才會抓到，並顯示錯誤
+```     
+<Field type="password" name="密碼" id="password" class="form-control rounded-3" placeholder="password"
+    required v-model="user.password" maxlength="20" :rules="validatePassword"
+    :class="{ 'is-invalid': errors['密碼'], 'is-valid': !errors['密碼'] }"></Field>
+<error-message name="密碼" class="invalid-feedback"></error-message>
+```
 
 - [x] .
 1. storyItem 中

@@ -49,6 +49,24 @@
         <!--  -->
         <div class="col-md-6 d-flex flex-column justify-content-around text-center">
           <h1 class="mb-5">{{ product.title }}</h1>
+          <!--  -->
+          <div class="my-5">
+            <div class="d-flex w-50 mx-auto ">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="S" id="S">
+                <label class="form-check-label border p-3" for="S">
+                  S
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="M" id="M">
+                <label class="form-check-label border p-3" for="M">
+                  M
+                </label>
+              </div>
+            </div>
+          </div>
+          <!--  -->
           <div class="d-flex align-items-center justify-content-center gap-3">
             <small class="text-secondary fs-6 text-decoration-line-through fw-lighter">$ {{
               $filters.currency(product.origin_price) }}</small>
@@ -67,25 +85,18 @@
             <i v-else @click="updateFavo(product.id)" class="fa-solid fa-heart-crack fa-shake text-secondary fs-3"></i>
           </div>
           <!--  -->
-          <p class="">SIZE</p>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="" id="">
-            <label class="form-check-label" for="">
-              S
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="" id="" >
-            <label class="form-check-label" for="">
-              Default checked radio
-            </label>
+          <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
+            <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
+              :class="{ 'btn btn-outline-primary': product.id === status.loadingItem }"
+              :disabled="product.id === status.loadingItem">加入購物車</button>
+            <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">立即購買</button>
           </div>
           <!--  -->
-          <div class="accordion d-flex justify-content-center " id="accordionPanelsStayOpenExample">
+          <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
             <div class="accordion-item w-50">
               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                  data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                   aria-controls="panelsStayOpen-collapseOne">
                   DETAILS
                 </button>
@@ -99,13 +110,6 @@
                 </div>
               </div>
             </div>
-          </div>
-          <!--  -->
-          <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
-            <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
-              :class="{ 'btn btn-outline-primary': product.id === status.loadingItem }"
-              :disabled="product.id === status.loadingItem">加入購物車</button>
-            <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">立即購買</button>
           </div>
         </div>
       </div>
