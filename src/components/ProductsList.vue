@@ -107,7 +107,6 @@ export default {
       });
     },
     //* 捲動更新
-    // ? 可嘗試改變page的數量 比如一次四個？
     pushProducts (page) {
       if (this.pagination.has_next) {
         this.page++;

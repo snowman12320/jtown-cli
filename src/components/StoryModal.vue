@@ -125,7 +125,6 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
-      // ?沒有圖片就塞空陣列?
       if (!this.tempStory.images) {
         this.tempStory.images = [];
       }

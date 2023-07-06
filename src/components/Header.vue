@@ -1,10 +1,11 @@
 <template>
   <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop" style="z-index:10" ref="header"
     :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
-    <div class="container-fluid d-flex justify-content-between p-3" :class="{}">
+    <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">
       <router-link to="/" class="d-flex position-relative text-decoration-none">
-        <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0">JerseyTown</p>
-        <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1">JTown</h1>
+        <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0 brand_scale"
+          :class="{ 'brand_scale_after': !atTop }">JerseyTown</p>
+        <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1  brand_scale " :class="{ 'opacity-0': !atTop }">JTown</h1>
       </router-link>
       <!-- 漢堡 -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -37,19 +38,12 @@
               Rank
             </router-link>
           </li>
-          <li class="ms-1" v-if="isLogin">
-            <router-link to="/dashboard" class="fs-6 px-3 rounded-pill text-white">
+          <li class="ms-1">
+            <router-link :to="isLogin ? '/dashboard' : '/login'" class="fs-6 px-3 rounded-pill text-white">
               <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
-                Sign out
+                {{ isLogin ? 'Log out' : 'Login' }}
               </button>
             </router-link>
-          </li>
-          <li class="ms-1" v-else>
-            <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
-              <router-link to="/login" class="text-decoration-none fs-6 px-3 rounded-pill text-white">
-                Sign in
-              </router-link>
-            </button>
           </li>
           <li>
             <button @click="openFavoriteOffcanvas()" class="bg-transparent border-0">
@@ -115,7 +109,7 @@ export default {
         favoriteCp.showOffcanvas();
       }
     },
-    logout () {
+    logOut () {
     // const api = `${process.env.VUE_APP_API}logout`;
     // this.$http.post(api, this.user).then((res) => {
     //   if (res.data.success) {
@@ -131,5 +125,19 @@ export default {
 .navbar.backdrop {
   backdrop-filter: blur(7px);
   background: rgb(255, 255, 255, .1);
+}
+
+.brand_scale {
+  transition: transform 800ms;
+  opacity: 100;
+  transform: scale(1.5) translateY(-5px);
+}
+
+.brand_scale_after {
+  transform: scale(1) translateY(-5px);
+}
+
+.nav_height_after {
+  padding: 0 5px !important;
 }
 </style>

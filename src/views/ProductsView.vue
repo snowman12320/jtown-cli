@@ -12,6 +12,7 @@ import loginMixin from '../mixins/loginMixin';
 import emitter from '@/methods/emitter';
 import ToastMessages from '@/components/ToastMessages.vue';
 export default {
+  mixins: [loginMixin],
   components: {
     Header,
     Footer,
@@ -21,7 +22,6 @@ export default {
     return {
       emitter
     };
-  },
-  mixins: [loginMixin]
+  }
 };
 </script>

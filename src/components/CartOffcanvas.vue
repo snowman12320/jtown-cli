@@ -43,7 +43,7 @@
       </p>
       <!--  -->
       <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
-        class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">立即結帳</router-link>
+        class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">CHECK OUT</router-link>
     </div>
   </div>
   <DelModal :item="tempCartTitle" ref="delModal" @del-item="delCart" />

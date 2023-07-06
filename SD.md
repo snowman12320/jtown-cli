@@ -40,29 +40,43 @@ RWD
 
 
 products-item / artical  
-加上麵包屑 (home/shoe/kobe) 商品要依照當下商品 
 產品列表 右上排序價格低到高/上架時間新到舊/
 要有主圖片和兩張其他圖片上傳
+加上tag
+https://element.eleme.io/#/zh-CN/component/tag
+https://codyhouse.co/ds/components/app/product
+搜尋有提示框
+列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
+
 加商品描述 / 後台用編輯器
-商品列表 使用extend擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎
+商品列表 使用extend擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
 相關商品(類別) 用extend 改變篩選等等 （參考 程式筆 谷歌
 
 加上評論 用本地存 / 用創意風版 星星 標題 評論（金魚的對話框） / 要判斷登入 / 用陣列物件 （帳號 評分 標題 內文） 
+https://bootsnipp.com/snippets/nNg98
+
+組合包
+https://codyhouse.co/ds/components/app/image-interest-points
 
 
-login
-美化 / 拿bs版型
-用yup驗證
+# login
 
-dashbord
+# dashbord
 分 商品管理 和 會員紅按鈕(  側邊基本資料 收藏清單 / 登入就到這頁) 
 表格 排序(參蔬果) / RWD (datatable) / 搜尋(產品名) / 篩選(是否付款)
+https://element.eleme.io/#/zh-CN/component/table
 後台加上 ：
 基本資料 用本地儲存資料
+https://element.eleme.io/#/zh-CN/component/upload
 可搜尋訂單
+https://codyhouse.co/ds/components/app/property-table
 
 優惠券介紹(談窗立即加入會員享有優惠券>用黑人抓衣服圖  / 置頂快速倒數優惠券期限 >keep 節圖)
 以上參考 設計的網址
+https://demos.creative-tim.com/material-bootstrap-wizard/wizard-book-room.html?_ga=2.86000216.1189495791.1688610280-530679729.1688610280
+https://bootstrap5.hexschool.com/docs/5.1/components/alerts/
+https://element.eleme.io/#/zh-CN/component/statistic
+https://element.eleme.io/#/zh-CN/component/datetime-picker
 
 footer
 關於我們 （左邊
@@ -72,8 +86,12 @@ footer
 
 rank
 橫的改值的
+https://element.eleme.io/#/zh-CN/component/rate
 右邊放五星評分
+https://codyhouse.co/ds/components/app/countup--prefix
 進度條放總數除以個別的分數 等於 進度
+https://element.eleme.io/#/zh-CN/component/progress
+https://bootstrap-vue.org/docs/components/progress
 
 
 後台使用編輯器：
@@ -122,7 +140,6 @@ hover放大
 上滑 最愛和購物車
 內頁
 有尺寸 看有沒有api的位置 > 選單可以存本地，選擇時就加入 商品名稱後面去送出
-手風琴 產品說明
 https://www.bandier.com/collections/shoes
 
 文章
@@ -131,6 +148,8 @@ https://www.bandier.com/collections/shoes
 https://carbon38.com/en-tw
 內文
 不要框 底色反差 不改結構(紫金 ) > 某一個欄位存色碼，後台設定時增加色碼欄位 ，渲染到內文背景裡
+https://element.eleme.io/#/zh-CN/component/color-picker
+https://codyhouse.co/ds/components/app/reading-progressbar
 
 排行
 改直的

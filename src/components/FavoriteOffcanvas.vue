@@ -10,8 +10,8 @@
       <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body ">
-      <div class="d-flex p-2 border border-2 border-light rounded-3 my-2 gap-2" v-for="(item, id) in filteredProducts"
-        :key="id">
+      <div class="d-flex p-2 border border-2 border-light rounded-3 product_item my-2 gap-2" @click="getProduct(item.id)"
+        v-for="(item, id) in filteredProducts" :key="id">
         <div class="" style="width:100px !important;height:70px !important">
           <img class="of-cover op-top w-100 h-100" :src="item.imageUrl" alt="">
         </div>
@@ -103,6 +103,43 @@ export default {
       this.emitter.emit('customEvent_updateFavorite');//! 觸發商品內頁的收藏更新
       const delCp = this.$refs.delModal;
       delCp.hideModal();
+    },
+    getProduct (id) { //! 只取一個商品
+      this.$router.push(`/products-view/products-item/${id}`);
+      this.isLoading = true;
+      this.isLoading_big = true;
+      this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
+      this.$http.get(api).then((res) => {
+        this.isLoading = false;
+        this.isLoading_big = false;
+        this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+        if (res.data.success) {
+          this.product = res.data.product;
+          this.emitter.emit('customEvent_getProduct', this.product);
+          // 取得所有的carousel-item元素，移除所有carousel-item元素的active類別
+          const carouselItems = document.querySelectorAll('.carousel-item');
+          carouselItems.forEach(function (item) {
+            item.classList.remove('active');
+          });
+          carouselItems[0].classList.add('active');
+          window.scrollTo(0, 0);
+        }
+      });
+      // 確認收藏狀態
+      //! 要用this.id ，用product.id會錯 ，需分清楚差別
+      //! 在其他電腦，若先判斷會錯誤
+      // console.log(Boolean(JSON.parse(localStorage.getItem('favorite'))));
+      if (JSON.parse(localStorage.getItem('favorite'))) {
+        const checkFavorite = Boolean(JSON.parse(localStorage.getItem('favorite')).indexOf(id) !== -1); //* 搜尋目標
+        if (checkFavorite) {
+          this.isFavorite = true;
+          this.emitter.emit('customEvent_isFavorite', this.isFavorite);
+        } else {
+          this.isFavorite = false;
+          this.emitter.emit('customEvent_isFavorite', this.isFavorite);
+        }
+      }
     }
   }
 };
@@ -112,5 +149,14 @@ export default {
 .no-spin::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.product_item {
+  cursor: pointer;
+}
+
+.product_item:hover {
+  background: rgba(172, 121, 255, 0.274);
+  transition: all 300ms;
 }
 </style>

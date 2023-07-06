@@ -102,7 +102,7 @@ this.emitter.emit('push-message', {
     title: '移除我的收藏'
 });
 
-Yup (npm install yup
+# Yup (npm install yup
 是一個 JavaScript 庫，用於對 JavaScript 對象進行驗證的工具。它提供了一種簡單且可靠的方式來定義對象的驗證規則，並且可以輕鬆地集成到前端和後端的應用程序中。
 主要功能包括：
 1. 驗證規則定義：Yup 允許開發人員定義對象的驗證規則，並且可以對各種數據類型進行驗證，如字符串、數字、日期等。開發人員可以使用鏈式語法來定義驗證規則，例如 `Yup.string().required().min(6)` 表示字符串必填且最小長度為 6。
@@ -113,6 +113,7 @@ Yup (npm install yup
 https://stackblitz.com/edit/vue-3-veevalidate-required-checkbox?file=src%2FApp.vue
 https://jasonwatmore.com/post/2020/10/11/vue-3-veevalidate-required-checkbox-example
 
+# vue-sweet alert
 https://github.com/avil13/vue-sweetalert2
 https://sweetalert2.github.io/
 
@@ -209,10 +210,18 @@ href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-coll
 href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 >:style="{'background-image': `url(${require('@/assets/nbaWeb/1126209.png')})`}"
 
-***
-https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
+*** 
+js
+
+    /* 123 */
+    /**
+    * 123
+    * 123
+    */
+    // ////////////////////////////////////////////123321///////////////////////
 
 ---
+https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 + 123
     - 123
 > 123

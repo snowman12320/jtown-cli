@@ -283,8 +283,10 @@
 </template>
 <script>
 import CartModal from '@/components/CartModal.vue';
+import loginMixin from '../mixins/loginMixin';
 
 export default {
+  mixins: [loginMixin],
   inject: ['emitter'],
   components: {
     CartModal
@@ -333,8 +335,14 @@ export default {
     };
   },
   created () {
-    this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
-    this.getCart();//* 本頁的購物車
+    // ? 登入後 this.isLogin 還是false
+    if (this.isLogin) {
+      this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
+      this.$router.push('/login');
+    } else {
+      this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
+      this.getCart();//* 本頁的購物車
+    }
   },
   mounted () {
     this.emitter.on('customEvent_getCart', () => {
