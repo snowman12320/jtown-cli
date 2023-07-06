@@ -47,7 +47,7 @@
           <li class="ms-1" v-else>
             <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
               <router-link to="/login" class="text-decoration-none fs-6 px-3 rounded-pill text-white">
-                Login / Sign up
+                Sign in
               </router-link>
             </button>
           </li>
@@ -97,12 +97,23 @@ export default {
     },
     //* 透過名稱取操作元件的函式
     openOffcanvas () {
-      const cartCp = this.$refs.offcanvas;
-      cartCp.showOffcanvas();
+      //! 避免開啟畫布，會一直重新判斷登入
+      if (!this.isLogin) {
+        this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
+        this.$router.push('/login');
+      } else {
+        const cartCp = this.$refs.offcanvas;
+        cartCp.showOffcanvas();
+      }
     },
     openFavoriteOffcanvas () {
-      const favoriteCp = this.$refs.favorite;
-      favoriteCp.showOffcanvas();
+      if (!this.isLogin) {
+        this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
+        this.$router.push('/login');
+      } else {
+        const favoriteCp = this.$refs.favorite;
+        favoriteCp.showOffcanvas();
+      }
     },
     logout () {
     // const api = `${process.env.VUE_APP_API}logout`;

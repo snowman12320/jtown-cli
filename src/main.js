@@ -14,6 +14,8 @@ import { currency, date } from './methods/filters';
 import $httpMessageState from './methods/pushMessageState'; //* 全域函式
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 // 定義驗證規則
 defineRule('required', required);
@@ -32,7 +34,6 @@ const app = createApp(App);
 app.component('Form', Form);
 app.component('Field', Field);
 app.component('ErrorMessage', ErrorMessage);
-
 //* 全域引用自訂方法，每頁不用重複在methods中引入，這個檔案還是需引入，$filters(自定義名稱)
 app.config.globalProperties.$filters = {
   currency,
@@ -45,5 +46,7 @@ app.config.globalProperties.$httpMessageState = $httpMessageState;
 app.use(VueAxios, axios);
 app.use(router);
 app.component('Loading', Loading);
+app.use(VueSweetalert2);
+
 app.mount('#app');
 AOS.init();
