@@ -186,17 +186,17 @@ https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 :style="{ 'backdrop-filter: blur(5px)': atTop }"
 > 按照官網方式寫成物件  > 寫成class去使用即可
 
-CartList 中 
-1.
+ - [x] . 
+1.  CartList 中 
 :rules="isCheck" 無法顯示錯誤訊息，也沒有阻擋 submit 行為
 >沒有透過 :class 的方式去判斷 error-message何時該顯示
 另外 Field 後面也要記得利用 v-bind 去綁定 value 
-2.
-:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
+2.:selected="Boolean(!couponCode)" ，取消優惠券後，選單會變空白？
 >把 option 改用動態屬性 :value 的方式傳入 couponCode
 接著把「請選擇優惠卷」的那個 option 改成一般 value 的方式並且加上 selected
 
-storyItem 中
+- [x] .
+1. storyItem 中
 背景圖片引入問題：
 style="background-image: url(@/assets/nbaWeb/1126209.png)"
 style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\1126209.png)"
@@ -205,3 +205,33 @@ style="background-image: url(C:\Users\william\Desktop\hexschool-question\src\ass
 href="C:\Users\william\Desktop\hexschool-question\src\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 href="@\assets\nbaWeb\olivier-collet-H7cIqigZOBo-unsplash.jpg"
 >:style="{'background-image': `url(${require('@/assets/nbaWeb/1126209.png')})`}"
+
+***
+https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
+
+---
++ 123
+    - 123
+> 123
+# 123 
+## 123
+
+- [x] 123
+
+```
+for (let i = 0; i < 10; i++) {
+  setTimeout(function () {
+    console.log('這執行第' + i + '次');
+  }, 0);
+}
+```
+
+| thead 1 | thrad 2 | thread 3 |
+|---------|---------|----------|
+| td      | td      | td       |
+
+還是要 **"勉強自己"** ，笑起來處子般通紅
+
+[Google](https://www.google.com.tw/)
+
+![unsplash 圖片](https://images.unsplash.com/photo-1573900941478-7cc800f708f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)
