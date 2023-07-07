@@ -1,26 +1,41 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <template>
   <!-- {{ cacheCategory }} -->
-  <div class="row row-cols-2 row-cols-lg-4 g-4 mb-7" ref="products_list">
-    <div class="" v-for="item in filtersData" :key="item.id">
-      <div class="col overflow-hidden" @click="getProduct(item.id)">
-        <div class="card w-100 position-relation newproduct_img" data-num="1">
-          <div class="newproduct_cloth">
-            <h6>Player</h6>
-            <h4>{{ item.title }}</h4>
-            <!-- <h4>{{ typeof(item.title) }}</h4> -->
-          </div>
-          <img data-num="1" height="312" width="312" class="card-img of-cover op-top" :src="item.imageUrl"
-            :alt="item.title" />
-        </div>
-      </div>
-      <!-- </router-link> -->
+  <div class="">
+    <!-- 排序  -->
+    <div class="mb-3 d-flex justify-content-end align-items-center">
+      <label for="" class="form-label">Sort by：</label>
+      <select v-model="selectSort" class="form-select form-select-lg rounded-0 p-1 fs-6" style="width:250px" name=""
+        id="">
+        <option class="fs-6" value="all" selected>Relevance</option>
+        <option class="fs-6" value="AZ">Name - AZ</option>
+        <option class="fs-6" value="ZA">Name - ZA</option>
+        <option class="fs-6" value="Low">Price - Low to Height</option>
+        <option class="fs-6" value="Height">Price - Height to Low</option>
+      </select>
     </div>
-  </div>
-  <!--  -->
-  <div class="text-center">
-    <div v-show="isLoading" class="spinner-grow text-warning " role="status">
-      <span class="visually-hidden">Loading...</span>
+    <hr class="py-3">
+    <div class="row row-cols-2 row-cols-lg-4 g-4 mb-7" ref="products_list">
+      <div class="" v-for="item in filtersData" :key="item.id">
+        <div class="col overflow-hidden" @click="getProduct(item.id)">
+          <div class="card w-100 position-relation newproduct_img" data-num="1">
+            <div class="newproduct_cloth">
+              <h6>Player</h6>
+              <h4>{{ item.title }} {{ item.price }}</h4>
+              <!-- <h4>{{ typeof(item.title) }}</h4> -->
+            </div>
+            <img data-num="1" height="312" width="312" class="card-img of-cover op-top" :src="item.imageUrl"
+              :alt="item.title" />
+          </div>
+        </div>
+        <!-- </router-link> -->
+      </div>
+    </div>
+    <!--  -->
+    <div class="text-center">
+      <div v-show="isLoading" class="spinner-grow text-warning " role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
 </template>
@@ -38,7 +53,9 @@ export default {
       product: {},
       cacheSearch: '',
       cacheCategory: '',
-      isFavorite: false
+      filterCheck: '',
+      isFavorite: false,
+      selectSort: 'all'
     };
   },
   mounted () {
@@ -52,10 +69,9 @@ export default {
       this.cacheCategory = data;
       // console.log(typeof (this.cacheCategory));
     });
-    // this.emitter.on('get-productId', this.id);
-    // this.emitter.on('get-product', () => {
-    //   this.getProduct(this.id);
-    // });
+    this.emitter.on('customEvent_Check', (data) => {
+      this.filterCheck = data;
+    });
   },
   created () {
     this.getProducts();
@@ -63,6 +79,7 @@ export default {
   computed: {
     // 監聽多個變化（變數） 產生一個資料（函式），注意return位置
     filtersData () {
+      // console.log(this.filterCheck);
       // this.isLoading = true;
       //! 在productList正常，在productItem會找不到cacheSearch等值，故使用判斷路由
       if (!this.$route.path.includes('products-content')) {
@@ -78,7 +95,31 @@ export default {
           return this.products;
         } else {
           // this.isLoading = false;
-          return filteredData;
+          // return filteredData;
+          //* 篩選
+          if (this.filterCheck) {
+            if (this.filterCheck === '2999') {
+              return filteredData.filter(item => item.price <= 2999);
+            } else if (this.filterCheck === '5000') {
+              return filteredData.filter(item => item.price >= 5000);
+            } else {
+              return filteredData;
+            }
+          } else {
+            //* 排序
+            switch (this.selectSort) {
+              case 'Low':
+                return filteredData.sort((a, b) => a.price - b.price);
+              case 'Height':
+                return filteredData.sort((a, b) => b.price - a.price);
+              case 'AZ':
+                return filteredData.sort((a, b) => a.title.localeCompare(b.title));
+              case 'ZA':
+                return filteredData.sort((a, b) => b.title.localeCompare(a.title));
+              default:
+                return filteredData;
+            }
+          }
         }
       }
     }

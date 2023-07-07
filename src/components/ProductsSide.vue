@@ -6,8 +6,8 @@
     <!--  -->
     <!-- {{ typeof(cacheSearch) }} -->
     <div class="my-3">
-      <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId" v-model.lazy="cacheSearch"
-        placeholder="Search Player...">
+      <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
+        v-model.lazy="cacheSearch" placeholder="Search Player...">
     </div>
     <!-- BS內建margin 很多推不到位 可能要設定0 用開發者看會有淡黃區域 -->
     <ul class="list-unstyled d-flex flex-lg-column justify-content-center my-3">
@@ -26,6 +26,22 @@
           {{ item }}
         </label>
       </li>
+      <!-- 篩選 -->
+      <hr class="py-2">
+      <li class="">
+        <h2 class="fs-6">PRICE：</h2>
+        <div class="form-check">
+          <label class="form-check-label" for="2999">
+            <input type="radio" class="form-check-input" v-model="filterCheck" name="filterCheck" id="2999" value="2999">
+            0-2999 </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label" for="5000">
+            <input type="radio" class="form-check-input" v-model="filterCheck" name="filterCheck" id="5000" value="5000">
+            5000+ </label>
+        </div>
+
+      </li>
     </ul>
   </aside>
 </template>
@@ -42,6 +58,7 @@ export default {
       uniqueCategories: [],
       cacheSearch: '',
       cacheCategory: '',
+      filterCheck: '',
       input_all: null
     };
   },
@@ -75,6 +92,10 @@ export default {
     cacheCategory () {
       this.cacheSearch = '';
       this.emitter.emit('customEvent_category', this.cacheCategory);
+    },
+    filterCheck () {
+      this.filterCheck = '';
+      this.emitter.emit('customEvent_Check', this.filterCheck);
     }
   },
   methods: {

@@ -5,9 +5,10 @@
     <div class="container-xxl">
       <nav aria-label="breadcrumb" class="mt-10">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item  text-nbaBlue"><router-link to="/">Home</router-link>
+          <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
+              to="/">Home</router-link>
           </li>
-          <li class="breadcrumb-item  text-nbaBlue"><router-link
+          <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
               to="/products-view/products-content">Product</router-link>
           </li>
           <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
@@ -51,17 +52,23 @@
           <h1 class="mb-5">{{ product.title }}</h1>
           <!--  -->
           <div class="my-5">
-            <div class="d-flex w-50 mx-auto ">
+            <div class="d-flex justify-content-center w-50 mx-auto ">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="S" id="S">
-                <label class="form-check-label border p-3" for="S">
+                <input class="form-check-input d-none" type="radio" name="size" id="S">
+                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="S">
                   S
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="M" id="M">
-                <label class="form-check-label border p-3" for="M">
+                <input class="form-check-input d-none" type="radio" name="size" id="M">
+                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="M">
                   M
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input d-none" type="radio" name="size" id="L">
+                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="L">
+                  L
                 </label>
               </div>
             </div>
@@ -88,8 +95,8 @@
           <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
             <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
               :class="{ 'btn btn-outline-primary': product.id === status.loadingItem }"
-              :disabled="product.id === status.loadingItem">加入購物車</button>
-            <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">立即購買</button>
+              :disabled="product.id === status.loadingItem">ADD TO CART</button>
+            <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">BUY NOW</button>
           </div>
           <!--  -->
           <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
@@ -101,7 +108,7 @@
                   DETAILS
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse "
                 aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body text-start">
                   <p class="">規格：</p>
@@ -270,7 +277,22 @@ export default {
   color: black;
 }
 
+.accordion-item:last-of-type {
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.accordion-item:first-of-type {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+
 .accordion {
   --bs-accordion-btn-active-icon: var(--bs-accordion-btn-icon);
+}
+
+.form-check input:checked+label {
+  border: 2px solid black !important;
+  color: black !important;
 }
 </style>
