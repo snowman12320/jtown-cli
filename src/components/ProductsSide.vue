@@ -1,7 +1,7 @@
 <!-- eslint-disable no-unused-expressions -->
 <template>
   <!-- 上面row響應 下面col也要響應~~~ -->
-  <aside class="col-lg-2 lh-lg aside">
+  <aside class="col-lg-2 lh-lg aside sticky-lg-top  align-self-start" style="top:100px">
     <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
     <!-- {{ typeof(cacheSearch) }} -->
@@ -40,7 +40,6 @@
             <input type="radio" class="form-check-input" v-model="filterCheck" name="filterCheck" id="5000" value="5000">
             5000+ </label>
         </div>
-
       </li>
     </ul>
   </aside>
@@ -74,27 +73,20 @@ export default {
     //   }
     // }
   },
-  mounted () {
-  },
   created () {
     this.getProducts();
   },
-  // computed: {
-  //   cacheSearch () {
-  //     this.emitter.emit('customEvent_filter', this.cacheSearch);
-  //   }
-  // }
   watch: {
     cacheSearch () {
       this.cacheCategory = '';
       this.emitter.emit('customEvent_search', this.cacheSearch);
     },
     cacheCategory () {
-      this.cacheSearch = '';
+      this.cacheSearch = '';//* 避免分類內容和搜尋內容，兩個條件衝突
+      this.filterCheck = '';
       this.emitter.emit('customEvent_category', this.cacheCategory);
     },
     filterCheck () {
-      this.filterCheck = '';
       this.emitter.emit('customEvent_Check', this.filterCheck);
     }
   },
@@ -104,7 +96,6 @@ export default {
       this.isLoading = true;
       this.$http.get(url).then((response) => {
         this.products = response.data.products;
-        // console.log('products:', response);
         this.isLoading = false;
         this.products.forEach(product => {
           if (!this.uniqueCategories.includes(product.category)) {

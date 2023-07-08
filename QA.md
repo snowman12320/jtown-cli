@@ -1,8 +1,11 @@
 
-
+Vue.js devtools
+這個套件好像掛了
 
 productList中
 下滾載入有問題
+
+
 
 StoryModal中
 1.
@@ -116,6 +119,104 @@ https://jasonwatmore.com/post/2020/10/11/vue-3-veevalidate-required-checkbox-exa
 # vue-sweet alert
 https://github.com/avil13/vue-sweetalert2
 https://sweetalert2.github.io/
+
+# computed
++ filtersData 的篩選條件中加入判斷，當 cacheSearch 或 cacheCategory 為空時，不進行篩選。
++ default 表示默認的排序規則，使用 () => 0 函數實現，即不進行排序。
+其中 [this.selectSort || 'default'] 表示根據 this.selectSort 的值來選擇對應的排序規則，如果 this.selectSort 為空或未定義，則選擇默認的排序規則。
+```
+ computed: {
+   // 監聽多個變化（變數） 產生一個資料（函式），注意return位置
+   filtersData () {
+     console.log(this.filterCheck);
+     // this.isLoading = true;
+     //! 在productList正常，在productItem會找不到cacheSearch等值，故使用判斷路由
+     if (!this.$route.path.includes('products-content')) {
+       return this.products;
+     } else {
+       //! 要用 &&，不然cacheCategory搜尋，會有問題，用｜｜好像都會是true，不懂為何不是｜｜
+       const filteredData = this.products.filter((item) =>
+         item.title.toLowerCase().includes(this.cacheSearch.toLowerCase()) &&
+       item.category.toLowerCase().includes(this.cacheCategory.toLowerCase())
+       );
+       if (filteredData.length === 0 && this.cacheSearch.trim().length === 0) {
+         // this.isLoading = false;
+         return this.products;
+       } else {
+         // this.isLoading = false;
+         // return filteredData;
+         //* 篩選
+         if (this.filterCheck) {
+           if (this.filterCheck === '2999') {
+             return filteredData.filter(item => item.price <= 2999);
+           } else if (this.filterCheck === '5000') {
+             return filteredData.filter(item => item.price >= 5000);
+           } else {
+             return filteredData;
+           }
+         } else {
+           //* 排序
+           switch (this.selectSort) {
+             case 'Low':
+               return filteredData.sort((a, b) => a.price - b.price);
+             case 'Height':
+               return filteredData.sort((a, b) => b.price - a.price);
+             case 'AZ':
+               return filteredData.sort((a, b) => a.title.localeCompare(b.title));
+             case 'ZA':
+               return filteredData.sort((a, b) => b.title.localeCompare(a.title));
+             default:
+               return filteredData;
+           }
+         }
+       }
+     }
+   }
+ },
+```
+
+# forEach / new Set() / reduce / 
+綜合以上優化，您可以參考以下程式碼：
+```javascript
+const uniqueCategories = new Set();
+this.products.forEach(product => {
+  uniqueCategories.add(product.category);
+});
+this.uniqueCategories = Array.from(uniqueCategories);
+```
+
++ 或者：
+
+```javascript
+const uniqueCategories = this.products.reduce((categories, product) => {
+  if (!categories.includes(product.category)) {
+    categories.push(product.category);
+  }
+  return categories;
+}, []);
+this.uniqueCategories = uniqueCategories;
+```
++
+
+```javascript
+const uniqueCategories = this.products.filter((product, index, self) =>
+  self.findIndex(p => p.category === product.category) === index
+).map(product => product.category);
+this.uniqueCategories = uniqueCategories;
+```
+這個方法會遍歷 products 數組，並使用 findIndex 方法查找第一個符合條件的元素的索引，如果當前元素的索引等於第一個符合條件的元素的索引，則保留當前元素。最後使用 map 方法將保留下來的元素轉換為類別數組。
+這種方法可以在一次循環中完成過濾和轉換操作，因此比使用 forEach 或 reduce 方法更高效。
++
+使用 Set 可以有效地避免重複的類別，因此在效率方面已經非常高效了。如果您希望進一步提高效率，可以考慮使用 for...of 循環代替 forEach 方法，因為 for...of 循環比 forEach 方法更快。例如：
+
+```javascript
+const uniqueCategories = new Set();
+for (const product of this.products) {
+  uniqueCategories.add(product.category);
+}
+this.uniqueCategories = Array.from(uniqueCategories);
+```
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
 x 關於 元件傳遞資料的使用
