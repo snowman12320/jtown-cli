@@ -12,8 +12,8 @@
         :data-aos-duration="`${index * 1000}`" :data-aos-delay="`${index * 100}`" data-aos-offset="0">
         <div class=" overflow-hidden" @click="getProduct(item.id)">
           <div class="card w-100 position-relation newproduct_img" data-num="1">
-            <div class="newproduct_cloth">
-              <h6>Player</h6>
+            <div class="newproduct_cloth px-2">
+              <h6>{{ item.category }}</h6>
               <h4>{{ item.title }}</h4>
             </div>
             <img data-num="1" style="height:auto " class="card-img of-cover op-top w-100" :src="item.imageUrl"

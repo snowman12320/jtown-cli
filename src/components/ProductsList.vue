@@ -4,7 +4,7 @@
   <div class="">
     <!-- 排序  -->
     <div class="mb-3 d-flex justify-content-end align-items-center">
-      <label for="" class="form-label">Sort by：</label>
+      <label for="" class="form-label mb-0">Sort by：</label>
       <select v-model="selectSort" class="form-select form-select-lg rounded-0 p-1 fs-6" style="width:250px" name=""
         id="">
         <option class="fs-6" value="0" selected>Relevance</option>
@@ -17,12 +17,29 @@
     <hr class="py-3">
     <div class="row row-cols-2 row-cols-lg-5 g-4 mb-7" ref="products_list">
       <div class="" v-for="item in filtersData" :key="item.id">
-        <div class="col overflow-hidden" @click="getProduct(item.id)">
+        <div class="col overflow-hidden">
           <div class="card w-100 position-relation newproduct_img" data-num="1">
-            <div class="newproduct_cloth">
-              <h6>Player</h6>
-              <h4>{{ item.title }} {{ item.price }} {{ item.category }}</h4>
-              <!-- <h4>{{ typeof(item.title) }}</h4> -->
+            <div class="newproduct_cloth p-1">
+              <h6 class="  fw-light" style="font-size:10px"> {{ item.category }}</h6>
+              <h5 class="fs-5 text-center" @click="getProduct(item.id)">
+                {{ item.title }}</h5>
+              <h6 class="text-white text-center">
+                $ {{ $filters.currency(item.price) }}
+              </h6>
+              <!--  -->
+              <div
+                class="position-relative border border-white rounded-1 px-2 py-3 bg-transparent d-flex justify-content-around m-2">
+                <i @click="updateFavo(item.id)" :class="{ 'text-danger': favoriteData.indexOf(item.id) !== -1 }"
+                  class="fa fa-heart fs-4"></i>
+                <i @click="addToCart(item.id, qty, isBuy = false)" class="fa fa-cart-plus text-white fs-4"></i>
+                <!--  -->
+                <div v-if="isLoading"
+                  class="text-center d-flex align-items-center justify-content-center  position-absolute top-0 start-0 end-0 bottom-0">
+                  <div class="spinner-border text-primary " role="status">
+                    <span class="visually-hidden ">Loading...</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <img data-num="1" height="312" width="312" class="card-img of-cover op-top" :src="item.imageUrl"
               :alt="item.title" />
@@ -40,8 +57,10 @@
   </div>
 </template>
 <script>
-
+import addToCart from '../mixins/addToCart';
+import getFavoriteData from '../mixins/getFavoriteData';
 export default {
+  mixins: [addToCart, getFavoriteData],
   inject: ['emitter'],
   data () {
     return {
@@ -123,7 +142,7 @@ export default {
 
   methods: {
     handleScroll () {
-      this.products_list = this.$refs.products_list.offsetHeight; //! 在mounted定義會是零
+      this.products_list = this.$refs.products_list.offsetHeight; //! 在mounted定義會是零，但不定義會在其他頁報錯
       // console.log(window.scrollY);
       // console.log(this.products_list);
       if (window.scrollY > this.products_list - 300) {
@@ -227,7 +246,11 @@ export default {
 };
 </script>
 <style scoped>
-.col {
+.col h5 {
+  cursor: pointer;
+}
+
+.col i {
   cursor: pointer;
 }
 </style>

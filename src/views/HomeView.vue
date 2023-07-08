@@ -1,14 +1,15 @@
 <template>
-  <Loading :active="isLoading"></Loading>
-  <Header :is-login="isLogin"></Header>
-  <HomeCarousel></HomeCarousel>
-  <div class="container-xxl">
-    <!-- <HomeBanner></HomeBanner> -->
-    <HomeStory></HomeStory>
-    <HomeProduct></HomeProduct>
-    <HomeProduct></HomeProduct>
+  <div class="">
+    <Loading :active="isLoading"></Loading>
+    <Header :is-login="isLogin"></Header>
+    <HomeCarousel></HomeCarousel>
+    <div class="container-xxl">
+      <!-- <HomeBanner></HomeBanner> -->
+      <HomeStory></HomeStory>
+      <HomeProduct></HomeProduct>
+    </div>
+    <Footer></Footer>
   </div>
-  <Footer></Footer>
 </template>
 <script>
 // @ is an alias to /src

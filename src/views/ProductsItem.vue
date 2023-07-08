@@ -18,22 +18,19 @@
       <div class="row row-cols-md-2 g-5 mt-5">
         <div id="carouselExampleIndicators" class="carousel  slide col-md-6" data-bs-ride="carousel">
           <div class="carousel-indicators">
+            <!-- 第一個主圖的指標不用程式化，其餘其他圖片的指標用迴圈帶資料 -->
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
               aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-              aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-              aria-label="Slide 3"></button>
+            <button v-for="(item, index) in product.imagesUrl" :key="index + 1" type="button"
+              data-bs-target="#carouselExampleIndicators" :data-bs-slide-to="index + 1" class="" aria-current="true"
+              :aria-label="'Slide ' + index + 1"></button>
           </div>
           <div class="carousel-inner ">
             <div class="carousel-item active text-center h-100">
               <img :src="product.imageUrl" class=" w-auto  h-100" alt="..." />
             </div>
-            <div class="carousel-item text-center h-100">
-              <img src="https://source.unsplash.com/random/1500x1200/?jersey" class=" w-auto  h-100" alt="..." />
-            </div>
-            <div class="carousel-item text-center h-100">
-              <img src="https://source.unsplash.com/random/1500x1200/?basketball" class=" w-auto  h-100" alt="..." />
+            <div class="carousel-item text-center h-100" v-for="(item, index) in product.imagesUrl" :key="index">
+              <img :src="item" class=" w-auto  h-100" alt="..." />
             </div>
           </div>
           <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleIndicators"
@@ -129,24 +126,19 @@
 <script>
 import ProductsList from '@/components/ProductsList.vue';
 import loginMixin from '../mixins/loginMixin';
+import addToCart from '../mixins/addToCart';
+import getFavoriteData from '../mixins/getFavoriteData';
 export default {
-  mixins: [loginMixin],
+  mixins: [loginMixin, addToCart, getFavoriteData],
   inject: ['emitter'],
   components: {
     ProductsList
   },
   data () {
     return {
-      isFavorite: false,
-      qty: 1,
-      isLoading_big: false,
       product: {},
       id: '',
-      status: {
-        loadingItem: ''
-      },
-      favoriteData: [],
-      checkFavorite: false
+      isLoading_big: false
     };
   },
   //! mitt
@@ -213,45 +205,6 @@ export default {
           this.product = response.data.product;
         }
       });
-    },
-    addToCart (id, qty = 1, isBuy) {
-      if (!this.isLogin) {
-        this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
-        this.$router.push('/login');
-      } else {
-        this.status.loadingItem = id;
-        this.isLoading = true;
-        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-        const cart = {
-          product_id: id,
-          qty
-        };
-        this.$http.post(url, { data: cart }).then((response) => {
-          this.isLoading = false;
-          this.status.loadingItem = '';
-          this.$httpMessageState(response, '加入購物車');
-          this.emitter.emit('customEvent_getCart', this.getCart);
-          if (isBuy) {
-            this.$router.push('/cart-view/cart-list');
-            // *觸發該頁函式，讓下一頁資料更新
-            this.emitter.emit('customEvent_getCart', this.getCart);
-          }
-        });
-      }
-    },
-    getFavoriteData () {
-      // localStorage.clear();
-      if (localStorage.getItem('favorite')) {
-        this.favoriteData = JSON.parse(localStorage.getItem('favorite'));
-        const checkFavorite = Boolean(JSON.parse(localStorage.getItem('favorite')).indexOf(this.id) !== -1); //* 搜尋目標
-        if (checkFavorite) {
-          this.isFavorite = true;
-        } else {
-          this.isFavorite = false;
-        }
-      } else {
-        localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
-      }
     }
   }
 };
