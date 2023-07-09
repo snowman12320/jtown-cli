@@ -37,19 +37,27 @@
               <div class=" row row-cols-2  border g-1  " v-if="tempProduct.imagesUrl">
                 <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
                   <div class=" w-100 border" style="height:150px">
-                    <img class=" h-100 w-100 of-cover op-top" :src="image" alt="" />
+                    <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" />
                   </div>
                   <div class="d-flex">
                     <input type="url" class="form-control form-control" v-model="tempProduct.imagesUrl[key]"
                       placeholder="請輸入連結" />
-                    <button type="button" class="btn btn-outline-danger text-nowrap"
-                      @click="tempProduct.imagesUrl.splice(key, 1); $emit('update-product', tempProduct)">
+                    <button type="button" class="btn btn-outline-danger text-nowrap" @click="delImage(key)">
                       移除
                     </button>
+                    <!--  -->
+                    <button @click="cropImage(image)">Crop</button>
                   </div>
                 </div>
               </div>
-              <!--  v-if="tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1] || !tempProduct.imagesUrl.length" -->
+              <!-- 嘗試編輯圖套件 -->
+              <!-- 用v-if會抓不到dom元素 -->
+              <div class="" v-show="tempImage">
+                <img ref="tempImage" :src="tempImage" style="height:300px" class="w-100 of-cover" alt="">
+                <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
+                  aria-pressed="false" autocomplete="off">完成</button>
+              </div>
+              <!--  -->
               <div class="mt-3">
                 <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
                   <input id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
@@ -57,8 +65,8 @@
                   新增圖片
                 </label>
               </div>
-              <!--  -->
-              <input type="file" multiple @change="handleFileUpload" />
+              <!-- 嘗試多檔上傳 -->
+              <!-- <input type="file" multiple @change="handleFileUpload" /> -->
             </div>
             <!-- 右 -->
             <div class="col-sm-8">
@@ -104,6 +112,12 @@
                   placeholder="請輸入產品說明內容"></textarea>
               </div>
               <div class="mb-3">
+                <label for="content" class="form-label">運送方式</label>
+                <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag"
+                  label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag">
+                </multiselect>
+              </div>
+              <div class="mb-3">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="tempProduct.is_enabled" :true-value="1"
                     :false-value="0" id="is_enabled" />
@@ -128,16 +142,35 @@
     </div>
   </div>
 </template>
-<script>
+<script >
 import modalMixin from '@/mixins/modalMixin';
+import 'cropperjs/dist/cropper.css';
+import Cropper from 'cropperjs';
+import Multiselect from 'vue-multiselect';
+
 export default {
   mixins: [modalMixin],
+  components: { Multiselect }, //! 少一個s，就會
   data () {
     return {
       modal: {},
       tempProduct: {},
       main_photo: false,
-      other_photo: false
+      other_photo: false,
+      //
+      tempImage: '',
+      tempImageIndex: '',
+      tempImageTag: null,
+      cropper: null,
+      croppedImage: null,
+      //
+      value: [
+      ],
+      options: [
+        { name: 'Free shipping', code: 'vu' },
+        { name: 'Store pickup', code: 'js' },
+        { name: 'Fast delivery', code: 'os' }
+      ]
     };
   },
   props: {
@@ -157,6 +190,11 @@ export default {
       if (!this.tempProduct.imagesUrl) {
         this.tempProduct.imagesUrl = [];
       }
+    }
+  },
+  computed: {
+    availableOptions () {
+      return this.options.filter(opt => this.value.indexOf(opt) === -1);
     }
   },
   methods: {
@@ -188,35 +226,73 @@ export default {
         }
       });
     },
-    handleFileUpload (event) {
-      this.other_photo = true;
-      // const files = event.target.files; // 取得上傳的檔案
-      // // 迭代每個檔案並新增至圖片陣列
-      // for (let i = 0; i < files.length; i++) {
-      //   const reader = new FileReader();
-      //   reader.onload = (e) => {
-      //     this.tempProduct.imagesUrl.push(e.target.result); // 將圖片資料新增至陣列
-      //   };
-      //   reader.readAsDataURL(files[i]); // 讀取檔案資料
-      // }
-      //
-      try {
-        const files = event.target.files;
-        const formData = new FormData();
-        for (let i = 0; i < files.length; i++) {
-          formData.append('images[]', files[i]); // 將檔案加入到 FormData 物件中
+    delImage (key) {
+      this.tempProduct.imagesUrl.splice(key, 1);
+      this.$emit('update-product', this.tempProduct);
+    },
+    addTag (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
+      };
+      this.options.push(tag);
+      this.value.push(tag);
+    },
+    cropImage (image) {
+      this.tempImageIndex = this.tempProduct.imagesUrl.indexOf(image);
+      this.tempImage = image;
+      this.cropper = new Cropper(this.$refs.tempImage, {
+        aspectRatio: 16 / 9,
+        crop (event) {
+          console.log(event.detail.x);
+          console.log(event.detail.y);
+          console.log(event.detail.width);
+          console.log(event.detail.height);
+          console.log(event.detail.rotate);
+          console.log(event.detail.scaleX);
+          console.log(event.detail.scaleY);
         }
-      } finally {
-        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-        this.$http.post(url, this.formData).then((res) => {
-          if (res.data.success) {
-            this.tempProduct.imagesUrl.push(res.data.imageUrl);
-            this.other_photo = false;
-          }
-        });
-      }
+      });
+      // console.log(this.cropper);
+    },
+    doneImage () {
+      const imgSrc = this.cropper.getCroppedCanvas({
+        width: 100// img_w.value /input value
+      }).toDataURL();
+      this.tempProduct.imagesUrl[this.tempImageIndex] = imgSrc;
     }
+    // handleFileUpload (event) {
+    // 第一種可以渲染，但無法儲存
+    // this.other_photo = true;
+    // const files = event.target.files; // 取得上傳的檔案
+    // // 迭代每個檔案並新增至圖片陣列
+    // for (let i = 0; i < files.length; i++) {
+    //   const reader = new FileReader();
+    //   reader.onload = (e) => {
+    //     this.tempProduct.imagesUrl.push(e.target.result); // 將圖片資料新增至陣列
+    //   };
+    //   reader.readAsDataURL(files[i]); // 讀取檔案資料
+    // }
+    //
+    // 第二種，嘗試轉檔，但只能上傳一個
+    // try {
+    //   const files = event.target.files;
+    //   const formData = new FormData();
+    //   for (let i = 0; i < files.length; i++) {
+    //     formData.append('images[]', files[i]); // 將檔案加入到 FormData 物件中
+    //   }
+    // } finally {
+    //   const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+    //   this.$http.post(url, this.formData).then((res) => {
+    //     if (res.data.success) {
+    //       this.tempProduct.imagesUrl.push(res.data.imageUrl);
+    //       this.other_photo = false;
+    //     }
+    //   });
+    // }
+    // }
 
   }
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

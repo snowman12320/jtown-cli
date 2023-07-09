@@ -1,53 +1,56 @@
 <template>
-  <Loading :active="isLoading"></Loading>
-  <div class="text-end mt-3">
-    <button class="btn btn-primary" type="button" @click="openModal(true)">
-      新增文章
-    </button>
+  <div class="">
+    <Loading :active="isLoading"></Loading>
+    <div class="text-end mt-3">
+      <button class="btn btn-primary" type="button" @click="openModal(true)">
+        新增文章
+      </button>
+    </div>
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th width="120">日期</th>
+          <th width="120">標題</th>
+          <th width="120">作者</th>
+          <th width="120">內容</th>
+          <th width="120">內容</th>
+          <th width="100">是否啟用</th>
+          <th width="200">編輯</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in storyList" :key="item.id">
+          <td>{{ $filters.date(item.create_at) }}</td>
+          <td>{{ item.title }}</td>
+          <td>{{ item.author }}</td>
+          <td class="multiline-ellipsis">{{ item.description }}</td>
+          <td>{{ item.content }}</td>
+          <td>
+            <span class="text-success" v-if="item.isPublic">啟用</span>
+            <span class="text-muted" v-else>未啟用</span>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-danger btn-sm" @click="openDelStoryModal(item)">刪除</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- props傳遞總頁數 emit傳出目前頁數 -->
+    <Pagination :pages="pagination" @emit-pages="getStoryList"></Pagination>
+    <!-- 更新資料，先帶原始資料進去元件，元件內修改後，再透過emit傳遞觸發函式和資料出來 -->
+    <StoryModal ref="storyModal" :story="tempStory" @update-story="updateStory"></StoryModal>
+    <!--  -->
+    <DelModal :item="tempStory" ref="delModal" @del-item="delStory" />
   </div>
-  <table class="table mt-4">
-    <thead>
-      <tr>
-        <th width="120">日期</th>
-        <th width="120">標題</th>
-        <th width="120">作者</th>
-        <th width="120">內容</th>
-        <th width="120">內容</th>
-        <th width="100">是否啟用</th>
-        <th width="200">編輯</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in storyList" :key="item.id">
-        <td>{{ $filters.date(item.create_at) }}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.author }}</td>
-        <td class="multiline-ellipsis">{{ item.description }}</td>
-        <td>{{ item.content }}</td>
-        <td>
-          <span class="text-success" v-if="item.isPublic">啟用</span>
-          <span class="text-muted" v-else>未啟用</span>
-        </td>
-        <td>
-          <div class="btn-group">
-            <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-            <button class="btn btn-outline-danger btn-sm" @click="openDelStoryModal(item)">刪除</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <!-- props傳遞總頁數 emit傳出目前頁數 -->
-  <Pagination :pages="pagination" @emit-pages="getStoryList"></Pagination>
-  <!-- 更新資料，先帶原始資料進去元件，元件內修改後，再透過emit傳遞觸發函式和資料出來 -->
-  <StoryModal ref="storyModal" :story="tempStory" @update-story="updateStory"></StoryModal>
-  <!--  -->
-  <DelModal :item="tempStory" ref="delModal" @del-item="delStory" />
 </template>
 <script>
 import StoryModal from '@/components/StoryModal.vue';
 import Pagination from '@/components/Pagination.vue';
 import DelModal from '@/components/DelModal.vue';
+
 export default {
   components: {
     StoryModal,
@@ -96,10 +99,8 @@ export default {
     },
     //* 以下進行新增或編輯，使用不同ＡＰＩ
     updateStory (item) {
-      // this.item.create_at = Math.floor(new Date(item.create_at) / 1000);
       this.tempStory = item;
-      // console.log(item);
-
+      // console.log(this.tempStory);
       // 新增
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
       let httpMethod = 'post';
@@ -120,12 +121,8 @@ export default {
           //   title: '更新成功'
           // });
           this.$httpMessageState(response, '更新');
+          // console.log(response.data);
         } else {
-          // this.emitter.emit('push-message', {
-          //   style: 'danger',
-          //   title: '更新失敗',
-          //   content: response.data.message.join('、')
-          // });
           this.$httpMessageState(response, '更新');
         }
       });
@@ -147,6 +144,7 @@ export default {
       });
     }
   }
+
 };
 </script>
 <style scope >

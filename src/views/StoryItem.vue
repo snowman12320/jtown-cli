@@ -27,8 +27,15 @@
               <p class="lh-lg fs-6 my-5 fw-light maxpad_p">
                 {{ story.description }}
               </p>
+
               <!-- 避免超出卡片 不需用寬高調整 ~~~~~ -->
               <img class="img-fluid" src="@/assets/nbaWeb/dean-bennett-nFjLHE4vmn4-unsplash.jpg" alt="" />
+              <!--  -->
+              <div class="my-3 d-flex gap-3">
+                <el-tag class="ml-2" type="info">#NBA</el-tag>
+                <el-tag class="ml-2" type="info">#ALL STAR</el-tag>
+                <el-tag class="ml-2" type="info">#TORONTO</el-tag>
+              </div>
             </div>
           </div>
         </article>

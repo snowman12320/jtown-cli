@@ -2,7 +2,7 @@
   <div class="">
     <Loading :active="isLoading_big"></Loading>
     <!--  -->
-    <div class="container-xxl">
+    <div class="container-xl">
       <nav aria-label="breadcrumb" class="mt-10">
         <ol class="breadcrumb">
           <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
@@ -11,12 +11,12 @@
           <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
               to="/products-view/products-content">Product</router-link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ product.title }} {{ }}</li>
         </ol>
       </nav>
       <!--  -->
       <div class="row row-cols-md-2 g-5 mt-5">
-        <div id="carouselExampleIndicators" class="carousel  slide col-md-6" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel  slide col-md-8" data-bs-ride="carousel">
           <div class="carousel-indicators">
             <!-- 第一個主圖的指標不用程式化，其餘其他圖片的指標用迴圈帶資料 -->
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -45,27 +45,38 @@
           </button>
         </div>
         <!--  -->
-        <div class="col-md-6 d-flex flex-column justify-content-around text-center">
+        <div class="col-md-3 d-flex flex-column justify-content-around text-center">
           <h1 class="mb-5">{{ product.title }}</h1>
           <!--  -->
           <div class="my-5">
             <div class="d-flex justify-content-center w-50 mx-auto ">
               <div class="form-check">
-                <input class="form-check-input d-none" type="radio" name="size" id="S">
-                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="S">
+                <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="S">
+                <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
+                  for="S">
                   S
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input d-none" type="radio" name="size" id="M">
-                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="M">
+                <input value="M" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="M">
+                <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
+                  for="M">
                   M
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input d-none" type="radio" name="size" id="L">
-                <label class="form-check-label border border-secondary text-secondary px-3 py-2" for="L">
+                <input value="L" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="L">
+                <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
+                  for="L">
                   L
+                </label>
+              </div>
+              <div class="form-check slanted-div">
+                <input disabled value="XL" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                  id="XL">
+                <label style="  cursor: not-allowed;" disabled
+                  class="form-check-label border border-secondary text-secondary px-3 py-2" for="XL">
+                  xL
                 </label>
               </div>
             </div>
@@ -96,8 +107,15 @@
             <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">BUY NOW</button>
           </div>
           <!--  -->
+          <hr class="w-100 mx-auto">
+          <div class="my-3 d-flex gap-3 w-100 flex-wrap mx-auto">
+            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Free shipping</el-tag>
+            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Store pickup</el-tag>
+            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Fast delivery</el-tag>
+          </div>
+          <!--  -->
           <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item w-50">
+            <div class="accordion-item w-100">
               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse"
                   data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
@@ -247,5 +265,21 @@ export default {
 .form-check input:checked+label {
   border: 2px solid black !important;
   color: black !important;
+}
+
+.slanted-div {
+  position: relative;
+}
+
+.slanted-div::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 32%;
+  width: 1%;
+  /* bottom: 0; */
+  height: 100%;
+  transform: skew(130deg);
+  background-color: #000;
 }
 </style>

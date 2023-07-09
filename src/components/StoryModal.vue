@@ -47,6 +47,18 @@
             </div>
             <div class="col-sm-8">
               <div class="mb-3">
+                <el-tag v-for="tag in dynamicTags" :key="tag" class="mx-1" closable :disable-transitions="false"
+                  @close="handleClose(tag)">
+                  {{ tag }}
+                </el-tag>
+                <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ms-1 " style="width:100px"
+                  size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+                <el-button v-else class="button-new-tag ml-1" size="small" @click.stop="showInput">
+                  + New Tag
+                </el-button>
+              </div>
+              <!--  -->
+              <div class="mb-3">
                 <label for="title" class="form-label">標題</label>
                 <input type="text" class="form-control" id="title" v-model="tempStory.title" placeholder="請輸入標題" />
               </div>
@@ -99,6 +111,7 @@
       </div>
     </div>
   </div>
+  <!--  -->
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin';
@@ -110,7 +123,12 @@ export default {
     return {
       modal: {},
       tempStory: {},
-      create_at: '' //! 限制數字存入資料
+      create_at: '', //! 限制數字存入資料
+      //
+      inputValue: '',
+      dynamicTags: ['NBA', 'SPORT', 'NEWS'],
+      inputVisible: false,
+      InputRef: null
     };
   },
   props: {
@@ -125,14 +143,21 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
+      this.tempStory.content = '暫放內容';
+      this.create_at = new Date(this.tempStory.create_at) * 1000;
+      // console.log(this.create_at);
+      //
+      //! 結果api文件中的tag欄位m，根本沒有QQ，難怪undefine
+      // this.dynamicTags = this.tempStory.tag;
+      // 多張圖
       if (!this.tempStory.images) {
         this.tempStory.images = [];
       }
     },
     create_at () { //! 限制數字存入資料
-      console.log('先是輸入日期', this.create_at);
+      // console.log('先是輸入日期', this.create_at);
       this.tempStory.create_at = Math.floor(new Date(this.create_at) / 1000);
-      console.log('後轉以秒为单位的时间戳', this.tempStory.create_at);
+      // console.log('後轉以秒为单位的时间戳', this.tempStory.create_at);
     }
   },
   methods: {
@@ -149,6 +174,23 @@ export default {
           this.tempStory.imageUrl = response.data.imageUrl;
         }
       });
+    },
+    //* 標籤
+    handleClose (tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    },
+    showInput () {
+      this.inputVisible = true;
+      this.$nextTick(() => {
+        this.$refs.InputRef.focus();
+      });
+    },
+    handleInputConfirm () {
+      if (this.inputValue) {
+        this.dynamicTags.push(this.inputValue);
+      }
+      this.inputVisible = false;
+      this.inputValue = '';
     }
   }
 };

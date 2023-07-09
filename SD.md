@@ -14,8 +14,8 @@ fixed ;
 網頁可增加互動性內容 (我的最愛、類似品項、優惠券介紹．．．)
 
 # 有關程式功能優先!!! 版型非必要
-# 請資深 vue 工程師優化程式碼
 
+# 請資深 vue 工程師優化程式碼
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,7 +47,6 @@ md 中加入哪業使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
-
 # 簡單:
 
 # 嚴肅的 :
@@ -65,20 +64,18 @@ git readme / gitpages https://github.com/a94s84/Hermosa
   https://a94s84.github.io/Hermosa/#/wishlist
   https://jordan-ttc-design.github.io/boaboly-art-store/#/products
 
-# products-item / artical
-
-要有主圖片和兩張其他圖片上傳 > 多黨上傳 ，可能api限制而不行 ，多黨input試試 > base64會被黨
-移除會自動關閉視窗？ 
-
-必須請選擇規格，存到名稱中？
-
-
-加上 tag
-https://element.eleme.io/#/zh-CN/component/tag
-https://codyhouse.co/ds/components/app/product
+# article
+可放多張圖
+無啟用 有失敗
 
 商品列表 使用 extend 擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
 相關商品(類別) 用 extend 改變篩選等等 （參考 程式筆 谷歌
+
+> 參考課程的前面部分
+> :is
+> $route.path
+
+# products-item
 
 加上評論 用本地存 / 用創意風版 星星 標題 評論（金魚的對話框） / 要判斷登入 / 用陣列物件 （帳號 評分 標題 內文）
 https://bootsnipp.com/snippets/nNg98
@@ -88,19 +85,23 @@ https://www.bandier.com/collections/shoes
 
 商品描述用 後台用編輯器
 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
+> https://vue-multiselect.js.org/#sub-getting-started
+
 
 # login
 
-註冊 + TODO JS
+註冊 + TODO JS > 應該不用因為 註冊也燈不進去後台
 https://todoo.5xcamp.us/api-docs/index.html
 後台中間 歡迎~XXXXX
+註冊會員以滿的小圖 風測中位開放註冊
 
 # dashboard
+
 分 商品管理 和 會員紅按鈕( 側邊基本資料 收藏清單 / 登入就到這頁)
 表格 排序(參蔬果) / RWD (datatable) / 搜尋(產品名) / 篩選(是否付款)
 https://element.eleme.io/#/zh-CN/component/table
 後台加上 ：
-基本資料 用本地儲存資料
+基本資料 用本地儲存資料 > yup驗證
 https://element.eleme.io/#/zh-CN/component/upload
 可搜尋訂單
 https://codyhouse.co/ds/components/app/property-table
@@ -113,6 +114,7 @@ https://element.eleme.io/#/zh-CN/component/statistic
 https://element.eleme.io/#/zh-CN/component/datetime-picker
 
 # rank
+
 橫的改值的
 https://element.eleme.io/#/zh-CN/component/rate
 右邊放五星評分
@@ -126,8 +128,8 @@ https://ithelp.ithome.com.tw/articles/10272921
 底下其他球員
 加上 aos
 
-
 # story
+
 使用文章 api 前後台增刪查改
 x 準備畫面 x 新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x 後台刪除 x 前台取得資料 x 頁數切換
 搜尋 API
@@ -140,6 +142,7 @@ https://carbon38.com/en-tw
 不要框 底色反差 不改結構(紫金 ) > 某一個欄位存色碼，後台設定時增加色碼欄位 ，渲染到內文背景裡
 https://element.eleme.io/#/zh-CN/component/color-picker
 https://codyhouse.co/ds/components/app/reading-progressbar
+
 # footer
 
 > 改 keep 截圖那樣 簡單
@@ -147,6 +150,5 @@ https://codyhouse.co/ds/components/app/reading-progressbar
 > 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷
 > 寄信給我功能（谷歌 api？ / 訂閱 欄位
 > 徵才用彈窗 / 表單驗證 / 上傳文件
-
 
 # 後台使用編輯器
