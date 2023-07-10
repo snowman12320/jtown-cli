@@ -374,7 +374,9 @@ export default {
         localStorage.setItem('local-couponCode', this.couponCode);
         this.couponCode = localStorage.getItem('local-couponCode');
         if (this.couponCode !== 'default') {
-          this.couponPercent = res.data.data.carts[0].coupon.percent;
+          if (this.$route.path.includes('cart-list')) {
+            this.couponPercent = res.data.data.carts[0].coupon.percent;
+          }
         }
       });
     },

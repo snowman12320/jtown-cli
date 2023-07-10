@@ -1,6 +1,8 @@
 .DS_Store
 node_modules
 /dist
+QA.md
+SD.md
 
 
 # local env files

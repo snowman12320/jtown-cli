@@ -77,14 +77,18 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 > $route.path
 
 # products-item
-
-加上評論 用本地存 / 用創意風版 星星 標題 評論（金魚的對話框） / 要判斷登入 / 用陣列物件 （帳號 評分 標題 內文）
+用創意風版 星星 標題 評論（金魚的對話框）
+加上評論 用本地存 
+用陣列物件 （帳號 評分 標題 內文）
+/ 要判斷登入 / 
 https://bootsnipp.com/snippets/nNg98
 
 
 商品描述用 後台用編輯器
+
 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
 > https://vue-multiselect.js.org/#sub-getting-started
+> 怪怪的，可能要自己做一個
 
 
 # login
@@ -128,7 +132,7 @@ https://ithelp.ithome.com.tw/articles/10272921
 加上 aos
 
 # story
-
+要連到該球員搜尋頁
 使用文章 api 前後台增刪查改
 x 準備畫面 x 新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x 後台刪除 x 前台取得資料 x 頁數切換
 搜尋 API

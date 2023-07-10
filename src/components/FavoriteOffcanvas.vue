@@ -5,7 +5,7 @@
     <Loading :active="isLoading"></Loading>
     <div class="offcanvas-header d-flex justify-content-between align-items-center">
       <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
-          aria-hidden="true"></i> 我的收藏
+          aria-hidden="true"></i> MY COLLECT
       </h5>
       <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -30,7 +30,7 @@
       </div>
       <!--  -->
       <p class="d-flex justify-content-end fs-4 mt-3  ">
-        <span class="">共收藏 {{ favoriteIds.length }} 件商品</span>
+        <span class="">TOTAL( {{ favoriteIds.length }} ) </span>
       </p>
       <!--  -->
       <!-- <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""

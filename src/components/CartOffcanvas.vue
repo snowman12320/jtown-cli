@@ -5,7 +5,7 @@
     <Loading :active="isLoading"></Loading>
     <div class="offcanvas-header d-flex justify-content-between align-items-center">
       <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
-          aria-hidden="true"></i> 我的購物車
+          aria-hidden="true"></i> MY CART
       </h5>
       <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -38,7 +38,7 @@
       </div>
       <!--  -->
       <p class="d-flex justify-content-between fs-4 mt-3  ">
-        <span class="">小計( {{ sumFinalQty }} 商品)</span>
+        <span class="">TOTAL( {{ sumFinalQty }} )</span>
         <span class="">$ {{ $filters.currency(sumFinalTotal) }}</span>
       </p>
       <!--  -->

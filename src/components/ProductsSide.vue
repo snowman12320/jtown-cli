@@ -4,8 +4,8 @@
   <aside class="col-lg-2 lh-lg aside sticky-lg-top shadow align-self-start" style="top:100px">
     <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
-    <!-- {{ typeof (cacheSearch) }} -->
-    <!-- {{ cacheSearch }} -->
+    <!-- {{ typeof (cacheSearch.title) }} -->
+    <!-- {{ cacheSearch.title }} -->
     <div class="my-3">
       <!-- <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
         v-model.lazy="cacheSearch" placeholder="Search Player..."> -->
@@ -65,13 +65,7 @@ export default {
       cacheCategory: '',
       filterCheck: '',
       input_all: null,
-      options: [
-        { title: 'shoe' },
-        { title: 'Rails' },
-        { title: 'Sinatra' },
-        { title: 'Laravel' },
-        { title: 'Phoenix' }
-      ]
+      options: []
     };
   },
   directives: {

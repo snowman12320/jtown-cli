@@ -11,7 +11,7 @@
           <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
               to="/products-view/products-content">Product</router-link>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">{{ product.title }} {{ }}</li>
+          <li class="breadcrumb-item active" aria-current="page">{{ product.title }} </li>
         </ol>
       </nav>
       <!--  -->
@@ -109,11 +109,49 @@
           <!--  -->
           <hr class="w-100 mx-auto">
           <div class="my-3 d-flex gap-3 w-100 flex-wrap mx-auto">
-            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Free shipping</el-tag>
-            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Store pickup</el-tag>
-            <el-tag class="fs-6" type="danger" size="" effect="plain" round="true">Fast delivery</el-tag>
+            <!-- round="" = true -->
+            <el-tag class="fs-6" type="warning" size="" effect="plain" round="">Free shipping</el-tag>
+            <el-tag class="fs-6" type="info" size="" effect="plain" round="">Store pickup</el-tag>
+            <el-tag class="fs-6" type="danger" size="" effect="plain" round="">Fast delivery</el-tag>
+          </div>
+
+        </div>
+      </div>
+      <!--  -->
+      <div class="row row-cols-md-2">
+        <div class="col-md-8">
+          <h3 class="mt-7">DESCRIPTION</h3>
+          <hr>
+          <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque minima fugit asperiores repellendus
+            assumenda dolor, nesciunt dolorum! Laboriosam totam rem excepturi rerum libero eos tenetur qui odio nostrum
+            ullam? Omnis.</p>
+          <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque minima fugit asperiores repellendus
+            assumenda dolor, nesciunt dolorum! Laboriosam totam rem excepturi rerum libero eos tenetur qui odio nostrum
+            ullam? Omnis.</p>
+          <!--  -->
+          <h3 class="mt-7">COMMENT</h3>
+          <hr>
+          <div class="d-flex justify-content-start mb-4 ">
+            <div class="img_cont_msg">
+              <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+            </div>
+            <div class="msg_cotainer">
+              Hi, how are you samim?
+              <span class="msg_time">8:40 AM, Today</span>
+            </div>
           </div>
           <!--  -->
+          <div class="card-footer">
+            <div class="input-group">
+              <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+              <div class="input-group-append bg-white">
+                <span class="input-group-text send_btn bg-white"><i class="fas fa-location-arrow"></i></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="col-md-4">
           <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
             <div class="accordion-item w-100">
               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -136,7 +174,7 @@
         </div>
       </div>
       <!--  -->
-      <h3 class="mt-7">類似商品</h3>
+      <h3 class="mt-7">RECOMMEND</h3>
       <ProductsList></ProductsList>
     </div>
   </div>
@@ -281,5 +319,83 @@ export default {
   height: 100%;
   transform: skew(130deg);
   background-color: #000;
+}
+
+.img_cont {
+  position: relative;
+  height: 70px;
+  width: 70px;
+}
+
+.img_cont_msg {
+  height: 40px;
+  width: 40px;
+}
+
+.user_img {
+  height: 70px;
+  width: 70px;
+  border: 1.5px solid #f5f6fa;
+
+}
+
+.user_img_msg {
+  height: 40px;
+  width: 40px;
+  border: 1.5px solid #f5f6fa;
+
+}
+
+.msg_cotainer_send {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+  border-radius: 25px;
+  background-color: #78e08f;
+  padding: 10px;
+  position: relative;
+}
+
+.msg_time {
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+}
+
+.msg_time_send {
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+}
+
+.msg_cotainer {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  border-radius: 25px;
+  background-color: #82ccdd;
+  padding: 10px;
+  position: relative;
+}
+
+.type_msg {
+  height: 15px !important;
+  overflow-y: auto;
+  border-radius: 15px 0 0 15px !important;
+}
+
+.type_msg:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+}
+
+.send_btn {
+  border-radius: 0 15px 15px 0 !important;
+  cursor: pointer;
+  height: 38px;
 }
 </style>

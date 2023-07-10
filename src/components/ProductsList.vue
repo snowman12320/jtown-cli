@@ -79,6 +79,7 @@ export default {
     };
   },
   mounted () {
+    this.products_list = this.$refs.products_list.offsetHeight; //! 在mounted定義會是零，但不定義會在其他頁報錯
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
     this.emitter.on('customEvent_search', (data) => {
       this.cacheSearch = data;
@@ -98,7 +99,6 @@ export default {
   computed: {
     filtersData () {
       let filteredData = [];
-
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.isLoading_big = true;
       try {
@@ -106,8 +106,8 @@ export default {
           filteredData = this.products;
         } else {
           filteredData = this.products.filter((item) =>
-            (!this.cacheSearch || item.title.toLowerCase().includes(this.cacheSearch.toLowerCase())) &&
-          (!this.cacheCategory || item.category.toLowerCase().includes(this.cacheCategory.toLowerCase()))
+            (!this.cacheSearch || item.title.toLowerCase().includes(this.cacheSearch.trim().toLowerCase())) &&
+          (!this.cacheCategory || item.category.toLowerCase().includes(this.cacheCategory.trim().toLowerCase()))
           );
 
           if (filteredData.length === 0 && !this.cacheSearch) {
@@ -142,7 +142,7 @@ export default {
 
   methods: {
     handleScroll () {
-      this.products_list = this.$refs.products_list.offsetHeight; //! 在mounted定義會是零，但不定義會在其他頁報錯
+      // this.products_list = this.$refs.products_list.offsetHeight; //! 這邊定義會在切換router時，取不到dom（生命週期沒有重整吧）
       // console.log(window.scrollY);
       // console.log(this.products_list);
       if (window.scrollY > this.products_list - 300) {
