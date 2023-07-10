@@ -31,7 +31,7 @@
           </td>
           <td>
             <div class="btn-group">
-              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
+              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item.id)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" @click="openDelStoryModal(item)">刪除</button>
             </div>
           </td>
@@ -85,13 +85,19 @@ export default {
       });
     },
     //! 新增時會帶一個true，編輯時會帶false和資料
-    openModal (isNew, item) {
+    openModal (isNew, id) {
       if (isNew) {
         this.tempStory = {};
       } else {
-        this.tempStory = { ...item };
-        // this.tempStory.create_at = this.$filters.date(item.create_at);//! 轉換數字 顯示資料
-        // console.log(this.tempStory.create_at);
+        this.isLoading = true;
+        // !story 的 content 沒有在彈窗正確顯示是因為取得文章列表並沒有 content 這筆資料
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${id}`;
+        this.$http.get(api).then((res) => {
+          if (res.data.success) {
+            this.tempStory = res.data.article;
+            this.isLoading = false;
+          }
+        });
       }
       this.isNew = isNew;
       const storyCp = this.$refs.storyModal;

@@ -18,6 +18,8 @@ fixed ;
 # 請資深 vue 工程師優化程式碼
 
 /////////////////////////////////////////////////////////////////////////////////////////////
+好看的鞋
+https://www.bandier.com/collections/shoes
 
 https://tailwindcomponents.com/component/application-header-with-clip-path
 https://www.costco.com.tw/Costco-Grocery/Costco-Grocery-Kitchen-Dining/c/GCY601
@@ -66,7 +68,6 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 # article
 可放多張圖
-無啟用 有失敗
 
 商品列表 使用 extend 擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
 相關商品(類別) 用 extend 改變篩選等等 （參考 程式筆 谷歌
@@ -80,8 +81,6 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 加上評論 用本地存 / 用創意風版 星星 標題 評論（金魚的對話框） / 要判斷登入 / 用陣列物件 （帳號 評分 標題 內文）
 https://bootsnipp.com/snippets/nNg98
 
-有尺寸 看有沒有 api 的位置 > 選單可以存本地，選擇時就加入 商品名稱後面去送出
-https://www.bandier.com/collections/shoes
 
 商品描述用 後台用編輯器
 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中

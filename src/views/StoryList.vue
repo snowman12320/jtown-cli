@@ -19,7 +19,8 @@
               class="card-img-top of-none op-top position-absolute mt-n5" alt="..." />
             <div data-num="001" class="img_back img_back_kobe"></div>
             <div class="card-body">
-              <h3 class="card-title fw-bold fs-6">{{ item.title }}</h3>
+              <h3 class="card-title fw-bold fs-6">{{ item.title }} </h3>
+              <!-- {{ '我是啟用狀態：' + item.isPublic }} -->
               <p class="card-text fs-6 multiline-ellipsis">
                 {{ item.description }}
               </p>
@@ -61,13 +62,15 @@ export default {
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         if (res.data.success) {
-          this.storyList = res.data.articles;
+          // this.storyList = res.data.articles;
+          // This code will create a new array  this.storyList  that contains only the items from  res.data.articles  where  isPublic  is  true .
+          this.storyList = res.data.articles.filter(story => story.isPublic);
           this.pagination = res.data.pagination;
           console.log(this.pagination);
         }
       });
     },
-    getStory (id) { //! 只取一個商品
+    getStory (id) { //! 只取一個文章
       // console.log(id);
       this.$router.push(`/story/item/${id}`);
       this.isLoading = true;
@@ -80,7 +83,7 @@ export default {
         // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
           this.story = res.data.article;
-          console.log(this.story);
+          // console.log(this.story);
           // this.emitter.emit('customEvent_getStory', this.story);
         }
       });

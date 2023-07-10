@@ -100,7 +100,6 @@ export default {
     //* 以下進行新增或編輯，使用不同ＡＰＩ
     updateProduct (item) {
       this.tempProduct = item;
-      // console.log(item);
       // 新增
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
       let httpMethod = 'post';
@@ -111,7 +110,6 @@ export default {
       }
       const productComponent = this.$refs.productModal;
       this.$http[httpMethod](api, { data: this.tempProduct }).then((response) => {
-        // console.log(response);
         productComponent.hideModal();
         if (response.data.success) {
           this.getProducts();

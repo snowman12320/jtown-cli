@@ -21,20 +21,31 @@ const app = createApp(App);
 再來是使用元件
 最後是綁定
 
+
 # /////////////////////////////////////////////////////////////////////////////////////////////
 prodcutModal 中
-handleFileUpload (event)
-嘗試多檔上傳，但好像被 api 本身限制 base64 了，但轉檔完就只能上傳一個，是需要調整什麼嗎？
-delImage()
-為何執行刪除圖片會關閉彈跳窗？
+" 一般不會將 base64 的圖片存到資料庫，所以請同學務必上傳一般圖片的格式 "
+在uploadFile_more()，已轉格式，但都只能上傳一張，有嘗試用迴圈，但無法上傳多張
 
-storys 中 openModal
+delImage()中
+為何執行刪除圖片會關閉彈跳窗？，我找了很久，只有看到刪除陣列項目的動作，但就會關掉視窗
+有試過改用a或button以外的標籤，或click.stop
+
+好的，我會注意無中斷的錯誤再紀錄git commit，
+但我那時直接pull下來沒有中斷的錯誤
+
+- [x] storys 中 openModal
 嘗試將原本的時間秒數轉成日期格式，並顯示在已編輯彈窗的日期中，但都失敗，會是空值，
-
-StoryModal 中
+>// ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
+const date = new Date(this.tempStory.create_at * 1000);
+this.create_at = date.toISOString().split('T')[0];
+- [x] StoryModal 中
 v-model="tempStory.content" 寫不進去資料庫，api送進去有顯示更新成功，查看item中也有，但編輯時，彈窗資料讀出來就沒有，
 但 description 卻有
-
+> 寫入和讀取單個文章的API，不同
+- [x] StoryList中
+isPublic是false但還是會顯示的原因
+> 沒有抓資料後，沒有先篩選掉，無啟用的
 - [x] StoryModal 中
 想在 description 增加一個 height 的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改 api 呢？ > 轉字串存 > 商品描述的編輯器若可以就可以
 - [x]想確認 couponModal 中的 watch 的功用

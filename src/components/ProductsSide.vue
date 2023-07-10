@@ -4,10 +4,13 @@
   <aside class="col-lg-2 lh-lg aside sticky-lg-top shadow align-self-start" style="top:100px">
     <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
-    <!-- {{ typeof(cacheSearch) }} -->
+    <!-- {{ typeof (cacheSearch) }} -->
+    <!-- {{ cacheSearch }} -->
     <div class="my-3">
-      <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
-        v-model.lazy="cacheSearch" placeholder="Search Player...">
+      <!-- <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
+        v-model.lazy="cacheSearch" placeholder="Search Player..."> -->
+      <multiselect v-model="cacheSearch" :options="options" :custom-label="nameWithLang" placeholder="Select one"
+        label="title" track-by="title"></multiselect>
     </div>
     <!-- BS內建margin 很多推不到位 可能要設定0 用開發者看會有淡黃區域 -->
     <ul class="list-unstyled d-flex flex-lg-column justify-content-center my-3">
@@ -45,8 +48,11 @@
   </aside>
 </template>
 <script>
+import Multiselect from 'vue-multiselect';
+
 export default {
   inject: ['emitter'],
+  components: { Multiselect },
   data () {
     return {
       products: [],
@@ -58,7 +64,14 @@ export default {
       cacheSearch: '',
       cacheCategory: '',
       filterCheck: '',
-      input_all: null
+      input_all: null,
+      options: [
+        { title: 'shoe' },
+        { title: 'Rails' },
+        { title: 'Sinatra' },
+        { title: 'Laravel' },
+        { title: 'Phoenix' }
+      ]
     };
   },
   directives: {
@@ -79,7 +92,7 @@ export default {
   watch: {
     cacheSearch () {
       this.cacheCategory = '';
-      this.emitter.emit('customEvent_search', this.cacheSearch);
+      this.emitter.emit('customEvent_search', this.cacheSearch.title);
     },
     cacheCategory () {
       this.cacheSearch = '';//* 避免分類內容和搜尋內容，兩個條件衝突
@@ -91,11 +104,15 @@ export default {
     }
   },
   methods: {
+    nameWithLang ({ title }) { //* 整理選單
+      return `${title}`;
+    },
     getProducts () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
       this.isLoading = true;
       this.$http.get(url).then((response) => {
         this.products = response.data.products;
+        this.options = response.data.products;
         this.isLoading = false;
         this.products.forEach(product => {
           if (!this.uniqueCategories.includes(product.category)) {

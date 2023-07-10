@@ -90,8 +90,8 @@
               <div class="mb-3">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="tempStory.isPublic" :true-value="true"
-                    :false-value="false" id="is_enabled" />
-                  <label class="form-check-label" for="is_enabled">
+                    :false-value="false" id="isPublic" />
+                  <label class="form-check-label" for="isPublic">
                     是否啟用
                   </label>
                 </div>
@@ -143,9 +143,9 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
-      this.tempStory.content = '暫放內容';
-      this.create_at = new Date(this.tempStory.create_at) * 1000;
-      // console.log(this.create_at);
+      // ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
+      const date = new Date(this.tempStory.create_at * 1000);
+      this.create_at = date.toISOString().split('T')[0];
       //
       //! 結果api文件中的tag欄位m，根本沒有QQ，難怪undefine
       // this.dynamicTags = this.tempStory.tag;

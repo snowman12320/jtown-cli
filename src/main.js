@@ -22,6 +22,8 @@ import 'element-plus/dist/index.css';
 // import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css'; //! 終端出現version錯誤 可能只能支援bootstrap v4 + vue 2/3
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
+// import Multiselect from 'vue-multiselect';//! 不能全域註冊
+import 'vue-multiselect/dist/vue-multiselect.css';
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
 // 定義驗證規則
