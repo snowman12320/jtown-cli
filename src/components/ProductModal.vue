@@ -42,7 +42,7 @@
                   <div class="d-flex">
                     <input type="url" class="form-control form-control" v-model="tempProduct.imagesUrl[key]"
                       placeholder="請輸入連結" />
-                    <div class="btn btn-outline-danger text-nowrap" @click="tempProduct.imagesUrl.splice(key, 1)">
+                    <div class="btn btn-outline-danger text-nowrap" @click.stop="tempProduct.imagesUrl.splice(key, 1)">
                       移除
                     </div>
                     <!--  -->
@@ -268,20 +268,20 @@ export default {
     // },
     // 多檔轉檔
     uploadFile_more () {
-      this.other_photo = true;
       const uploadedFiles = this.$refs.fileInput_more.files;
-      const formData = new FormData();
       for (let i = 0; i < uploadedFiles.length; i++) {
+        this.other_photo = true;
+        const formData = new FormData();//! 放迴圈中才會每次獨立出來
         formData.append('file-to-upload', uploadedFiles[i]);
+        // console.log(formData);
+        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+        this.$http.post(url, formData).then((res) => {
+          if (res.data.success) {
+            this.tempProduct.imagesUrl.push(res.data.imageUrl);
+            this.other_photo = false;
+          }
+        });
       }
-      console.log(formData);
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.$http.post(url, formData).then((res) => {
-        if (res.data.success) {
-          this.tempProduct.imagesUrl.push(res.data.imageUrl);
-          this.other_photo = false;
-        }
-      });
     },
     // 失敗的多檔上傳
     handleFileUpload (event) {

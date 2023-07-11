@@ -66,6 +66,9 @@ git readme / gitpages https://github.com/a94s84/Hermosa
   https://a94s84.github.io/Hermosa/#/wishlist
   https://jordan-ttc-design.github.io/boaboly-art-store/#/products
 
+  計時器
+  https://element-plus.org/zh-CN/component/statistic.html#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95
+
 # article
 可放多張圖
 
@@ -95,8 +98,11 @@ https://bootsnipp.com/snippets/nNg98
 
 註冊 + TODO JS > 應該不用因為 註冊也燈不進去後台
 https://todoo.5xcamp.us/api-docs/index.html
+
 後台中間 歡迎~XXXXX
+
 註冊會員以滿的小圖 風測中位開放註冊
+https://element-plus.org/zh-CN/component/popover.html
 
 # dashboard
 
@@ -155,3 +161,30 @@ https://codyhouse.co/ds/components/app/reading-progressbar
 > 徵才用彈窗 / 表單驗證 / 上傳文件
 
 # 後台使用編輯器
+
+
+
+全部顯示用 有頁數API
+搜尋時用 沒有頁數限制API
+
+文章內頁輪播 vuetify
+
+商品內頁 放大鏡 
+評分 懸停小數點和單純顯示
+https://vuetifyjs.com/zh-Hans/components/ratings/
+
+控制台抽屜
+https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
+
+會員資料
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+下拉輸入  訂單篩選 /  搜尋編號
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+下拉搜尋 最下面的
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+查看下面的其他 的驗證很簡單
+https://vuetifyjs.com/zh-Hans/components/forms/
+
+全域搜尋
+要錢
+https://www.algolia.com/developers/web-instantsearch-vue/
