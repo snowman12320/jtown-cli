@@ -55,10 +55,6 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 # home
 
-加 favicon.ico
-倒數兩天領優惠券
-股歌翻譯的按鈕
-
 - 彈窗加入會員 80%領優惠卷資訊
   產品圖左右 大圖
   https://www.outdoorvoices.com/
@@ -80,7 +76,7 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 > $route.path
 
 # products-item
-用創意風版 星星 標題 評論（金魚的對話框）
+用創意風版或元件庫 星星  評論
 加上評論 用本地存 
 用陣列物件 （帳號 評分 標題 內文）
 / 要判斷登入 / 
@@ -107,11 +103,14 @@ https://element-plus.org/zh-CN/component/popover.html
 # dashboard
 
 分 商品管理 和 會員紅按鈕( 側邊基本資料 收藏清單 / 登入就到這頁)
+
 表格 排序(參蔬果) / RWD (datatable) / 搜尋(產品名) / 篩選(是否付款)
 https://element.eleme.io/#/zh-CN/component/table
+
 後台加上 ：
 基本資料 用本地儲存資料 > yup驗證
 https://element.eleme.io/#/zh-CN/component/upload
+
 可搜尋訂單
 https://codyhouse.co/ds/components/app/property-table
 
@@ -160,12 +159,15 @@ https://codyhouse.co/ds/components/app/reading-progressbar
 > 寄信給我功能（谷歌 api？ / 訂閱 欄位
 > 徵才用彈窗 / 表單驗證 / 上傳文件
 
+https://vuetifyjs.com/zh-Hans/components/footers/
+
+# 錯誤頁
+https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
 # 後台使用編輯器
 
 
 
-全部顯示用 有頁數API
-搜尋時用 沒有頁數限制API
+
 
 文章內頁輪播 vuetify
 
@@ -184,6 +186,8 @@ https://vuetifyjs.com/zh-Hans/components/autocompletes/
 https://vuetifyjs.com/zh-Hans/components/autocompletes/
 查看下面的其他 的驗證很簡單
 https://vuetifyjs.com/zh-Hans/components/forms/
+隐私政策 / 本地接收選擇 (了解拒絕的差異)
+Creating a Privacy Policy notification is a great use case for the v-sheet component.
 
 全域搜尋
 要錢

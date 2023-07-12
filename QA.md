@@ -7,6 +7,8 @@ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
 
 productList 中
 鞋子在第二頁就會搜尋或篩選不到，要載入第二頁才有
+>全部顯示用 有頁數API
+搜尋時用 沒有頁數限制API
 
 prodcutModal 中
 嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
