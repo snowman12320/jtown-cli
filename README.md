@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-npm install --force
+npm install --force 
 ```
 
 ### Compiles and hot-reloads for development
