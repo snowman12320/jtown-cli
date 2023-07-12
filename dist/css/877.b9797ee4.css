@@ -1,0 +1,1 @@
+.disabled{pointer-events:none;cursor:not-allowed;opacity:.5}.single-ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:50%}.multiline-ellipsis{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;width:100%}
