@@ -7,16 +7,17 @@
       <!-- <HomeBanner></HomeBanner> -->
       <HomeStory></HomeStory>
       <HomeProduct></HomeProduct>
+
     </div>
     <div>
     </div>
     <Footer></Footer>
     <!-- alert -->
     <transition name="fade" class="">
-      <el-alert title="SIGN UP ! Get the Coupon ！！！" type="info" center :description="timerElement" show-icon
-        v-show="isCouponAlert" />
+      <el-alert class="el-alert_home" title="SIGN UP ! Get the Coupon ！" type="info" center :description="timerElement"
+        show-icon v-show="isCouponAlert" />
     </transition>
-    <!-- modal -->
+    <!-- advertise modal -->
     <el-dialog v-model="centerDialogVisible" title="NEWS" width="30%" center>
       <!-- v-slot:default来指定el-countdown组件中的默认插槽位置 -->
       <template v-slot:default>
@@ -24,15 +25,14 @@
         <img src="@\assets\nbaWeb\andre-hunter-RPKdvPcYAUo-unsplash.jpg" class="w-100 h-100 img-fluid" alt="">
         <el-row>
           <el-col :span="24">
-            <el-countdown title="Last chance" :value="value" title-class="countdown-title"
-              value-class="countdown-value" />
+            <el-countdown title="Last chance" :value="value" class="countdown-title" />
           </el-col>
         </el-row>
       </template>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="centerDialogVisible = false">shop without offer</el-button>
-          <router-link to="/products-view/products-content">
+          <el-button class="without" @click="centerDialogVisible = false">shop without offer</el-button>
+          <router-link class="el-button--primary" to="/products-view/products-content">
             <el-button type="primary" @click="centerDialogVisible = false">
               ENJOY 20% OFF
             </el-button>
@@ -114,7 +114,7 @@ export default {
         const h = Math.floor((e / (1000 * 60 * 60)) % 24);
         const d = Math.floor(e / (1000 * 60 * 60 * 24));
 
-        this.timerElement = `Last chance to get 10% UP OFF  - \n EXTENDED UNTIL ${this.pad(d)} Day ${this.pad(h)} h: ${this.pad(m)} m: ${this.pad(s)}.${Math.floor(
+        this.timerElement = `Last chance to get 10% UP OFF  - \n EXTENDED UNTIL ${this.pad(d)} Day ${this.pad(h)} : ${this.pad(m)} : ${this.pad(s)}.${Math.floor(
           ms / 100)} s`;
       } else {
         this.timerElement = '00 D 00 H 00 M 00.0 S';
@@ -131,27 +131,48 @@ export default {
 
 };
 </script>
+// ! scoped 會讓子元件吃不到
 <style  lang="scss">
-.el-alert {
+.el-alert_home {
   position: absolute !important;
   top: 100px;
-  width: 550px !important;
+  width: 700px !important;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  background: linear-gradient(to right, #0047AB, #E13A3E);
+  height: 75px;
+
+  i {
+    color: #fff !important;
+    margin-right: 30px;
+  }
+
+  .el-alert__content {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    .el-alert__title {
+      font-size: 25px;
+    }
+
+    .el-alert__description {
+      width: 450px;
+      color: white !important;
+      font-weight: 200 !important;
+    }
+  }
+
 }
 
-.el-alert__description {
-  width: 450px;
-}
-
-.el-alert:first-child {
-  margin: 0;
-}
-
+// alert過度
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1.5s;
+  transition: opacity 1.5s !important;
 }
 
 .fade-enter,
@@ -165,31 +186,41 @@ export default {
 
 .el-dialog__title {
   font-size: 50px !important;
-  color: red
 }
 
-/* 不能設定scoped 無法改樣式 */
-.el-statistic__number {
-  font-size: 50px !important;
-}
+/* ! 使用类名：可以为el-button元素添加一个自定义的类名，并在CSS文件中定义该类名的样式规则 */
+.countdown-title {
+  .el-statistic__head {
+    font-size: 30px !important;
+    color: red !important;
+    margin-top: 20px;
+  }
 
-.el-statistic__head {
-  font-size: 30px !important;
-  color: red !important;
-  margin-top: 20px;
-}
-
-.el-button--primary {
-  font-size: 20px !important;
-  padding: 15px 20px !important;
+  /* 不能設定scoped 無法改樣式 */
+  .el-statistic__number {
+    font-size: 50px !important;
+  }
 }
 
 .el-button {
   border: none !important;
+}
 
-  // background-color: transparent !important;
-  & span:hover {
-    // text-decoration: underline !important;
+.el-button--primary {
+  display: inline-block;
+  padding: 25px 20px !important;
+
+  .el-button {
+    font-size: 20px !important;
+  }
+}
+
+.without {
+  background-color: transparent !important;
+
+  &:hover span {
+    text-decoration: underline !important;
+    color: #000;
   }
 }
 </style>

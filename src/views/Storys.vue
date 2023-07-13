@@ -23,7 +23,7 @@
           <td>{{ $filters.date(item.create_at) }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.author }}</td>
-          <td class="multiline-ellipsis">{{ item.description }}</td>
+          <td class="multiline-ellipsis " v-html="item.description"></td>
           <td>{{ item.content }}</td>
           <td>
             <span class="text-success" v-if="item.isPublic">啟用</span>
@@ -153,7 +153,7 @@ export default {
 
 };
 </script>
-<style scope >
+<style lang="scss">
 .single-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -169,5 +169,11 @@ export default {
   /*  有寬度才能多行  */
   width: 100%;
   height: 85px;
+
+  * {
+    color: rgba(0, 0, 0, 0.692) !important;
+    font-size: 16px !important;
+
+  }
 }
 </style>
