@@ -83,7 +83,8 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 https://bootsnipp.com/snippets/nNg98
 
 
-商品描述用 後台用編輯器
+商品描述用 後台用編輯器 > 元件有!!!!
+http://120.92.142.115:81/vform3/
 
 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
 > https://vue-multiselect.js.org/#sub-getting-started

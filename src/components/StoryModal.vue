@@ -70,14 +70,18 @@
                 </div>
               </div>
               <div class="mb-3">
-                <label for="editor1" class="form-label">內文</label>
-                <textarea type="text" class="form-control" v-model="tempStory.description"
-                  placeholder="請輸入文章內容"></textarea>
+                <label for="editor1" class="form-label">文章描述</label>
+                <!-- <textarea type="text" class="form-control" v-model="tempStory.description"
+                  placeholder="請輸入文章內容"></textarea> -->
                 <!-- <TinyMCE></TinyMCE> -->
                 <!-- <textarea id="editor1"></textarea> -->
+                <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
+                  ref="vFormRef">
+                </v-form-render>
+                <el-button type="primary" @click="submitForm">Submit</el-button>
               </div>
               <div class="mb-3">
-                <label for="content" class="form-label">內文</label>
+                <label for="content" class="form-label">主角內容</label>
                 <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
                   placeholder="請輸入文章內容"></textarea>
               </div>
@@ -99,6 +103,11 @@
             </div>
           </div>
         </div>
+        <!--  -->
+        <!-- {{ tempStory.content }} -->
+        {{ formData.richeditor78915 }}
+
+        <!--  -->
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
@@ -128,7 +137,11 @@ export default {
       inputValue: '',
       dynamicTags: ['NBA', 'SPORT', 'NEWS'],
       inputVisible: false,
-      InputRef: null
+      InputRef: null,
+      //
+      formJson: { widgetList: [{ key: 108449, type: 'rich-editor', icon: 'rich-editor-field', formItemFlag: true, options: { name: 'richeditor78915', label: '', labelAlign: '', placeholder: '', labelWidth: null, labelHidden: false, columnWidth: '200px', contentHeight: '200px', disabled: false, hidden: false, required: false, requiredHint: '', customRule: '', customRuleHint: '', customClass: [], labelIconClass: null, labelIconPosition: 'rear', labelTooltip: null, minLength: null, maxLength: null, showWordLimit: false, onCreated: '', onMounted: '', onValidate: '' }, id: 'richeditor78915' }], formConfig: { modelName: 'formData', refName: 'vForm', rulesName: 'rules', labelWidth: 80, labelPosition: 'left', size: '', labelAlign: 'label-left-align', cssCode: '', customClass: [], functions: '', layoutType: 'PC', jsonVersion: 3, onFormCreated: '', onFormMounted: '', onFormDataChange: '' } },
+      formData: {},
+      optionData: {}
     };
   },
   props: {
@@ -139,10 +152,13 @@ export default {
       }
     }
   },
+  created () {
+  },
   watch: {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
+      this.formData.richeditor78915 = this.tempStory.description;
       // ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
       const date = new Date(this.tempStory.create_at * 1000);
       this.create_at = date.toISOString().split('T')[0];
@@ -191,7 +207,28 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = '';
+    },
+    submitForm () {
+      this.$refs.vFormRef.getFormData().then((formData) => {
+        // Form Validation OK
+        // alert(JSON.stringify(formData));
+        // this.tempStory.content = JSON.stringify(formData.richeditor78915);
+        // console.log(formData.richeditor78915);
+        // !將 JavaScript 對象表示法 (JSON) 字符串轉換為對象。
+        this.tempStory.content = JSON.parse(formData.richeditor78915);
+        // alert(JSON.parse(formData));
+      }).catch(function (error) {
+        // Form Validation Failed
+        alert(error);
+      });
     }
   }
 };
 </script>
+<style lang="scss">
+.el-form {
+  .el-form-item__label {
+    display: none !important;
+  }
+}
+</style>
