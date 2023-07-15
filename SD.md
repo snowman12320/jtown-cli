@@ -37,6 +37,23 @@ https://front-gym.web.app/#/admin/course-edit
 https://nahugd.github.io/vueshopping/#/discount/turn
 篩選多個 / 評論 /登入登出
 https://aureate0116.github.io/VueProjectLR/#/resource-list/Python
+產品圖左右 大圖 / 視差 / 彈窗 
+https://www.outdoorvoices.com/
+我的收藏 愛心 / 結帳折扣馬 > 有會員登入的了　因沒設輸入欄
+https://a94s84.github.io/Hermosa/#/wishlist
+https://jordan-ttc-design.github.io/boaboly-art-store/#/products
+文章內頁輪播 vuetify
+下拉輸入  訂單篩選 /  搜尋編號
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+下拉搜尋 最下面的
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+查看下面的其他 的驗證很簡單
+https://vuetifyjs.com/zh-Hans/components/forms/
+隐私政策 / 本地接收選擇 (需了解拒絕的差異)
+Creating a Privacy Policy notification is a great use case for the v-sheet component.
+ＹＥＳ or NO
+全域搜尋 / 要錢
+https://www.algolia.com/developers/web-instantsearch-vue/
 
 # 最後 ：
 
@@ -55,26 +72,20 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 # home
 
-- 彈窗加入會員 80%領優惠卷資訊
-  產品圖左右 大圖
-  https://www.outdoorvoices.com/
-- 我的收藏 愛心 / 結帳折扣馬 > 有會員登入的了　因沒設輸入欄
-  https://a94s84.github.io/Hermosa/#/wishlist
-  https://jordan-ttc-design.github.io/boaboly-art-store/#/products
 
-  計時器
-  https://element-plus.org/zh-CN/component/statistic.html#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95
+
+
 
 # article
-可放多張圖
-
 商品列表 使用 extend 擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
 相關商品(類別) 用 extend 改變篩選等等 （參考 程式筆 谷歌
 
+晚上看
 > 參考課程的前面部分
 > :is
 > $route.path
 
+可放多張圖
 # products-item
 用創意風版或元件庫 星星  評論
 加上評論 用本地存 
@@ -83,23 +94,29 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 https://bootsnipp.com/snippets/nNg98
 
 
+評分 懸停小數點和單純顯示
+https://vuetifyjs.com/zh-Hans/components/ratings/
+
+
 商品描述用 後台用編輯器 > 元件有!!!!
 http://120.92.142.115:81/vform3/
 
-搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
-> https://vue-multiselect.js.org/#sub-getting-started
-> 怪怪的，可能要自己做一個
-
-
+商品內頁 放大鏡 
 # login
+
+後台中間 歡迎~XXXXX
+註冊會員以滿的小圖 風測中位開放註冊
+https://element-plus.org/zh-CN/component/popover.html
 
 註冊 + TODO JS > 應該不用因為 註冊也燈不進去後台
 https://todoo.5xcamp.us/api-docs/index.html
-
-後台中間 歡迎~XXXXX
-
-註冊會員以滿的小圖 風測中位開放註冊
-https://element-plus.org/zh-CN/component/popover.html
+> 帶預設資料，搭配開啟修改的元件
+會員資料
+https://vuetifyjs.com/zh-Hans/components/autocompletes/
+後台加上 ：
+基本資料 用本地儲存資料 > yup驗證
+照片墙 / 上傳列表
+https://element.eleme.io/#/zh-CN/component/upload
 
 # dashboard
 
@@ -108,12 +125,11 @@ https://element-plus.org/zh-CN/component/popover.html
 表格 排序(參蔬果) / RWD (datatable) / 搜尋(產品名) / 篩選(是否付款)
 https://element.eleme.io/#/zh-CN/component/table
 
-後台加上 ：
-基本資料 用本地儲存資料 > yup驗證
-https://element.eleme.io/#/zh-CN/component/upload
-
 可搜尋訂單
 https://codyhouse.co/ds/components/app/property-table
+
+控制台抽屜
+https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
 
 優惠券介紹(談窗立即加入會員享有優惠券>用黑人抓衣服圖 / 置頂快速倒數優惠券期限 >keep 節圖)
 以上參考 設計的網址
@@ -170,26 +186,9 @@ https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FEr
 
 
 
-文章內頁輪播 vuetify
 
-商品內頁 放大鏡 
-評分 懸停小數點和單純顯示
-https://vuetifyjs.com/zh-Hans/components/ratings/
 
-控制台抽屜
-https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
 
-會員資料
-https://vuetifyjs.com/zh-Hans/components/autocompletes/
-下拉輸入  訂單篩選 /  搜尋編號
-https://vuetifyjs.com/zh-Hans/components/autocompletes/
-下拉搜尋 最下面的
-https://vuetifyjs.com/zh-Hans/components/autocompletes/
-查看下面的其他 的驗證很簡單
-https://vuetifyjs.com/zh-Hans/components/forms/
-隐私政策 / 本地接收選擇 (了解拒絕的差異)
-Creating a Privacy Policy notification is a great use case for the v-sheet component.
 
-全域搜尋
-要錢
-https://www.algolia.com/developers/web-instantsearch-vue/
+
+
