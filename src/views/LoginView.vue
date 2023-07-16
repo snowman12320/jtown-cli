@@ -21,8 +21,8 @@
                 </div>
                 <Field type="text" name="email" class="form-control rounded-3 " placeholder="請輸入 Email"
                   rules="email|required"
-                  :class="{ 'is-invalid': errors['email'], 'is-valid': !errors['email'] && user.username }" autofocus
-                  v-model="user.username"></Field>
+                  :class="{ 'is-invalid': errors['email'], 'is-valid': !errors['email'] && Boolean(user.username) }"
+                  autofocus v-model="user.username"></Field>
                 <error-message name="email" class="invalid-feedback ms-5"
                   style="text-shadow:0 2px 5px #fff"></error-message>
               </div>
@@ -33,7 +33,7 @@
                 </div>
                 <Field type="password" name="密碼" id="password" class="form-control rounded-3" placeholder="password"
                   required v-model="user.password" maxlength="20" :rules="validatePassword"
-                  :class="{ 'is-invalid': errors['密碼'], 'is-valid': !errors['密碼'] }"></Field>
+                  :class="{ 'is-invalid': errors['密碼'], 'is-valid': !errors['密碼'] && Boolean(user.password) }"></Field>
                 <error-message name="密碼" class="invalid-feedback ms-5" style="text-shadow:0 2px 5px #fff"></error-message>
               </div>
               <!--  -->
@@ -47,8 +47,11 @@
             </form>
           </div>
           <div class="card-footer">
-            <div class="d-flex justify-content-center links">
-              Don't have an account?<a style="text-shadow:0 2px 5px #fff" href="#">Sign Up</a>
+            <div class="d-flex justify-content-center align-items-center links">
+              Don't have an account?
+              <el-tooltip content="Registration is not yet available." placement="bottom" effect="light">
+                <el-button style="text-shadow:0 2px 5px black">Sign Up</el-button>
+              </el-tooltip>
             </div>
             <!-- <div class="d-flex justify-content-center">
               <a href="#">Forgot your password?</a>
@@ -136,12 +139,14 @@ export default {
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
           // this.$router.push('/dashboard');
           this.$router.go(-1);
+          localStorage.setItem('username', JSON.stringify(this.user.username));
         } else {
           this.$swal.fire('Incorrect', ' username or password.', 'warning');
         }
       });
     },
     validatePassword (value) {
+      if (!value) return false;
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,}$/;
       return regex.test(value) ? true : '密碼需包含英文大小寫和數字，且超過十位數以上';
     },
@@ -232,5 +237,22 @@ input:focus {
 
 .links a {
   margin-left: 4px;
+}
+
+.el-button {
+  background: transparent;
+  color: dodgerblue;
+  padding: 0px;
+}
+
+.el-popper.is-customized {
+  /* Set padding to ensure the height is 32px */
+  padding: 6px 12px;
+  background: linear-gradient(90deg, rgb(159, 229, 151), rgb(204, 229, 129));
+}
+
+.el-popper.is-customized .el-popper__arrow::before {
+  background: linear-gradient(45deg, #b2e68d, #bce689);
+  right: 0;
 }
 </style>

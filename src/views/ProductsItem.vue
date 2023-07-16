@@ -279,6 +279,11 @@ export default {
       });
     },
     sendComment () {
+      // if (!this.isLogin) {
+      //   this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
+      //   this.$router.push('/login');
+      //   return;
+      // }
       const data = { rateValue: this.rateValue, rateComment: this.rateComment, rateTime: this.rateTime };
       localStorage.setItem('rateData', JSON.stringify(data));
       this.updateComment();

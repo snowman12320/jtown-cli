@@ -18,7 +18,7 @@
         show-icon v-show="isCouponAlert" />
     </transition>
     <!-- advertise modal -->
-    <el-dialog v-model="centerDialogVisible" title="" width="30%" center>
+    <el-dialog v-model="centerDialogVisible"  title="" width="30%" center>
       <!-- v-slot:default来指定el-countdown组件中的默认插槽位置 -->
       <template v-slot:default>
         <p class="text-center fs-4">" GOOAYE COUPON 20% OFF "<br> ON ALL DEPARTMENTS</p>
@@ -161,7 +161,7 @@ export default {
     }
 
     .el-alert__description {
-      width: 450px;
+      width: 470px;
       color: white !important;
       font-weight: 200 !important;
     }

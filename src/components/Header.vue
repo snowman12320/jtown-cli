@@ -1,67 +1,69 @@
 <template>
-  <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop" style="z-index:10" ref="header"
-    :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
-    <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">
-      <router-link to="/" class="d-flex position-relative text-decoration-none">
-        <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0 brand_scale"
-          :class="{ 'brand_scale_after': !atTop }">JerseyTown</p>
-        <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1  brand_scale " :class="{ 'opacity-0': !atTop }">JTown</h1>
-      </router-link>
-      <!-- 漢堡 -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!--  -->
-      <div class="collapse navbar-collapse mb-3 mb-md-0" id="navbarSupportedContent">
-        <!-- margin-start 自動推到底 好用排版方式 -->
-        <ul class="navbar-nav ms-auto text-center">
-          <li class="nav-item">
-            <!-- 關於active切換時有加上 但接著就會重新整理又不見 方法：- 1. 直接寫在 HTML 上（建議 -->
-            <!-- router.js 自己會加上 -->
-            <router-link to="/" class="nav-link px-4 py-3 ">
-              Home
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/story/list" class="nav-link px-4 py-3 ">
-              Story
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <!-- 透過$router.path去判斷 -->
-            <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
-              :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/rank" class="nav-link px-4 py-3 ">
-              Rank
-            </router-link>
-          </li>
-          <li class="ms-1">
-            <router-link :to="isLogin ? '/dashboard' : '/login'" class="fs-6 px-3 rounded-pill text-white">
-              <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
-                {{ isLogin ? 'Log out' : 'Login' }}
+  <div class="">
+    <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop" style="z-index:10" ref="header"
+      :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
+      <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">
+        <router-link to="/" class="d-flex position-relative text-decoration-none">
+          <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0 brand_scale"
+            :class="{ 'brand_scale_after': !atTop }">JerseyTown</p>
+          <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1  brand_scale " :class="{ 'opacity-0': !atTop }">JTown</h1>
+        </router-link>
+        <!-- 漢堡 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!--  -->
+        <div class="collapse navbar-collapse mb-3 mb-md-0" id="navbarSupportedContent">
+          <!-- margin-start 自動推到底 好用排版方式 -->
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item">
+              <!-- 關於active切換時有加上 但接著就會重新整理又不見 方法：- 1. 直接寫在 HTML 上（建議 -->
+              <!-- router.js 自己會加上 -->
+              <router-link to="/" class="nav-link px-4 py-3 ">
+                Home
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/story/list" class="nav-link px-4 py-3 ">
+                Story
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <!-- 透過$router.path去判斷 -->
+              <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
+                :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link to="/rank" class="nav-link px-4 py-3 ">
+                Rank
+              </router-link>
+            </li>
+            <li class="ms-1">
+              <router-link :to="isLogin ? '/dashboard' : '/login'" class="fs-6 px-3 rounded-pill text-white">
+                <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
+                  {{ isLogin ? 'Log out' : 'Login' }}
+                </button>
+              </router-link>
+            </li>
+            <li>
+              <button @click="openFavoriteOffcanvas()" class="bg-transparent border-0">
+                <i class="fa-regular fa-heart  text-nbaRed fs-3   mt-2 px-1 ms-md-2"></i>
               </button>
-            </router-link>
-          </li>
-          <li>
-            <button @click="openFavoriteOffcanvas()" class="bg-transparent border-0">
-              <i class="fa-regular fa-heart  text-nbaRed fs-3   mt-2 px-1 ms-md-2"></i>
-            </button>
-          </li>
-          <li>
-            <button @click="openOffcanvas()" class="bg-transparent border-0">
-              <i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-2 px-1"></i>
-            </button>
-          </li>
-        </ul>
+            </li>
+            <li>
+              <button @click="openOffcanvas()" class="bg-transparent border-0">
+                <i class="fa-sharp fa-solid fa-cart-shopping text-nbaRed fs-3   mt-2 px-1"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </head>
-  <!-- 加入畫布元件，取名使用 -->
-  <CartOffcanvas ref="offcanvas"></CartOffcanvas>
-  <FavoriteOffcanvas ref="favorite"></FavoriteOffcanvas>
+    </head>
+    <!-- 加入畫布元件，取名使用 -->
+    <CartOffcanvas ref="offcanvas"></CartOffcanvas>
+    <FavoriteOffcanvas ref="favorite"></FavoriteOffcanvas>
+  </div>
 </template>
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';

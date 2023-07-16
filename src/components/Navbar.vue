@@ -12,6 +12,7 @@
             <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
             <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
           </div>
+          <p class="p-0 m-0 text-white">歡迎～{{ username }}</p>
           <div class="d-flex gap-5">
             <router-link to="/dashboard/products" class="text-white  text-decoration-none">產品</router-link>
             <router-link to="/dashboard/orders" class="text-white  text-decoration-none">訂單</router-link>
@@ -27,6 +28,15 @@
 
 <script>
 export default {
+  data () {
+    return {
+      username: ''
+    };
+  },
+  created () {
+    const atIndex = JSON.parse(localStorage.getItem('username')).indexOf('@');
+    this.username = JSON.parse(localStorage.getItem('username')).slice(0, atIndex);
+  },
   methods: {
     logout () {
       const api = `${process.env.VUE_APP_API}logout`;

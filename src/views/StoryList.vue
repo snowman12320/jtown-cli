@@ -21,8 +21,7 @@
             <div class="card-body">
               <h3 class="card-title fw-bold fs-6">{{ item.title }} </h3>
               <!-- {{ '我是啟用狀態：' + item.isPublic }} -->
-              <p class="card-text fs-6 multiline-ellipsis">
-                {{ item.description }}
+              <p class="card-text fs-6 multiline-ellipsis" v-html="item.description">
               </p>
               <button
                 class="text-decoration-none stretched-link text-dark rank_a d-flex justify-content-center bg-transparent">MORE</button>
