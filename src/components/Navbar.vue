@@ -34,6 +34,9 @@ export default {
     };
   },
   created () {
+    if (!localStorage.getItem('username')) {
+      this.$router.push('/login');
+    }
     const atIndex = JSON.parse(localStorage.getItem('username')).indexOf('@');
     this.username = JSON.parse(localStorage.getItem('username')).slice(0, atIndex);
   },

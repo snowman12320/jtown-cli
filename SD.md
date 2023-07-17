@@ -112,8 +112,7 @@ https://vuetifyjs.com/zh-Hans/components/autocompletes/
 
 
 # dashboard
-下單和結帳時間詳細
-刪除全部訂單 要談窗
+未付款無法更新
 
 表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是否付款)
 https://element.eleme.io/#/zh-CN/component/table

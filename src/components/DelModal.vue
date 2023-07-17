@@ -5,21 +5,25 @@
       <div class="modal-content border-0">
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">
-            <span>刪除 {{ item.title }}</span>
+            <span>Remove "{{ item.title }}"</span>
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          是否刪除
-          <strong class="text-danger">{{ item.title }}</strong>
-          (刪除後將無法恢復)。
+          Whether to delete
+          <strong class="text-danger">"{{ item.title }}" ?</strong> <br>
+          <small class="text-secondary">(it cannot be recovered after deletion)。</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-            取消
+            Cancel
           </button>
-          <button type="button" class="btn btn-danger" @click="$emit('del-item')">
-            確認刪除
+          <!--  -->
+          <button v-if="item.title === 'ALL'" type="button" class="btn btn-danger" @click="$emit('del-all')">
+            Confirm ALL
+          </button>
+          <button v-else type="button" class="btn btn-danger" @click="$emit('del-item')">
+            Confirm
           </button>
         </div>
       </div>

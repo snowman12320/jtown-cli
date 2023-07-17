@@ -11,7 +11,7 @@ import { localize, setLocale } from '@vee-validate/i18n'; // 匯入多國語系�
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'; // 匯入繁體中文語系檔案
 import App from './App.vue';
 import router from './router';
-import { currency, date } from './methods/filters';
+import { currency, date, dateAndTime } from './methods/filters';
 import $httpMessageState from './methods/pushMessageState'; //* 全域函式
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -52,7 +52,8 @@ app.component('ErrorMessage', ErrorMessage);
 //* 全域引用自訂方法，每頁不用重複在methods中引入，這個檔案還是需引入，$filters(自定義名稱)
 app.config.globalProperties.$filters = {
   currency,
-  date
+  date,
+  dateAndTime
 };
 // 此函式的用途是整合 Ajax 的錯誤事件，統一整理發送給予 Toast 處理
 // 正常來說不建議太多方法掛Global,這裡可以使provide來處理

@@ -5,13 +5,15 @@
       <div class="mb-3 d-flex gap-1 flex-nowrap">
         <input v-model="search" type="search" class="form-control " name="" id="" aria-describedby="helpId"
           placeholder="search order ID / DATE">
-        <!-- <button @click="searchOrder" type="button" class="btn btn-primary flex-shrink-0 ">搜尋</button> -->
+        <!--  -->
         <div class=" flex-shrink-0">
           <select v-model="filterPaid" class="form-select form-select-lg" name="" id="">
             <option value="default" selected> to sift</option>
             <option value="unpaid">no paid</option>
           </select>
         </div>
+        <button @click="openDelOrderModal(item = { title: 'ALL' })" type="button"
+          class="btn btn-danger flex-shrink-0 ">Delete ALL</button>
       </div>
     </div>
     <table class="table mt-4">
@@ -28,47 +30,46 @@
         </tr>
       </thead>
       <tbody>
-        <template v-for="(item, key) in filterOrder" :key="key">
-          <tr v-if="orders.length" :class="{ 'text-secondary': !item.is_paid }">
-            <td>{{ $filters.date(item.create_at) }}</td>
-            <td>{{ item.id }}</td>
-            <td>{{ item.user.name }}</td>
-            <td><span v-text="item.user.email" v-if="item.user"></span></td>
-            <td>
-              <ul class="list-unstyled">
-                <li v-for="(product, i) in item.products" :key="i">
-                  {{ product.product.title }} - 數量：{{ product.qty }}
-                  {{ product.product.unit }}
-                </li>
-              </ul>
-            </td>
-            <td class="text-right">{{ Math.floor(item.total) }}</td>
-            <td>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" :id="`paidSwitch${item.id}`" v-model="item.is_paid"
-                  @change="updatePaid(item)" />
-                <label class="form-check-label" :for="`paidSwitch${item.id}`">
-                  <span v-if="item.is_paid">已付款</span>
-                  <span v-else>未付款</span>
-                </label>
-              </div>
-            </td>
-            <td>
-              <div class="btn-group">
-                <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
-                  檢視
-                </button>
-                <button class="btn btn-outline-danger btn-sm" @click="openDelOrderModal(item)">
-                  刪除
-                </button>
-              </div>
-            </td>
-          </tr>
-        </template>
+        <tr v-for="(item, key) in filterOrder" :key="key" :class="{ 'text-secondary': !item.is_paid }">
+          <td>{{ $filters.date(item.create_at) }}</td>
+          <td>{{ item.id }}</td>
+          <td>{{ item.user.name }}</td>
+          <td><span v-text="item.user.email" v-if="item.user"></span></td>
+          <td>
+            <ul class="list-unstyled">
+              <li v-for="(product, i) in item.products" :key="i">
+                {{ product.product.title }} - 數量：{{ product.qty }}
+                {{ product.product.unit }}
+              </li>
+            </ul>
+          </td>
+          <td class="text-right">{{ Math.floor(item.total) }}</td>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" :id="`paidSwitch${item.id}`" v-model="item.is_paid"
+                @change="updatePaid(item)" />
+              <label class="form-check-label" :for="`paidSwitch${item.id}`">
+                <span v-if="item.is_paid">已付款</span>
+                <span v-else>未付款</span>
+              </label>
+            </div>
+          </td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">
+                檢視
+              </button>
+              <button class="btn btn-outline-danger btn-sm" @click="openDelOrderModal(item)">
+                刪除
+              </button>
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
     <OrderModal :order="tempOrder" ref="orderModal" @update-paid="updatePaid"></OrderModal>
-    <DelModal :item="tempOrder" ref="delModal" @del-item="delOrder"></DelModal>
+    <DelModal :item="tempOrder" ref="delModal" @del-item="delOrder" @del-all="delAllOrder()">
+    </DelModal>
     <Pagination v-show="!search && filterPaid === 'default'" :pages="pagination" @emit-pages="getOrders">
     </Pagination>
   </div>
@@ -147,6 +148,7 @@ export default {
     },
     openDelOrderModal (item) {
       this.tempOrder = { ...item };
+      if (!item.title) this.tempOrder.title = this.tempOrder.id;
       const delComponent = this.$refs.delModal;
       delComponent.showModal();
     },
@@ -166,10 +168,10 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${this.tempOrder.id}`;
       this.isLoading = true;
       this.$http.delete(url).then((response) => {
-        console.log(response);
         const delComponent = this.$refs.delModal;
         delComponent.hideModal();
         this.getOrders(this.currentPage);
+        this.$httpMessageState(response, 'delete');
       });
     },
     getOrdersAll () {
@@ -182,6 +184,17 @@ export default {
         } else {
           console.log(this.ordersAll);
         }
+      });
+    },
+    delAllOrder () {
+      // !避免誤刪
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/allll`;
+      this.isLoading = true;
+      this.$http.delete(url).then((res) => {
+        const delComponent = this.$refs.delModal;
+        delComponent.hideModal();
+        this.getOrders(this.currentPage);
+        this.$httpMessageState(res, 'delete all');
       });
     }
   }
