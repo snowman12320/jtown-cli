@@ -96,9 +96,13 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 商品內頁 放大鏡 
 
 ## coupon
+彈窗無法使用時間區間 > 改輸入？？
+
 加時間區間 超過開始就倒數 超過結束就顯示結束樣式
+
 優惠倦加上日期
 https://element.eleme.io/#/zh-CN/component/datetime-picker
+
 有小數點倒數 和 結束樣式
 https://element.eleme.io/#/zh-CN/component/statistic
 # login

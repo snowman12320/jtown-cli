@@ -20,6 +20,8 @@ export default {
       if (!res.data.success) {
         // this.$router.push('/login');
         this.isLogin = false;
+        // console.log(Boolean(localStorage.getItem('VIP')));
+        if (localStorage.getItem('VIP')) this.isLogin = true;
       } else {
         this.isLogin = true;
       }

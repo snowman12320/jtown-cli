@@ -42,12 +42,18 @@ export default {
   },
   methods: {
     logout () {
-      const api = `${process.env.VUE_APP_API}logout`;
-      this.$http.post(api, this.user).then((res) => {
-        if (res.data.success) {
-          this.$router.push('/login');
-        }
-      });
+      if (localStorage.getItem('VIP')) {
+        localStorage.removeItem('VIP');
+        this.$swal.fire('SEE YOU SOON VIP', 'THANK YOU ! than you can give me some suggestions from the FB links below the website.', 'success');
+        this.$router.push('/login');
+      } else {
+        const api = `${process.env.VUE_APP_API}logout`;
+        this.$http.post(api, this.user).then((res) => {
+          if (res.data.success) {
+            this.$router.push('/login');
+          }
+        });
+      }
     }
   }
 };

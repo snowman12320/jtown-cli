@@ -73,7 +73,10 @@
           </tbody>
         </table>
         <div class="text-end" v-if="order.is_paid === false">
-          <button class="btn btn-danger">確認付款去</button>
+          <button class="btn btn-danger">pay now</button>
+        </div>
+        <div class="text-end" v-else>
+          <router-link to="/"><button class="btn btn-outline-primary">get other thing!</button></router-link>
         </div>
       </form>
     </div>

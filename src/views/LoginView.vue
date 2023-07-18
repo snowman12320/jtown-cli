@@ -49,9 +49,13 @@
           <div class="card-footer">
             <div class="d-flex justify-content-center align-items-center links">
               Don't have an account?
-              <el-tooltip content="Registration is not yet available." placement="bottom" effect="light">
-                <el-button style="text-shadow:0 2px 5px black">Sign Up</el-button>
-              </el-tooltip>
+              <el-popconfirm width="350" @confirm="confirmEvent" confirm-button-text="Yap!"
+                cancel-button-text="No, Thanks" icon-color="#626AEF"
+                title="Registration is not yet available... but would you like to use VIP to test it?">
+                <template #reference>
+                  <el-button style="text-shadow:0 2px 5px black">Sign Up</el-button>
+                </template>
+              </el-popconfirm>
             </div>
             <!-- <div class="d-flex justify-content-center">
               <a href="#">Forgot your password?</a>
@@ -141,7 +145,7 @@ export default {
           this.$router.go(-1);
           localStorage.setItem('username', JSON.stringify(this.user.username));
         } else {
-          this.$swal.fire('Incorrect', ' username or password.', 'warning');
+          this.$swal.fire('Incorrect', 'please check username or password.', 'warning');
         }
       });
     },
@@ -158,6 +162,11 @@ export default {
         this.user.username = localStorage.getItem('username');
         this.user.password = localStorage.getItem('password');
       }
+    },
+    confirmEvent () {
+      // console.log('confirm!');
+      localStorage.setItem('VIP', JSON.stringify('testToken'));
+      this.$router.push('/dashboard');
     }
   }
 };
