@@ -4,13 +4,12 @@
   <aside class="col-lg-2 lh-lg aside sticky-lg-top shadow align-self-start" style="top:100px">
     <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
-    <!-- {{ typeof (cacheSearch.title) }} -->
-    <!-- {{ cacheSearch.title }} -->
+    <!-- {{ cacheCategory }} -->
     <div class="my-3">
       <!-- <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
         v-model.lazy="cacheSearch" placeholder="Search Player..."> -->
-      <multiselect v-model="cacheSearch" :options="options" :custom-label="nameWithLang" placeholder="Select one"
-        label="title" track-by="title"></multiselect>
+      <multiselect @click="getProducts()" v-model="cacheSearch" :options="options" :custom-label="nameWithLang"
+        placeholder="search" label="title" track-by="title"></multiselect>
     </div>
     <!-- BS內建margin 很多推不到位 可能要設定0 用開發者看會有淡黃區域 -->
     <ul class="list-unstyled d-flex flex-lg-column justify-content-center my-3">
@@ -48,7 +47,7 @@
   </aside>
 </template>
 <script>
-import Multiselect from 'vue-multiselect';
+import Multiselect from '@/components/Multiselect.vue';
 
 export default {
   inject: ['emitter'],
@@ -85,8 +84,9 @@ export default {
   },
   watch: {
     cacheSearch () {
-      this.cacheCategory = '';
       this.emitter.emit('customEvent_search', this.cacheSearch.title);
+      this.cacheCategory = '';
+      // this.emitter.emit('customEvent_search', this.cacheSearch);
     },
     cacheCategory () {
       this.cacheSearch = '';//* 避免分類內容和搜尋內容，兩個條件衝突

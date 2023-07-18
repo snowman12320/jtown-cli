@@ -44,15 +44,15 @@
                   </tr>
                   <tr>
                     <th>下單時間</th>
-                    <td>{{ $filters.date(tempOrder.create_at) }}</td>
+                    <td> {{ $filters.dateAndTime(tempOrder.create_at) }}</td>
                   </tr>
                   <tr>
                     <th>付款時間</th>
                     <td>
                       <span v-if="tempOrder.paid_date">
-                        {{ $filters.date(tempOrder.paid_date) }}
+                        {{ $filters.dateAndTime(tempOrder.paid_date) }}
                       </span>
-                      <span v-else>時間不正確</span>
+                      <span v-else></span>
                     </td>
                   </tr>
                   <tr>

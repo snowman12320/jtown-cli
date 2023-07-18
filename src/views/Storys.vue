@@ -13,7 +13,6 @@
           <th width="120">標題</th>
           <th width="120">作者</th>
           <th width="120">內容</th>
-          <th width="120">內容</th>
           <th width="100">是否啟用</th>
           <th width="200">編輯</th>
         </tr>
@@ -24,7 +23,6 @@
           <td>{{ item.title }}</td>
           <td>{{ item.author }}</td>
           <td class="multiline-ellipsis " v-html="item.description"></td>
-          <td>{{ item.content }}</td>
           <td>
             <span class="text-success" v-if="item.isPublic">啟用</span>
             <span class="text-muted" v-else>未啟用</span>
@@ -164,11 +162,11 @@ export default {
 .multiline-ellipsis {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   /*  有寬度才能多行  */
   width: 100%;
-  height: 85px;
+  height: 55px;
 
   * {
     color: rgba(0, 0, 0, 0.692) !important;

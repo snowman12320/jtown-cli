@@ -1,43 +1,45 @@
 <template>
-  <!-- {{ carts }} -->
-  <div ref="offcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-    aria-labelledby="offcanvasRightLabel">
-    <Loading :active="isLoading"></Loading>
-    <div class="offcanvas-header d-flex justify-content-between align-items-center">
-      <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
-          aria-hidden="true"></i> MY COLLECT
-      </h5>
-      <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body ">
-      <div class="d-flex p-2 border border-2 border-light rounded-3 product_item my-2 gap-2" @click="getProduct(item.id)"
-        v-for="(item, id) in filteredProducts" :key="id">
-        <div class="" style="width:100px !important;height:70px !important">
-          <img class="of-cover op-top w-100 h-100" :src="item.imageUrl" alt="">
-        </div>
-        <div class=" w-100 p-1 ">
-          <h2 class="fs-6 text-center">{{ item.title }}</h2>
-          <p class="text-center pt-2 fs-5 mb-0 ">
-            <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
-              $filters.currency(item.origin_price)
-            }}</small>
-            $ {{ $filters.currency(item.price) }}
-            <span class="" style="font-size:5px">/{{ item.unit }}</span>
-          </p>
-        </div>
-        <button @click="openDelModel(item)" type="button" class="border-0 bg-transparent " style="height:30px"><i
-            class="bi bi-trash"></i></button>
+  <div class="">
+    <!-- {{ carts }} -->
+    <div ref="offcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel">
+      <Loading :active="isLoading"></Loading>
+      <div class="offcanvas-header d-flex justify-content-between align-items-center">
+        <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
+            aria-hidden="true"></i> MY COLLECT
+        </h5>
+        <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <!--  -->
-      <p class="d-flex justify-content-end fs-4 mt-3  ">
-        <span class="">TOTAL( {{ favoriteIds.length }} ) </span>
-      </p>
-      <!--  -->
-      <!-- <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
-        class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">移除全部</router-link> -->
+      <div class="offcanvas-body ">
+        <div class="d-flex p-2 border border-2 border-light rounded-3 product_item my-2 gap-2"
+          @click="getProduct(item.id)" v-for="(item, id) in filteredProducts" :key="id">
+          <div class="" style="width:100px !important;height:70px !important">
+            <img class="of-cover op-top w-100 h-100" :src="item.imageUrl" alt="">
+          </div>
+          <div class=" w-100 p-1 ">
+            <h2 class="fs-6 text-center">{{ item.title }}</h2>
+            <p class="text-center pt-2 fs-5 mb-0 ">
+              <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
+                $filters.currency(item.origin_price)
+              }}</small>
+              $ {{ $filters.currency(item.price) }}
+              <span class="" style="font-size:5px">/{{ item.unit }}</span>
+            </p>
+          </div>
+          <button @click="openDelModel(item)" type="button" class="border-0 bg-transparent " style="height:30px"><i
+              class="bi bi-trash"></i></button>
+        </div>
+        <!--  -->
+        <p class="d-flex justify-content-end fs-4 mt-3  ">
+          <span class="">TOTAL( {{ favoriteIds.length }} ) </span>
+        </p>
+        <!--  -->
+        <!-- <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
+          class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">移除全部</router-link> -->
+      </div>
     </div>
+    <DelModal :item="tempFavorite" ref="delModal" @del-item="delFavorite" />
   </div>
-  <DelModal :item="tempFavorite" ref="delModal" @del-item="delFavorite" />
 </template>
 <script>
 import offcanvasMixin from '@/mixins/offcanvasMixin';
@@ -83,6 +85,8 @@ export default {
       });
     },
     getFavoriteId () {
+      //! 當新用戶本地沒有資料時會報錯，需事先新增
+      if (!localStorage.getItem('favorite')) localStorage.setItem('favorite', JSON.stringify([]));
       this.favoriteIds = JSON.parse(localStorage.getItem('favorite'));
     },
     openDelModel (item) {

@@ -11,7 +11,7 @@ import { localize, setLocale } from '@vee-validate/i18n'; // 匯入多國語系�
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'; // 匯入繁體中文語系檔案
 import App from './App.vue';
 import router from './router';
-import { currency, date } from './methods/filters';
+import { currency, date, dateAndTime } from './methods/filters';
 import $httpMessageState from './methods/pushMessageState'; //* 全域函式
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -20,11 +20,14 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import ElementPlus from 'element-plus'; // 引入element-plus库
 import VForm3 from 'vform3-builds'; // 引入VForm3库
 import 'element-plus/dist/index.css'; // 引入element-plus样式
-import 'vform3-builds/dist/designer.style.css'; // 引入VForm3样式// import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+import 'vform3-builds/dist/designer.style.css'; // 引入VForm3样式
+// import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css'; //! 終端出現version錯誤 可能只能支援bootstrap v4 + vue 2/3
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import Multiselect from 'vue-multiselect';//! 不能全域註冊
 import 'vue-multiselect/dist/vue-multiselect.css';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+// import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
 // 定義驗證規則
@@ -49,7 +52,8 @@ app.component('ErrorMessage', ErrorMessage);
 //* 全域引用自訂方法，每頁不用重複在methods中引入，這個檔案還是需引入，$filters(自定義名稱)
 app.config.globalProperties.$filters = {
   currency,
-  date
+  date,
+  dateAndTime
 };
 // 此函式的用途是整合 Ajax 的錯誤事件，統一整理發送給予 Toast 處理
 // 正常來說不建議太多方法掛Global,這裡可以使provide來處理
@@ -64,6 +68,8 @@ app.use(ElementPlus); // 全局注册element-plus
 app.use(VForm3); // 全局注册VForm3(同时注册了v-form-designe、v-form-render等组件)
 // app.use(BootstrapVue);
 // app.use(BootstrapVueIcons);
+app.use(CKEditor);
+// app.use(ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
 
 //! Mount the app to the DOM and initialize any additional functionality:
 app.mount('#app');

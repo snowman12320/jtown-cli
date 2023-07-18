@@ -75,15 +75,19 @@
                   placeholder="請輸入文章內容"></textarea> -->
                 <!-- <TinyMCE></TinyMCE> -->
                 <!-- <textarea id="editor1"></textarea> -->
-                <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
+                <!-- <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
                   ref="vFormRef">
-                </v-form-render>
-                <el-button type="primary" @click="submitForm">Submit</el-button>
+                </v-form-render> -->
+                <!-- <el-button type="primary" @click="submitForm">Submit</el-button> -->
+                <ckeditor :editor="editor" v-model="tempStory.description" :config="editorConfig"></ckeditor>
+
               </div>
               <div class="mb-3">
-                <label for="content" class="form-label">主角內容</label>
-                <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
-                  placeholder="請輸入文章內容"></textarea>
+                <label for="content" class="form-label">球員內容</label>
+                <!-- <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
+                  placeholder="請輸入文章內容"></textarea> -->
+                <ckeditor :editor="editor" v-model="tempStory.content" :config="editorConfig"></ckeditor>
+
               </div>
               <hr />
               <div class="mb-3">
@@ -105,7 +109,7 @@
         </div>
         <!--  -->
         <!-- {{ tempStory.content }} -->
-        {{ formData.richeditor78915 }}
+        <!-- {{ formData.richeditor78915 }} -->
 
         <!--  -->
         <div class="modal-footer">
@@ -125,9 +129,13 @@
 <script>
 import modalMixin from '@/mixins/modalMixin';
 // import TinyMCE from '@/components/TinyMCE.vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
+
 export default {
   mixins: [modalMixin],
-  // components: { TinyMCE },
+  components: {
+    // TinyMCE
+  },
   data () {
     return {
       modal: {},
@@ -139,9 +147,13 @@ export default {
       inputVisible: false,
       InputRef: null,
       //
-      formJson: { widgetList: [{ key: 108449, type: 'rich-editor', icon: 'rich-editor-field', formItemFlag: true, options: { name: 'richeditor78915', label: '', labelAlign: '', placeholder: '', labelWidth: null, labelHidden: false, columnWidth: '200px', contentHeight: '200px', disabled: false, hidden: false, required: false, requiredHint: '', customRule: '', customRuleHint: '', customClass: [], labelIconClass: null, labelIconPosition: 'rear', labelTooltip: null, minLength: null, maxLength: null, showWordLimit: false, onCreated: '', onMounted: '', onValidate: '' }, id: 'richeditor78915' }], formConfig: { modelName: 'formData', refName: 'vForm', rulesName: 'rules', labelWidth: 80, labelPosition: 'left', size: '', labelAlign: 'label-left-align', cssCode: '', customClass: [], functions: '', layoutType: 'PC', jsonVersion: 3, onFormCreated: '', onFormMounted: '', onFormDataChange: '' } },
-      formData: {},
-      optionData: {}
+      // formJson: { widgetList: [{ key: 108449, type: 'rich-editor', icon: 'rich-editor-field', formItemFlag: true, options: { name: 'richeditor78915', label: '', labelAlign: '', placeholder: '', labelWidth: null, labelHidden: false, columnWidth: '200px', contentHeight: '200px', disabled: false, hidden: false, required: false, requiredHint: '', customRule: '', customRuleHint: '', customClass: [], labelIconClass: null, labelIconPosition: 'rear', labelTooltip: null, minLength: null, maxLength: null, showWordLimit: false, onCreated: '', onMounted: '', onValidate: '' }, id: 'richeditor78915' }], formConfig: { modelName: 'formData', refName: 'vForm', rulesName: 'rules', labelWidth: 80, labelPosition: 'left', size: '', labelAlign: 'label-left-align', cssCode: '', customClass: [], functions: '', layoutType: 'PC', jsonVersion: 3, onFormCreated: '', onFormMounted: '', onFormDataChange: '' } },
+      // formData: {},
+      // optionData: {},
+      //
+      editor: ClassicEditor,
+      // editorData: '<p>Content of the editor.</p>', //* 預設內容
+      editorConfig: {}
     };
   },
   props: {
@@ -158,7 +170,6 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
-      this.formData.richeditor78915 = this.tempStory.description;
       // ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
       const date = new Date(this.tempStory.create_at * 1000);
       this.create_at = date.toISOString().split('T')[0];
@@ -169,6 +180,7 @@ export default {
       if (!this.tempStory.images) {
         this.tempStory.images = [];
       }
+      // this.formData.richeditor78915 = this.tempStory.description;//! 可以編輯，但再次編輯取不出來
     },
     create_at () { //! 限制數字存入資料
       // console.log('先是輸入日期', this.create_at);
@@ -208,6 +220,7 @@ export default {
       this.inputVisible = false;
       this.inputValue = '';
     },
+    // VFORM3 編輯器元件
     submitForm () {
       this.$refs.vFormRef.getFormData().then((formData) => {
         // Form Validation OK
@@ -230,5 +243,45 @@ export default {
   .el-form-item__label {
     display: none !important;
   }
+}
+
+// 編輯器圖片設定
+:root {
+  --ck-image-style-spacing: 1.5em;
+}
+
+.image-style {
+
+  .image-style-side,
+  .image-style-align-left,
+  .image-style-align-center,
+  .image-style-align-right {
+    max-width: 50%;
+  }
+
+  .image-style-side {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+  }
+
+  .image-style-align-left {
+    float: left;
+    margin-right: var(--ck-image-style-spacing);
+  }
+
+  .image-style-align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .image-style-align-right {
+    float: right;
+    margin-left: var(--ck-image-style-spacing);
+  }
+}
+
+// 影片
+.media>div {
+  width: 100%;
 }
 </style>

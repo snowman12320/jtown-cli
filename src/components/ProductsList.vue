@@ -65,6 +65,7 @@ export default {
   data () {
     return {
       products: [], //* 原始資料
+      Filtered: [], //! 搜尋全域的資料
       page: 1,
       pagination: {},
       products_list: 0,
@@ -95,22 +96,28 @@ export default {
   },
   created () {
     this.getProducts();
+    this.getFiltered();//! 取得全域搜尋資料
   },
   computed: {
     filtersData () {
       let filteredData = [];
       // eslint-disable-next-line vue/no-side-effects-in-computed-properties
       this.isLoading_big = true;
+
       try {
         if (!this.$route.path.includes('products-content')) {
           filteredData = this.products;
         } else {
-          filteredData = this.products.filter((item) =>
+          filteredData = this.Filtered.filter((item) =>
             (!this.cacheSearch || item.title.toLowerCase().includes(this.cacheSearch.trim().toLowerCase())) &&
           (!this.cacheCategory || item.category.toLowerCase().includes(this.cacheCategory.trim().toLowerCase()))
           );
 
-          if (filteredData.length === 0 && !this.cacheSearch) {
+          if (filteredData.length === 0) {
+            return this.products;
+          }
+          // !當無搜尋時就使用第一頁資料，在有搜尋時就使用全部資料，才不會一開始就渲染全部
+          if (!this.cacheCategory && !this.cacheSearch) {
             return this.products;
           }
 
@@ -149,6 +156,22 @@ export default {
         //!
         this.pushProducts();
       }
+    },
+    getFiltered () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+      // this.isLoading = true;
+      // this.isLoading_big = true;
+      // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+      this.$http.get(api).then((res) => {
+        // this.isLoading = false;
+        // this.isLoading_big = false;
+        // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
+        if (res.data.success) {
+          // console.log(res.data);
+          this.Filtered = res.data.products;
+          // this.pagination = res.data.pagination;
+        }
+      });
     },
     getProducts (page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;

@@ -5,10 +5,6 @@ Vue.js devtools
 https://devtools.vuejs.org/guide/installation.html#settings-1
 https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
 
-productList 中
-鞋子在第二頁就會搜尋或篩選不到，要載入第二頁才有
->全部顯示用 有頁數API
-搜尋時用 沒有頁數限制API
 
 prodcutModal 中
 嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
@@ -16,26 +12,24 @@ prodcutModal 中
 // https://github.com/fengyuanchen/cropperjs
 // https://codepen.io/snowman12320/pen/YzREKMx
 
-想整理main.js，想請教有特別順序嗎
-比如import要最上面，其中什麼一定要放第一個
-const app = createApp(App);
-下面可以放元件
-再來是使用元件
-最後是綁定
 
 
-# /////////////////////////////////////////////////////////////////////////////////////////////
-prodcutModal 中
+
+# 已詢問 未整理////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+-[x]prodcutModal 中
 " 一般不會將 base64 的圖片存到資料庫，所以請同學務必上傳一般圖片的格式 "
 在uploadFile_more()，已轉格式，但都只能上傳一張，有嘗試用迴圈，但無法上傳多張
-
-delImage()中
+> 迴圈包住全部上傳流程即可
+-[x] delImage()中
 為何執行刪除圖片會關閉彈跳窗？，我找了很久，只有看到刪除陣列項目的動作，但就會關掉視窗
-有試過改用a或button以外的標籤，或click.stop
-
-好的，我會注意無中斷的錯誤再紀錄git commit，
-但我那時直接pull下來沒有中斷的錯誤
-
+有試過改用a或button以外的標籤，或click.stop > click.stop 但刪最後一個就會
+-[x] productList 中
+鞋子在第二頁就會搜尋或篩選不到，要載入第二頁才有
+>全部顯示用 有頁數API
+搜尋時用 沒有頁數限制API
 - [x] storys 中 openModal
 嘗試將原本的時間秒數轉成日期格式，並顯示在已編輯彈窗的日期中，但都失敗，會是空值，
 >// ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
@@ -57,8 +51,11 @@ isPublic是false但還是會顯示的原因
 - [x] 商品切換時 路徑 ID 也要改 > 透過$router 傳遞 id，並轉換商品頁，先儲存收藏，再確認目前商品 id 和收藏 id 是否相同
 - [x] 首頁的產品要渲染 改回圈或用 extend / mixin (都是 JS 擴增) > .slice(0, 4) > 重新抓資料
 - [x] 左側購物車 小計要整數(final_total > total)
+-[x] 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
+> https://vue-multiselect.js.org/#sub-getting-started
+> 怪怪的，可能要自己做一個 > 已修正
 
-# //////////////////////////////////////////////////////////////////////////////////////////////////////////技術筆記
+# 技術筆記//////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 # uniqueCategories
 
@@ -252,8 +249,28 @@ https://codepen.io/snowman12320/pen/mdQEXZq?editors=1010
 https://element-plus.org/en-US/component/tag.html#edit-dynamically
 上述轉成vue data() 寫法 ，只要script標籤內容就好
 
+# 一鍵部屬 sh deploy.sh
+先是第一種看push會不會錯誤
+不行的話最後要改
+git push --set-upstream git@github.com:snowman12320/hexschool-question.git main
+https://israynotarray.com/vue/20200214/1055437216/
 
-# ////////////////////////////////////////////////////////////////////////////////////////////////////////技術問題
+## CKEditor 5
+// 无法plugins > 需使用官方設定黨下載取代ckeditor5-build-classic夾，或者在此夾中，npm套件並build即可
+// 官網線上新增功能 https://ckeditor.com/ckeditor-5/online-builder/
+// ＋＋＋ 新增外掛 https://hackmd.io/@YuXiangLiao/HJ8U-c1tO#
+// ＋＋＋ 設定樣式 新增外掛 設定外掛的樣式 https://ithelp.ithome.com.tw/articles/10211769
+// 簡單版 https://hackmd.io/@SkT7-27LSWWQi5G2DJBLkw/HyRzmUCDq
+// 可能是js版 https://adminhk.com/ckeditor5%E6%95%99%E5%AD%B8-%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%9D-%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-2022%E5%B9%B4%E7%89%88/
+// https://docfunc.com/posts/9/ckeditor-5-%E6%95%99%E5%AD%B8%E4%BA%8C%E5%AE%A2%E8%A3%BD%E5%8C%96%E7%B7%A8%E8%BC%AF%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E5%88%97-post
+// import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
+// import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
+// import { CKEditorTranslationsPlugin } from '@ckeditor/ckeditor5-dev-translations';
+官方source-editing外掛
+https://ckeditor.com/docs/ckeditor5/latest/features/source-editing.html
+使用source-editing外掛或其他外掛的問題
+https://stackoverflow.com/questions/70787904/vuejs-ckeditor-typeerror-cannot-read-properties-of-null-reading-getattribute
+# 技術問題////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - [x] 關於 元件傳遞資料的使用
       "HomeView"用 props 和 "productsView"用 emit 去改變，isLoading 和 isLogin 的布林值，開發上有建議用哪種嗎
@@ -389,7 +406,7 @@ https://github.com/shentao/vue-multiselect/tree/next
 components: { VueMultiselect }, //! 少一個s，就會
 https://www.cnblogs.com/danhuai/p/16673754.html
 https://blog.csdn.net/weixin_44058725/article/details/125293263
-# ///////////////////////////////////////////////MARKDOWN//////////////////////////////////////////////
+# MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---
 

@@ -18,7 +18,7 @@
         show-icon v-show="isCouponAlert" />
     </transition>
     <!-- advertise modal -->
-    <el-dialog v-model="centerDialogVisible" title="NEWS" width="30%" center>
+    <el-dialog v-model="centerDialogVisible"  title="" width="30%" center>
       <!-- v-slot:default来指定el-countdown组件中的默认插槽位置 -->
       <template v-slot:default>
         <p class="text-center fs-4">" GOOAYE COUPON 20% OFF "<br> ON ALL DEPARTMENTS</p>
@@ -30,7 +30,7 @@
         </el-row>
       </template>
       <template #footer>
-        <span class="dialog-footer">
+        <span class="dialog-footer d-flex justify-content-center mx-auto align-items-center p-0">
           <el-button class="without" @click="centerDialogVisible = false">shop without offer</el-button>
           <router-link class="el-button--primary" to="/products-view/products-content">
             <el-button type="primary" @click="centerDialogVisible = false">
@@ -85,7 +85,7 @@ export default {
       // 在畫面停留3秒後將centerDialogVisible設置為true
         setTimeout(() => {
           this.centerDialogVisible = !this.centerDialogVisible;
-        }, 3000);
+        }, 10000);
       }
     });
   },
@@ -114,10 +114,10 @@ export default {
         const h = Math.floor((e / (1000 * 60 * 60)) % 24);
         const d = Math.floor(e / (1000 * 60 * 60 * 24));
 
-        this.timerElement = `Last chance to get 10% UP OFF  - \n EXTENDED UNTIL ${this.pad(d)} Day ${this.pad(h)} : ${this.pad(m)} : ${this.pad(s)}.${Math.floor(
+        this.timerElement = `Last chance to get 10% UP OFF  - \n EXTENDED UNTIL： ${this.pad(d)} Day ${this.pad(h)} h ${this.pad(m)} m ${this.pad(s)}.${Math.floor(
           ms / 100)} s`;
       } else {
-        this.timerElement = '00 D 00 H 00 M 00.0 S';
+        this.timerElement = '00 Day 00 h 00 m 00.0 s';
       }
     },
     countdownTimer () {
@@ -161,7 +161,7 @@ export default {
     }
 
     .el-alert__description {
-      width: 450px;
+      width: 470px;
       color: white !important;
       font-weight: 200 !important;
     }
@@ -177,7 +177,16 @@ export default {
 
 .fade-enter,
 .fade-leave-to {
-  opacity: 0;
+  opacity: 0 !important;
+}
+
+.el-dialog__body {
+  padding-bottom: 0px !important;
+}
+
+.el-dialog__footer {
+  padding: 0px !important;
+  height: 90px !important;
 }
 
 .el-col {
@@ -191,14 +200,14 @@ export default {
 /* ! 使用类名：可以为el-button元素添加一个自定义的类名，并在CSS文件中定义该类名的样式规则 */
 .countdown-title {
   .el-statistic__head {
-    font-size: 30px !important;
+    font-size: 20px !important;
     color: red !important;
     margin-top: 20px;
   }
 
   /* 不能設定scoped 無法改樣式 */
   .el-statistic__number {
-    font-size: 50px !important;
+    font-size: 30px !important;
   }
 }
 
@@ -207,8 +216,11 @@ export default {
 }
 
 .el-button--primary {
-  display: inline-block;
+  // display: inline-block;
   padding: 25px 20px !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 
   .el-button {
     font-size: 20px !important;

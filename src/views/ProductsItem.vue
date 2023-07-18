@@ -131,22 +131,31 @@
           <!--  -->
           <h3 class="mt-7">COMMENT</h3>
           <hr>
-          <div class="d-flex justify-content-start mb-4 ">
+          <div class="d-flex justify-content-start mb-4 " v-for="(item, index) in rateData" :key="index">
             <div class="img_cont_msg">
-              <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img_msg">
+              <img :src="`https://i.pravatar.cc/150?img=${index}`" class="rounded-circle user_img_msg">
             </div>
-            <div class="msg_cotainer">
-              Hi, how are you samim?
-              <span class="msg_time">8:40 AM, Today</span>
+            <div class="d-flex flex-column">
+              <el-rate class="ms-3" v-model="item.rateValue" disabled show-score text-color="#ff9900"
+                score-template="{value}">
+              </el-rate>
+              <div class="position-relative">
+                <div class="msg_cotainer">
+                  <!-- The product is the best ,I have ever seen ! -->
+                  {{ item.rateComment }}
+                </div>
+                <span class="msg_time">{{ item.rateTime }}</span>
+              </div>
             </div>
           </div>
           <!--  -->
-          <div class="card-footer">
-            <div class="input-group">
-              <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-              <div class="input-group-append bg-white">
-                <span class="input-group-text send_btn bg-white"><i class="fas fa-location-arrow"></i></span>
-              </div>
+          <div class="card-footer mt-10">
+            <el-rate v-model="rateValue" show-text>
+            </el-rate>
+            <div class="input-group d-flex align-items-end">
+              <textarea @keydown.enter="sendComment()" v-model="rateComment" name="" rows="3"
+                class="form-control type_msg" placeholder="Type your comment ..."></textarea>
+              <span @click="sendComment()" class="input-group-text send_btn "><i class="fas fa-location-arrow"></i></span>
             </div>
           </div>
         </div>
@@ -194,7 +203,13 @@ export default {
     return {
       product: {},
       id: '',
-      isLoading_big: false
+      isLoading_big: false,
+      //
+      rateValue: 5,
+      rateComment: 'The product is the best ,I have ever seen !',
+      rateTime: '8: 40 AM, Today',
+      rateData: []
+
     };
   },
   //! mitt
@@ -216,6 +231,7 @@ export default {
     this.id = this.$route.params.productId;//! 統一商品唯一的ID(item.id)
     this.getProduct();
     this.getFavoriteData(); //! 用其他電腦，先新增本地陣列
+    this.sendComment();
   },
   methods: {
     updateFavo (id) {
@@ -261,11 +277,45 @@ export default {
           this.product = response.data.product;
         }
       });
+    },
+    sendComment () {
+      // if (!this.isLogin) {
+      //   this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
+      //   this.$router.push('/login');
+      //   return;
+      // }
+      const data = { rateValue: this.rateValue, rateComment: this.rateComment, rateTime: this.rateTime };
+      localStorage.setItem('rateData', JSON.stringify(data));
+      this.updateComment();
+      //
+      const currentDate = new Date();
+      const currentHour = currentDate.getHours();
+      const currentMinute = currentDate.getMinutes();
+      const currentPeriod = currentHour >= 12 ? 'PM' : 'AM';
+      const formattedHour = currentHour % 12 === 0 ? 12 : currentHour % 12;
+      const formattedMinute = currentMinute.toString().padStart(2, '0');
+      const formattedTime = `${formattedHour}:${formattedMinute} ${currentPeriod}`;
+      const formattedDate = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
+      this.rateTime = `${formattedTime}, ${formattedDate}`;
+      this.rateValue = null;
+      this.rateComment = '';
+    },
+    updateComment () {
+      this.isLoading_big = true;
+      this.rateData.push(JSON.parse(localStorage.getItem('rateData')));
+      //* 使用箭头函数，回调函数将继承包含它的函数的上下文，这样就可以正确地访问和更新"this.isLoading_big"属性
+      setTimeout(() => {
+        this.isLoading_big = false;
+        this.emitter.emit('push-message', {
+          style: 'success',
+          title: 'SUCCESS！ADD COMMENT'
+        });
+      }, 1000);
     }
   }
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .carousel {
   height: 500px;
 }
@@ -358,9 +408,9 @@ export default {
 
 .msg_time {
   position: absolute;
-  left: 0;
+  left: 13px;
   bottom: -15px;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(148, 115, 115, 0.882);
   font-size: 10px;
 }
 
@@ -377,15 +427,16 @@ export default {
   margin-bottom: auto;
   margin-left: 10px;
   border-radius: 25px;
-  background-color: #82ccdd;
+  border: 1px solid #82ccdd;
+  // background-color: #82ccdd;
   padding: 10px;
   position: relative;
 }
 
 .type_msg {
-  height: 15px !important;
+  height: 100px !important;
   overflow-y: auto;
-  border-radius: 15px 0 0 15px !important;
+  border-radius: 15px 15px 15px 15px !important;
 }
 
 .type_msg:focus {
@@ -394,8 +445,13 @@ export default {
 }
 
 .send_btn {
-  border-radius: 0 15px 15px 0 !important;
   cursor: pointer;
   height: 38px;
+  border: none !important;
+  background-color: white;
+
+  &:hover i {
+    color: red;
+  }
 }
 </style>
