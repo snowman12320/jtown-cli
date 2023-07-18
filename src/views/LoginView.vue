@@ -15,7 +15,7 @@
           </div>
           <div class="card-body">
             <Form @submit="signIn" v-slot="{ errors }">
-              <div class="input-group form-group mb-2">
+              <div class="input-group form-group mb-2 position-relative">
                 <div class="input-group-prepend">
                   <i class="fas fa-user"></i>
                 </div>
@@ -24,10 +24,10 @@
                   :class="{ 'is-invalid': errors['email'], 'is-valid': !errors['email'] && Boolean(user.username) }"
                   autofocus v-model="user.username"></Field>
                 <error-message name="email" class="invalid-feedback ms-5"
-                  style="text-shadow:0 2px 5px #fff"></error-message>
+                  style="text-shadow:0 2px 5px #fff;"></error-message>
               </div>
 
-              <div class="input-group form-group">
+              <div class="input-group form-group mt-4">
                 <div class="input-group-prepend">
                   <i class="fas fa-key"></i>
                 </div>
@@ -46,7 +46,7 @@
               </div>
             </form>
           </div>
-          <div class="card-footer">
+          <div class="card-footer d-flex justify-content-center align-items-center">
             <div class="d-flex justify-content-center align-items-center links">
               Don't have an account?
               <el-popconfirm width="350" @confirm="confirmEvent" confirm-button-text="Yap!"
@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       user: {
-        username: '',
+        username: 'VIP TESTING',
         password: ''
       },
       isLoading: false,
@@ -166,6 +166,7 @@ export default {
     confirmEvent () {
       // console.log('confirm!');
       localStorage.setItem('VIP', JSON.stringify('testToken'));
+      localStorage.setItem('username', JSON.stringify(this.user.username));
       this.$router.push('/dashboard');
     }
   }
@@ -187,7 +188,7 @@ export default {
 }
 
 .card {
-  height: 370px;
+  height: 430px;
   margin-top: auto;
   margin-bottom: auto;
   width: 400px;

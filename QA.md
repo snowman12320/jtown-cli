@@ -12,7 +12,6 @@ prodcutModal 中
 // https://github.com/fengyuanchen/cropperjs
 // https://codepen.io/snowman12320/pen/YzREKMx
 
-辦帳號
 
 
 
