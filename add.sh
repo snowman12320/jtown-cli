@@ -2,7 +2,7 @@ git add .
 sleep 2
 
 # git commit -m "create  "
-git commit -m "update  orders"
+git commit -m "update  storys"
 # git commit -m "fixed  "
 sleep 2
 

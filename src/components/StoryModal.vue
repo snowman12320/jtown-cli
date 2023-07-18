@@ -90,10 +90,13 @@
 
               </div>
               <hr />
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="create_at">新增日期</label>
                 <input type="date" class="form-control" id="create_at" v-model="create_at" />
-              </div>
+              </div> -->
+              <label for="create_at">新增日期</label>
+              <el-date-picker v-model="create_at" type="datetime" placeholder="Select date and time"
+                :shortcuts="shortcuts" />
 
               <div class="mb-3">
                 <div class="form-check">
@@ -124,6 +127,20 @@
       </div>
     </div>
   </div>
+  <div class="demo-datetime-picker">
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <el-date-picker v-model="value1" type="datetime" placeholder="Select date and time" />
+    </div>
+    <div class="block">
+      <span class="demonstration">With shortcuts</span>
+      <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :shortcuts="shortcuts" />
+    </div>
+    <div class="block">
+      <span class="demonstration">With default time</span>
+      <el-date-picker v-model="value3" type="datetime" placeholder="Select date and time" :default-time="defaultTime" />
+    </div>
+  </div>
   <!--  -->
 </template>
 <script>
@@ -141,6 +158,32 @@ export default {
       modal: {},
       tempStory: {},
       create_at: '', //! 限制數字存入資料
+      defaultTime: new Date(2000, 1, 1, 12, 0, 0),
+      value1: '',
+      value2: '',
+      value3: '',
+      shortcuts: [
+        {
+          text: 'Today',
+          value: new Date()
+        },
+        {
+          text: 'Yesterday',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24);
+            return date;
+          }
+        },
+        {
+          text: 'A week ago',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            return date;
+          }
+        }
+      ],
       //
       inputValue: '',
       dynamicTags: ['NBA', 'SPORT', 'NEWS'],
@@ -239,6 +282,31 @@ export default {
 };
 </script>
 <style lang="scss">
+.demo-datetime-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.demo-datetime-picker .block {
+  padding: 30px 0;
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
+}
+
+.demo-datetime-picker .block:last-child {
+  border-right: none;
+}
+
+.demo-datetime-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
 .el-form {
   .el-form-item__label {
     display: none !important;

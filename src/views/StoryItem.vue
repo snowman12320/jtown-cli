@@ -22,7 +22,7 @@
             <div class="card-body">
               <h2 class="fs-4 lh-xl fw-bold text-center">{{ story.title }}</h2>
               <small class="text-secondary text-end d-block w-100">
-                {{ story.author + ' , ' + new Date(this.story.create_at * 1000).toLocaleString() }}
+                {{ story.author + ' , ' + $filters.dateAndTime(this.story.create_at) }}
               </small>
               <p class="" v-html="story.description">
               </p>
