@@ -1,5 +1,6 @@
 <template>
   <div class="">
+
     <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop" style="z-index:10" ref="header"
       :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
       <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">

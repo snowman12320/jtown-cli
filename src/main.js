@@ -18,10 +18,11 @@ import 'aos/dist/aos.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import ElementPlus from 'element-plus'; // 引入element-plus库
-import VForm3 from 'vform3-builds'; // 引入VForm3库
+// https://stackoverflow.com/questions/67814888/how-to-remove-unwanted-packages-from-node-modules-npm-rm-doesnt-work
+// import VForm3 from 'vform3-builds'; // 引入VForm3库  / npm i vform3-builds / npm uninstall <pkg> --save --force
 import 'element-plus/dist/index.css'; // 引入element-plus样式
-import 'vform3-builds/dist/designer.style.css'; // 引入VForm3样式
-// import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
+// import 'vform3-builds/dist/designer.style.css'; // 引入VForm3样式
+// import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'; //* npm install bootstrap-vue
 // import 'bootstrap/dist/css/bootstrap.css'; //! 終端出現version錯誤 可能只能支援bootstrap v4 + vue 2/3
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
 // import Multiselect from 'vue-multiselect';//! 不能全域註冊
@@ -65,7 +66,7 @@ app.use(router);
 app.component('Loading', Loading);
 app.use(VueSweetalert2);
 app.use(ElementPlus); // 全局注册element-plus
-app.use(VForm3); // 全局注册VForm3(同时注册了v-form-designe、v-form-render等组件)
+// app.use(VForm3); // 全局注册VForm3(同时注册了v-form-designe、v-form-render等组件)
 // app.use(BootstrapVue);
 // app.use(BootstrapVueIcons);
 app.use(CKEditor);

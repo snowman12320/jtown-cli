@@ -1,18 +1,23 @@
 <template>
-  <Navbar></Navbar>
-  <div class="container-fluid mt-3 position-relative">
-    <ToastMessages></ToastMessages>
-    <router-view />
+  <div class="">
+    <Navbar></Navbar>
+    <div class="container-fluid mt-7 position-relative">
+      <ToastMessages></ToastMessages>
+      <router-view />
+    </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import emitter from '@/methods/emitter';
 import ToastMessages from '@/components/ToastMessages.vue';
 import Navbar from '../components/Navbar.vue';
+import Footer from '../components/Footer.vue';
 export default {
   components: {
     Navbar,
-    ToastMessages
+    ToastMessages,
+    Footer
   },
   provide () {
     return {

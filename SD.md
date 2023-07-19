@@ -60,7 +60,12 @@ https://www.algolia.com/developers/web-instantsearch-vue/
 https://bootsnipp.com/snippets/nNg98
 評分 懸停小數點和單純顯示
 https://vuetifyjs.com/zh-Hans/components/ratings/
-
+有小數點倒數 和 結束樣式 (OPT API版)
+https://element.eleme.io/#/zh-CN/component/statistic
+後台可設定開始和結束 
+https://element-plus.org/zh-CN/component/datetime-picker.html#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B5%B7%E5%A7%8B%E4%B8%8E%E7%BB%93%E6%9D%9F%E6%97%B6%E5%88%BB
+儲存關鍵字錢十個字 加上連結
+https://www.algolia.com/developers/web-instantsearch-vue/
 # 最後 ：
 
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
@@ -90,21 +95,18 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 > $route.path
 
 
-# products-item
+# products
+產品列表的購物車增加冒泡視窗選擇尺寸
 
 
 商品內頁 放大鏡 
 
+detail用編輯器
+
 ## coupon
-彈窗無法使用時間區間 > 改輸入？？
 
-加時間區間 超過開始就倒數 超過結束就顯示結束樣式
 
-優惠倦加上日期
-https://element.eleme.io/#/zh-CN/component/datetime-picker
 
-有小數點倒數 和 結束樣式
-https://element.eleme.io/#/zh-CN/component/statistic
 # login
 
 
@@ -116,13 +118,10 @@ https://vuetifyjs.com/zh-Hans/components/autocompletes/
 
 
 # dashboard
-未付款無法更新
 
-表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是否付款)
-https://element.eleme.io/#/zh-CN/component/table
+**全部後台搜尋和篩選和排序都放訂單去實作**
+x 表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是否付款)
 
-可搜尋訂單
-https://codyhouse.co/ds/components/app/property-table
 
 控制台抽屜
 https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
@@ -134,16 +133,20 @@ https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
 
 橫的改值的
 https://element.eleme.io/#/zh-CN/component/rate
+
 右邊放五星評分
 https://codyhouse.co/ds/components/app/countup--prefix
+
 進度條放總數除以個別的分數 等於 進度
 https://element.eleme.io/#/zh-CN/component/progress
 https://bootstrap-vue.org/docs/components/progress
 https://ithelp.ithome.com.tw/articles/10272921
+
 底色換掉 > 換相關的圖 並 fixed
+
 加上商品連結 > 名稱帶到搜尋欄有問題
-底下其他球員
-加上 aos
+
+底下其他球員加上 aos
 
 # story
 要連到該球員搜尋頁
@@ -172,7 +175,7 @@ x > 徵才用彈窗 / 表單驗證 / 上傳文件
 
 https://vuetifyjs.com/zh-Hans/components/footers/
 
-# 錯誤頁
+# 錯誤頁 可用 自己的404
 https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
 
 

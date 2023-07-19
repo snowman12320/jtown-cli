@@ -1,12 +1,12 @@
 https://github.com/snowman12320/hexschool-question
 
-Vue.js devtools
+- Vue.js devtools
 這個套件好像掛了
 https://devtools.vuejs.org/guide/installation.html#settings-1
 https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
+> 快修正 ，這樣不用一直{{}}，可直接看變數
 
-
-prodcutModal 中
+- prodcutModal 中
 嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
 //＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
 // https://github.com/fengyuanchen/cropperjs
@@ -16,10 +16,15 @@ prodcutModal 中
 
 
 
-# 已詢問 未整理////////////////////////////////////////////////////////////////////////////////////////
+# 已詢問 未整理////////////////////////////
+<!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
+<!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
 
-
-
+- [x] storyModal中
+日期時間元件(使用element-plus)，只能選擇日期，其他功能都會跳掉，但放在storys中就可以，在談窗好像都會有一些奇怪的bug
+https://element-plus.org/zh-CN/component/datetime-picker.html#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%82%B9
+有去官方github查看元件內部，但看不到什麼問題
+https://github.com/element-plus/element-plus/blob/dev/docs/examples/datetime-picker/date-and-time.vue
 -[x]prodcutModal 中
 " 一般不會將 base64 的圖片存到資料庫，所以請同學務必上傳一般圖片的格式 "
 在uploadFile_more()，已轉格式，但都只能上傳一張，有嘗試用迴圈，但無法上傳多張
@@ -56,7 +61,7 @@ isPublic是false但還是會顯示的原因
 > https://vue-multiselect.js.org/#sub-getting-started
 > 怪怪的，可能要自己做一個 > 已修正
 
-# 技術筆記//////////////////////////////////////////////////////////////////////////////////////////////////////////
+# 技術筆記///////////////////////////////////////////
 
 # uniqueCategories
 

@@ -114,11 +114,11 @@ export default {
           );
 
           if (filteredData.length === 0) {
-            return this.products;
+            filteredData = this.products;
           }
           // !當無搜尋時就使用第一頁資料，在有搜尋時就使用全部資料，才不會一開始就渲染全部
           if (!this.cacheCategory && !this.cacheSearch) {
-            return this.products;
+            filteredData = this.products;
           }
 
           const filterFunc = {
@@ -138,7 +138,7 @@ export default {
           filteredData = filteredData.filter(filterFunc).sort(sortFunc);
         }
       } finally {
-        //! 無法在 computed 屬性中使用了副作用
+        //! 無法在 computed 屬性中使用了副作用 (想嘗試改變 isLoading_big 時機)
         // eslint-disable-next-line vue/no-side-effects-in-computed-properties
         this.isLoading_big = false;
       }

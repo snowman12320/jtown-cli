@@ -2,7 +2,7 @@
   <div class="">
     <Loading :active="isLoading"></Loading>
     <div class="text-end mt-3">
-      <button class="btn btn-primary" type="button" @click="openModal(true)">
+      <button class="btn btn-primary" type="button" @click="openModal(true,null)">
         新增文章
       </button>
     </div>
@@ -19,10 +19,10 @@
       </thead>
       <tbody>
         <tr v-for="item in storyList" :key="item.id">
-          <td>{{ $filters.date(item.create_at) }}</td>
+          <td>{{ $filters.dateAndTime(item.create_at) }}</td>
           <td>{{ item.title }}</td>
           <td>{{ item.author }}</td>
-          <td class="multiline-ellipsis " v-html="item.description"></td>
+          <td class="multiline-ellipsis" v-html="item.description"></td>
           <td>
             <span class="text-success" v-if="item.isPublic">啟用</span>
             <span class="text-muted" v-else>未啟用</span>
@@ -160,18 +160,21 @@ export default {
 }
 
 .multiline-ellipsis {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  /*  有寬度才能多行  */
-  width: 100%;
-  height: 55px;
+  height: 100px !important;/* 太矮會跑版 */
+
+  p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    /*  有寬度才能多行  */
+    width: 100%;
+    height: 70px;
+  }
 
   * {
     color: rgba(0, 0, 0, 0.692) !important;
     font-size: 16px !important;
-
   }
 }
 </style>

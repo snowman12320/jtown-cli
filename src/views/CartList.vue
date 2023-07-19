@@ -104,7 +104,8 @@
         <section>
           <ul class="list-group">
             <li class="list-group-item bg-qopink text-black">
-              snowman12320@gmail.com 已登入
+              <!-- snowman12320@gmail.com 已登入 -->
+              {{ tempForm.user.email }} 已登入
               <i class="bi bi-check-circle-fill text-danger"></i>
             </li>
             <li class="list-group-item">
@@ -113,8 +114,8 @@
                 <select name="offTicket" id="offTicket" class="form-select coupon_ticket" @change="addCouponCode()"
                   v-model="couponCode">
                   <option value="default" selected disabled>選擇優惠券</option>
-                  <option :value="item.value" v-for="(item, index) in options" :key="index">
-                    {{ item.text }}</option>
+                  <option :value="item.code" v-for="(item, index) in options" :key="index">
+                    {{ item.title }}</option>
                 </select>
               </div>
               <div class="col-12 d-flex flex-column" style="color: #ff0000"></div>
@@ -307,11 +308,11 @@ export default {
       couponCode: 'default',
       options: [
         {
-          value: 'gooaya',
-          text: 'gooaya / 每件商品打9折'
+          code: 'gooaya',
+          title: 'gooaya / 每件商品打9折'
         }, {
-          value: 'howhowhasfriend',
-          text: 'howhow / 每件商品打8折'
+          code: 'howhowhasfriend',
+          title: 'howhow / 每件商品打8折'
         }],
       form: {
         user: {
@@ -340,8 +341,10 @@ export default {
       this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
       this.$router.push('/login');
     } else {
+      this.tempForm.user.email = JSON.parse(localStorage.getItem('username'));
       this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
       this.getCart();//* 本頁的購物車
+      this.getCoupons();
     }
   },
   mounted () {
@@ -420,6 +423,15 @@ export default {
         }
       });
       this.$router.push(`/products-view/products-item/${id}`);
+    },
+    getCoupons () {
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons`;
+      this.$http.get(url).then((res) => {
+        if (res.data.success) {
+          this.options = res.data.coupons.filter((coupon) => coupon.is_enabled === 1);
+          // console.log(this.options);
+        }
+      });
     },
     addCouponCode () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;

@@ -46,74 +46,73 @@
               </div>
             </div>
             <div class="col-sm-8">
-              <div class="mb-3">
-                <el-tag v-for="tag in dynamicTags" :key="tag" class="mx-1" closable :disable-transitions="false"
-                  @close="handleClose(tag)">
-                  {{ tag }}
-                </el-tag>
-                <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ms-1 " style="width:100px"
-                  size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
-                <el-button v-else class="button-new-tag ml-1" size="small" @click.stop="showInput">
-                  + New Tag
-                </el-button>
-              </div>
-              <!--  -->
-              <div class="mb-3">
-                <label for="title" class="form-label">標題</label>
-                <input type="text" class="form-control" id="title" v-model="tempStory.title" placeholder="請輸入標題" />
-              </div>
-
-              <div class="row gx-2">
-                <div class="mb-3 col-md-6">
-                  <label for="category" class="form-label">作者</label>
-                  <input type="text" class="form-control" id="category" v-model="tempStory.author" placeholder="請輸入分類" />
+              <div class="d-flex flex-column gap-3">
+                <!-- <div class="mb-3">
+                  <label for="create_at">新增日期</label>
+                  <input type="date" class="form-control" id="create_at" v-model="create_at" />
+                </div> -->
+                <!-- 放在底下會失去功能 -->
+                <div class="d-flex align-items-start gap-1">
+                  <p>新增日期</p>
+                  <el-date-picker v-model="create_at" type="datetime" placeholder="Select date and time"
+                    :shortcuts="shortcuts" />
                 </div>
-              </div>
-              <div class="mb-3">
-                <label for="editor1" class="form-label">文章描述</label>
-                <!-- <textarea type="text" class="form-control" v-model="tempStory.description"
-                  placeholder="請輸入文章內容"></textarea> -->
-                <!-- <TinyMCE></TinyMCE> -->
-                <!-- <textarea id="editor1"></textarea> -->
-                <!-- <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
-                  ref="vFormRef">
-                </v-form-render> -->
-                <!-- <el-button type="primary" @click="submitForm">Submit</el-button> -->
-                <ckeditor :editor="editor" v-model="tempStory.description" :config="editorConfig"></ckeditor>
-
-              </div>
-              <div class="mb-3">
-                <label for="content" class="form-label">球員內容</label>
-                <!-- <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
-                  placeholder="請輸入文章內容"></textarea> -->
-                <ckeditor :editor="editor" v-model="tempStory.content" :config="editorConfig"></ckeditor>
-
-              </div>
-              <hr />
-              <!-- <div class="mb-3">
-                <label for="create_at">新增日期</label>
-                <input type="date" class="form-control" id="create_at" v-model="create_at" />
-              </div> -->
-              <label for="create_at">新增日期</label>
-              <el-date-picker v-model="create_at" type="datetime" placeholder="Select date and time"
-                :shortcuts="shortcuts" />
-
-              <div class="mb-3">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" v-model="tempStory.isPublic" :true-value="true"
-                    :false-value="false" id="isPublic" />
-                  <label class="form-check-label" for="isPublic">
-                    是否啟用
-                  </label>
+                <div class="d-flex gap-1">
+                  <p>新增標籤</p>
+                  <el-tag v-for="tag in dynamicTags" :key="tag" class="mx-1" closable :disable-transitions="false"
+                    @close="handleClose(tag)">
+                    {{ tag }}
+                  </el-tag>
+                  <el-input v-if="inputVisible" ref="InputRef" v-model="inputValue" class="ms-1 " style="width:100px"
+                    size="small" @keyup.enter="handleInputConfirm" @blur="handleInputConfirm" />
+                  <el-button v-else class="button-new-tag ml-1" size="small" @click.stop="showInput">
+                    + New Tag
+                  </el-button>
+                </div>
+                <!--  -->
+                <div class="">
+                  <label for="title" class="form-label">標題</label>
+                  <input type="text" class="form-control" id="title" v-model="tempStory.title" placeholder="請輸入標題" />
+                </div>
+                <div class="row gx-2">
+                  <div class="mb-3 col-md-6">
+                    <label for="category" class="form-label">作者</label>
+                    <input type="text" class="form-control" id="category" v-model="tempStory.author"
+                      placeholder="請輸入分類" />
+                  </div>
+                </div>
+                <div class="">
+                  <label for="editor1" class="form-label">文章描述</label>
+                  <!-- <textarea type="text" class="form-control" v-model="tempStory.description"
+                    placeholder="請輸入文章內容"></textarea> -->
+                  <!-- <TinyMCE></TinyMCE> -->
+                  <!-- <textarea id="editor1"></textarea> -->
+                  <!-- <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
+                    ref="vFormRef">
+                  </v-form-render> -->
+                  <!-- <el-button type="primary" @click="submitForm">Submit</el-button> -->
+                  <ckeditor :editor="editor" v-model="tempStory.description" :config="editorConfig"></ckeditor>
+                </div>
+                <div class="">
+                  <label for="content" class="form-label">球員內容</label>
+                  <!-- <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
+                    placeholder="請輸入文章內容"></textarea> -->
+                  <ckeditor :editor="editor" v-model="tempStory.content" :config="editorConfig"></ckeditor>
+                </div>
+                <hr />
+                <div class="">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="tempStory.isPublic" :true-value="true"
+                      :false-value="false" id="isPublic" />
+                    <label class="form-check-label" for="isPublic">
+                      是否啟用
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!--  -->
-        <!-- {{ tempStory.content }} -->
-        <!-- {{ formData.richeditor78915 }} -->
-
         <!--  -->
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -123,45 +122,32 @@
           <button type="button" class="btn btn-primary" @click="$emit('update-story', tempStory)">
             確認
           </button>
+          <!--  -->
+          <!-- <n-button>naive-ui</n-button> -->
         </div>
       </div>
     </div>
   </div>
-  <div class="demo-datetime-picker">
-    <div class="block">
-      <span class="demonstration">Default</span>
-      <el-date-picker v-model="value1" type="datetime" placeholder="Select date and time" />
-    </div>
-    <div class="block">
-      <span class="demonstration">With shortcuts</span>
-      <el-date-picker v-model="value2" type="datetime" placeholder="Select date and time" :shortcuts="shortcuts" />
-    </div>
-    <div class="block">
-      <span class="demonstration">With default time</span>
-      <el-date-picker v-model="value3" type="datetime" placeholder="Select date and time" :default-time="defaultTime" />
-    </div>
-  </div>
-  <!--  -->
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin';
 // import TinyMCE from '@/components/TinyMCE.vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
+// import { defineComponent } from 'vue';
+// import { NButton } from 'naive-ui';
 
-export default {
+export default ({
   mixins: [modalMixin],
   components: {
     // TinyMCE
+    // NButton
   },
   data () {
     return {
       modal: {},
       tempStory: {},
       create_at: '', //! 限制數字存入資料
-      defaultTime: new Date(2000, 1, 1, 12, 0, 0),
-      value1: '',
-      value2: '',
-      value3: '',
+      // defaultTime: new Date(2000, 1, 1, 12, 0, 0),
       shortcuts: [
         {
           text: 'Today',
@@ -213,9 +199,11 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     story () {
       this.tempStory = this.story;
-      // ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
-      const date = new Date(this.tempStory.create_at * 1000);
-      this.create_at = date.toISOString().split('T')[0];
+      // ! StoryModal 日期要轉成 yyyy-mm-dd 格式 (年月日)，才會在彈窗正確顯示
+      // const date = new Date(this.tempStory.create_at * 1000);
+      // this.create_at = date.toISOString().split('T')[0];
+      //! 用元件的話會自動使用toLocaleString()，就會變成年月日時間，所以只要*1000即可(等於台北時間...之類的)，不能使用this.$filters.dateAndTime
+      this.create_at = new Date(this.tempStory.create_at * 1000);
       //
       //! 結果api文件中的tag欄位m，根本沒有QQ，難怪undefine
       // this.dynamicTags = this.tempStory.tag;
@@ -265,21 +253,21 @@ export default {
     },
     // VFORM3 編輯器元件
     submitForm () {
-      this.$refs.vFormRef.getFormData().then((formData) => {
-        // Form Validation OK
-        // alert(JSON.stringify(formData));
-        // this.tempStory.content = JSON.stringify(formData.richeditor78915);
-        // console.log(formData.richeditor78915);
-        // !將 JavaScript 對象表示法 (JSON) 字符串轉換為對象。
-        this.tempStory.content = JSON.parse(formData.richeditor78915);
-        // alert(JSON.parse(formData));
-      }).catch(function (error) {
-        // Form Validation Failed
-        alert(error);
-      });
+      // this.$refs.vFormRef.getFormData().then((formData) => {
+      //   // Form Validation OK
+      //   // alert(JSON.stringify(formData));
+      //   // this.tempStory.content = JSON.stringify(formData.richeditor78915);
+      //   // console.log(formData.richeditor78915);
+      //   // !將 JavaScript 對象表示法 (JSON) 字符串轉換為對象。
+      //   this.tempStory.content = JSON.parse(formData.richeditor78915);
+      //   // alert(JSON.parse(formData));
+      // }).catch(function (error) {
+      //   // Form Validation Failed
+      //   alert(error);
+      // });
     }
   }
-};
+});
 </script>
 <style lang="scss">
 .demo-datetime-picker {

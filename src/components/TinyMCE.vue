@@ -2,12 +2,13 @@
 // https://codepen.io/snowman12320/pen/BaGREeO?editors=1010
 // https://ithelp.ithome.com.tw/articles/10197824
 <template>
-    <div>
-        <textarea id="my-editor" v-model="content"></textarea>
-    </div>
+  <div>
+    <textarea id="my-editor" v-model="content"></textarea>
+  </div>
 </template>
 <script>
-import tinymce from 'tinymce/tinymce';
+// This domain is not registered with Tiny Cloud. Please see the quick start guide or create an account. 會失敗可能需要API KEY
+import tinymce from 'tinymce/tinymce'; //* npm install tinymce@^6
 import 'tinymce/themes/silver/theme';
 import 'tinymce/langs/zh_TW';
 

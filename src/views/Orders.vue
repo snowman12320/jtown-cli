@@ -19,7 +19,28 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th>購買時間</th>
+          <th class="d-flex align-items-center justify-content-around"
+            @click="selectSort = (selectSort === 'Height') ? 'Low' : 'Height'">
+            <span>購買時間</span>
+            <div class="">
+              <div class="form-check">
+                <input class="form-check-input d-none" type="radio" name="3" id="1" v-model="selectSort"
+                  :value="selectSort" :checked="selectSort === 'Low'">
+                <label class="form-check-label" for="1"
+                  :class="{ ' text-primary': selectSort === 'Low' || selectSort === 'default' }">
+                  <i class="bi bi-caret-up-fill"></i>
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input d-none" type="radio" name="3" id="2" v-model="selectSort"
+                  :value="selectSort" :checked="selectSort === 'Height'">
+                <label class="form-check-label " for="2"
+                  :class="{ ' text-primary': selectSort === 'Height' || selectSort === 'default' }">
+                  <i class="bi bi-caret-down-fill"></i>
+                </label>
+              </div>
+            </div>
+          </th>
           <th>訂單編號</th>
           <th>姓名</th>
           <th>Email</th>
@@ -31,7 +52,7 @@
       </thead>
       <tbody>
         <tr v-for="(item, key) in filterOrder" :key="key" :class="{ 'text-secondary': !item.is_paid }">
-          <td>{{ $filters.date(item.create_at) }}</td>
+          <td>{{ $filters.dateAndTime(item.create_at) }}</td>
           <td>{{ item.id }}</td>
           <td>{{ item.user.name }}</td>
           <td><span v-text="item.user.email" v-if="item.user"></span></td>
@@ -96,7 +117,8 @@ export default {
       search: '',
       filterPaid: 'default',
       ordersAll: [],
-      tempPage: 1
+      tempPage: 1,
+      selectSort: 'default'
     };
   },
   created () {
@@ -104,24 +126,19 @@ export default {
     this.getOrdersAll();
   },
   computed: {
-    // filterOrder () {
-    //   const filterPaid = {
-    //     unpaid: item => item.is_paid === false,
-    //     default: () => true
-    //   }[this.filterPaid || 'default'];
-    //   return this.orders.filter(order => order.id.includes(this.search) || this.$filters.date(order.create_at).match(this.search)).filter(filterPaid);
-    // }
     filterOrder () {
-      if (!this.search && this.filterPaid.includes('default')) {
+      if (!this.search && this.filterPaid.includes('default') && this.selectSort.includes('default')) {
         return this.orders;
       } else {
-        return this.ordersAll.filter(order => this.filterOrderByIdAndDate(order)).filter(this.getFilterPaid());
+        //! 無法先排序 > 因為上面擋住了！！！( Irregular whitespace not allowed  no-irregular-whitespace)
+        return this.ordersAll.filter(order => this.filterOrderByIdAndDate(order)).filter(this.getFilterPaid()).sort(this.getSelectSort());
+        // console.log(filterOrder);
       }
     }
   },
   methods: {
     filterOrderByIdAndDate (order) {
-      return order.id.includes(this.search) || this.$filters.date(order.create_at).match(this.search);
+      return order.id.toLowerCase().includes(this.search.toLowerCase().trim()) || this.$filters.date(order.create_at).match(this.search.trim());
     },
     getFilterPaid () {
       const filterPaidOptions = {
@@ -129,6 +146,19 @@ export default {
         default: () => true
       };
       return filterPaidOptions[this.filterPaid || 'default'];
+    },
+    getSelectSort () {
+      // https://blog.csdn.net/Fairyasd/article/details/125502752
+      // https://blog.csdn.net/m0_57253767/article/details/126871697
+      const sortFunc = {
+        // ? 都是秒數但要*1000才能，YYYY格式不行
+        // Low: (a, b) => new Date(a.create_at * 1000).toISOString().split('T')[0] > new Date(b.create_at * 1000).toISOString().split('T')[0] ? 1 : -1,
+        // Height: (a, b) => new Date(b.create_at).getTime() - new Date(a.create_at).getTime(),
+        Low: (a, b) => new Date(a.create_at * 1000) - new Date(b.create_at * 1000), //* 低>高 升冪 (create_at = 1689688205)
+        Height: (a, b) => new Date(b.create_at * 1000) - new Date(a.create_at * 1000),
+        default: () => 0
+      };
+      return sortFunc[this.selectSort || 'default'];
     },
     getOrders (currentPage = 1) {
       this.currentPage = currentPage;
@@ -182,8 +212,9 @@ export default {
           this.tempPage++;
           this.getOrdersAll();
         } else {
-          console.log(this.ordersAll);
-        }
+          console.log('getOrdersAll,random success', new Date(this.ordersAll[11].create_at * 1000).toISOString().split('T')[0]);
+          // console.log('getOrdersAll,random success', new Date(new Date(this.ordersAll[11].create_at * 1000).toISOString().split('T')[0]).getTime());
+        };
       });
     },
     delAllOrder () {
@@ -200,3 +231,12 @@ export default {
   }
 };
 </script>
+<style scoped lang="scss">
+.table {
+  .form-check-label {
+    font-size: 5px;
+    color: rgba(79, 226, 226, 0.89);
+
+  }
+}
+</style>

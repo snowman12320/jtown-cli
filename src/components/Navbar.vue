@@ -58,3 +58,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+.text-white.active {
+  color: orange !important;
+  font-weight: 700;
+}
+
+.text-white.visited {
+  color: gray !important;
+}
+</style>

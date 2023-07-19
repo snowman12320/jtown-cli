@@ -18,7 +18,7 @@
         show-icon v-show="isCouponAlert" />
     </transition>
     <!-- advertise modal -->
-    <el-dialog v-model="centerDialogVisible"  title="" width="30%" center>
+    <el-dialog v-model="centerDialogVisible" title="" width="30%" center>
       <!-- v-slot:default来指定el-countdown组件中的默认插槽位置 -->
       <template v-slot:default>
         <p class="text-center fs-4">" GOOAYE COUPON 20% OFF "<br> ON ALL DEPARTMENTS</p>
@@ -72,7 +72,7 @@ export default {
       isCouponAlert: true,
       duration: 0,
       timerElement: '00 D 00 H 00 M 00.0 S',
-      value: Date.now() + 1000 * 60 * 60 * 7,
+      value: Date.now() + 1000 * 60 * 60 * 7, //* 實際開發時用API取到期日
       centerDialogVisible: true
     };
   },
@@ -96,6 +96,7 @@ export default {
     },
     setTimerElement () {
       const now = new Date();
+      //* 實際開發可用優惠券到期日
       const midnight = new Date(
         now.getFullYear(),
         now.getMonth(),
@@ -117,7 +118,7 @@ export default {
         this.timerElement = `Last chance to get 10% UP OFF  - \n EXTENDED UNTIL： ${this.pad(d)} Day ${this.pad(h)} h ${this.pad(m)} m ${this.pad(s)}.${Math.floor(
           ms / 100)} s`;
       } else {
-        this.timerElement = '00 Day 00 h 00 m 00.0 s';
+        this.timerElement = 'SORRY TIME UP!NEXT TIME BE QUICKLY' + '00 Day 00 h 00 m 00.0 s';
       }
     },
     countdownTimer () {
