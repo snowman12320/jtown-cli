@@ -263,6 +263,15 @@ https://element-plus.org/en-US/component/tag.html#edit-dynamically
 git push --set-upstream git@github.com:snowman12320/hexschool-question.git main
 https://israynotarray.com/vue/20200214/1055437216/
 
+多使用bash去用git 可知道分支位置 > 有錯誤可以傳信箱的flow給AI
+上述會失敗 因為
+根据提供的错误消息，以下是可能的解决办法：
+检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
+可能就要自己手動
+git push origin --delete gh-pages
+npm run bulid  > cd dist > git init > git add . > git commit -m "use hand build"  > main or master
+git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
+
 ## CKEditor 5
 // 无法plugins > 需使用官方設定黨下載取代ckeditor5-build-classic夾，或者在此夾中，npm套件並build即可
 // 官網線上新增功能 https://ckeditor.com/ckeditor-5/online-builder/
