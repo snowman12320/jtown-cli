@@ -12,6 +12,8 @@ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
 // https://github.com/fengyuanchen/cropperjs
 // https://codepen.io/snowman12320/pen/YzREKMx
 
+原生axios 
+生命週期
 
 
 
