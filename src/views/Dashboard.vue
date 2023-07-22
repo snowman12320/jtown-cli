@@ -1,23 +1,27 @@
 <template>
-  <div class="">
-    <Navbar></Navbar>
-    <div class="container-fluid mt-7 position-relative">
-      <ToastMessages></ToastMessages>
+  <!-- <Navbar></Navbar> -->
+  <div class="container-fluid position-relative px-0  dashboard">
+    <ToastMessages></ToastMessages>
+    <div class="d-flex h-100">
+      <SideBar></SideBar>
       <router-view />
     </div>
-    <Footer></Footer>
+  <Footer></Footer>
   </div>
 </template>
 <script>
 import emitter from '@/methods/emitter';
 import ToastMessages from '@/components/ToastMessages.vue';
-import Navbar from '../components/Navbar.vue';
+// import Navbar from '../components/Navbar.vue';
 import Footer from '../components/Footer.vue';
+import SideBar from '@/components/SideBar.vue';
+
 export default {
   components: {
-    Navbar,
+    // Navbar,
     ToastMessages,
-    Footer
+    Footer,
+    SideBar
   },
   provide () {
     return {
@@ -45,3 +49,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.dashboard {
+  height: 100vh;
+}
+</style>

@@ -1,10 +1,6 @@
 https://github.com/snowman12320/hexschool-question
 
-- Vue.js devtools
-這個套件好像掛了
-https://devtools.vuejs.org/guide/installation.html#settings-1
-https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
-> 快修正 ，這樣不用一直{{}}，可直接看變數
+
 
 - prodcutModal 中
 嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
@@ -12,8 +8,7 @@ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
 // https://github.com/fengyuanchen/cropperjs
 // https://codepen.io/snowman12320/pen/YzREKMx
 
-原生axios 
-生命週期
+
 
 
 
@@ -22,6 +17,12 @@ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
 <!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
 
+-[x] Vue.js devtools
+這個套件好像掛了
+安裝文件 https://devtools.vuejs.org/guide/installation.html#settings-1
+＋＋＋ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
+> 快修正 ，這樣不用一直{{}}，可直接看變數
+> 安裝非beta / del版 chrome即可 ，有影片示範 > 選一般版vue dev插件
 - [x] storyModal中
 日期時間元件(使用element-plus)，只能選擇日期，其他功能都會跳掉，但放在storys中就可以，在談窗好像都會有一些奇怪的bug
 https://element-plus.org/zh-CN/component/datetime-picker.html#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%82%B9

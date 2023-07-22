@@ -12,7 +12,7 @@
             <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
             <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
           </div>
-          <p class="p-0 m-0 text-white">歡迎～{{ username }}</p>
+          <p class="p-0 m-0 text-white">歡迎～<span class="">{{ username }}</span></p>
           <div class="d-flex gap-5">
             <router-link to="/dashboard/products" class="text-white  text-decoration-none">產品</router-link>
             <router-link to="/dashboard/orders" class="text-white  text-decoration-none">訂單</router-link>

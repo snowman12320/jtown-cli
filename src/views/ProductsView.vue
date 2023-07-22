@@ -1,9 +1,11 @@
 <template>
-  <Loading :active="isLoading"></Loading>
-  <Header :is-login="isLogin"></Header>
-  <ToastMessages></ToastMessages>
-  <router-view />
-  <Footer></Footer>
+  <div class="">
+    <Loading :active="isLoading"></Loading>
+    <Header :is-login="isLogin"></Header>
+    <ToastMessages></ToastMessages>
+    <router-view />
+    <Footer></Footer>
+  </div>
 </template>
 <script>
 import Header from '@/components/Header.vue';

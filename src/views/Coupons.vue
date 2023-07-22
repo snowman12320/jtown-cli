@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-100">
     <Loading :active="isLoading"></Loading>
     <div class="text-end mt-4">
       <button class="btn btn-primary" @click="openCouponModal(true)">

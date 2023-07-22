@@ -66,6 +66,9 @@ https://element.eleme.io/#/zh-CN/component/statistic
 https://element-plus.org/zh-CN/component/datetime-picker.html#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B5%B7%E5%A7%8B%E4%B8%8E%E7%BB%93%E6%9D%9F%E6%97%B6%E5%88%BB
 儲存關鍵字錢十個字 加上連結
 https://www.algolia.com/developers/web-instantsearch-vue/
+控制台抽屜
+https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
+https://element-plus.org/en-US/component/menu.html#collapse
 # 最後 ：
 
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
@@ -118,13 +121,8 @@ https://vuetifyjs.com/zh-Hans/components/autocompletes/
 
 
 # dashboard
-
 **全部後台搜尋和篩選和排序都放訂單去實作**
 x 表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是否付款)
-
-
-控制台抽屜
-https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
 
 
 

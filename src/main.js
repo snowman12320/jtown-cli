@@ -18,6 +18,7 @@ import 'aos/dist/aos.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import ElementPlus from 'element-plus'; // 引入element-plus库
+// import * as ElementPlusIconsVue from '@element-plus/icons-vue'; //* 會與Loading 衝突，導致失效 > 不用引入也icon
 // https://stackoverflow.com/questions/67814888/how-to-remove-unwanted-packages-from-node-modules-npm-rm-doesnt-work
 // import VForm3 from 'vform3-builds'; // 引入VForm3库  / npm i vform3-builds / npm uninstall <pkg> --save --force
 import 'element-plus/dist/index.css'; // 引入element-plus样式
@@ -71,6 +72,9 @@ app.use(ElementPlus); // 全局注册element-plus
 // app.use(BootstrapVueIcons);
 app.use(CKEditor);
 // app.use(ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
+// Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {
+//   app.component(key, component);
+// });
 
 //! Mount the app to the DOM and initialize any additional functionality:
 app.mount('#app');

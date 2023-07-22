@@ -1,8 +1,9 @@
 <template>
-  <div class="">
+  <div class="w-100">
     <Loading :active="isLoading"></Loading>
+    <!--  -->
     <div class="d-flex justify-content-end">
-      <div class="mb-3 d-flex gap-1 flex-nowrap">
+      <div class="mt-3 d-flex gap-1 flex-nowrap">
         <input v-model="search" type="search" class="form-control " name="" id="" aria-describedby="helpId"
           placeholder="search order ID / DATE">
         <!--  -->
@@ -16,6 +17,7 @@
           class="btn btn-danger flex-shrink-0 ">Delete ALL</button>
       </div>
     </div>
+    <!--  -->
     <table class="table mt-4">
       <thead>
         <tr>
