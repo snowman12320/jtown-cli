@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       user: {
-        username: 'VIP TESTING',
+        username: 'VIP-test@jtown.com.tw',
         password: ''
       },
       isLoading: false,
@@ -167,7 +167,7 @@ export default {
       // console.log('confirm!');
       localStorage.setItem('VIP', JSON.stringify('testToken'));
       localStorage.setItem('username', JSON.stringify(this.user.username));
-      this.$router.push('/dashboard');
+      this.$router.push('/dashboard/products');
     }
   }
 };

@@ -44,7 +44,7 @@ export default {
     logout () {
       if (localStorage.getItem('VIP')) {
         localStorage.removeItem('VIP');
-        this.$swal.fire('SEE YOU SOON VIP', 'THANK YOU ! than you can give me some suggestions from the FB links below the website.', 'success');
+        this.$swal.fire('VIP,WE SEE YOU SOON ', 'THANK YOU ! than you can give me some suggestions from the FB links below the website.', 'success');
         this.$router.push('/login');
       } else {
         const api = `${process.env.VUE_APP_API}logout`;

@@ -95,6 +95,7 @@ export default {
     });
   },
   created () {
+    this.cacheSearch = this.$route.params.storyTitle;
     this.getProducts();
     this.getFiltered();//! 取得全域搜尋資料
   },

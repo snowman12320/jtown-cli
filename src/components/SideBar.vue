@@ -1,72 +1,74 @@
 <template>
-    <el-menu :active-text-color="'#ffa500'" :backgroundColor="'#180b0b'" :text-color="'#fff'" default-active="1"
-        class="el-menu-vertical-demo" :collapse="isCollapse" @mouseover="isCollapse = false"
-        @mouseleave="isCollapse = true">
-        <el-menu-item index="1">
-            <el-icon>
-                <img :src="`https://i.pravatar.cc/150?img=${index}`" class="rounded-circle h-100 w-100">
-            </el-icon>
-            <template #title><span class="text-primary mx-1 text-center w-100">{{ username }}</span></template>
-        </el-menu-item>
-        <el-menu-item index="2">
-            <el-icon>
-                <Monitor />
-            </el-icon>
-            <template #title>
-                <div class="text-center w-100">
-                    <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
-                </div>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="3">
-            <el-icon>
+    <el-menu :active-text-color="'#ffa500'" :backgroundColor="'#180b0b'" :text-color="'#fff'" default-active="4"
+        class="el-menu-vertical-demo d-flex flex-column justify-content-between" :collapse="isCollapse"
+        @mouseover="isCollapse = false" @mouseleave="isCollapse = true">
+        <div class="">
+            <el-menu-item index="1">
                 <el-icon>
-                    <Cpu />
-                </el-icon> </el-icon>
-            <template #title>
-                <div class="text-center w-100">
-                    <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
-                </div>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="4">
-            <el-icon>
-                <Basketball />
-            </el-icon>
-            <template #title>
-                <router-link to="/dashboard/products"
-                    class="text-white  text-decoration-none w-100 text-center">產品</router-link>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="5">
-            <el-icon>
-                <List />
-            </el-icon>
-            <template #title>
-                <router-link to="/dashboard/orders"
-                    class="text-white w-100 text-center  text-decoration-none">訂單</router-link>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="6">
-            <el-icon>
-                <Ticket />
-            </el-icon>
-            <template #title>
-                <router-link to="/dashboard/coupons"
-                    class="text-white w-100 text-center   text-decoration-none">優惠券</router-link>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="7">
-            <el-icon>
+                    <img :src="`https://i.pravatar.cc/150?img=${random_number}`" class="rounded-circle h-100 w-100">
+                </el-icon>
+                <template #title><span class="text-primary mx-1 text-center w-100">{{ username }}</span></template>
+            </el-menu-item>
+            <el-menu-item index="2">
                 <el-icon>
-                    <Notebook />
-                </el-icon> </el-icon>
-            <template #title>
-                <router-link to="/dashboard/storys"
-                    class="text-white text-center w-100  text-decoration-none">文章</router-link>
-            </template>
-        </el-menu-item>
-        <el-menu-item index="8">
+                    <Monitor />
+                </el-icon>
+                <template #title>
+                    <div class="text-center w-100">
+                        <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
+                    </div>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="3">
+                <el-icon>
+                    <el-icon>
+                        <Cpu />
+                    </el-icon> </el-icon>
+                <template #title>
+                    <div class="text-center w-100">
+                        <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
+                    </div>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="4">
+                <el-icon>
+                    <Basketball />
+                </el-icon>
+                <template #title>
+                    <router-link to="/dashboard/products"
+                        class="text-white  text-decoration-none w-100 text-center">產品</router-link>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="5">
+                <el-icon>
+                    <List />
+                </el-icon>
+                <template #title>
+                    <router-link to="/dashboard/orders"
+                        class="text-white w-100 text-center  text-decoration-none">訂單</router-link>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="6">
+                <el-icon>
+                    <Ticket />
+                </el-icon>
+                <template #title>
+                    <router-link to="/dashboard/coupons"
+                        class="text-white w-100 text-center   text-decoration-none">優惠券</router-link>
+                </template>
+            </el-menu-item>
+            <el-menu-item index="7">
+                <el-icon>
+                    <el-icon>
+                        <Notebook />
+                    </el-icon> </el-icon>
+                <template #title>
+                    <router-link to="/dashboard/storys"
+                        class="text-white text-center w-100  text-decoration-none">文章</router-link>
+                </template>
+            </el-menu-item>
+        </div>
+        <el-menu-item index="8" class="border-top  border-white">
             <el-icon>
                 <el-icon>
                     <SwitchButton />
@@ -89,7 +91,8 @@ export default {
   data () {
     return {
       username: '',
-      isCollapse: true
+      isCollapse: true,
+      random_number: Math.floor(Math.random() * (50 - 1 + 1) + 3)
     };
   },
   created () {
@@ -120,7 +123,10 @@ export default {
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 300px;
-    height: 100vh;
+}
+
+.el-menu-vertical-demo {
+    min-height: 100vh;
 }
 
 .text-white.active {
@@ -133,7 +139,7 @@ export default {
 }
 
 .el-icon {
-    height: 20px !important;
-    width: 20px !important;
+    height: 30px !important;
+    width: 30px !important;
 }
 </style>

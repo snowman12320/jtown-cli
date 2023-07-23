@@ -2,7 +2,7 @@
   <!-- <Navbar></Navbar> -->
   <div class="container-fluid position-relative px-0  dashboard">
     <ToastMessages></ToastMessages>
-    <div class="d-flex h-100">
+    <div class="d-flex h-100 ">
       <SideBar></SideBar>
       <router-view />
     </div>
@@ -51,6 +51,6 @@ export default {
 </script>
 <style scoped>
 .dashboard {
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>

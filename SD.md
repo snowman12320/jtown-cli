@@ -26,6 +26,8 @@ https://www.costco.com.tw/Costco-Grocery/Costco-Grocery-Kitchen-Dining/c/GCY601
 https://codyhouse.co/ds/components/app/image-interest-points
 https://shop.lululemon.com/shop/luluGiftCards.jsp
 https://www.newrocktw.com/
+https://carbon38.com/en-tw
+
 英文表單
 https://azusa5526.github.io/vue-computer-parts/#/shopping_cart/front_orderlist
 運動課
@@ -69,6 +71,13 @@ https://www.algolia.com/developers/web-instantsearch-vue/
 控制台抽屜
 https://vuetifyjs.com/zh-Hans/components/navigation-drawers/
 https://element-plus.org/en-US/component/menu.html#collapse
+數字跳動
+https://codyhouse.co/ds/components/app/countup--prefix
+底色反差 不改結構(紫金 ) > 某一個欄位存色碼，後台設定時增加色碼欄位 ，渲染到內文背景裡
+https://element.eleme.io/#/zh-CN/component/color-picker
+瀏覽文章的進度
+https://codyhouse.co/ds/components/app/reading-progressbar
+
 # 最後 ：
 
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
@@ -129,43 +138,28 @@ x 表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是�
 
 # rank
 
-橫的改值的
-https://element.eleme.io/#/zh-CN/component/rate
 
-右邊放五星評分
-https://codyhouse.co/ds/components/app/countup--prefix
 
-進度條放總數除以個別的分數 等於 進度
-https://element.eleme.io/#/zh-CN/component/progress
-https://bootstrap-vue.org/docs/components/progress
-https://ithelp.ithome.com.tw/articles/10272921
 
-底色換掉 > 換相關的圖 並 fixed
-
-加上商品連結 > 名稱帶到搜尋欄有問題
-
-底下其他球員加上 aos
 
 # story
-要連到該球員搜尋頁
+
+
 
 使用文章 api 前後台增刪查改：
 x 準備畫面 x 新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x 後台刪除 x 前台取得資料 x 頁數切換
-搜尋 API
 
-不改結構 球衣圖+名字 / hover 浮出球員 > hover球衣內文大圖也是球衣
-https://carbon38.com/en-tw
 
 可放多張圖
+hover球衣內文大圖也是球衣
 照片墙 / 上傳列表 > 拖拉順序
 https://element.eleme.io/#/zh-CN/component/upload
-內文不要框 底色反差 不改結構(紫金 ) > 某一個欄位存色碼，後台設定時增加色碼欄位 ，渲染到內文背景裡
-https://element.eleme.io/#/zh-CN/component/color-picker
-https://codyhouse.co/ds/components/app/reading-progressbar
+
+
 
 # footer
 
-> 改 keep 截圖那樣 簡單
+> 改 keep 截圖那樣 簡單 > 左版權 右彩色小圖
 x > 關於我們 （左邊
 x > 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷 
 x > 寄信給我功能（谷歌 api？ / 訂閱 欄位

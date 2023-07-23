@@ -26,13 +26,15 @@
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/story/list" class="nav-link px-4 py-3 ">
+              <!-- 使用巢狀的父層即可，不然內頁會無active > 失敗，因為路徑就會指到視圖層級而已，需使用路徑判斷 -->
+              <router-link to="/story/list" :class="{ 'active': $route.path.includes('/story') }"
+                class="nav-link px-4 py-3 ">
                 Story
               </router-link>
             </li>
             <li class="nav-item">
-              <!-- 透過$router.path去判斷 -->
-              <router-link class="nav-link px-4 py-3" to="/products-view/products-content"
+              <!-- 可透過$router.path去判斷子層，加上active -->
+              <router-link class="nav-link px-4 py-3" to="/products-view/products-content/storyTitle"
                 :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
             </li>
             <li class="nav-item">

@@ -65,7 +65,6 @@ export default {
           // This code will create a new array  this.storyList  that contains only the items from  res.data.articles  where  isPublic  is  true .
           this.storyList = res.data.articles.filter(story => story.isPublic);
           this.pagination = res.data.pagination;
-          console.log(this.pagination);
         }
       });
     },

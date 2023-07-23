@@ -54,7 +54,7 @@ export default {
         }
       });
     },
-    getStory (id) { //! 只取一個商品
+    getStory (id) { //! 只取一個
       this.$router.push(`/story/item/${id}`);
     }
   }

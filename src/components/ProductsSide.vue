@@ -86,7 +86,6 @@ export default {
     cacheSearch () {
       this.emitter.emit('customEvent_search', this.cacheSearch.title);
       this.cacheCategory = '';
-      // this.emitter.emit('customEvent_search', this.cacheSearch);
     },
     cacheCategory () {
       this.cacheSearch = '';//* 避免分類內容和搜尋內容，兩個條件衝突

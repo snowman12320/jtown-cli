@@ -2,11 +2,20 @@
   <div class="">
     <Loading :active="isLoading_big"></Loading>
     <div id="Ranking"
-      class="d-flex justify-content-center align-items-center text-dark border-3 border-nbaBlue border-top pt-5"
+      class="d-flex justify-content-center align-items-center text-dark border-3 border-nbaBlue border-top pt-5 position-relative"
       style="margin-top: 104px !important">
       <h2>PLAYER </h2>
       <img src="@/assets/nbaWeb/Lovepik_com-401319703-basketball.png" height="80" alt="storylogo" class="" />
       <h2>STORY</h2>
+      <!--  -->
+      <nav class="w-100 position-fixed  start-0 end-0 px-7" style="top:20%" aria-label="Page navigation example">
+        <ul class="pagination w-100 d-flex justify-content-between">
+          <li class="page-item"><a class="page-link " :class="{ 'disabled': isNotPrev }" :disabled="isNotPrev"
+              @click.prevent="storyIndex--" href="#"> <i class="fa fa-caret-left" aria-hidden="true"></i> Prev </a></li>
+          <li class="page-item"><a class="page-link" @click.prevent="storyIndex++" href="#"> Next <i
+                class="fa fa-caret-right" aria-hidden="true"></i></a></li>
+        </ul>
+      </nav>
     </div>
     <div class="container-xxl">
       <p class="fs-6 text-pickBlack text-center mb-5">
@@ -41,8 +50,8 @@
         <aside class="col col-xl-4 sticky-top  align-self-start" style="z-index: 5;top:100px">
           <div class="small_card">
             <div class="card mb-5 text-center text-xl-start">
-              <img data-num="001" :src="story.imageUrl" height="424" class="of-cover op-top position-absolute pt-3 imgRwd"
-                alt="..." />
+              <img data-num="001" :src="story.imageUrl" height="424"
+                class="of-cover w-100 op-top position-absolute pt-3 imgRwd" alt="..." />
               <img src="@/assets/nbaWeb/CYOKWOiUoAIJGu4.png" class="allstaritem_back img-fluid op-center of-cover" alt="">
               <!-- <div class="allstaritem_back img-fluid bgp-center bgs-cover"
                 style="background-image: url(~@/assets/nbaWeb/1126209.png)"></div> -->
@@ -78,7 +87,11 @@ export default {
       story: {},
       isLoading_big: false,
       id: '',
-      sentence: ''
+      sentence: '',
+      //
+      storyIndex: null,
+      isNotPrev: null,
+      storyList: []
     };
   },
   created () {
@@ -87,28 +100,72 @@ export default {
   },
   mounted () {
   },
+  watch: {
+    storyIndex () {
+      let id = null;
+      if (this.storyIndex > this.storyList.length - 1) {
+        this.storyIndex = 0;
+        id = this.storyList[this.storyIndex].id;
+        this.$router.push(`/story/item/${id}`);
+        this.getStory(id);
+      } else {
+        id = this.storyList[this.storyIndex].id;
+        this.$router.push(`/story/item/${id}`);
+        this.getStory(id);
+      }
+    }
+  },
   methods: {
-    getStory () { //! 只取一個商品
+    getStory (id = this.id) { //! 只取一個
       this.isLoading_big = true;
       // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${this.id}`;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http.get(api).then((res) => {
         this.isLoading_big = false;
         if (res.data.success) {
           this.story = res.data.article;
-          // console.log(this.story);
+          this.getStoryList();//! 要在此接著非同步執行，不然會抓不到id
         }
+      }).catch(error => {
+        console.error(error);
       });
     },
     getMerchandise () {
-      const str = this.story.title;
-      const index = str.indexOf('-') - 1;
-      this.sentence = str.substring(0, index).trim();
+      const str = this.story.title.trim();
+      const index = str.indexOf(' ');
+      this.sentence = str.substring(0, index);
       // console.log(this.sentence); // 输出：Kobe bryant
-      this.$router.push('/products-view/products-content');
-      this.emitter.emit('customEvent_search', this.sentence);
+      // this.emitter.emit('customEvent_search', this.sentence); //! 無法跳轉頁面傳遞值
+      this.$router.push(`/products-view/products-content/${this.sentence}`);
+    },
+    getStoryList (page = 1) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/articles/?page=${page}`;
+      this.$http.get(api).then((res) => {
+        if (res.data.success) {
+          this.storyList = res.data.articles;
+          // This code will create a new array  this.storyList  that contains only the items from  res.data.articles  where  isPublic  is  true .
+          this.storyList = res.data.articles.filter(story => story.isPublic);
+          this.storyIndex = this.storyList.findIndex(obj => obj.id === this.story.id);
+          this.isNotPrev = !(this.storyIndex > 0);
+        }
+      });
     }
+    // nextStory () {
+    //   this.storyIndex++;
+    //   console.log(this.storyIndex);
+    //   if (this.storyIndex > this.storyList.length - 1) {
+    //     this.storyIndex = 0;
+    //     this.story = this.storyList[this.storyIndex];
+    //   } else {
+    //     this.story = this.storyList[this.storyIndex];
+    //   }
+    // }
 
   }
 };
 </script>
+<style scoped lang="scss">
+.page-link:focus {
+  background: transparent !important;
+}
+</style>

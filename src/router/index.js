@@ -16,7 +16,7 @@ const routes = [
       import(/* webpackChunkName: 'about' */ '../views/ProductsView.vue'),
     children: [
       {
-        path: 'products-content',
+        path: 'products-content/:storyTitle', // ? 好像要改api，才能解決找不到此路徑的警告
         component: () => import('../views/ProductsContent.vue')
       },
       {

@@ -17,6 +17,12 @@ https://github.com/snowman12320/hexschool-question
 <!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
 
+-[x]文章內頁 切換下一頁
+> watch computed哪種消耗資源
+> 在Vue中，watch和computed都是用來監聽和追蹤數據的工具，但它們的使用方式和消耗資源程度是不同的。
+watch是一個監聽器，它可以用來監聽數據的變化，當數據發生變化時，watch會執行相應的操作。watch可以監聽單個數據屬性或者整個對象，並且可以設置深度監聽。watch的消耗資源程度取決於監聽的數據量和操作的複雜度，如果監聽的數據量很大或者操作很複雜，那麼watch會消耗較多的資源。
+computed是一個計算屬性，它可以根據數據的變化自動計算出新的值。computed的特點是它會根據數據的變化進行緩存，只有當數據發生變化時，computed才會重新計算。這樣可以避免不必要的重複計算，提高性能。computed的消耗資源程度相對較低，因為它只在需要時才計算。
+總的來說，如果需要監聽數據的變化並執行複雜的操作，可以使用watch；如果只是需要計算數據的值，可以使用computed。根據具體的需求和場景來選擇使用哪一種方式。
 -[x] Vue.js devtools
 這個套件好像掛了
 安裝文件 https://devtools.vuejs.org/guide/installation.html#settings-1
