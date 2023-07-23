@@ -1,9 +1,3 @@
-update ;
-create ;
-fixed ;
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 繼續看影片 教到的都要用到
 擴展 mixin 夾(區域)methods 夾(全域) / extend /
 元件溝通 props /emit / mitt /  
@@ -39,13 +33,13 @@ https://front-gym.web.app/#/admin/course-edit
 https://nahugd.github.io/vueshopping/#/discount/turn
 篩選多個 / 評論 /登入登出
 https://aureate0116.github.io/VueProjectLR/#/resource-list/Python
-產品圖左右 大圖 / 視差 / 彈窗 
+產品圖左右 大圖 / 視差 / 彈窗
 https://www.outdoorvoices.com/
 我的收藏 愛心 / 結帳折扣馬 > 有會員登入的了　因沒設輸入欄
 https://a94s84.github.io/Hermosa/#/wishlist
 https://jordan-ttc-design.github.io/boaboly-art-store/#/products
 文章內頁輪播 vuetify
-下拉輸入  訂單篩選 /  搜尋編號
+下拉輸入 訂單篩選 / 搜尋編號
 https://vuetifyjs.com/zh-Hans/components/autocompletes/
 下拉搜尋 最下面的
 https://vuetifyjs.com/zh-Hans/components/autocompletes/
@@ -62,9 +56,9 @@ https://www.algolia.com/developers/web-instantsearch-vue/
 https://bootsnipp.com/snippets/nNg98
 評分 懸停小數點和單純顯示
 https://vuetifyjs.com/zh-Hans/components/ratings/
-有小數點倒數 和 結束樣式 (OPT API版)
+有小數點倒數 和 結束樣式 (OPT API 版)
 https://element.eleme.io/#/zh-CN/component/statistic
-後台可設定開始和結束 
+後台可設定開始和結束
 https://element-plus.org/zh-CN/component/datetime-picker.html#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%B5%B7%E5%A7%8B%E4%B8%8E%E7%BB%93%E6%9D%9F%E6%97%B6%E5%88%BB
 儲存關鍵字錢十個字 加上連結
 https://www.algolia.com/developers/web-instantsearch-vue/
@@ -80,103 +74,76 @@ https://codyhouse.co/ds/components/app/reading-progressbar
 
 # 最後 ：
 
+RWD
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
 結帳頁都改成 英文 > 最後再轉
 圖片檔語意化
-RWD
-客製頁面改聯絡我們
-md 中加入哪業使用的技術
+
+md 中加入各分頁使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
-
+改完後，可以都轉成 com API ＋ pinia + vite 正常運作嗎
 
 # home
 
-
-
-
-
 # article
+
 商品列表 使用 extend 擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
 相關商品(類別) 用 extend 改變篩選等等 （參考 程式筆 谷歌
 
-晚上看
-> 參考課程的前面部分
-> :is
-> $route.path
-
-
 # products
+
 產品列表的購物車增加冒泡視窗選擇尺寸
 
+商品內頁 放大鏡
 
-商品內頁 放大鏡 
+detail 用編輯器
+sh
+刪除全部收藏
 
-detail用編輯器
+      // this.$toast('success', '更新'); // ? 放mixin看看
 
 ## coupon
 
-
-
 # login
 
+會員頁:
+取得訂單列表
+取得某一筆訂單取得單一訂單
 
 > 帶預設資料，搭配開啟修改的元件
-登入就到這頁
-會員資料
-https://vuetifyjs.com/zh-Hans/components/autocompletes/
-
-
+> 登入就到這頁
+> 會員資料
+> https://vuetifyjs.com/zh-Hans/components/autocompletes/
 
 # dashboard
-**全部後台搜尋和篩選和排序都放訂單去實作**
-x 表格 排序(參蔬果) / RWD (datatable) / x搜尋(產品名) / x篩選(是否付款)
 
-
-
+-[x]**全部後台搜尋和篩選和排序都放訂單去實作**
+x 表格 排序(參蔬果) / x 搜尋(產品名) / x 篩選(是否付款)
 
 # rank
 
-
-
-
-
 # story
-
-
 
 使用文章 api 前後台增刪查改：
 x 準備畫面 x 新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x 後台刪除 x 前台取得資料 x 頁數切換
 
-
 可放多張圖
-hover球衣內文大圖也是球衣
+hover 球衣內文大圖也是球衣
 照片墙 / 上傳列表 > 拖拉順序
 https://element.eleme.io/#/zh-CN/component/upload
-
-
 
 # footer
 
 > 改 keep 截圖那樣 簡單 > 左版權 右彩色小圖
-x > 關於我們 （左邊
-x > 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷 
-x > 寄信給我功能（谷歌 api？ / 訂閱 欄位
-x > 徵才用彈窗 / 表單驗證 / 上傳文件
+> x > 關於我們 （左邊
+> x > 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷
+> x > 寄信給我功能（谷歌 api？ / 訂閱 欄位
+> x > 徵才用彈窗 / 表單驗證 / 上傳文件
 
 https://vuetifyjs.com/zh-Hans/components/footers/
 
-# 錯誤頁 可用 自己的404
+# 錯誤頁 可用 自己的 404
+
 https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
-
-
-
-
-
-
-
-
-
-
-

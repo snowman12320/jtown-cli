@@ -34,7 +34,7 @@
             </li>
             <li class="nav-item">
               <!-- 可透過$router.path去判斷子層，加上active -->
-              <router-link class="nav-link px-4 py-3" to="/products-view/products-content/storyTitle"
+              <router-link class="nav-link px-4 py-3" to="/products-view/products-content/title"
                 :class="{ 'active': $route.path.includes('/products-view') }">Product</router-link>
             </li>
             <li class="nav-item">
@@ -43,7 +43,7 @@
               </router-link>
             </li>
             <li class="ms-1">
-              <router-link :to="isLogin ? '/dashboard' : '/login'" class="fs-6 px-3 rounded-pill text-white">
+              <router-link :to="isLogin ? '/dashboard/products' : '/login'" class="fs-6 px-3 rounded-pill text-white">
                 <button class="btn btn-nbaBlue text-white rounded-pill mt-lg-2 nav_pill">
                   {{ isLogin ? 'Log out' : 'Login' }}
                 </button>

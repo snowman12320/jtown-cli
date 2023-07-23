@@ -7,6 +7,17 @@ https://github.com/snowman12320/hexschool-question
 //＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
 // https://github.com/fengyuanchen/cropperjs
 // https://codepen.io/snowman12320/pen/YzREKMx
+> 用vue croppers
+
+1.在productsList中
+使用getProduct()，透過this.emitter.emit('customEvent_getProduct', this.product);
+觸發ProductsItem元件的getProduct()，並更新產品內頁，
+且使用this.emitter.emit('customEvent_category', this.product.category);
+試圖更新產品列表元件的分類項目，達到相關商品效果，但失敗
+
+2.如何在productItem元件中，使用class去隱藏，引入的productsList元件的元素，例如下拉選單
+
+3.上述提到的下拉選單，為何在productItem元件引入就無法運作？
 
 
 

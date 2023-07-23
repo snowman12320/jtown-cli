@@ -184,7 +184,9 @@
       </div>
       <!--  -->
       <h3 class="mt-7">RECOMMEND</h3>
-      <ProductsList></ProductsList>
+      <!-- //! 取得全部資料的分類，並更新相關商品列表，無法用props覆蓋，故作罷 -->
+      <!-- <ProductsList :filteredData="filteredData" @update-category="getProducts"></ProductsList> -->
+      <ProductsList :customClass="childClass"></ProductsList>
     </div>
   </div>
 </template>
@@ -208,8 +210,9 @@ export default {
       rateValue: 5,
       rateComment: 'The product is the best ,I have ever seen !',
       rateTime: '8: 40 AM, Today',
-      rateData: []
-
+      rateData: [],
+      //
+      childClass: ''
     };
   },
   //! mitt
@@ -232,6 +235,7 @@ export default {
     this.getProduct();
     this.getFavoriteData(); //! 用其他電腦，先新增本地陣列
     this.sendComment();
+    this.changeClass();
   },
   methods: {
     updateFavo (id) {
@@ -275,6 +279,7 @@ export default {
         this.isLoading_big = false;
         if (response.data.success) {
           this.product = response.data.product;
+          this.emitter.emit('customEvent_category', this.product.category);
         }
       });
     },
@@ -311,7 +316,19 @@ export default {
           title: 'SUCCESS！ADD COMMENT'
         });
       }, 1000);
+    },
+    changeClass () {
+      this.childClass = 'products_sort';
     }
+    // getProducts () { //* 取得全部資料的分類，並更新相關商品列表，無法用props覆蓋，故作罷
+    //   const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
+    //   this.$http.get(api).then((res) => {
+    //     if (res.data.success) {
+    //       this.filteredData = res.data.products.filter((i) => i.category === this.product.category);
+    //       console.log(this.filteredData);
+    //     }
+    //   });
+    // }
   }
 };
 </script>
@@ -453,5 +470,10 @@ export default {
   &:hover i {
     color: red;
   }
+}
+
+// 如何在productItem元件中，使用class去隱藏productsList的元素
+.products_sort {
+  display: none !important;
 }
 </style>

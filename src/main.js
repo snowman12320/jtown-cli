@@ -30,6 +30,7 @@ import 'element-plus/dist/index.css'; // 引入element-plus样式
 import 'vue-multiselect/dist/vue-multiselect.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 // import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
+// import toast from './methods/toast';
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
 // 定義驗證規則
@@ -75,6 +76,7 @@ app.use(CKEditor);
 // Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {
 //   app.component(key, component);
 // });
+// app.use(toast);
 
 //! Mount the app to the DOM and initialize any additional functionality:
 app.mount('#app');

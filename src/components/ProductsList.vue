@@ -3,7 +3,7 @@
   <!-- {{ cacheCategory }} -->
   <div class="">
     <!-- 排序  -->
-    <div class="mb-3 d-flex justify-content-end align-items-center">
+    <div class="mb-3 d-flex justify-content-end align-items-center" :class="customClass">
       <label for="" class="form-label mb-0">Sort by：</label>
       <select v-model="selectSort" class="form-select form-select-lg rounded-0 p-1 fs-6" style="width:250px" name=""
         id="">
@@ -79,6 +79,8 @@ export default {
       selectSort: '0'
     };
   },
+  // props: { filtersData: { type: Array } }, //! 不能重複宣告
+  props: ['customClass'],
   mounted () {
     this.products_list = this.$refs.products_list.offsetHeight; //! 在mounted定義會是零，但不定義會在其他頁報錯
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
@@ -88,6 +90,7 @@ export default {
     });
     this.emitter.on('customEvent_category', (data) => {
       this.cacheCategory = data;
+      console.log(this.cacheCategory);
       // console.log(typeof (this.cacheCategory));
     });
     this.emitter.on('customEvent_Check', (data) => {
@@ -95,7 +98,7 @@ export default {
     });
   },
   created () {
-    this.cacheSearch = this.$route.params.storyTitle;
+    this.cacheSearch = this.$route.params.search;
     this.getProducts();
     this.getFiltered();//! 取得全域搜尋資料
   },
@@ -106,7 +109,7 @@ export default {
       this.isLoading_big = true;
 
       try {
-        if (!this.$route.path.includes('products-content')) {
+        if (!this.$route.path.includes('products-content') || !this.$route.path.includes('products-item')) {
           filteredData = this.products;
         } else {
           filteredData = this.Filtered.filter((item) =>
@@ -160,13 +163,7 @@ export default {
     },
     getFiltered () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
-      // this.isLoading = true;
-      // this.isLoading_big = true;
-      // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
       this.$http.get(api).then((res) => {
-        // this.isLoading = false;
-        // this.isLoading_big = false;
-        // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
           // console.log(res.data);
           this.Filtered = res.data.products;
@@ -228,7 +225,6 @@ export default {
         // }
       }
     },
-
     getProduct (id) { //! 只取一個商品
       this.$router.push(`/products-view/products-item/${id}`);
       this.isLoading = true;
@@ -249,6 +245,9 @@ export default {
           });
           carouselItems[0].classList.add('active');
           window.scrollTo(0, 0);
+          //
+          // console.log(this.product.category);
+          // this.$emit('update-category');
         }
       });
       // 確認收藏狀態
