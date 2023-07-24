@@ -235,6 +235,10 @@ export default {
 </script>
 <style scoped lang="scss">
 .table {
+  th:nth-child(1) {
+    cursor: pointer;
+  }
+
   .form-check-label {
     font-size: 5px;
     color: rgba(79, 226, 226, 0.89);

@@ -7,6 +7,10 @@
       <div class="offcanvas-header d-flex justify-content-between align-items-center">
         <h5 id="offcanvasRightLabel" class="fs-3 text-center pt-3"><i class="fa fa-check-circle text-nbaRed"
             aria-hidden="true"></i> MY COLLECT
+          <!--  -->
+          <a @click.prevent="delFavorites" name="" id="" class="btn btn-outline-danger fs-5 px-2 ms-1" href="#"
+            role="button">
+            <i class="fa-sharp fa-solid fa-heart-circle-xmark"></i>ALL</a>
         </h5>
         <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -143,6 +147,27 @@ export default {
           this.isFavorite = false;
           this.emitter.emit('customEvent_isFavorite', this.isFavorite);
         }
+      }
+    },
+    delFavorites () {
+      if (JSON.parse(localStorage.getItem('favorite')).length > 0) {
+        this.$swal.fire({
+          title: 'Do you want to delete the all Favorite?',
+          showDenyButton: false,
+          showCancelButton: true,
+          confirmButtonText: 'O.K'
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            localStorage.setItem('favorite', JSON.stringify([]));
+            this.delFavorite();
+            setTimeout(() => {
+              this.$swal.fire('Done delete all!', '', 'success');
+            }, 1000);
+          }
+        });
+      } else {
+        this.$swal.fire('Favorites was empty.', '', 'warning');
       }
     }
   }

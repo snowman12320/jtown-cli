@@ -89,20 +89,17 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 # article
 
-商品列表 使用 extend 擴展(商品內頁也有) > 壓掉原本資料 (created>extend>mixin) ，元件壓得掉嗎 > props
-相關商品(類別) 用 extend 改變篩選等等 （參考 程式筆 谷歌
+
 
 # products
 
-產品列表的購物車增加冒泡視窗選擇尺寸
 
 商品內頁 放大鏡
+Pins plugin
+https://fancyapps.com/panzoom/
 
 detail 用編輯器
-sh
-刪除全部收藏
 
-      // this.$toast('success', '更新'); // ? 放mixin看看
 
 ## coupon
 
@@ -119,8 +116,7 @@ sh
 
 # dashboard
 
--[x]**全部後台搜尋和篩選和排序都放訂單去實作**
-x 表格 排序(參蔬果) / x 搜尋(產品名) / x 篩選(是否付款)
+
 
 # rank
 

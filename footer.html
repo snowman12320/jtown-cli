@@ -1,0 +1,164 @@
+<!-- /**
+*
+* 不刪 
+*
+*/ -->
+
+<footer class="mx-auto max-w-[1400px] py-5 text-center">
+  <div class="">
+    <p>
+      &copy;{{ new Date().getFullYear() }}
+      <span x-text="new Date().getFullYear()"></span> 創意瘋國際有限公司.
+      <a class="text-sm text-gray-500" href="https://tc.0800500666.com/"
+        >網頁設計公司 <i class="fa-solid fa-heart fa-flip mt-20 text-3xl"></i>
+      </a>
+      <!-- https://www.tnn-global.com/ -->
+    </p>
+    <p>客服專線：0800-123-123</p>
+    <button
+      x-on:click="isOpen = true"
+      class="focus:outline-none border-creative-50 text-creative-50 hover:bg-creative-50 inline-block w-[full] rounded-none border text-sm hover:text-white"
+      x-on:="isOpen = true"
+    >
+      申訴
+    </button>
+    <!--  -->
+    <button class="border p-5" x-on:click="count++">
+      count is {{ count }}
+    </button>
+  </div>
+  <!-- 表單 -->
+  <div
+    x-show="isOpen"
+    class="fixed inset-0 z-10 hidden overflow-y-hidden "
+    :class="{'!block' : isOpen }"
+  >
+    <div class="flex min-h-screen items-center justify-center text-center">
+      <div
+        x-show="isOpen"
+        x-on:click="isOpen = false"
+        x-on:class="{'transition-opacity ease-out duration-1000  !opacity-100 ': isOpen || isNavOpen}"
+        class="fixed inset-0"
+        aria-hidden="true"
+      >
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <div
+        v-show="isOpen"
+        x-bind:class="{ 'transition-all ease-out duration-300 opacity-100 scale-100 md:max-w-[500px] w-[100%]   rounded-lg bg-white relative': isOpen}"
+        class="scale-9 animate__animated animate__faster animate__fadeInUp"
+      >
+        <div class="absolute top-0 right-0 p-2">
+          <button x-on:click="isOpen = false">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="p-4">
+          <div class="relative w-full">
+            <div class="my-3 grid grid-cols-12 gap-5">
+              <div class="col-span-2">
+                <img
+                  src="https://i.pravatar.cc/150?img=50"
+                  width="50"
+                  class="ml-2 rounded-full"
+                  alt=""
+                  srcset=""
+                />
+              </div>
+              <!-- 有會員才能申訴 -->
+              <div class="col-span-8 md:col-span-10">
+                <form action="" class="">
+                  <h2 class="my-3 text-start text-lg">girl666</h2>
+                  <!--  -->
+                  <div class="my-5 w-full">
+                    <input type="text" class="w-full" placeholder="申述對象" />
+                    <small class="mt-10 text-start"
+                      >我們會盡快處理，並透過信箱回覆！</small
+                    >
+                    <textarea
+                      class="w-full"
+                      name="comment"
+                      id=""
+                      cols=""
+                      rows="5"
+                      placeholder="詳細描述狀況..."
+                    ></textarea>
+                  </div>
+                  <!--  -->
+                  <button
+                    x-on:click.prevent="confirm('我們會盡快處理，並透過信箱回覆！');isOpen = false"
+                    type="submit"
+                    class="focus:outline-none border-creative-50 text-creative-50 hover:bg-creative-50 mx-auto mt-8 block w-[100px] rounded-none border py-2 px-6 text-lg hover:text-white"
+                  >
+                    確認送出
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!--  -->
+<div class="fixed right-5 bottom-5 flex flex-col items-center gap-3">
+  <a href="#/" class="rounded-full bg-green-500">
+    <i
+      class="fa-solid fa-phone relative z-[1] p-[6px] px-[10px] text-xl text-white"
+    ></i>
+  </a>
+  <a
+    href="#/"
+    class="after:absolute after:top-1 after:left-2 after:z-0 after:h-[25px] after:w-[20px] after:rounded-full after:bg-white"
+  >
+    <i
+      class="fa-brands fa-facebook-messenger relative z-[1] text-4xl text-blue-500"
+    ></i>
+  </a>
+  <a
+    href="#/"
+    class="after:absolute after:top-3 after:left-2 after:z-0 after:h-[35px] after:w-[45px] after:rounded-none after:bg-transparent"
+  >
+    <img
+      src="./images/temp/instagram_icon.png"
+      class="h-[40px] w-[40px]"
+      alt=""
+    />
+  </a>
+  <a
+    href="#/"
+    class="after:absolute after:top-3 after:left-2 after:z-0 after:h-[15px] after:w-[15px] after:rounded-none after:bg-white"
+  >
+    <i class="bi bi-youtube relative z-[1] text-4xl text-red-500"></i>
+  </a>
+  <a
+    href="#/"
+    class="after:absolute after:top-2 after:left-1 after:z-0 after:h-[25px] after:w-[30px] after:rounded-full after:bg-white"
+  >
+    <i class="bi bi-line relative z-[1] text-4xl text-green-500"></i>
+  </a>
+  <a
+    href="#/"
+    class="after:absolute after:top-2 after:left-2 after:z-0 after:h-[30px] after:w-[20px] after:rounded-full after:bg-white"
+  >
+    <i class="bi bi-facebook relative z-[1] text-4xl text-blue-500"></i>
+  </a>
+  <a
+    href="https://www.instagram.com/iadesign.com.tw/"
+    class="flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500 via-red-500 to-yellow-200 py-[6px] px-[10px] !text-white"
+    ><i class="fa-brands fa-instagram text-xl"></i>
+  </a>
+</div>
+
+<!-- 開發中失敗率高 -->
+<!-- <a
+  x-bind:class="{'opacity-100':!atTop}"
+  href="#top"
+  class="fixed !bottom-5 !left-5 opacity-0 transition-all duration-500"
+  ><i
+    class="fa fa-caret-up rounded-full bg-yellow-300 p-5"
+    aria-hidden="true"
+  ></i>
+</a> -->
+ 

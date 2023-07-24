@@ -30,7 +30,7 @@ import 'element-plus/dist/index.css'; // 引入element-plus样式
 import 'vue-multiselect/dist/vue-multiselect.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 // import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
-// import toast from './methods/toast';
+import $toast from './methods/toast';//* 定義完程式功能，需全域註冊，$錢字號應該是辨識用，若沒有包其他函式，就錢字號開頭(如$httpMessageState)，反之就(如$filters.currency)
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
 // 定義驗證規則
@@ -61,6 +61,7 @@ app.config.globalProperties.$filters = {
 // 此函式的用途是整合 Ajax 的錯誤事件，統一整理發送給予 Toast 處理
 // 正常來說不建議太多方法掛Global,這裡可以使provide來處理
 app.config.globalProperties.$httpMessageState = $httpMessageState;
+app.config.globalProperties.$toast = $toast;
 
 //! Use plugins and libraries:
 app.use(VueAxios, axios);
@@ -76,7 +77,6 @@ app.use(CKEditor);
 // Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {
 //   app.component(key, component);
 // });
-// app.use(toast);
 
 //! Mount the app to the DOM and initialize any additional functionality:
 app.mount('#app');

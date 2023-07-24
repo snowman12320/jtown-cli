@@ -9,7 +9,7 @@
               to="/">Home</router-link>
           </li>
           <li class="breadcrumb-item  text-nbaBlue"><router-link style="text-decoration:none !important"
-              to="/products-view/products-content">Product</router-link>
+              to="/products-view/products-content/title">Product</router-link>
           </li>
           <li class="breadcrumb-item active" aria-current="page">{{ product.title }} </li>
         </ol>
@@ -183,10 +183,20 @@
         </div>
       </div>
       <!--  -->
+      <div>
+        <div class="f-panzoom" ref="myPanzoom">
+          <div data-panzoom-pin data-x="56%" data-y="60%">
+            <svg>...</svg>
+          </div>
+          <img class="f-panzoom__content" src="https://lipsum.app/id/15/1600x1200" />
+        </div>
+      </div>
+      <!--  -->
       <h3 class="mt-7">RECOMMEND</h3>
       <!-- //! 取得全部資料的分類，並更新相關商品列表，無法用props覆蓋，故作罷 -->
       <!-- <ProductsList :filteredData="filteredData" @update-category="getProducts"></ProductsList> -->
-      <ProductsList :customClass="childClass"></ProductsList>
+      <!-- :customClass="['d-none']" ，父元件傳入值，子元件放:class="customClass" -->
+      <ProductsList></ProductsList>
     </div>
   </div>
 </template>
@@ -195,6 +205,13 @@ import ProductsList from '@/components/ProductsList.vue';
 import loginMixin from '../mixins/loginMixin';
 import addToCart from '../mixins/addToCart';
 import getFavoriteData from '../mixins/getFavoriteData';
+// import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.esm.js';
+// import { Pins } from '@fancyapps/ui/dist/fancybox/fancybox.esm.js';
+// import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm.js';
+//
+import { Panzoom, Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm.js';
+import '@fancyapps/ui/dist/panzoom/panzoom.pins.css';
+
 export default {
   mixins: [loginMixin, addToCart, getFavoriteData],
   inject: ['emitter'],
@@ -229,6 +246,13 @@ export default {
     this.emitter.on('customEvent_updateFavorite', () => {
       this.getFavoriteData();
     });
+    // this.initPins();
+    // const container = this.$refs.myPanzoom;
+    // const options = {};
+    // this.panzoomInstance = new Panzoom(container, options, { Pins });
+  },
+  beforeUnmount () {
+    this.panzoomInstance.destroy();
   },
   created () {
     this.id = this.$route.params.productId;//! 統一商品唯一的ID(item.id)
@@ -238,6 +262,13 @@ export default {
     this.changeClass();
   },
   methods: {
+    initPins () {
+      Pins.create(this.$refs.gallery, {
+        closeBtn: true,
+        closeOnClick: true,
+        closeOnScroll: false
+      });
+    },
     updateFavo (id) {
       this.checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
       if (this.checkFavorite) { //* 存在就刪除
@@ -280,6 +311,7 @@ export default {
         if (response.data.success) {
           this.product = response.data.product;
           this.emitter.emit('customEvent_category', this.product.category);
+          // this.$toast(response, 'getProduct');
         }
       });
     },
@@ -289,6 +321,10 @@ export default {
       //   this.$router.push('/login');
       //   return;
       // }
+      if (!this.rateValue || !this.rateComment) {
+        this.$toast('error', 'star and comment required.');
+        return;
+      }
       const data = { rateValue: this.rateValue, rateComment: this.rateComment, rateTime: this.rateTime };
       localStorage.setItem('rateData', JSON.stringify(data));
       this.updateComment();
@@ -311,10 +347,11 @@ export default {
       //* 使用箭头函数，回调函数将继承包含它的函数的上下文，这样就可以正确地访问和更新"this.isLoading_big"属性
       setTimeout(() => {
         this.isLoading_big = false;
-        this.emitter.emit('push-message', {
-          style: 'success',
-          title: 'SUCCESS！ADD COMMENT'
-        });
+        // this.emitter.emit('push-message', {
+        //   style: 'success',
+        //   title: 'SUCCESS！ADD COMMENT'
+        // });
+        this.$toast('success', 'add comment');
       }, 1000);
     },
     changeClass () {
@@ -333,6 +370,10 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.f-panzoom {
+  /* Add your styles here */
+}
+
 .carousel {
   height: 500px;
 }

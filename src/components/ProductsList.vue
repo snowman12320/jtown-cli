@@ -19,7 +19,7 @@
       <div class="" v-for="item in filtersData" :key="item.id">
         <div class="col overflow-hidden">
           <div class="card w-100 position-relation newproduct_img" data-num="1">
-            <div class="newproduct_cloth p-1">
+            <div class="newproduct_cloth p-1 " ref="newproduct_cloth" :class="{ 'newproduct_cloth_set': setClass }">
               <h6 class="  fw-light" style="font-size:10px"> {{ item.category }}</h6>
               <h5 class="fs-5 text-center" @click="getProduct(item.id)">
                 {{ item.title }}</h5>
@@ -31,7 +31,47 @@
                 class="position-relative border border-white rounded-1 px-2 py-3 bg-transparent d-flex justify-content-around m-2">
                 <i @click="updateFavo(item.id)" :class="{ 'text-danger': favoriteData.indexOf(item.id) !== -1 }"
                   class="fa fa-heart fs-4"></i>
-                <i @click="addToCart(item.id, qty, isBuy = false)" class="fa fa-cart-plus text-white fs-4"></i>
+                <!--  -->
+                <el-popover placement="top" title="SIZE：" :width="200" trigger="hover" content="">
+                  <div class="d-flex justify-content-center w-100 mx-auto gap-1 ">
+                    <div class="">
+                      <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                        id="S">
+                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'S' }"
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="S">
+                        S
+                      </label>
+                    </div>
+                    <div class="">
+                      <input value="M" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                        id="M">
+                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'M' }"
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="M">
+                        M
+                      </label>
+                    </div>
+                    <div class="">
+                      <input value="L" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                        id="L">
+                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'L' }"
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="L">
+                        L
+                      </label>
+                    </div>
+                    <div class=" slanted-div">
+                      <input disabled value="XL" v-model="productSize" class="form-check-input d-none" type="radio"
+                        name="size" id="XL">
+                      <label style="  cursor: not-allowed;" disabled
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="XL">
+                        xL
+                      </label>
+                    </div>
+                  </div>
+                  <template #reference>
+                    <!-- <el-button class="m-2">Hover to activate</el-button> -->
+                    <i @click="addToCart(item.id, qty, isBuy = false)" class="fa fa-cart-plus text-white fs-4"></i>
+                  </template>
+                </el-popover>
                 <!--  -->
                 <div v-if="isLoading"
                   class="text-center d-flex align-items-center justify-content-center  position-absolute top-0 start-0 end-0 bottom-0">
@@ -59,6 +99,7 @@
 <script>
 import addToCart from '../mixins/addToCart';
 import getFavoriteData from '../mixins/getFavoriteData';
+
 export default {
   mixins: [addToCart, getFavoriteData],
   inject: ['emitter'],
@@ -76,7 +117,8 @@ export default {
       cacheCategory: '',
       filterCheck: '',
       isFavorite: false,
-      selectSort: '0'
+      selectSort: '0',
+      setClass: false
     };
   },
   // props: { filtersData: { type: Array } }, //! 不能重複宣告
@@ -90,8 +132,8 @@ export default {
     });
     this.emitter.on('customEvent_category', (data) => {
       this.cacheCategory = data;
-      console.log(this.cacheCategory);
-      // console.log(typeof (this.cacheCategory));
+      // console.log(this.cacheCategory);//*檢視emitter有無觸發
+      this.cacheSearch = '';
     });
     this.emitter.on('customEvent_Check', (data) => {
       this.filterCheck = data;
@@ -109,7 +151,7 @@ export default {
       this.isLoading_big = true;
 
       try {
-        if (!this.$route.path.includes('products-content') || !this.$route.path.includes('products-item')) {
+        if (!this.$route.path.includes('products-content') && !this.$route.path.includes('products-item')) {
           filteredData = this.products;
         } else {
           filteredData = this.Filtered.filter((item) =>
@@ -265,6 +307,7 @@ export default {
         }
       }
     }
+
   }
 };
 </script>
@@ -275,5 +318,15 @@ export default {
 
 .col i {
   cursor: pointer;
+}
+
+.newproduct_cloth_set {
+
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  transition: all;
+  z-index: 2;
 }
 </style>

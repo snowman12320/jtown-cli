@@ -1,7 +1,7 @@
 <template>
     <el-menu :active-text-color="'#ffa500'" :backgroundColor="'#180b0b'" :text-color="'#fff'" default-active="4"
         class="el-menu-vertical-demo d-flex flex-column justify-content-between" :collapse="isCollapse"
-        @mouseover="isCollapse = false" @mouseleave="isCollapse = true">
+        @mouseenter="startTimer" @mouseleave="cancelTimer">
         <div class="">
             <el-menu-item index="1">
                 <el-icon>
@@ -21,58 +21,59 @@
             </el-menu-item>
             <el-menu-item index="3">
                 <el-icon>
-                    <el-icon>
-                        <Cpu />
-                    </el-icon> </el-icon>
+                    <User />
+                </el-icon>
                 <template #title>
                     <div class="text-center w-100">
                         <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
                     </div>
                 </template>
             </el-menu-item>
-            <el-menu-item index="4">
-                <el-icon>
-                    <Basketball />
-                </el-icon>
-                <template #title>
-                    <router-link to="/dashboard/products"
-                        class="text-white  text-decoration-none w-100 text-center">產品</router-link>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="5">
-                <el-icon>
-                    <List />
-                </el-icon>
-                <template #title>
-                    <router-link to="/dashboard/orders"
-                        class="text-white w-100 text-center  text-decoration-none">訂單</router-link>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="6">
-                <el-icon>
-                    <Ticket />
-                </el-icon>
-                <template #title>
-                    <router-link to="/dashboard/coupons"
-                        class="text-white w-100 text-center   text-decoration-none">優惠券</router-link>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="7">
-                <el-icon>
+            <router-link to="/dashboard/products" class="text-white  text-decoration-none w-100 ">
+                <el-menu-item index="4">
+                    <el-icon>
+                        <Basketball />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100">產品</div>
+                    </template>
+                </el-menu-item>
+            </router-link>
+            <router-link to="/dashboard/orders" class="text-white w-100 text-center  text-decoration-none">
+                <el-menu-item index="5">
+                    <el-icon>
+                        <List />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100">訂單</div>
+                    </template>
+                </el-menu-item>
+            </router-link>
+            <router-link to="/dashboard/coupons" class="text-white w-100 text-center   text-decoration-none">
+                <el-menu-item index="6">
+                    <el-icon>
+                        <Ticket />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100">優惠券</div>
+                    </template>
+                </el-menu-item>
+            </router-link>
+            <router-link to="/dashboard/storys" class="text-white text-center w-100  text-decoration-none">
+                <el-menu-item index="7">
                     <el-icon>
                         <Notebook />
-                    </el-icon> </el-icon>
-                <template #title>
-                    <router-link to="/dashboard/storys"
-                        class="text-white text-center w-100  text-decoration-none">文章</router-link>
-                </template>
-            </el-menu-item>
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100">文章</div>
+                    </template>
+                </el-menu-item>
+            </router-link>
         </div>
         <el-menu-item index="8" class="border-top  border-white">
-            <el-icon>
-                <el-icon>
-                    <SwitchButton />
-                </el-icon> </el-icon>
+            <el-icon @click.prevent="logout">
+                <SwitchButton />
+            </el-icon>
             <template #title>
                 <a href="#" @click.prevent="logout" class="text-white text-center w-100 text-decoration-none">登出</a>
             </template>
@@ -82,7 +83,7 @@
 
 <script  setup>
 import {
-  Ticket, Monitor, Basketball, List, Cpu, Notebook, SwitchButton
+  Ticket, Monitor, Basketball, List, User, Notebook, SwitchButton
 
 } from '@element-plus/icons-vue';
 </script>
@@ -92,7 +93,8 @@ export default {
     return {
       username: '',
       isCollapse: true,
-      random_number: Math.floor(Math.random() * (50 - 1 + 1) + 3)
+      random_number: Math.floor(Math.random() * (50 - 1 + 1) + 3),
+      timer: null
     };
   },
   created () {
@@ -116,6 +118,15 @@ export default {
           }
         });
       }
+    },
+    startTimer () {
+      this.timer = setTimeout(() => {
+        this.isCollapse = false;
+      }, 1500);
+    },
+    cancelTimer () {
+      this.isCollapse = true;
+      clearTimeout(this.timer);
     }
   }
 };

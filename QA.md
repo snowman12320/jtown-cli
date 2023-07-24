@@ -1,85 +1,38 @@
 https://github.com/snowman12320/hexschool-question
 
-
-
 - prodcutModal 中
-嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
-//＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
-// https://github.com/fengyuanchen/cropperjs
-// https://codepen.io/snowman12320/pen/YzREKMx
-> 用vue croppers
+  嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
+  //＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
+  // https://github.com/fengyuanchen/cropperjs
+  // https://codepen.io/snowman12320/pen/YzREKMx
 
-1.在productsList中
-使用getProduct()，透過this.emitter.emit('customEvent_getProduct', this.product);
-觸發ProductsItem元件的getProduct()，並更新產品內頁，
-且使用this.emitter.emit('customEvent_category', this.product.category);
-試圖更新產品列表元件的分類項目，達到相關商品效果，但失敗
+  > 用 vue croppers
 
-2.如何在productItem元件中，使用class去隱藏，引入的productsList元件的元素，例如下拉選單
+  1.在 productsList 中
+  使用 getProduct()，透過 this.emitter.emit('customEvent_getProduct', this.product);
+  觸發 ProductsItem 元件的 getProduct()，並更新產品內頁，
+  且使用 this.emitter.emit('customEvent_category', this.product.category);
+  試圖更新產品列表元件的分類項目，達到相關商品效果，但失敗
 
-3.上述提到的下拉選單，為何在productItem元件引入就無法運作？
+  2.如何在 productItem 元件中，使用 class 去隱藏，引入的 productsList 元件的元素，例如下拉選單
 
-
-
-
-
+  3.上述提到的下拉選單，為何在 productItem 元件引入就無法運作？
 
 # 已詢問 未整理////////////////////////////
+
+
+
+
+-[] Q：在 storyItem 中使用this.$route.push('/products-view/products-content/:title')，儲存文章 title，
+並傳遞到商品列表，去顯示該文章title的相關商品，但會出現以下警告
+A：這裡假設你的流程是
+點選 header 的 story 進到 storyList 頁面
+點選任一 Story
+點選右側的 Visit Merchandise
+助教這邊測試是沒有問題的
+
 <!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
-
--[x]文章內頁 切換下一頁
-> watch computed哪種消耗資源
-> 在Vue中，watch和computed都是用來監聽和追蹤數據的工具，但它們的使用方式和消耗資源程度是不同的。
-watch是一個監聽器，它可以用來監聽數據的變化，當數據發生變化時，watch會執行相應的操作。watch可以監聽單個數據屬性或者整個對象，並且可以設置深度監聽。watch的消耗資源程度取決於監聽的數據量和操作的複雜度，如果監聽的數據量很大或者操作很複雜，那麼watch會消耗較多的資源。
-computed是一個計算屬性，它可以根據數據的變化自動計算出新的值。computed的特點是它會根據數據的變化進行緩存，只有當數據發生變化時，computed才會重新計算。這樣可以避免不必要的重複計算，提高性能。computed的消耗資源程度相對較低，因為它只在需要時才計算。
-總的來說，如果需要監聽數據的變化並執行複雜的操作，可以使用watch；如果只是需要計算數據的值，可以使用computed。根據具體的需求和場景來選擇使用哪一種方式。
--[x] Vue.js devtools
-這個套件好像掛了
-安裝文件 https://devtools.vuejs.org/guide/installation.html#settings-1
-＋＋＋ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
-> 快修正 ，這樣不用一直{{}}，可直接看變數
-> 安裝非beta / del版 chrome即可 ，有影片示範 > 選一般版vue dev插件
-- [x] storyModal中
-日期時間元件(使用element-plus)，只能選擇日期，其他功能都會跳掉，但放在storys中就可以，在談窗好像都會有一些奇怪的bug
-https://element-plus.org/zh-CN/component/datetime-picker.html#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%82%B9
-有去官方github查看元件內部，但看不到什麼問題
-https://github.com/element-plus/element-plus/blob/dev/docs/examples/datetime-picker/date-and-time.vue
--[x]prodcutModal 中
-" 一般不會將 base64 的圖片存到資料庫，所以請同學務必上傳一般圖片的格式 "
-在uploadFile_more()，已轉格式，但都只能上傳一張，有嘗試用迴圈，但無法上傳多張
-> 迴圈包住全部上傳流程即可
--[x] delImage()中
-為何執行刪除圖片會關閉彈跳窗？，我找了很久，只有看到刪除陣列項目的動作，但就會關掉視窗
-有試過改用a或button以外的標籤，或click.stop > click.stop 但刪最後一個就會
--[x] productList 中
-鞋子在第二頁就會搜尋或篩選不到，要載入第二頁才有
->全部顯示用 有頁數API
-搜尋時用 沒有頁數限制API
-- [x] storys 中 openModal
-嘗試將原本的時間秒數轉成日期格式，並顯示在已編輯彈窗的日期中，但都失敗，會是空值，
->// ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
-const date = new Date(this.tempStory.create_at * 1000);
-this.create_at = date.toISOString().split('T')[0];
-- [x] StoryModal 中
-v-model="tempStory.content" 寫不進去資料庫，api送進去有顯示更新成功，查看item中也有，但編輯時，彈窗資料讀出來就沒有，
-但 description 卻有
-> 寫入和讀取單個文章的API，不同
-- [x] StoryList中
-isPublic是false但還是會顯示的原因
-> 沒有抓資料後，沒有先篩選掉，無啟用的
-- [x] StoryModal 中
-想在 description 增加一個 height 的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改 api 呢？ > 轉字串存 > 商品描述的編輯器若可以就可以
-- [x]想確認 couponModal 中的 watch 的功用
-  是先使用 due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
-  可是 好像只要 due_date ()後， 加上$filters.data 就會轉成日期 > 所以兩個方式都可吧
-- [x] 收藏的陣列要可以要多個 > 先存成陣列或物件，再轉型 json 字串存入，取出時要轉解析 parse
-- [x] 商品切換時 路徑 ID 也要改 > 透過$router 傳遞 id，並轉換商品頁，先儲存收藏，再確認目前商品 id 和收藏 id 是否相同
-- [x] 首頁的產品要渲染 改回圈或用 extend / mixin (都是 JS 擴增) > .slice(0, 4) > 重新抓資料
-- [x] 左側購物車 小計要整數(final_total > total)
--[x] 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
-> https://vue-multiselect.js.org/#sub-getting-started
-> 怪怪的，可能要自己做一個 > 已修正
 
 # 技術筆記///////////////////////////////////////////
 
@@ -272,39 +225,43 @@ https://codepen.io/ice12031110/full/PomoBOR
 https://codepen.io/snowman12320/pen/mdQEXZq?editors=1010
 
 # element-plus
+
 https://element-plus.org/en-US/component/tag.html#edit-dynamically
-上述轉成vue data() 寫法 ，只要script標籤內容就好
+上述轉成 vue data() 寫法 ，只要 script 標籤內容就好
 
 # 一鍵部屬 sh deploy.sh
-先是第一種看push會不會錯誤
+
+先是第一種看 push 會不會錯誤
 不行的話最後要改
 git push --set-upstream git@github.com:snowman12320/hexschool-question.git main
 https://israynotarray.com/vue/20200214/1055437216/
 
-多使用bash去用git 可知道分支位置 > 有錯誤可以傳信箱的flow給AI
+多使用 bash 去用 git 可知道分支位置 > 有錯誤可以傳信箱的 flow 給 AI
 上述會失敗 因為
 根据提供的错误消息，以下是可能的解决办法：
 检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
 可能就要自己手動
 git push origin --delete gh-pages
-npm run bulid  > cd dist > git init > git add . > git commit -m "use hand build"  > main or master
+npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
 
 ## CKEditor 5
-// 无法plugins > 需使用官方設定黨下載取代ckeditor5-build-classic夾，或者在此夾中，npm套件並build即可
+
+// 无法 plugins > 需使用官方設定黨下載取代 ckeditor5-build-classic 夾，或者在此夾中，npm 套件並 build 即可
 // 官網線上新增功能 https://ckeditor.com/ckeditor-5/online-builder/
 // ＋＋＋ 新增外掛 https://hackmd.io/@YuXiangLiao/HJ8U-c1tO#
 // ＋＋＋ 設定樣式 新增外掛 設定外掛的樣式 https://ithelp.ithome.com.tw/articles/10211769
 // 簡單版 https://hackmd.io/@SkT7-27LSWWQi5G2DJBLkw/HyRzmUCDq
-// 可能是js版 https://adminhk.com/ckeditor5%E6%95%99%E5%AD%B8-%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%9D-%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-2022%E5%B9%B4%E7%89%88/
+// 可能是 js 版 https://adminhk.com/ckeditor5%E6%95%99%E5%AD%B8-%E5%9F%BA%E6%9C%AC%E5%AE%89%E8%A3%9D-%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8-2022%E5%B9%B4%E7%89%88/
 // https://docfunc.com/posts/9/ckeditor-5-%E6%95%99%E5%AD%B8%E4%BA%8C%E5%AE%A2%E8%A3%BD%E5%8C%96%E7%B7%A8%E8%BC%AF%E5%99%A8%E7%9A%84%E5%8A%9F%E8%83%BD%E5%88%97-post
 // import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 // import { SourceEditing } from '@ckeditor/ckeditor5-source-editing';
 // import { CKEditorTranslationsPlugin } from '@ckeditor/ckeditor5-dev-translations';
-官方source-editing外掛
+官方 source-editing 外掛
 https://ckeditor.com/docs/ckeditor5/latest/features/source-editing.html
-使用source-editing外掛或其他外掛的問題
+使用 source-editing 外掛或其他外掛的問題
 https://stackoverflow.com/questions/70787904/vuejs-ckeditor-typeerror-cannot-read-properties-of-null-reading-getattribute
+
 # 技術問題////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - [x] 關於 元件傳遞資料的使用
@@ -415,6 +372,7 @@ https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 
 - [x] id 和 productId
       要用 this.id ，用 product.id 會錯 ，需分清楚差別 > 看 API 文件 / 產品本身 ID 和陣列中帶的 ID > 當初用陣列 ID 去跑回圈，故之後點擊都要透過這個 ID 分辨或比對
+
   > $route.params.productId帶的ID是$router.push 推的 (所以並非產品本身 ID)
   > 沒有這個產品本身 ID ，只有訂單產生時會有新的產品陣列並帶 ID
   > 取得訂單列表
@@ -427,20 +385,94 @@ https://v2.cn.vuejs.org/v2/guide/class-and-style.html
   > "paid_date": 1523539924,
   > "payment_method": "credit_card",
   > "products": {
+
       "L8nBrq8Ym4ARI1Kog4t": {
       "id": "L8nBrq8Ym4ARI1Kog4t",
       "product_id": "-L8moRfPlDZZ2e-1ritQ",
       "qty": "3"
       }
+
   },
 
 - [x] ＋＋＋ import Multiselect from 'vue-multiselect';
-> https://vue-multiselect.js.org/#sub-getting-started
-＋ import VueMultiselect from 'vue-multiselect';
-https://github.com/shentao/vue-multiselect/tree/next
-components: { VueMultiselect }, //! 少一個s，就會
-https://www.cnblogs.com/danhuai/p/16673754.html
-https://blog.csdn.net/weixin_44058725/article/details/125293263
+
+  > https://vue-multiselect.js.org/#sub-getting-started
+  > ＋ import VueMultiselect from 'vue-multiselect';
+  > https://github.com/shentao/vue-multiselect/tree/next
+  > components: { VueMultiselect }, //! 少一個 s，就會
+  > https://www.cnblogs.com/danhuai/p/16673754.html > https://blog.csdn.net/weixin_44058725/article/details/125293263
+
+  -[x] **全部後台搜尋和篩選和排序都放訂單去實作**
+  x 表格 排序(參蔬果) / x 搜尋(產品名) / x 篩選(是否付款)
+
+-[x] 商品列表 使用 extend 擴展(商品內頁也有) >
+壓掉原本資料 (created>>mixinextend) ，元件壓得掉嗎 (受本身元件的權重影響，不行) >
+props 相關商品(類別) 用 extend 改變篩選等等 (props 只能傳元件中沒有的值)
+
+> 直接傳送資料，比如改變類別就傳類別值 -[x]文章內頁 切換下一頁
+
+- watch computed 哪種消耗資源
+  > 在 Vue 中，watch 和 computed 都是用來監聽和追蹤數據的工具，但它們的使用方式和消耗資源程度是不同的。
+  > watch 是一個監聽器，它可以用來監聽數據的變化，當數據發生變化時，watch 會執行相應的操作。watch 可以監聽單個數據屬性或者整個對象，並且可以設置深度監聽。watch 的消耗資源程度取決於監聽的數據量和操作的複雜度，如果監聽的數據量很大或者操作很複雜，那麼 watch 會消耗較多的資源。
+  > computed 是一個計算屬性，它可以根據數據的變化自動計算出新的值。computed 的特點是它會根據數據的變化進行緩存，只有當數據發生變化時，computed 才會重新計算。這樣可以避免不必要的重複計算，提高性能。computed 的消耗資源程度相對較低，因為它只在需要時才計算。
+  > 總的來說，如果需要監聽數據的變化並執行複雜的操作，可以使用 watch；如果只是需要計算數據的值，可以使用 computed。根據具體的需求和場景來選擇使用哪一種方式。
+
+-[x] Vue.js devtools
+
+> 這個套件好像掛了
+> 安裝文件 https://devtools.vuejs.org/guide/installation.html#settings-1
+> ＋＋＋ https://vueschool.io/lessons/using-vue-dev-tools-with-vuejs-3
+> 快修正 ，這樣不用一直{{}}，可直接看變數
+> 安裝非 beta / del 版 chrome 即可 ，有影片示範 > 選一般版 vue dev 插件
+
+- [x] storyModal 中
+      日期時間元件(使用 element-plus)，只能選擇日期，其他功能都會跳掉，但放在 storys 中就可以，在談窗好像都會有一些奇怪的 bug
+      https://element-plus.org/zh-CN/component/datetime-picker.html#%E6%97%A5%E6%9C%9F%E5%92%8C%E6%97%B6%E9%97%B4%E7%82%B9
+      有去官方 github 查看元件內部，但看不到什麼問題
+      https://github.com/element-plus/element-plus/blob/dev/docs/examples/datetime-picker/date-and-time.vue -[x]prodcutModal 中
+      " 一般不會將 base64 的圖片存到資料庫，所以請同學務必上傳一般圖片的格式 "
+      在 uploadFile_more()，已轉格式，但都只能上傳一張，有嘗試用迴圈，但無法上傳多張
+  > 迴圈包住全部上傳流程即可 -[x] delImage()中
+  > 為何執行刪除圖片會關閉彈跳窗？，我找了很久，只有看到刪除陣列項目的動作，但就會關掉視窗
+  > 有試過改用 a 或 button 以外的標籤，或 click.stop > click.stop 但刪最後一個就會 -[x] productList 中
+  > 鞋子在第二頁就會搜尋或篩選不到，要載入第二頁才有
+  > 全部顯示用 有頁數 API
+  > 搜尋時用 沒有頁數限制 API
+- [x] storys 中 openModal
+      嘗試將原本的時間秒數轉成日期格式，並顯示在已編輯彈窗的日期中，但都失敗，會是空值，
+  > // ! StoryModal 日期要轉成 yyyy-mm-dd 格式才會在彈窗正確顯示
+  > const date = new Date(this.tempStory.create_at \* 1000);
+  > this.create_at = date.toISOString().split('T')[0];
+- [x] StoryModal 中
+      v-model="tempStory.content" 寫不進去資料庫，api 送進去有顯示更新成功，查看 item 中也有，但編輯時，彈窗資料讀出來就沒有，
+      但 description 卻有
+  > 寫入和讀取單個文章的 API，不同
+- [x] StoryList 中
+      isPublic 是 false 但還是會顯示的原因
+  > 沒有抓資料後，沒有先篩選掉，無啟用的
+- [x] StoryModal 中
+      想在 description 增加一個 height 的欄位，但好像不行轉成物件格式，是不是因為這個欄位是固定輸入字串，所以實際開發時，只能請後端改 api 呢？ > 轉字串存 > 商品描述的編輯器若可以就可以
+- [x]想確認 couponModal 中的 watch 的功用
+  是先使用 due_date () 將毫秒數字轉成日期時間後，const dateAndTime 再去掉時間，只留日期嗎？
+  可是 好像只要 due_date ()後， 加上$filters.data 就會轉成日期 > 所以兩個方式都可吧
+- [x] 收藏的陣列要可以要多個 > 先存成陣列或物件，再轉型 json 字串存入，取出時要轉解析 parse
+- [x] 商品切換時 路徑 ID 也要改 > 透過$router 傳遞 id，並轉換商品頁，先儲存收藏，再確認目前商品 id 和收藏 id 是否相同
+- [x] 首頁的產品要渲染 改回圈或用 extend / mixin (都是 JS 擴增) > .slice(0, 4) > 重新抓資料
+- [x] 左側購物車 小計要整數(final_total > total) -[x] 搜尋有提示框 ：列表渲染類別，並即時搜尋，點擊後送出到搜尋框中
+  > https://vue-multiselect.js.org/#sub-getting-started
+  > 怪怪的，可能要自己做一個 > 已修正
+
+-[x] Q：使用 this.emitter.emit('customEvent_category', this.product.category); 試圖更新產品列表元件的分類項目，達到依照各種商品，呈現相關商品類別效果，但失敗
+A：
+ProductsList.vue 第 112 行的 if 判斷有問題
+所以進到單一產品頁面時雖然有成功觸發 customEvent_category 事件
+但是沒有根據 this.cacheCategory 重新計算資料
+可以再重新檢查一下這塊的邏輯
+- Q：如何在 productItem 元件中，使用 class 去隱藏，引入的productsList元件的元素，例如下拉選單
+A：目前透過 props 的做法可以，改成像下面這樣就 OK 了
+<ProductsList :customClass="['d-none']"></ProductsList>
+- Q：上述提到的下拉選單，為何在productItem元件引入就無法運作？
+A：跟第一個問題一樣，ProductsList.vue 第 112 行的 if 判斷有問題，所以永遠不會跑 else 的部分
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---
