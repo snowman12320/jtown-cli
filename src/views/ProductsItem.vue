@@ -1,3 +1,6 @@
+<!-- eslint-disable no-undef -->
+<!-- eslint-disable no-undef -->
+<!-- eslint-disable no-undef -->
 <template>
   <div class="">
     <Loading :active="isLoading_big"></Loading>
@@ -183,13 +186,26 @@
         </div>
       </div>
       <!--  -->
-      <div>
-        <div class="f-panzoom" ref="myPanzoom">
-          <div data-panzoom-pin data-x="56%" data-y="60%">
-            <svg>...</svg>
-          </div>
-          <img class="f-panzoom__content" src="https://lipsum.app/id/15/1600x1200" />
+      <!-- <div v-for="item in gallery" :key="item"> -->
+      <!-- <img :src="item.src" @click="startFancy" /> -->
+      <!-- </div> -->
+      <!-- <img :src="gallery[0].src" @click="startFancy" /> -->
+      <img :src="gallery[0].src" @click="startFancy" />
+      <!--  -->
+      <div class="f-panzoom" ref="myPanzoom">
+        <div data-panzoom-pin data-x="56%" data-y="60%">
+          <div title="My dream house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" monica-exclude-el="m">
+              <path d="M12 0a7.2 7.2 0 0 0-7.27 7.14C4.73 11.08 12 24 12 24s7.27-12.92 7.27-16.86A7.2 7.2 0 0 0 12 0Z">
+              </path>
+            </svg></div>
         </div>
+        <div data-panzoom-pin data-x="26%" data-y="50%">
+          <div title="My dream house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" monica-exclude-el="m">
+              <path d="M12 0a7.2 7.2 0 0 0-7.27 7.14C4.73 11.08 12 24 12 24s7.27-12.92 7.27-16.86A7.2 7.2 0 0 0 12 0Z">
+              </path>
+            </svg></div>
+        </div>
+        <img class="f-panzoom__content" src="https://lipsum.app/id/15/1600x1200" />
       </div>
       <!--  -->
       <h3 class="mt-7">RECOMMEND</h3>
@@ -205,12 +221,13 @@ import ProductsList from '@/components/ProductsList.vue';
 import loginMixin from '../mixins/loginMixin';
 import addToCart from '../mixins/addToCart';
 import getFavoriteData from '../mixins/getFavoriteData';
-// import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.esm.js';
-// import { Pins } from '@fancyapps/ui/dist/fancybox/fancybox.esm.js';
-// import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm.js';
 //
-import { Panzoom, Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm.js';
-import '@fancyapps/ui/dist/panzoom/panzoom.pins.css';
+// https://stackoverflow.com/questions/68762154/popup-gallery-plugin-with-video-support-for-vue-3
+import { Fancybox } from '@fancyapps/ui/dist/fancybox/fancybox.esm';
+// 這個pins plugin沒有內建options https://fancyapps.com/panzoom/plugins/pins/
+// 理解原生js即可使用（查看node夾路徑），並複製官網example中開發者工具中的css
+import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm';
+import { Panzoom } from '@fancyapps/ui/dist/panzoom/panzoom.esm';
 
 export default {
   mixins: [loginMixin, addToCart, getFavoriteData],
@@ -229,7 +246,31 @@ export default {
       rateTime: '8: 40 AM, Today',
       rateData: [],
       //
-      childClass: ''
+      childClass: '',
+      //
+      gallery: [
+        {
+          src: 'https://picsum.photos/785/501'
+        },
+        {
+          src: 'https://picsum.photos/785/502'
+        },
+        {
+          src: 'https://picsum.photos/785/503'
+        },
+        {
+          src: 'https://picsum.photos/785/504'
+        },
+        {
+          src: 'https://picsum.photos/785/505'
+        },
+        {
+          src: 'https://picsum.photos/785/506'
+        }
+      ],
+      container: null,
+      options: {},
+      panzoom: null
     };
   },
   //! mitt
@@ -246,13 +287,9 @@ export default {
     this.emitter.on('customEvent_updateFavorite', () => {
       this.getFavoriteData();
     });
-    // this.initPins();
-    // const container = this.$refs.myPanzoom;
-    // const options = {};
-    // this.panzoomInstance = new Panzoom(container, options, { Pins });
-  },
-  beforeUnmount () {
-    this.panzoomInstance.destroy();
+    //
+    this.container = this.$refs.myPanzoom;
+    this.panzoom = new Panzoom(this.container, this.options, { Pins });
   },
   created () {
     this.id = this.$route.params.productId;//! 統一商品唯一的ID(item.id)
@@ -262,12 +299,8 @@ export default {
     this.changeClass();
   },
   methods: {
-    initPins () {
-      Pins.create(this.$refs.gallery, {
-        closeBtn: true,
-        closeOnClick: true,
-        closeOnScroll: false
-      });
+    startFancy () {
+      Fancybox.show(this.gallery, {}); // starts fancybox with the gallery object
     },
     updateFavo (id) {
       this.checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
@@ -316,11 +349,6 @@ export default {
       });
     },
     sendComment () {
-      // if (!this.isLogin) {
-      //   this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
-      //   this.$router.push('/login');
-      //   return;
-      // }
       if (!this.rateValue || !this.rateComment) {
         this.$toast('error', 'star and comment required.');
         return;
@@ -370,8 +398,21 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+@import "@fancyapps/ui/dist/fancybox/fancybox.css";
+@import "@fancyapps/ui/dist/panzoom/panzoom.css";
+@import "@fancyapps/ui/dist/panzoom/panzoom.pins.css";
+
 .f-panzoom {
-  /* Add your styles here */
+  // margin: 1rem auto 2rem;
+  // padding: 1rem;
+  height: 360px;
+  width: auto;
+  max-width: 500px;
+}
+
+[data-panzoom-pin] {
+  color: red;
+  cursor: help;
 }
 
 .carousel {
@@ -516,5 +557,4 @@ export default {
 // 如何在productItem元件中，使用class去隱藏productsList的元素
 .products_sort {
   display: none !important;
-}
-</style>
+}</style>

@@ -95,8 +95,12 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 
 商品內頁 放大鏡
-Pins plugin
-https://fancyapps.com/panzoom/
+// https://stackoverflow.com/questions/68762154/popup-gallery-plugin-with-video-support-for-vue-3
+import { Fancybox } from '@fancyapps/ui/dist/fancybox/fancybox.esm';
+// 這個pins plugin沒有內建options https://fancyapps.com/panzoom/plugins/pins/
+// 理解原生js即可使用（查看node夾路徑），並複製官網example中開發者工具中的css
+import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm';
+import { Panzoom } from '@fancyapps/ui/dist/panzoom/panzoom.esm';
 
 detail 用編輯器
 
