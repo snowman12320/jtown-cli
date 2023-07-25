@@ -36,17 +36,21 @@
               <!--  -->
               <div class=" row row-cols-2  border g-1  " v-if="tempProduct.imagesUrl">
                 <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
-                  <div class=" w-100 border" style="height:150px">
+                  <div class=" w-100 border position-relative modal_img" style="height:150px">
                     <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" />
+                    <!--  -->
+                    <div
+                      class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-1 "
+                      style="backdrop:blur(10px)">
+                      <i @click.stop="tempProduct.imagesUrl.splice(key, 1)"
+                        class="bi bi-trash3-fill fs-3  text-danger"></i>
+                      <i @click="cropImage(image)" class="bi bi-pencil-square fs-3 text-white"></i>
+                    </div>
                   </div>
                   <div class="d-flex">
                     <input type="url" class="form-control form-control" v-model="tempProduct.imagesUrl[key]"
                       placeholder="請輸入連結" />
-                    <div class="btn btn-outline-danger text-nowrap" @click.stop="tempProduct.imagesUrl.splice(key, 1)">
-                      移除
-                    </div>
-                    <!--  -->
-                    <button @click="cropImage(image)">Crop</button>
+
                   </div>
                 </div>
               </div>
@@ -99,24 +103,27 @@
                     placeholder="請輸入售價" />
                 </div>
               </div>
-              <hr />
-
-              <div class="mb-3">
-                <label for="description" class="form-label">產品描述</label>
-                <textarea type="text" class="form-control" id="description" v-model="tempProduct.description"
-                  placeholder="請輸入產品描述"></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="content" class="form-label">說明內容</label>
-                <textarea type="text" class="form-control" id="content" v-model="tempProduct.content"
-                  placeholder="請輸入產品說明內容"></textarea>
-              </div>
               <div class="mb-3">
                 <label for="content" class="form-label">運送方式</label>
                 <multiselect v-model="value" tag-placeholder="Add this as new tag" placeholder="Search or add a tag"
                   label="name" track-by="code" :options="options" :multiple="true" :taggable="true" @tag="addTag">
                 </multiselect>
               </div>
+              <hr />
+
+              <div class="mb-3">
+                <label for="description" class="form-label">產品細節</label>
+                <!-- <textarea type="text" class="form-control" id="description" v-model="tempProduct.description"
+                  placeholder="請輸入產品描述"></textarea> -->
+                <ckeditor :editor="editor" v-model="tempProduct.description" :config="editorConfig"></ckeditor>
+
+              </div>
+              <div class="mb-3">
+                <label for="content" class="form-label">說明內容</label>
+                <textarea type="text" class="form-control" id="content" v-model="tempProduct.content"
+                  placeholder="請輸入說明內容"></textarea>
+              </div>
+
               <div class="mb-3">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" v-model="tempProduct.is_enabled" :true-value="1"
@@ -147,6 +154,7 @@ import modalMixin from '@/mixins/modalMixin';
 import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import Multiselect from 'vue-multiselect';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
 
 export default {
   mixins: [modalMixin],
@@ -170,7 +178,16 @@ export default {
         { name: 'Free shipping', code: 'vu' },
         { name: 'Store pickup', code: 'js' },
         { name: 'Fast delivery', code: 'os' }
-      ]
+      ],
+      editor: ClassicEditor,
+      editorData: `
+      <div class="">
+        <p>材質：</p>
+        <p>製造地：</p>
+        <p>製造商：</p>
+        <p>使用期限：</p>
+      </div>`, //* 預設內容
+      editorConfig: {}
     };
   },
   props: {
@@ -185,6 +202,7 @@ export default {
     //* 監聽傳進來的story，並自動存到暫存區
     product () {
       this.tempProduct = this.product;
+      if (!this.tempProduct.description) this.tempProduct.description = this.editorData;
       // !  沒有圖片就塞空陣列 > 錯，是預設多圖上傳空間
       // 多圖範例
       if (!this.tempProduct.imagesUrl) {
@@ -343,3 +361,16 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.modal_img {
+  &:hover .img_wrap {
+    display: flex !important;
+    backdrop-filter: blur(10px);
+    background-color: #00000025;
+  }
+
+  i {
+    cursor: pointer;
+  }
+}
+</style>

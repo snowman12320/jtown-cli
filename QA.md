@@ -20,11 +20,8 @@ https://github.com/snowman12320/hexschool-question
 
 # 已詢問 未整理////////////////////////////
 
-
-
-
--[] Q：在 storyItem 中使用this.$route.push('/products-view/products-content/:title')，儲存文章 title，
-並傳遞到商品列表，去顯示該文章title的相關商品，但會出現以下警告
+-[] Q：在 storyItem 中使用 this.$route.push('/products-view/products-content/:title')，儲存文章 title，
+並傳遞到商品列表，去顯示該文章 title 的相關商品，但會出現以下警告
 A：這裡假設你的流程是
 點選 header 的 story 進到 storyList 頁面
 點選任一 Story
@@ -262,6 +259,26 @@ https://ckeditor.com/docs/ckeditor5/latest/features/source-editing.html
 使用 source-editing 外掛或其他外掛的問題
 https://stackoverflow.com/questions/70787904/vuejs-ckeditor-typeerror-cannot-read-properties-of-null-reading-getattribute
 
+## 商品內頁 放大鏡
+
+<!-- <div v-for="item in gallery" :key="item"> -->
+<!-- <img :src="item.src" @click="startFancy" /> -->
+<!-- </div> -->
+
+<img :src="gallery[0].src" @click="startFancy" />
+
+// https://stackoverflow.com/questions/68762154/popup-gallery-plugin-with-video-support-for-vue-3
+import { Fancybox } from '@fancyapps/ui/dist/fancybox/fancybox.esm';
+// 這個 pins plugin 沒有內建 options https://fancyapps.com/panzoom/plugins/pins/
+// 理解原生 js 即可使用（查看 node 夾路徑），並複製官網 example 中開發者工具中的 css
+import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm';
+import { Panzoom } from '@fancyapps/ui/dist/panzoom/panzoom.esm';
+
+methods: {
+startFancy () {
+Fancybox.show(this.gallery, {}); // starts fancybox with the gallery object
+},
+
 # 技術問題////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 - [x] 關於 元件傳遞資料的使用
@@ -468,11 +485,13 @@ ProductsList.vue 第 112 行的 if 判斷有問題
 所以進到單一產品頁面時雖然有成功觸發 customEvent_category 事件
 但是沒有根據 this.cacheCategory 重新計算資料
 可以再重新檢查一下這塊的邏輯
-- Q：如何在 productItem 元件中，使用 class 去隱藏，引入的productsList元件的元素，例如下拉選單
-A：目前透過 props 的做法可以，改成像下面這樣就 OK 了
-<ProductsList :customClass="['d-none']"></ProductsList>
-- Q：上述提到的下拉選單，為何在productItem元件引入就無法運作？
-A：跟第一個問題一樣，ProductsList.vue 第 112 行的 if 判斷有問題，所以永遠不會跑 else 的部分
+
+- Q：如何在 productItem 元件中，使用 class 去隱藏，引入的 productsList 元件的元素，例如下拉選單
+  A：目前透過 props 的做法可以，改成像下面這樣就 OK 了
+  <ProductsList :customClass="['d-none']"></ProductsList>
+- Q：上述提到的下拉選單，為何在 productItem 元件引入就無法運作？
+  A：跟第一個問題一樣，ProductsList.vue 第 112 行的 if 判斷有問題，所以永遠不會跑 else 的部分
+
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---

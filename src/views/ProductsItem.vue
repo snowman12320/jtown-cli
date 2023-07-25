@@ -1,6 +1,3 @@
-<!-- eslint-disable no-undef -->
-<!-- eslint-disable no-undef -->
-<!-- eslint-disable no-undef -->
 <template>
   <div class="">
     <Loading :active="isLoading_big"></Loading>
@@ -19,7 +16,7 @@
       </nav>
       <!--  -->
       <div class="row row-cols-md-2 g-5 mt-5">
-        <div id="carouselExampleIndicators" class="carousel  slide col-md-8" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel  slide col-md-8" data-bs-ride="carouse">
           <div class="carousel-indicators">
             <!-- 第一個主圖的指標不用程式化，其餘其他圖片的指標用迴圈帶資料 -->
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -29,10 +26,23 @@
               :aria-label="'Slide ' + index + 1"></button>
           </div>
           <div class="carousel-inner ">
-            <div class="carousel-item active text-center h-100">
-              <img :src="product.imageUrl" class=" w-auto  h-100" alt="..." />
+            <div class="carousel-item active text-center h-100 w-100 mx-auto">
+              <!-- <img :src="product.imageUrl" class=" w-auto  h-100" alt="..." /> -->
+              <div class="f-panzoom h-100 w-100 mx-auto" ref="myPanzoom">
+                <div data-panzoom-pin data-x="56%" data-y="60%">
+                  <div title="My dream house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                      monica-exclude-el="m">
+                      <path
+                        d="M12 0a7.2 7.2 0 0 0-7.27 7.14C4.73 11.08 12 24 12 24s7.27-12.92 7.27-16.86A7.2 7.2 0 0 0 12 0Z">
+                      </path>
+                    </svg></div>
+                  <p class="text-white" style="text-shadow: 2px 2px 4px #000, -2px -2px 4px #000;">feature</p>
+                </div>
+                <img class="f-panzoom__content w-100 h-100 mx-auto" :src="product.imageUrl" />
+              </div>
             </div>
-            <div class="carousel-item text-center h-100" v-for="(item, index) in product.imagesUrl" :key="index">
+            <!--  -->
+            <div class="carousel-item text-center h-100 w-100" v-for="(item, index) in product.imagesUrl" :key="index">
               <img :src="item" class=" w-auto  h-100" alt="..." />
             </div>
           </div>
@@ -176,36 +186,12 @@
               <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse "
                 aria-labelledby="panelsStayOpen-headingOne">
                 <div class="accordion-body text-start">
-                  <p class="">規格：</p>
-                  <p class="">製造日期：</p>
-                  <p class="">製造地：台灣</p>
+                  <p class="" v-html="product.description"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <!--  -->
-      <!-- <div v-for="item in gallery" :key="item"> -->
-      <!-- <img :src="item.src" @click="startFancy" /> -->
-      <!-- </div> -->
-      <!-- <img :src="gallery[0].src" @click="startFancy" /> -->
-      <img :src="gallery[0].src" @click="startFancy" />
-      <!--  -->
-      <div class="f-panzoom" ref="myPanzoom">
-        <div data-panzoom-pin data-x="56%" data-y="60%">
-          <div title="My dream house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" monica-exclude-el="m">
-              <path d="M12 0a7.2 7.2 0 0 0-7.27 7.14C4.73 11.08 12 24 12 24s7.27-12.92 7.27-16.86A7.2 7.2 0 0 0 12 0Z">
-              </path>
-            </svg></div>
-        </div>
-        <div data-panzoom-pin data-x="26%" data-y="50%">
-          <div title="My dream house"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" monica-exclude-el="m">
-              <path d="M12 0a7.2 7.2 0 0 0-7.27 7.14C4.73 11.08 12 24 12 24s7.27-12.92 7.27-16.86A7.2 7.2 0 0 0 12 0Z">
-              </path>
-            </svg></div>
-        </div>
-        <img class="f-panzoom__content" src="https://lipsum.app/id/15/1600x1200" />
       </div>
       <!--  -->
       <h3 class="mt-7">RECOMMEND</h3>
@@ -222,10 +208,6 @@ import loginMixin from '../mixins/loginMixin';
 import addToCart from '../mixins/addToCart';
 import getFavoriteData from '../mixins/getFavoriteData';
 //
-// https://stackoverflow.com/questions/68762154/popup-gallery-plugin-with-video-support-for-vue-3
-import { Fancybox } from '@fancyapps/ui/dist/fancybox/fancybox.esm';
-// 這個pins plugin沒有內建options https://fancyapps.com/panzoom/plugins/pins/
-// 理解原生js即可使用（查看node夾路徑），並複製官網example中開發者工具中的css
 import { Pins } from '@fancyapps/ui/dist/panzoom/panzoom.pins.esm';
 import { Panzoom } from '@fancyapps/ui/dist/panzoom/panzoom.esm';
 
@@ -287,7 +269,7 @@ export default {
     this.emitter.on('customEvent_updateFavorite', () => {
       this.getFavoriteData();
     });
-    //
+    //* 只能放一個圖
     this.container = this.$refs.myPanzoom;
     this.panzoom = new Panzoom(this.container, this.options, { Pins });
   },
@@ -299,9 +281,6 @@ export default {
     this.changeClass();
   },
   methods: {
-    startFancy () {
-      Fancybox.show(this.gallery, {}); // starts fancybox with the gallery object
-    },
     updateFavo (id) {
       this.checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
       if (this.checkFavorite) { //* 存在就刪除
@@ -405,9 +384,10 @@ export default {
 .f-panzoom {
   // margin: 1rem auto 2rem;
   // padding: 1rem;
-  height: 360px;
+  height: 500px;
   width: auto;
-  max-width: 500px;
+  max-width: 1000px;
+  cursor: zoom-in;
 }
 
 [data-panzoom-pin] {
@@ -557,4 +537,5 @@ export default {
 // 如何在productItem元件中，使用class去隱藏productsList的元素
 .products_sort {
   display: none !important;
-}</style>
+}
+</style>
