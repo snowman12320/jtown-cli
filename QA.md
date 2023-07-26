@@ -426,7 +426,9 @@ https://v2.cn.vuejs.org/v2/guide/class-and-style.html
 壓掉原本資料 (created>>mixinextend) ，元件壓得掉嗎 (受本身元件的權重影響，不行) >
 props 相關商品(類別) 用 extend 改變篩選等等 (props 只能傳元件中沒有的值)
 
-> 直接傳送資料，比如改變類別就傳類別值 -[x]文章內頁 切換下一頁
+> 直接傳送資料，比如改變類別就傳類別值
+
+-[x]文章內頁 切換下一頁
 
 - watch computed 哪種消耗資源
   > 在 Vue 中，watch 和 computed 都是用來監聽和追蹤數據的工具，但它們的使用方式和消耗資源程度是不同的。
@@ -491,6 +493,124 @@ ProductsList.vue 第 112 行的 if 判斷有問題
   <ProductsList :customClass="['d-none']"></ProductsList>
 - Q：上述提到的下拉選單，為何在 productItem 元件引入就無法運作？
   A：跟第一個問題一樣，ProductsList.vue 第 112 行的 if 判斷有問題，所以永遠不會跑 else 的部分
+
+-[x]多檔上傳
+```
+  <!-- 多檔上傳/原本寫法 -->
+  <div class=" row row-cols-2  border g-1  " v-if="false">
+    <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
+      <div class=" w-100 border position-relative modal_img" style="height:150px">
+        <!-- <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" /> -->
+        <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image.url" alt="" />
+        <!--  -->
+        <div
+          class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-3 "
+          style="backdrop:blur(10px)">
+          <i @click.stop="tempProduct.imagesUrl.splice(key, 1)"
+            class="bi bi-trash3-fill fs-3  text-danger"></i>
+          <i @click="cropImage(image)" class="bi bi-pencil-square fs-3 text-white"></i>
+        </div>
+      </div>
+      <div class="d-flex">
+        <input type="url" class="form-control form-control fs-6" style="font-size:1px"
+          v-model="tempProduct.imagesUrl[key].url" placeholder="請輸入連結" />
+      </div>
+    </div>
+  </div>
+  <!-- 多檔上傳/原本寫法 -->
+  <div class="mt-3">
+    <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
+      <input multiple id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
+        @change="uploadFile_more" />
+      新增圖片
+    </label>
+  </div>
+<!--  -->
+    // 多檔轉檔/原本元件
+    uploadFile_more () {
+      const uploadedFiles = this.$refs.fileInput_more.files;//* FileList
+      // console.log(uploadedFiles[0].name);
+      for (let i = 0; i < uploadedFiles.length; i++) {
+        const name = uploadedFiles[i].name; // 圖檔名
+        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
+        const status = 'success';
+        //
+        this.other_photo = true;//* 讀取動畫
+        const formData = new FormData();//! 放迴圈中才會每次獨立出來
+        formData.append('file-to-upload', uploadedFiles[i]);
+        this.$http.post(this.image_add, formData).then((res) => {
+          if (res.data.success) {
+            //
+            const url = res.data.imageUrl;
+            const item = { name, url, uid, status };
+            this.tempProduct.imagesUrl.push(item);
+            //
+            // this.tempProduct.imagesUrl.push(res.data.imageUrl);
+            this.other_photo = false;
+          }
+        });
+      }
+    }
+```
+```
+// 失敗的多檔上傳 > vue 需要用 formData 轉
+handleFileUpload (event) {
+// 第一種可以渲染，但無法儲存
+this.other_photo = true;
+const files = event.target.files; // 取得上傳的檔案
+// console.log(files);
+// 迭代每個檔案並新增至圖片陣列
+for (let i = 0; i < files.length; i++) {
+const reader = new FileReader();
+reader.onload = (e) => {
+this.tempProduct.imagesUrl.push(e.target.result); // 將圖片資料新增至陣列
+};
+// reader.readAsDataURL(files[i]); // 讀取檔案資料
+// reader.readAsArrayBuffer(files[i]);
+reader.readAsBinaryString(files[i]);
+}
+//_ 第二種，嘗試轉檔，但只能上傳一個，但還是不能存 base64
+// try {
+// const files = event.target.files;
+// const formData = new FormData();
+// for (let i = 0; i < files.length; i++) {
+// formData.append('images[]', files[i]); // 將檔案加入到 FormData 物件中
+// }
+// } finally {
+// const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+// this.$http.post(url, this.formData).then((res) => {
+// if (res.data.success) {
+// this.tempProduct.imagesUrl.push(res.data.imageUrl);
+// this.other_photo = false;
+// }
+// });
+// }
+//_ 一樣是 base64
+// this.other_photo = true;
+// const files = event.target.files; // 取得上傳的檔案
+// for (let i = 0; i < files.length; i++) { // 迭代每個檔案並新增至圖片陣列
+// const reader = new FileReader();
+// reader.onload = (e) => {
+// const img = new Image();
+// img.onload = () => {
+// const canvas = document.createElement('canvas');
+// const ctx = canvas.getContext('2d');
+// canvas.width = img.width;
+// canvas.height = img.height;
+// ctx.drawImage(img, 0, 0);
+// const imageUrl = canvas.toDataURL('image/jpeg');
+// // 將圖片轉換成 JPEG 格式
+// this.tempProduct.imagesUrl.push(imageUrl);
+// // 將圖片資料新增至陣列
+// console.log(imageUrl);
+// };
+// img.src = e.target.result;
+// console.log(img.src);
+// };
+// reader.readAsDataURL(files[i]); // 讀取檔案資料
+// }
+}
+```
 
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 

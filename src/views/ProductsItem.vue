@@ -43,7 +43,7 @@
             </div>
             <!--  -->
             <div class="carousel-item text-center h-100 w-100" v-for="(item, index) in product.imagesUrl" :key="index">
-              <img :src="item" class=" w-auto  h-100" alt="..." />
+              <img :src="item.url" class=" w-auto  h-100" alt="..." />
             </div>
           </div>
           <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleIndicators"

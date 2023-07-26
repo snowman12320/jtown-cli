@@ -1,3 +1,4 @@
+<!-- eslint-disable prefer-promise-reject-errors -->
 <template>
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
@@ -33,8 +34,19 @@
                   <i v-show="other_photo" class="fas fa-spinner fa-spin"></i>
                 </label>
               </div>
+              <!-- el元件 -->
+              <el-upload multiple v-model:file-list="tempProduct.imagesUrl" class="upload-demo" :action="image_add"
+                :on-change="handleChange" list-type="picture">
+                <el-button class="w-100" type="primary">Click to upload</el-button>
+                <template #tip>
+                  <div class="el-upload__tip">
+                    jpg/png files with a size less than 500kb
+                  </div>
+                </template>
+              </el-upload>
               <!--  -->
-              <div class=" row row-cols-2  border g-1  " v-if="tempProduct.imagesUrl">
+              <!-- 多檔上傳/原本寫法 -->
+              <div class=" row row-cols-2  border g-1  " v-if="false">
                 <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
                   <div class=" w-100 border position-relative modal_img" style="height:150px">
                     <!-- <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" /> -->
@@ -51,34 +63,25 @@
                   <div class="d-flex">
                     <input type="url" class="form-control form-control fs-6" style="font-size:1px"
                       v-model="tempProduct.imagesUrl[key].url" placeholder="請輸入連結" />
-
                   </div>
                 </div>
               </div>
-              <!--  -->
-              <el-upload multiple v-model:file-list="fileList" class="upload-demo" :action="image_add"
-                :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture">
-                <el-button type="primary">Click to upload</el-button>
-                <template #tip>
-                  <div class="el-upload__tip">
-                    jpg/png files with a size less than 500kb
-                  </div>
-                </template>
-              </el-upload>
-              <!-- 嘗試編輯圖套件 -->
-              <!-- 用v-if會抓不到dom元素 -->
-              <div class="" v-show="tempImage">
-                <img ref="tempImage" :src="tempImage" style="height:300px" class="w-100 of-cover" alt="">
-                <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
-                  aria-pressed="false" autocomplete="off">完成</button>
-              </div>
-              <!-- 多檔上傳 -->
+              <!-- 多檔上傳/原本寫法 -->
               <div class="mt-3">
                 <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
                   <input multiple id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
                     @change="uploadFile_more" />
                   新增圖片
                 </label>
+              </div>
+              <!--  -->
+
+              <!-- 嘗試編輯圖套件 -->
+              <!-- 用v-if會抓不到dom元素 -->
+              <div class="" v-show="tempImage">
+                <img ref="tempImage" :src="tempImage" style="height:300px" class="w-100 of-cover" alt="">
+                <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
+                  aria-pressed="false" autocomplete="off">完成</button>
               </div>
             </div>
             <!-- 右 -->
@@ -201,10 +204,7 @@ export default {
       editorConfig: {},
       //
       image_add: `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`,
-      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
-      // fileList: ['https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100', 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100']
-      resultArray: []
-
+      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }]//* 元件圖檔陣列的範本
     };
   },
   props: {
@@ -225,17 +225,6 @@ export default {
       if (!this.tempProduct.imagesUrl) {
         this.tempProduct.imagesUrl = [];
       }
-      //
-      // this.tempProduct.imagesUrl.forEach(url => {
-      //   const name = 'food.jpeg'; // 隨機產生名稱
-      //   const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
-      //   const status = 'success';
-      //   const item = { name, url, uid, status };
-      // this.resultArray.push(item);
-      // });
-      // this.fileList = this.resultArray;
-      //
-      this.fileList = this.tempProduct.imagesUrl;
     }
   },
   computed: {
@@ -244,38 +233,6 @@ export default {
     }
   },
   methods: {
-    handleRemove (file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview (file) {
-      console.log(file);
-    },
-    // handlePreview (file) {
-    //   console.log(file);
-    //   const uploadedFiles = file;
-    //   // console.log(uploadedFiles[0].name);
-    //   // console.log(uploadedFiles[0]);
-    //   for (let i = 0; i < uploadedFiles.length; i++) {
-    //     const name = uploadedFiles[i].name; // 圖檔名
-    //     const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
-    //     const status = 'success';
-    //     //
-    //     this.other_photo = true;
-    //     const formData = new FormData();//! 放迴圈中才會每次獨立出來
-    //     formData.append('file-to-upload', uploadedFiles[i]);
-    //     this.$http.post(this.image_add, formData).then((res) => {
-    //       if (res.data.success) {
-    //         //
-    //         const url = res.data.imageUrl;
-    //         const item = { name, url, uid, status };
-    //         this.tempProduct.imagesUrl.push(item);
-    //         //
-    //         // this.tempProduct.imagesUrl.push(res.data.imageUrl);
-    //         this.other_photo = false;
-    //       }
-    //     });
-    //   }
-    // },
     // 新增標籤
     addTag (newTag) {
       const tag = {
@@ -315,7 +272,7 @@ export default {
     },
     // * new FormData() 是一個 JavaScript 內建的物件，用於創建一個空的 FormData 物件。
     // * 首先獲取一個 <form> 元素，FormData 物件可以用來構建一個包含鍵值對的表單數據，並且可以通過 AJAX 以 multipart/form-data 格式將這些數據發送到服務器。
-    uploadFile () { //* 主圖上傳
+    uploadFile () { //* 主圖上傳 /單獨上傳
       this.main_photo = true;
       const uploadedFile = this.$refs.fileInput.files[0];
       // console.log(this.$refs.fileInput.files[0].name);
@@ -330,36 +287,73 @@ export default {
         }
       });
     },
-    //* 單獨上傳其他圖片
-    // uploadFile_more () {
-    //   this.other_photo = true;//* 讀取動畫
-    //   const uploadedFile = this.$refs.fileInput_more.files; //* FileList
-    //   console.log(uploadedFile);
-    //   const formData = new FormData();
-    //   formData.append('file-to-upload', uploadedFile);
-    //   console.log(formData);
-    //   const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-    //   this.$http.post(url, formData).then((res) => {
-    //     if (res.data.success) {
-    //       this.tempProduct.imagesUrl.push(res.data.imageUrl);
-    //       this.other_photo = false;
-    //     }
-    //   });
-    // },
-    // 多檔轉檔
+    // 多檔/el元件
+    // handleChange (file) {
+    //   // ?為何不執行以下，就可以上傳...
+    //   if (this.other_photo) {
+    //     this.other_photo = true;
+    //     const tempFile = file.raw;//* 這個路徑才是與原本元件相同，才能用formdata轉檔
+    //     const name = tempFile.name; // 重組資料，存圖檔名
+    //     const uid = Math.floor(Math.random() * 100000); // 隨機產生uid
+    //     const status = 'success';
+    //     //
+    //     const formData = new FormData();//! 放迴圈中才會每次獨立出來
+    //     formData.append('file-to-upload', tempFile);
+    //     this.$http.post(this.image_add, formData).then((res) => {
+    //       if (res.data.success) {
+    //         const url = res.data.imageUrl;//* 這邊轉換後的連結才是可以存的
+    //         const item = { name, url, uid, status };
+    //         this.tempProduct.imagesUrl.push(item);
+    //         this.other_photo = false;
+    //       }
+    //     });
+    //   }
+    // }
+    handleChange (file) {
+      if (this.other_photo) {
+        this.other_photo = false;
+        const tempFile = file.raw;
+        const name = tempFile.name;
+        const uid = Math.floor(Math.random() * 100000);
+        const status = 'success';
+
+        const formData = new FormData();
+        formData.append('file-to-upload', tempFile);
+
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            this.$http.post(this.image_add, formData)
+              .then((res) => {
+                if (res.data.success) {
+                  const url = res.data.imageUrl;
+                  const item = { name, url, uid, status };
+                  this.tempProduct.imagesUrl.push(item);
+                  resolve();
+                } else {
+                  // eslint-disable-next-line prefer-promise-reject-errors
+                  reject();
+                }
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          }, 3000); // 等待3秒钟
+        });
+      } else {
+        return Promise.resolve();
+      }
+    },
+    // 多檔轉檔/原本元件
     uploadFile_more () {
-      const uploadedFiles = this.$refs.fileInput_more.files;
+      const uploadedFiles = this.$refs.fileInput_more.files;//* FileList
       // console.log(uploadedFiles[0].name);
-      // console.log(uploadedFiles[0]);
       for (let i = 0; i < uploadedFiles.length; i++) {
         const name = uploadedFiles[i].name; // 圖檔名
-        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
-        const status = 'success';
-        //
-        this.other_photo = true;
+        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid const status='success' ; //
+        this.other_photo = true;//* 讀取動畫
         const formData = new FormData();//! 放迴圈中才會每次獨立出來
-        formData.append('file-to-upload', uploadedFiles[i]);
-        this.$http.post(this.image_add, formData).then((res) => {
+        formData.append('file-to-upload', uploadedFiles[i]); this.$http.post(this.image_add,
+          formData).then((res) => {
           if (res.data.success) {
             //
             const url = res.data.imageUrl;
@@ -371,64 +365,8 @@ export default {
           }
         });
       }
-    },
-    // 失敗的多檔上傳
-    handleFileUpload (event) {
-    // 第一種可以渲染，但無法儲存
-      this.other_photo = true;
-      const files = event.target.files; // 取得上傳的檔案
-      console.log(files);
-      // 迭代每個檔案並新增至圖片陣列
-      for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.tempProduct.imagesUrl.push(e.target.result); // 將圖片資料新增至陣列
-        };
-        // reader.readAsDataURL(files[i]); // 讀取檔案資料
-        // reader.readAsArrayBuffer(files[i]);
-        reader.readAsBinaryString(files[i]);
-      }
-      // 第二種，嘗試轉檔，但只能上傳一個
-      // try {
-      //   const files = event.target.files;
-      //   const formData = new FormData();
-      //   for (let i = 0; i < files.length; i++) {
-      //     formData.append('images[]', files[i]); // 將檔案加入到 FormData 物件中
-      //   }
-      // } finally {
-      //   const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      //   this.$http.post(url, this.formData).then((res) => {
-      //     if (res.data.success) {
-      //       this.tempProduct.imagesUrl.push(res.data.imageUrl);
-      //       this.other_photo = false;
-      //     }
-      //   });
-      // }
-      // 4
-      // this.other_photo = true;
-      // const files = event.target.files; // 取得上傳的檔案
-      // for (let i = 0; i < files.length; i++) { // 迭代每個檔案並新增至圖片陣列
-      //   const reader = new FileReader();
-      //   reader.onload = (e) => {
-      //     const img = new Image();
-      //     img.onload = () => {
-      //       const canvas = document.createElement('canvas');
-      //       const ctx = canvas.getContext('2d');
-      //       canvas.width = img.width;
-      //       canvas.height = img.height;
-      //       ctx.drawImage(img, 0, 0);
-      //       const imageUrl = canvas.toDataURL('image/jpeg');
-      //       // 將圖片轉換成 JPEG 格式
-      //       this.tempProduct.imagesUrl.push(imageUrl);
-      //       // 將圖片資料新增至陣列
-      //       console.log(imageUrl);
-      //     };
-      //     img.src = e.target.result;
-      //     console.log(img.src);
-      //   };
-      //   reader.readAsDataURL(files[i]); // 讀取檔案資料
-      // }
     }
+
   }
 };
 </script>
