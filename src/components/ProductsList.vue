@@ -16,10 +16,12 @@
     </div>
     <hr class="py-3">
     <div class="row row-cols-2 row-cols-lg-5 g-4 mb-7" ref="products_list">
-      <div class="" v-for="item in filtersData" :key="item.id">
+      <div class="" v-for="(item, index) in filtersData" :key="item.id">
         <div class="col overflow-hidden">
-          <div class="card w-100 position-relation newproduct_img" data-num="1">
-            <div class="newproduct_cloth p-1 " ref="newproduct_cloth" :class="{ 'newproduct_cloth_set': setClass }">
+          <div class="card w-100 position-relation newproduct_img" :class="{ 'overflow-hidden': setClass === index }"
+            data-num="1">
+            <div class="newproduct_cloth p-1 " ref="newproduct_cloth"
+              :class="{ 'newproduct_cloth_set': setClass === index }">
               <h6 class="  fw-light" style="font-size:10px"> {{ item.category }}</h6>
               <h5 class="fs-5 text-center" @click="getProduct(item.id)">
                 {{ item.title }}</h5>
@@ -32,7 +34,8 @@
                 <i @click="updateFavo(item.id)" :class="{ 'text-danger': favoriteData.indexOf(item.id) !== -1 }"
                   class="fa fa-heart fs-4"></i>
                 <!--  -->
-                <el-popover placement="top" title="SIZE：" :width="200" trigger="hover" content="">
+                <el-popover placement="top" title="SIZE：" :width="200" trigger="hover" content="" @hide="setClass = false"
+                  @show="setClass = index">
                   <div class="d-flex justify-content-center w-100 mx-auto gap-1 ">
                     <div class="">
                       <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
@@ -311,7 +314,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="scss">
 .col h5 {
   cursor: pointer;
 }
@@ -328,5 +331,14 @@ export default {
   justify-content: end;
   transition: all;
   z-index: 2;
+  animation-duration: 500ms;
+  overflow: hidden !important;
+  border-radius: 3%;
+
+  &+img {
+    transform: scale(1.2);
+    border-radius: 3%;
+
+  }
 }
 </style>

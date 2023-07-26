@@ -37,10 +37,11 @@
               <div class=" row row-cols-2  border g-1  " v-if="tempProduct.imagesUrl">
                 <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
                   <div class=" w-100 border position-relative modal_img" style="height:150px">
-                    <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" />
+                    <!-- <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" /> -->
+                    <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image.url" alt="" />
                     <!--  -->
                     <div
-                      class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-1 "
+                      class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-3 "
                       style="backdrop:blur(10px)">
                       <i @click.stop="tempProduct.imagesUrl.splice(key, 1)"
                         class="bi bi-trash3-fill fs-3  text-danger"></i>
@@ -48,12 +49,22 @@
                     </div>
                   </div>
                   <div class="d-flex">
-                    <input type="url" class="form-control form-control" v-model="tempProduct.imagesUrl[key]"
-                      placeholder="請輸入連結" />
+                    <input type="url" class="form-control form-control fs-6" style="font-size:1px"
+                      v-model="tempProduct.imagesUrl[key].url" placeholder="請輸入連結" />
 
                   </div>
                 </div>
               </div>
+              <!--  -->
+              <el-upload multiple v-model:file-list="fileList" class="upload-demo" :action="image_add"
+                :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture">
+                <el-button type="primary">Click to upload</el-button>
+                <template #tip>
+                  <div class="el-upload__tip">
+                    jpg/png files with a size less than 500kb
+                  </div>
+                </template>
+              </el-upload>
               <!-- 嘗試編輯圖套件 -->
               <!-- 用v-if會抓不到dom元素 -->
               <div class="" v-show="tempImage">
@@ -61,7 +72,7 @@
                 <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
                   aria-pressed="false" autocomplete="off">完成</button>
               </div>
-              <!--  -->
+              <!-- 多檔上傳 -->
               <div class="mt-3">
                 <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
                   <input multiple id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
@@ -69,8 +80,6 @@
                   新增圖片
                 </label>
               </div>
-              <!-- 嘗試多檔上傳 -->
-              <!-- <input type="file" multiple @change="handleFileUpload" /> -->
             </div>
             <!-- 右 -->
             <div class="col-sm-8">
@@ -120,8 +129,10 @@
               </div>
               <div class="mb-3">
                 <label for="content" class="form-label">說明內容</label>
-                <textarea type="text" class="form-control" id="content" v-model="tempProduct.content"
-                  placeholder="請輸入說明內容"></textarea>
+                <!-- <textarea type="text" class="form-control" rows="10" id="content" v-model="tempProduct.content"
+                  placeholder="請輸入說明內容"></textarea> -->
+                <ckeditor :editor="editor" v-model="tempProduct.content" :config="editorConfig"></ckeditor>
+
               </div>
 
               <div class="mb-3">
@@ -182,12 +193,18 @@ export default {
       editor: ClassicEditor,
       editorData: `
       <div class="">
-        <p>材質：</p>
-        <p>製造地：</p>
-        <p>製造商：</p>
-        <p>使用期限：</p>
+        <p>Material： Eco-friendly material</p>
+        <p>Manufacturing location： Taiwan </p>
+        <p>Manufacturer： Jersey Town </p>
+        <p>Expiration date： None</p>
       </div>`, //* 預設內容
-      editorConfig: {}
+      editorConfig: {},
+      //
+      image_add: `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`,
+      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }],
+      // fileList: ['https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100', 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100']
+      resultArray: []
+
     };
   },
   props: {
@@ -208,6 +225,17 @@ export default {
       if (!this.tempProduct.imagesUrl) {
         this.tempProduct.imagesUrl = [];
       }
+      //
+      // this.tempProduct.imagesUrl.forEach(url => {
+      //   const name = 'food.jpeg'; // 隨機產生名稱
+      //   const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
+      //   const status = 'success';
+      //   const item = { name, url, uid, status };
+      // this.resultArray.push(item);
+      // });
+      // this.fileList = this.resultArray;
+      //
+      this.fileList = this.tempProduct.imagesUrl;
     }
   },
   computed: {
@@ -216,6 +244,38 @@ export default {
     }
   },
   methods: {
+    handleRemove (file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview (file) {
+      console.log(file);
+    },
+    // handlePreview (file) {
+    //   console.log(file);
+    //   const uploadedFiles = file;
+    //   // console.log(uploadedFiles[0].name);
+    //   // console.log(uploadedFiles[0]);
+    //   for (let i = 0; i < uploadedFiles.length; i++) {
+    //     const name = uploadedFiles[i].name; // 圖檔名
+    //     const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
+    //     const status = 'success';
+    //     //
+    //     this.other_photo = true;
+    //     const formData = new FormData();//! 放迴圈中才會每次獨立出來
+    //     formData.append('file-to-upload', uploadedFiles[i]);
+    //     this.$http.post(this.image_add, formData).then((res) => {
+    //       if (res.data.success) {
+    //         //
+    //         const url = res.data.imageUrl;
+    //         const item = { name, url, uid, status };
+    //         this.tempProduct.imagesUrl.push(item);
+    //         //
+    //         // this.tempProduct.imagesUrl.push(res.data.imageUrl);
+    //         this.other_photo = false;
+    //       }
+    //     });
+    //   }
+    // },
     // 新增標籤
     addTag (newTag) {
       const tag = {
@@ -258,6 +318,8 @@ export default {
     uploadFile () { //* 主圖上傳
       this.main_photo = true;
       const uploadedFile = this.$refs.fileInput.files[0];
+      // console.log(this.$refs.fileInput.files[0].name);
+      //
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
@@ -287,15 +349,24 @@ export default {
     // 多檔轉檔
     uploadFile_more () {
       const uploadedFiles = this.$refs.fileInput_more.files;
+      // console.log(uploadedFiles[0].name);
+      // console.log(uploadedFiles[0]);
       for (let i = 0; i < uploadedFiles.length; i++) {
+        const name = uploadedFiles[i].name; // 圖檔名
+        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
+        const status = 'success';
+        //
         this.other_photo = true;
         const formData = new FormData();//! 放迴圈中才會每次獨立出來
         formData.append('file-to-upload', uploadedFiles[i]);
-        // console.log(formData);
-        const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-        this.$http.post(url, formData).then((res) => {
+        this.$http.post(this.image_add, formData).then((res) => {
           if (res.data.success) {
-            this.tempProduct.imagesUrl.push(res.data.imageUrl);
+            //
+            const url = res.data.imageUrl;
+            const item = { name, url, uid, status };
+            this.tempProduct.imagesUrl.push(item);
+            //
+            // this.tempProduct.imagesUrl.push(res.data.imageUrl);
             this.other_photo = false;
           }
         });

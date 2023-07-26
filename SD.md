@@ -95,9 +95,7 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 
 
-
-
-detail 用編輯器
+detail 用編輯器 > 可上傳圖(參考vue上傳圖檔 在履夾中和套件上傳圖說明)
 
 
 ## coupon
@@ -121,11 +119,11 @@ detail 用編輯器
 
 # story
 
-使用文章 api 前後台增刪查改：
-x 準備畫面 x 新增後台資料 / 新增兩個圖片>只能一張圖 / 取得資料 x 後台刪除 x 前台取得資料 x 頁數切換
 
-可放多張圖
+改產品可放多張圖
+
 hover 球衣內文大圖也是球衣
+
 照片墙 / 上傳列表 > 拖拉順序
 https://element.eleme.io/#/zh-CN/component/upload
 

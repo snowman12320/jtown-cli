@@ -19,31 +19,11 @@
               </div>
               <div class="mb-3">
                 <label for="customFile" class="form-label">或 上傳圖片
-                  <i class="fas fa-spinner fa-spin"></i>
+                  <i :class="{ 'd-none': !Loading_small }" class="fas fa-spinner fa-spin"></i>
                 </label>
                 <input type="file" id="customFile" class="form-control" ref="fileInput" @change="uploadFile" />
               </div>
-              <img class="img-fluid" :src="tempStory.imageUrl" alt="" />
-              <!-- 延伸技巧，多圖 -->
-              <div class="mt-5" v-if="tempStory.images">
-                <div v-for="(image, key) in tempStory.images" class="mb-3 input-group" :key="key">
-                  <input type="url" class="form-control form-control" v-model="tempStory.images[key]"
-                    placeholder="請輸入連結" />
-                  <button type="button" class="btn btn-outline-danger" @click="tempStory.images.splice(key, 1)">
-                    移除
-                  </button>
-                </div>
-                <div v-if="tempStory.images[tempStory.images.length - 1] ||
-                  !tempStory.images.length
-                  ">
-                  <!-- <button
-                    class="btn btn-outline-primary btn-sm d-block w-100"
-                    @click="tempStory.images.push('')"
-                  >
-                    新增圖片
-                  </button> -->
-                </div>
-              </div>
+              <img class=" h-50 of-cover op-top w-100" :src="tempStory.imageUrl" alt="" />
             </div>
             <div class="col-sm-8">
               <div class="d-flex flex-column gap-3">
@@ -182,7 +162,8 @@ export default ({
       //
       editor: ClassicEditor,
       // editorData: '<p>Content of the editor.</p>', //* 預設內容
-      editorConfig: {}
+      editorConfig: {},
+      Loading_small: false
     };
   },
   props: {
@@ -223,6 +204,7 @@ export default ({
     // * new FormData() 是一個 JavaScript 內建的物件，用於創建一個空的 FormData 物件。
     // * 首先獲取一個 <form> 元素，FormData 物件可以用來構建一個包含鍵值對的表單數據，並且可以通過 AJAX 以 multipart/form-data 格式將這些數據發送到服務器。
     uploadFile () {
+      this.Loading_small = true;
       const uploadedFile = this.$refs.fileInput.files[0];
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
@@ -231,6 +213,7 @@ export default ({
         console.log(response);
         if (response.data.success) {
           this.tempStory.imageUrl = response.data.imageUrl;
+          this.Loading_small = false;
         }
       });
     },

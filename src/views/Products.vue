@@ -1,5 +1,5 @@
 <template>
-  <div class="w-100 " >
+  <div class="w-100 ">
     <Loading :active="isLoading"></Loading>
     <div class="text-end mt-3">
       <button class="btn btn-primary" type="button" @click="openModal(true)">
@@ -65,7 +65,8 @@ export default {
       pagination: {}, //* 頁數資料
       tempProduct: {}, //* 暫存區
       isNew: false, //* 判斷有無資料
-      isLoading: false //* 載入效果開關
+      isLoading: false, //* 載入效果開關
+      temp_current_page: 1 //* 紀錄目前頁數，避免第二頁更新時跳到第一頁
     };
   },
   created () {
@@ -74,8 +75,10 @@ export default {
   methods: {
     // 產品後台 取得遠端資料
     // !透過頁數取得資料
-    getProducts (page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${page}`;
+    getProducts (page = this.temp_current_page) {
+      this.temp_current_page = page; //* 有切換頁數就紀錄頁數，沒有就是原本null，不需要再res後再紀錄
+
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${this.temp_current_page}`;
       this.isLoading = true;
       this.$http.get(api).then((res) => {
         this.isLoading = false;
@@ -148,3 +151,8 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+tr:hover {
+  background-color: #eee;
+}
+</style>

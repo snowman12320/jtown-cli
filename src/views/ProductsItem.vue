@@ -114,7 +114,7 @@
           </div>
           <!--  -->
           <div class="d-flex flex-column flex-md-row justify-content-center gap-md-5 mt-5 gap-1">
-            <button class="btn-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
+            <button class="btn-outline-primary btn" @click="addToCart(product.id, qty, isBuy = false)"
               :class="{ 'btn btn-outline-primary': product.id === status.loadingItem }"
               :disabled="product.id === status.loadingItem">ADD TO CART</button>
             <button class="btn btn-danger" @click="addToCart(product.id, qty, isBuy = true)">BUY NOW</button>
@@ -135,12 +135,7 @@
         <div class="col-md-8">
           <h3 class="mt-7">DESCRIPTION</h3>
           <hr>
-          <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque minima fugit asperiores repellendus
-            assumenda dolor, nesciunt dolorum! Laboriosam totam rem excepturi rerum libero eos tenetur qui odio nostrum
-            ullam? Omnis.</p>
-          <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque minima fugit asperiores repellendus
-            assumenda dolor, nesciunt dolorum! Laboriosam totam rem excepturi rerum libero eos tenetur qui odio nostrum
-            ullam? Omnis.</p>
+          <p class="" v-html="product.content"></p>
           <!--  -->
           <h3 class="mt-7">COMMENT</h3>
           <hr>
@@ -173,7 +168,7 @@
           </div>
         </div>
         <!--  -->
-        <div class="col-md-4">
+        <div class="col-md-4 sticky-top align-self-start " style="top:10%;z-index:1">
           <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
             <div class="accordion-item w-100">
               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
