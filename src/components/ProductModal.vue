@@ -35,16 +35,55 @@
                 </label>
               </div>
               <!-- el元件 -->
-              <el-upload multiple v-model:file-list="tempProduct.imagesUrl" class="upload-demo" :action="image_add"
-                :on-change="handleChange" list-type="picture">
+              <el-upload :multiple="true" :limit="3" v-model:file-list="tempProduct.imagesUrl" class="upload-demo"
+                :action="image_add" :on-change="handleChange" list-type="picture">
                 <el-button class="w-100" type="primary">Click to upload</el-button>
                 <template #tip>
-                  <div class="el-upload__tip">
-                    jpg/png files with a size less than 500kb
+                  <div class="el-upload__tip text-center">
                   </div>
                 </template>
               </el-upload>
-              <!--  -->
+              <!-- 多檔上傳/原本寫法 -->
+              <div class="mt-3">
+                <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
+                  <input multiple id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
+                    @change="uploadFile_more" />
+                  Click to upload
+                </label>
+                <div class="text-center  text-secondary" style="font-size:8px">
+                  <small class="">drag to change the sorting of the image list</small>
+                  <small class="">(jpg/png files with a size less than 500kb)</small>
+                </div>
+              </div>
+              <!-- 拖拉移動順序 -->
+              <div class="   border  ">
+                <!-- <div>{{ drag ? 'dragging' : 'drag done' }}</div> -->
+                <draggable style="margin:10px" v-model="tempProduct.imagesUrl" group="group1" @start="drag = true"
+                  @end="drag = false" item-key="id" chosen-class="chosen" animation="300">
+                  <template #item="{ element }">
+                    <div class="position-relative item ">
+                      <div class="d-flex gap-2 border justify-content-between align-items-end rounded-3  p-2 ">
+                        <div class="   position-relative modal_img" style="height:70px;width:70px">
+                          <img class=" h-100 w-100 of-cover op-top" :src="element.url" alt="" />
+                          <div
+                            class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-2 "
+                            style="backdrop:blur(5px)">
+                            <i @click="cropImage(element.url)" class="bi bi-pencil-square fs-3 text-white"></i>
+                          </div>
+                        </div>
+                        <div class=" ">
+                          <small class="">{{ element.name }}</small>
+                          <input type="text" class="form-control form-control fs-6 h-50" style="font-size:1px"
+                            v-model="element.url" placeholder="請輸入連結" />
+                        </div>
+                      </div>
+                      <i @click.stop="tempProduct.imagesUrl.splice(element.id, 1)"
+                        class="bi bi-x-circle fs-6 p-1  text-danger position-absolute top-0 end-0"
+                        style="cursor:pointer"></i>
+                    </div>
+                  </template>
+                </draggable>
+              </div>
               <!-- 多檔上傳/原本寫法 -->
               <div class=" row row-cols-2  border g-1  " v-if="false">
                 <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
@@ -66,16 +105,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 多檔上傳/原本寫法 -->
-              <div class="mt-3">
-                <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
-                  <input multiple id="other_photo" type="file" class="form-control d-none" ref="fileInput_more"
-                    @change="uploadFile_more" />
-                  新增圖片
-                </label>
-              </div>
               <!--  -->
-
               <!-- 嘗試編輯圖套件 -->
               <!-- 用v-if會抓不到dom元素 -->
               <div class="" v-show="tempImage">
@@ -169,10 +199,14 @@ import 'cropperjs/dist/cropper.css';
 import Cropper from 'cropperjs';
 import Multiselect from 'vue-multiselect';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
+import draggable from 'vuedraggable';
 
 export default {
   mixins: [modalMixin],
-  components: { Multiselect }, //! 少一個s，就會掛掉
+  components: {
+    Multiselect,
+    draggable
+  }, //! 少一個s，就會掛掉
   data () {
     return {
       modal: {},
@@ -204,7 +238,9 @@ export default {
       editorConfig: {},
       //
       image_add: `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`,
-      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }]//* 元件圖檔陣列的範本
+      fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }], //* 元件圖檔陣列的範本
+      //
+      drag: false
     };
   },
   props: {
@@ -230,6 +266,14 @@ export default {
   computed: {
     availableOptions () {
       return this.options.filter(opt => this.value.indexOf(opt) === -1);
+    },
+    dragOptions () {
+      return {
+        animation: 200,
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost'
+      };
     }
   },
   methods: {
@@ -371,6 +415,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+/*被拖拽对象的样式*/
+.item {
+  // padding: 6px;
+  background-color: #fdfdfd;
+  // border: solid 1px #eee;
+  cursor: move;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.item:hover {
+  background-color: #f1f1f1;
+  cursor: move;
+}
+
+/*选中样式*/
+.chosen {
+  border: solid 2px #3089dc !important;
+  box-sizing: border-box !important;
+  width: 100%;
+}
+
 .modal_img {
   &:hover .img_wrap {
     display: flex !important;

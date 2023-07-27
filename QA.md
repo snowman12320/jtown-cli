@@ -8,15 +8,19 @@ https://github.com/snowman12320/hexschool-question
 
   > 用 vue croppers
 
-  1.在 productsList 中
-  使用 getProduct()，透過 this.emitter.emit('customEvent_getProduct', this.product);
-  觸發 ProductsItem 元件的 getProduct()，並更新產品內頁，
-  且使用 this.emitter.emit('customEvent_category', this.product.category);
-  試圖更新產品列表元件的分類項目，達到相關商品效果，但失敗
+  1.關於上述提到的警告
+  [Vue Router warn]: No match found for location with path "/products-view/products-content"
+在回首頁或首頁重新整理就會出現，想了解原因
 
-  2.如何在 productItem 元件中，使用 class 去隱藏，引入的 productsList 元件的元素，例如下拉選單
+  2.在 productsModal 中
+  使用el-upload元件圖片上傳功能(38行)，我使用他們的按鈕觸發@change會出現破圖，偶爾可以正常，需重新整理後，就會出現本來正常的圖破圖，而且會重複上傳，然後最後一張都會是成功的，後來我使用自己的寫的按鈕(47行)就可以正常上傳，但會沒有載入進度，想了解造成的原因
 
-  3.上述提到的下拉選單，為何在 productItem 元件引入就無法運作？
+  有嘗試：
+  1.了解元件內部，查不到el-upload的結構，就是想查看v-model:file-list="fileList"(這應該是一個props傳入插槽改寫資料的方式)，想找到插槽結構，並修改樣式及了解問題
+  https://github.com/element-plus/element-plus/blob/dev/docs/examples/upload/file-list-with-thumbnail.vue
+  2.查看文件
+  嘗試在屬性中加入header和method，但是非必填，感覺也不是問題點
+  https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
 
 # 已詢問 未整理////////////////////////////
 
