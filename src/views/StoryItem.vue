@@ -37,7 +37,7 @@
               </p>
 
               <!-- 避免超出卡片 不需用寬高調整 ~~~~~ -->
-              <img class="img-fluid" src="@/assets/nbaWeb/dean-bennett-nFjLHE4vmn4-unsplash.jpg" alt="" />
+              <!-- <img class="img-fluid" src="@/assets/nbaWeb/dean-bennett-nFjLHE4vmn4-unsplash.jpg" alt="" /> -->
               <!--  -->
               <div class="my-3 d-flex gap-3">
                 <el-tag class="ml-2" type="info">#NBA</el-tag>
@@ -57,14 +57,6 @@
                 style="background-image: url(~@/assets/nbaWeb/1126209.png)"></div> -->
               <div class="card-body fs-6" v-html="story.content">
               </div>
-              <!-- <ul class="list-unstyled fsRwd">
-                  <li class="text-muted">5× NBA champion</li>
-                  <li class="mb-3">2000–2002, 2009, 2010</li>
-                  <li class="text-muted">2× NBA Finals MVP</li>
-                  <li class="mb-3">2009, 2010</li>
-                  <li class="text-muted">NBA Most Valuable Player</li>
-                  <li class="mb-3">2008</li>
-                </ul> -->
               <a type="button" @click.prevent="getMerchandise()"
                 class="btn btn-nbaBlue rounded-pill fs-4 btnRwd mx-auto mb-4 stretched-link">Visit Merchandise</a>
             </div>

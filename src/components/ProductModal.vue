@@ -51,7 +51,7 @@
                   Click to upload
                 </label>
                 <div class="text-center  text-secondary" style="font-size:8px">
-                  <small class="">drag to change the sorting of the image list</small>
+                  <small class="">drag to change the sorting of the image list</small> <br>
                   <small class="">(jpg/png files with a size less than 500kb)</small>
                 </div>
               </div>
@@ -106,13 +106,13 @@
                 </div>
               </div>
               <!--  -->
-              <!-- 嘗試編輯圖套件 -->
+              <!-- 舊 croper -->
               <!-- 用v-if會抓不到dom元素 -->
-              <div class="" v-show="tempImage">
+              <!-- <div class="" v-show="tempImage">
                 <img ref="tempImage" :src="tempImage" style="height:300px" class="w-100 of-cover" alt="">
                 <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
                   aria-pressed="false" autocomplete="off">完成</button>
-              </div>
+              </div> -->
             </div>
             <!-- 右 -->
             <div class="col-sm-8">
@@ -180,7 +180,11 @@
             </div>
           </div>
         </div>
+        <!--  -->
+        <CropperModal :tempImg="tempProduct"></CropperModal>
+        <hr>
         <div class="modal-footer">
+
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
             取消
           </button>
@@ -195,18 +199,20 @@
 </template>
 <script >
 import modalMixin from '@/mixins/modalMixin';
-import 'cropperjs/dist/cropper.css';
-import Cropper from 'cropperjs';
+// import 'cropperjs/dist/cropper.css';
+// import Cropper from 'cropperjs';
 import Multiselect from 'vue-multiselect';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
 import draggable from 'vuedraggable';
+import CropperModal from '../components/CropperModal.vue';
 
 export default {
   mixins: [modalMixin],
-  components: {
+  components: { //! 少一個s，就會掛掉
     Multiselect,
-    draggable
-  }, //! 少一個s，就會掛掉
+    draggable,
+    CropperModal
+  },
   data () {
     return {
       modal: {},
@@ -214,11 +220,11 @@ export default {
       main_photo: false,
       other_photo: false,
       //
-      tempImage: '',
-      tempImageIndex: '',
-      tempImageTag: null,
-      cropper: null,
-      croppedImage: null,
+      // tempImage: '',
+      // tempImageIndex: '',
+      // tempImageTag: null,
+      // cropper: null,
+      // croppedImage: null,
       //
       value: [
       ],
@@ -250,6 +256,9 @@ export default {
         return {};
       }
     }
+  },
+  created () {
+    // console.log(this.tempProduct);
   },
   watch: {
     //* 監聽傳進來的story，並自動存到暫存區
@@ -287,23 +296,23 @@ export default {
       this.value.push(tag);
     },
     // cropper
-    cropImage (image) {
-      this.tempImageIndex = this.tempProduct.imagesUrl.indexOf(image);
-      this.tempImage = image;
-      this.cropper = new Cropper(this.$refs.tempImage, {
-        aspectRatio: 16 / 9,
-        crop (event) {
-          console.log(event.detail.x);
-          console.log(event.detail.y);
-          console.log(event.detail.width);
-          console.log(event.detail.height);
-          console.log(event.detail.rotate);
-          console.log(event.detail.scaleX);
-          console.log(event.detail.scaleY);
-        }
-      });
-      // console.log(this.cropper);
-    },
+    // cropImage (image) {
+    //   this.tempImageIndex = this.tempProduct.imagesUrl.indexOf(image);
+    //   this.tempImage = image;
+    //   this.cropper = new Cropper(this.$refs.tempImage, {
+    //     aspectRatio: 16 / 9,
+    //     crop (event) {
+    //       console.log(event.detail.x);
+    //       console.log(event.detail.y);
+    //       console.log(event.detail.width);
+    //       console.log(event.detail.height);
+    //       console.log(event.detail.rotate);
+    //       console.log(event.detail.scaleX);
+    //       console.log(event.detail.scaleY);
+    //     }
+    //   });
+    //   // console.log(this.cropper);
+    // },
     doneImage () {
       const imgSrc = this.cropper.getCroppedCanvas({
         width: 100// img_w.value /input value

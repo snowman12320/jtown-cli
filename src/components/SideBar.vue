@@ -1,5 +1,5 @@
 <template>
-    <el-menu :active-text-color="'#ffa500'" :backgroundColor="'#180b0b'" :text-color="'#fff'" default-active="4"
+    <el-menu :active-text-color="'#ffa500'" :backgroundColor="'#180b0b'" :text-color="'#fff'" :default-active="$route.path"
         class="el-menu-vertical-demo d-flex flex-column justify-content-between" :collapse="isCollapse"
         @mouseenter="startTimer" @mouseleave="cancelTimer">
         <div class="">
@@ -30,17 +30,17 @@
                 </template>
             </el-menu-item>
             <router-link to="/dashboard/products" class="text-white  text-decoration-none w-100 ">
-                <el-menu-item index="4">
-                    <el-icon>
-                        <Basketball />
-                    </el-icon>
-                    <template #title>
-                        <div class="text-center w-100">產品</div>
-                    </template>
-                </el-menu-item>
+            <el-menu-item route="/dashboard/products" index="/dashboard/products">
+                <el-icon>
+                    <Basketball />
+                </el-icon>
+                <template #title>
+                    <div class="text-center w-100">產品</div>
+                </template>
+            </el-menu-item>
             </router-link>
             <router-link to="/dashboard/orders" class="text-white w-100 text-center  text-decoration-none">
-                <el-menu-item index="5">
+                <el-menu-item index="/dashboard/orders">
                     <el-icon>
                         <List />
                     </el-icon>
@@ -50,7 +50,7 @@
                 </el-menu-item>
             </router-link>
             <router-link to="/dashboard/coupons" class="text-white w-100 text-center   text-decoration-none">
-                <el-menu-item index="6">
+                <el-menu-item index="/dashboard/coupons">
                     <el-icon>
                         <Ticket />
                     </el-icon>
@@ -60,7 +60,7 @@
                 </el-menu-item>
             </router-link>
             <router-link to="/dashboard/storys" class="text-white text-center w-100  text-decoration-none">
-                <el-menu-item index="7">
+                <el-menu-item index="/dashboard/storys">
                     <el-icon>
                         <Notebook />
                     </el-icon>
@@ -82,10 +82,7 @@
 </template>
 
 <script  setup>
-import {
-  Ticket, Monitor, Basketball, List, User, Notebook, SwitchButton
-
-} from '@element-plus/icons-vue';
+import { Ticket, Monitor, Basketball, List, User, Notebook, SwitchButton } from '@element-plus/icons-vue';
 </script>
 <script>
 export default {
@@ -98,6 +95,7 @@ export default {
     };
   },
   created () {
+    // console.log(this.$route.path);
     if (!localStorage.getItem('username')) {
       this.$router.push('/login');
     }

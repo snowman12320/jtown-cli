@@ -23,7 +23,7 @@
                 </label>
                 <input type="file" id="customFile" class="form-control" ref="fileInput" @change="uploadFile" />
               </div>
-              <img class=" h-50 of-cover op-top w-100" :src="tempStory.imageUrl" alt="" />
+              <img class="  of-cover op-top w-100" style="300px" :src="tempStory.imageUrl" alt="" />
             </div>
             <div class="col-sm-8">
               <div class="d-flex flex-column gap-3">

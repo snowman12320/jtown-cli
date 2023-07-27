@@ -1,5 +1,7 @@
 https://github.com/snowman12320/hexschool-question
 
+vue 修改玩都要重新整理?
+
 - prodcutModal 中
   嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
   //＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
