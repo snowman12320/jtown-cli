@@ -171,7 +171,7 @@ export default {
       //   // 在這裡你可以將blob數據傳遞給其他函數或進行其他操作
       //   console.log(blob);
       // });
-      // 嘗試三 下載下來再上傳 > 好像需要在後端設置CORS頭，並確保API正確配置等等的設置
+      // 嘗試三 下載下來再上傳 > 好像需要在後端設置CORS頭，並確保API正確配置等等的設置 > vue.config.js 也有做一些嘗試
       // this.downloadAndUploadImage(imageUrl);
     }
   },

@@ -1,6 +1,8 @@
 https://github.com/snowman12320/hexschool-question
 
 vue 修改玩都要重新整理?
+4.我發現在開發時，需要一直重新整理才能更新修改，除了有style會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似live server可以自動即時更新
+> 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
 
 - prodcutModal 中
   嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
