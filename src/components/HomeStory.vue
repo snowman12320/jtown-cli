@@ -28,7 +28,9 @@
       </div>
     </section>
     <div class="text-center">
-      <a type="button" href="story.html" class="btn btn-outline-dark rounded-pill my-5 fs-5 sellbtn_Rwd">MORE LISTS</a>
+      <router-link to="/story/list" class="btn btn-outline-dark rounded-pill my-5 fs-5 sellbtn_Rwd">
+        MORE LISTS
+      </router-link>
     </div>
   </div>
 </template>

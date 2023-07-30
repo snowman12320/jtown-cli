@@ -25,7 +25,7 @@
                 </el-icon>
                 <template #title>
                     <div class="text-center w-100">
-                        <router-link to="/" class="btn btn-nbaRed text-decoration-none">會員</router-link>
+                        <router-link to="/dashboard/members" class="btn btn-nbaRed text-decoration-none">會員</router-link>
                     </div>
                 </template>
             </el-menu-item>

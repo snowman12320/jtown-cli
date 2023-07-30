@@ -145,6 +145,9 @@ export default {
       format: (percentage) => (percentage === 100 ? 'Full' : `${percentage}%`)
     };
   },
+  created () {
+    window.scrollTo(0, 0);
+  },
   methods: {
     toStory (id) {
       this.$router.push(`/story/item/${id}`);

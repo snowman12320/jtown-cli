@@ -121,3 +121,12 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tr:hover {
+  background-color: rgba(0, 81, 255, 0.227)
+}
+</style>

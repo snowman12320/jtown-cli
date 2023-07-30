@@ -1,7 +1,6 @@
-<!-- eslint-disable prefer-promise-reject-errors -->
 <template>
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+  <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
     ref="modal">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0 ">
@@ -35,8 +34,8 @@
                 </label>
               </div>
               <!-- el元件 -->
-              <el-upload :multiple="true" :limit="3" v-model:file-list="tempProduct.imagesUrl" class="upload-demo"
-                :action="image_add" :on-change="handleChange" list-type="picture">
+              <el-upload :multiple="true" :limit="5" v-model:file-list="tempProduct.imagesUrl" class="upload-demo"
+                :action="image_add" :on-change="el_handleChange" list-type="picture">
                 <el-button class="w-100" type="primary">Click to upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip text-center">
@@ -55,20 +54,21 @@
                   <small class="">(jpg/png files with a size less than 500kb)</small>
                 </div>
               </div>
-              <!-- 拖拉移動順序 -->
+              <!--  多檔圖片 ＋ 拖拉移動順序 -->
               <div class="   border  ">
                 <!-- <div>{{ drag ? 'dragging' : 'drag done' }}</div> -->
                 <draggable style="margin:10px" v-model="tempProduct.imagesUrl" group="group1" @start="drag = true"
                   @end="drag = false" item-key="id" chosen-class="chosen" animation="300">
                   <template #item="{ element }">
                     <div class="position-relative item ">
+                      <!-- {{ tempProduct.imagesUrl.indexOf(element) }} -->
                       <div class="d-flex gap-2 border justify-content-between align-items-end rounded-3  p-2 ">
-                        <div class="   position-relative modal_img" style="height:70px;width:70px">
+                        <div class=" flex-shrink-0  position-relative modal_img" style="height:70px;width:70px">
                           <img class=" h-100 w-100 of-cover op-top" :src="element.url" alt="" />
                           <div
                             class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-2 "
                             style="backdrop:blur(5px)">
-                            <i @click="cropImage(element.url)" class="bi bi-pencil-square fs-3 text-white"></i>
+                            <i @click.self="openModal(element)" class="bi bi-pencil-square fs-3 text-white"></i>
                           </div>
                         </div>
                         <div class=" ">
@@ -77,42 +77,14 @@
                             v-model="element.url" placeholder="請輸入連結" />
                         </div>
                       </div>
-                      <i @click.stop="tempProduct.imagesUrl.splice(element.id, 1)"
+                      <i @click.stop="tempProduct.imagesUrl.splice(tempProduct.imagesUrl.indexOf(element), 1)"
                         class="bi bi-x-circle fs-6 p-1  text-danger position-absolute top-0 end-0"
                         style="cursor:pointer"></i>
                     </div>
                   </template>
                 </draggable>
               </div>
-              <!-- 多檔上傳/原本寫法 -->
-              <div class=" row row-cols-2  border g-1  " v-if="false">
-                <div v-for="(image, key) in tempProduct.imagesUrl" class=" col" :key="key">
-                  <div class=" w-100 border position-relative modal_img" style="height:150px">
-                    <!-- <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image" alt="" /> -->
-                    <img ref="image" class=" h-100 w-100 of-cover op-top" :src="image.url" alt="" />
-                    <!--  -->
-                    <div
-                      class="position-absolute top-0 start-0 bottom-0 w-100 h-100 d-flex justify-content-center align-items-center end-0 img_wrap d-none gap-3 "
-                      style="backdrop:blur(10px)">
-                      <i @click.stop="tempProduct.imagesUrl.splice(key, 1)"
-                        class="bi bi-trash3-fill fs-3  text-danger"></i>
-                      <i @click="cropImage(image)" class="bi bi-pencil-square fs-3 text-white"></i>
-                    </div>
-                  </div>
-                  <div class="d-flex">
-                    <input type="url" class="form-control form-control fs-6" style="font-size:1px"
-                      v-model="tempProduct.imagesUrl[key].url" placeholder="請輸入連結" />
-                  </div>
-                </div>
-              </div>
-              <!--  -->
-              <!-- 舊 croper -->
-              <!-- 用v-if會抓不到dom元素 -->
-              <!-- <div class="" v-show="tempImage">
-                <img ref="tempImage" :src="tempImage" style="height:300px" class="w-100 of-cover" alt="">
-                <button @click="doneImage" type="button" class="btn btn-primary" data-bs-toggle="button"
-                  aria-pressed="false" autocomplete="off">完成</button>
-              </div> -->
+
             </div>
             <!-- 右 -->
             <div class="col-sm-8">
@@ -181,8 +153,10 @@
           </div>
         </div>
         <!--  -->
-        <CropperModal :tempImg="tempProduct"></CropperModal>
-        <hr>
+        <CropperModal @confirm-cropper="updateImages" @close="openModal" @click-outside="isCropper = false"
+          class="cropperModal_open" :class="{ 'cropperModal_close': !isCropper }" :tempImg="tempImg">
+        </CropperModal>
+        <!--  -->
         <div class="modal-footer">
 
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -195,12 +169,11 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script >
 import modalMixin from '@/mixins/modalMixin';
-// import 'cropperjs/dist/cropper.css';
-// import Cropper from 'cropperjs';
 import Multiselect from 'vue-multiselect';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
 import draggable from 'vuedraggable';
@@ -219,12 +192,6 @@ export default {
       tempProduct: {},
       main_photo: false,
       other_photo: false,
-      //
-      // tempImage: '',
-      // tempImageIndex: '',
-      // tempImageTag: null,
-      // cropper: null,
-      // croppedImage: null,
       //
       value: [
       ],
@@ -246,7 +213,9 @@ export default {
       image_add: `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`,
       fileList: [{ name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }, { name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100' }], //* 元件圖檔陣列的範本
       //
-      drag: false
+      drag: false,
+      //
+      isCropper: false
     };
   },
   props: {
@@ -295,24 +264,6 @@ export default {
       this.options.push(tag);
       this.value.push(tag);
     },
-    // cropper
-    // cropImage (image) {
-    //   this.tempImageIndex = this.tempProduct.imagesUrl.indexOf(image);
-    //   this.tempImage = image;
-    //   this.cropper = new Cropper(this.$refs.tempImage, {
-    //     aspectRatio: 16 / 9,
-    //     crop (event) {
-    //       console.log(event.detail.x);
-    //       console.log(event.detail.y);
-    //       console.log(event.detail.width);
-    //       console.log(event.detail.height);
-    //       console.log(event.detail.rotate);
-    //       console.log(event.detail.scaleX);
-    //       console.log(event.detail.scaleY);
-    //     }
-    //   });
-    //   // console.log(this.cropper);
-    // },
     doneImage () {
       const imgSrc = this.cropper.getCroppedCanvas({
         width: 100// img_w.value /input value
@@ -341,72 +292,81 @@ export default {
       });
     },
     // 多檔/el元件
-    // handleChange (file) {
-    //   // ?為何不執行以下，就可以上傳...
-    //   if (this.other_photo) {
-    //     this.other_photo = true;
-    //     const tempFile = file.raw;//* 這個路徑才是與原本元件相同，才能用formdata轉檔
-    //     const name = tempFile.name; // 重組資料，存圖檔名
-    //     const uid = Math.floor(Math.random() * 100000); // 隨機產生uid
-    //     const status = 'success';
-    //     //
-    //     const formData = new FormData();//! 放迴圈中才會每次獨立出來
-    //     formData.append('file-to-upload', tempFile);
-    //     this.$http.post(this.image_add, formData).then((res) => {
-    //       if (res.data.success) {
-    //         const url = res.data.imageUrl;//* 這邊轉換後的連結才是可以存的
-    //         const item = { name, url, uid, status };
-    //         this.tempProduct.imagesUrl.push(item);
-    //         this.other_photo = false;
-    //       }
-    //     });
-    //   }
-    // }
-    handleChange (file) {
-      if (this.other_photo) {
-        this.other_photo = false;
-        const tempFile = file.raw;
-        const name = tempFile.name;
-        const uid = Math.floor(Math.random() * 100000);
-        const status = 'success';
-
-        const formData = new FormData();
+    el_handleChange (file) {
+      const tempFile = file.raw;//* 這個路徑才是與原本元件相同，才能用formdata轉檔
+      console.log(tempFile);//* 與handleChange（）比較上傳的檔案格式
+      const name = tempFile.name; // 重組資料，存圖檔名
+      const uid = Math.floor(Math.random() * 100000); // 隨機產生uid
+      const status = 'success';
+      // 修正blob開頭
+      // const tempFile = file;
+      // const newfile = new File([file], tempFile.name);
+      // console.log(newfile);//* 上述助教的方式，會產生這種連結 blob:http://localhost:8080/c0737403-604b-4e1e-b6cf-1e9e28ad47d2，導致破圖
+      // ?不執行以下，也可以上傳
+      if (!this.other_photo) {
+        this.other_photo = true;
+        //* ，以下這種方式，連結也會出現blob開頭
+        const formData = new FormData();//! 放迴圈中才會每次獨立出來
         formData.append('file-to-upload', tempFile);
-
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            this.$http.post(this.image_add, formData)
-              .then((res) => {
-                if (res.data.success) {
-                  const url = res.data.imageUrl;
-                  const item = { name, url, uid, status };
-                  this.tempProduct.imagesUrl.push(item);
-                  resolve();
-                } else {
-                  // eslint-disable-next-line prefer-promise-reject-errors
-                  reject();
-                }
-              })
-              .catch((error) => {
-                reject(error);
-              });
-          }, 3000); // 等待3秒钟
+        //
+        this.$http.post(this.image_add, formData).then((res) => {
+          if (res.data.success) {
+            const url = res.data.imageUrl;//* 這邊轉換後的連結才是可以存的
+            const item = { name, url, uid, status };
+            this.tempProduct.imagesUrl.push(item);
+            this.other_photo = false;
+          }
         });
-      } else {
-        return Promise.resolve();
       }
     },
-    // 多檔轉檔/原本元件
+    //! 多檔/el元件 （使用非同步仍會產生多次上傳，且最後一個才會成功）
+    // el_handleChange (file) {
+    //   if (this.other_photo) {
+    //     this.other_photo = false;
+    //     const tempFile = file.raw;
+    //     const name = tempFile.name;
+    //     const uid = Math.floor(Math.random() * 100000);
+    //     const status = 'success';
+
+    //     const formData = new FormData();
+    //     formData.append('file-to-upload', tempFile);
+
+    //     return new Promise((resolve, reject) => {
+    //       setTimeout(() => {
+    //         this.$http.post(this.image_add, formData)
+    //           .then((res) => {
+    //             if (res.data.success) {
+    //               const url = res.data.imageUrl;
+    //               const item = { name, url, uid, status };
+    //               this.tempProduct.imagesUrl.push(item);
+    //               resolve();
+    //             } else {
+    //               // eslint-disable-next-line prefer-promise-reject-errors
+    //               reject();
+    //             }
+    //           })
+    //           .catch((error) => {
+    //             reject(error);
+    //           });
+    //       }, 3000); // 等待3秒钟
+    //     });
+    //   } else {
+    //     return Promise.resolve();
+    //   }
+    // },
+    // 多檔/手刻
     uploadFile_more () {
       const uploadedFiles = this.$refs.fileInput_more.files;//* FileList
+      console.log(uploadedFiles[0]);
       // console.log(uploadedFiles[0].name);
       for (let i = 0; i < uploadedFiles.length; i++) {
         const name = uploadedFiles[i].name; // 圖檔名
-        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid const status='success' ; //
+        const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
+        const status = 'success'; //
         this.other_photo = true;//* 讀取動畫
         const formData = new FormData();//! 放迴圈中才會每次獨立出來
-        formData.append('file-to-upload', uploadedFiles[i]); this.$http.post(this.image_add,
-          formData).then((res) => {
+        formData.append('file-to-upload', uploadedFiles[i]);
+        this.$http.post(this.image_add, formData).then((res) => {
           if (res.data.success) {
             //
             const url = res.data.imageUrl;
@@ -418,12 +378,61 @@ export default {
           }
         });
       }
+    },
+    openModal (img) {
+      // console.log(img);
+      this.tempImg = img;
+      this.isCropper = !this.isCropper;
+    },
+    updateImages (img) {
+      const id = img.uid;
+      const croppered = this.tempProduct.imagesUrl.filter((i) => i.uid === id);
+      croppered.imageUrl = img.url;
+    },
+    resetImages () {
+      // 重組舊圖片的結構需要
+      // const tempList = [];
+      // for (let i = 0; i < this.tempProduct.imagesUrl.length; i++) {
+      //   const url = this.tempProduct.imagesUrl[i];
+      //   const name = '123.jpg';
+      //   const uid = Math.floor(Math.random() * 100000);
+      //   const status = 'success';
+      //   const item = { name, url, uid, status };
+      //   tempList.push(item);
+      // }
+      // this.tempProduct.imagesUrl = tempList;
     }
 
   }
 };
 </script>
 <style lang="scss" scoped>
+.cropperModal_open {
+  position: fixed;
+  top: 5% !important;
+  left: 50%;
+  box-shadow: 10px 15px 50px 50px rgba(0, 145, 255, 0.269);
+  z-index: 999;
+  transform: scale(1) translateX(-50%);
+  transition: all 300ms;
+  height: 800px !important;
+  overflow-y: scroll;
+  max-width: 1000px !important;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+.cropperModal_close {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  // transform: translate(-50%, -30%);
+  box-shadow: 0px 5px 10px 10px rgba(0, 149, 255, 0.199);
+  z-index: 999;
+  transform: scale(0);
+  // display: none;
+}
+
 /*被拖拽对象的样式*/
 .item {
   // padding: 6px;
@@ -432,6 +441,7 @@ export default {
   cursor: move;
   margin-bottom: 10px;
   border-radius: 20px;
+  border: solid 2px transparent !important;
 }
 
 .item:hover {

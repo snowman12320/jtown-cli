@@ -152,7 +152,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-tr:hover {
+tr:nth-child(even) {
   background-color: #eee;
+}
+
+tr:hover {
+  background-color: rgba(0, 81, 255, 0.237)
 }
 </style>

@@ -1,43 +1,43 @@
 https://github.com/snowman12320/hexschool-question
 
-vue 修改玩都要重新整理?
-4.我發現在開發時，需要一直重新整理才能更新修改，除了有style會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似live server可以自動即時更新
-> 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
+- vue 修改玩都要重新整理? 4.我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
 
-- prodcutModal 中
-  嘗試 cropImage()，利用 cropper.js 去編輯圖片，但沒有出現編輯框，有引入 js 和 css，
-  //＋＋＋ https://codepen.io/xyxiao001/pen/wxwKGz
-  // https://github.com/fengyuanchen/cropperjs
-  // https://codepen.io/snowman12320/pen/YzREKMx
+  > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
+  > Vue.$set())
 
-  > 用 vue croppers
 
-  1.關於上述提到的警告
-  [Vue Router warn]: No match found for location with path "/products-view/products-content"
-在回首頁或首頁重新整理就會出現，想了解原因
 
-  2.在 productsModal 中
-  使用el-upload元件圖片上傳功能(38行)，我使用他們的按鈕觸發@change會出現破圖，偶爾可以正常，需重新整理後，就會出現本來正常的圖破圖，而且會重複上傳，然後最後一張都會是成功的，後來我使用自己的寫的按鈕(47行)就可以正常上傳，但會沒有載入進度，想了解造成的原因
 
-  有嘗試：
-  1.了解元件內部，查不到el-upload的結構，就是想查看v-model:file-list="fileList"(這應該是一個props傳入插槽改寫資料的方式)，想找到插槽結構，並修改樣式及了解問題
-  https://github.com/element-plus/element-plus/blob/dev/docs/examples/upload/file-list-with-thumbnail.vue
-  2.查看文件
-  嘗試在屬性中加入header和method，但是非必填，感覺也不是問題點
-  https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
+
+- productsModal 中
+  使用 el-upload 元件圖片上傳功能(38 行)，我使用他們的按鈕觸發@change 會出現破圖，偶爾可以正常，需重新整理後，就會出現本來正常的圖破圖，而且會重複上傳，然後最後一張都會是成功的，後來我使用自己的寫的按鈕(47 行)就可以正常上傳，但會沒有載入進度，想了解造成的原因
+
+有嘗試： 1.了解元件內部，查不到 el-upload 的結構，就是想查看 v-model:file-list="fileList"(這應該是一個 props 傳入插槽改寫資料的方式)，想找到插槽結構，並修改樣式及了解問題
+https://github.com/element-plus/element-plus/blob/dev/docs/examples/upload/file-list-with-thumbnail.vue 2.查看文件
+嘗試在屬性中加入 header 和 method，但是非必填，感覺也不是問題點
+https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
+
+> blob:http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4 要再轉
+
+-在 productsModal 中
+1.el-upload元件，使用el_handleChange()上傳的檔案連結都會有blob開頭連結，導致破圖，有嘗試兩種轉檔方式也還是一樣，
+上傳一張會重複兩次上傳，第一張blob開頭，第二張才是正常
+blob：http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4
+
+-2.在 CropperModal 中，上次提到的是，想將原本上傳的圖片進行裁切，不是上傳並裁切，但直接使用圖片連結去裁切會出現以下錯誤
+Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+所以在watch中嘗試三種方式去處理上述的問題
 
 # 已詢問 未整理////////////////////////////
+-[x] 1.關於上述提到的警告
+  [Vue Router warn]: No match found for location with path "/products-view/products-content"
+  在回首頁或首頁重新整理就會出現，想了解原因
+  > router-link to不存在連結舊會
 
--[] Q：在 storyItem 中使用 this.$route.push('/products-view/products-content/:title')，儲存文章 title，
-並傳遞到商品列表，去顯示該文章 title 的相關商品，但會出現以下警告
-A：這裡假設你的流程是
-點選 header 的 story 進到 storyList 頁面
-點選任一 Story
-點選右側的 Visit Merchandise
-助教這邊測試是沒有問題的
 
-<!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
+<!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
 
 # 技術筆記///////////////////////////////////////////
 
@@ -503,6 +503,7 @@ ProductsList.vue 第 112 行的 if 判斷有問題
   A：跟第一個問題一樣，ProductsList.vue 第 112 行的 if 判斷有問題，所以永遠不會跑 else 的部分
 
 -[x]多檔上傳
+
 ```
   <!-- 多檔上傳/原本寫法 -->
   <div class=" row row-cols-2  border g-1  " v-if="false">
@@ -560,6 +561,7 @@ ProductsList.vue 第 112 行的 if 判斷有問題
       }
     }
 ```
+
 ```
 // 失敗的多檔上傳 > vue 需要用 formData 轉
 handleFileUpload (event) {

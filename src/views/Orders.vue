@@ -167,7 +167,7 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders?page=${currentPage}`;
       this.isLoading = true;
       this.$http.get(url, this.tempProduct).then((response) => {
-        this.orders = response.data.orders;
+        this.orders = response.data.orders.slice(1);
         this.pagination = response.data.pagination;
         this.isLoading = false;
       });
@@ -234,6 +234,14 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+tbody tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tbody tr:hover {
+  background-color: rgba(0, 81, 255, 0.225)
+}
+
 .table {
   th:nth-child(1) {
     cursor: pointer;

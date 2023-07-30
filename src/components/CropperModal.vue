@@ -1,95 +1,105 @@
 <template >
   <div class="">
-    <div class="model" v-show="model" @click="model = false">
+    <!-- <div class="model" v-show="model" @click="model = false">
       <div class="model-show">
         <img :src="modelSrc" alt="">
       </div>
-    </div>
-    <p>例子</p>
-    <div class="cut">
-      <vue-cropper ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType"
-        :info="true" :full="option.full" :fixed="fixed" :fixed-number="fixedNumber" :can-move="option.canMove"
-        :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox" :original="option.original"
-        :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight"
-        :center-box="option.centerBox" @real-time="realTime" :high="option.high" @img-load="imgLoad" mode="contain"
-        :max-img-size="option.max" @crop-moving="cropMoving"></vue-cropper>
-    </div>
-    <div class="show-preview"
-      :style="{ 'width': previews.w + 'px', 'height': previews.h + 'px', 'overflow': 'hidden', 'margin': '5px' }">
-      <div :style="previews.div">
-        <img :src="previews.url" :style="previews.img">
+    </div> -->
+    <div class="d-flex gap-1 justify-content-center align-items-center">
+      <div class="cut">
+        <vue-cropper ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType"
+          :info="true" :full="option.full" :fixed="fixed" :fixed-number="fixedNumber" :can-move="option.canMove"
+          :can-move-box="option.canMoveBox" :fixed-box="option.fixedBox" :original="option.original"
+          :auto-crop="option.autoCrop" :auto-crop-width="option.autoCropWidth" :auto-crop-height="option.autoCropHeight"
+          :center-box="option.centerBox" @real-time="realTime" :high="option.high" @img-load="imgLoad" mode="contain"
+          :max-img-size="option.max" @crop-moving="cropMoving"></vue-cropper>
+      </div>
+      <div class="show-preview"
+        :style="{ 'width': previews.w + 'px', 'height': previews.h + 'px', 'overflow': 'hidden', 'margin': '5px' }">
+        <div :style="previews.div">
+          <img :src="previews.url" :style="previews.img">
+        </div>
       </div>
     </div>
+    <!--  -->
     <div class="test-button">
-      <button @click="changeImg" class="btn">changeImg</button>
-      <label class="btn" for="uploads">upload</label>
+      <button @click="changeImg" class="btn_2">changeImg</button>
+      <label class="btn_2" for="uploads">upload</label>
       <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);"
         accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event, 1)">
-      <button @click="startCrop" v-if="!crap" class="btn">start</button>
-      <button @click="stopCrop" v-else class="btn">stop</button>
-      <button @click="clearCrop" class="btn">clear</button>
-      <button @click="refreshCrop" class="btn">refresh</button>
-      <button @click="changeScale(1)" class="btn">+</button>
-      <button @click="changeScale(-1)" class="btn">-</button>
-      <button @click="rotateLeft" class="btn">rotateLeft</button>
-      <button @click="rotateRight" class="btn">rotateRight</button>
-      <button @click="finish('base64')" class="btn">preview(base64)</button>
-      <button @click="finish('blob')" class="btn">preview(blob)</button>
-      <a @click="down('base64')" class="btn">download(base64)</a>
-      <a @click="down('blob')" class="btn">download(blob)</a>
-      <a @click="() => option.img = ''" class="btn">清除图片</a>
+      <button @click="startCrop" v-if="!crap" class="btn_2">start</button>
+      <button @click="stopCrop" v-else class="btn_2">stop</button>
+      <button @click="clearCrop" class="btn_2">clear</button>
+      <button @click="refreshCrop" class="btn_2">refresh</button>
+      <button @click="changeScale(1)" class="btn_2">+</button>
+      <button @click="changeScale(-1)" class="btn_2">-</button>
+      <button @click="rotateLeft" class="btn_2">rotateLeft</button>
+      <button @click="rotateRight" class="btn_2">rotateRight</button>
+      <button @click="finish('base64')" class="btn_2">preview(base64)</button>
+      <button @click="finish('blob')" class="btn_2">preview(blob)</button>
+      <a @click="down('base64')" class="btn_2">download(base64)</a>
+      <a @click="down('blob')" class="btn_2">download(blob)</a>
+      <a @click="() => option.img = ''" class="btn_2">清除图片</a>
       <div style="display:block; width: 100%;">
-        <label class="c-item">
-          <span>上传图片是否显示原始宽高 (针对大图 可以铺满)</span>
-          <input type="checkbox" v-model="option.original">
-          <span>original: {{ option.original }}</span>
-        </label>
-        <label class="c-item">
-          <span>能否拖动图片</span>
-          <input type="checkbox" v-model="option.canMove">
-        </label>
-        <label class="c-item">
-          <span>能否拖动截图框</span>
-          <input type="checkbox" v-model="option.canMoveBox">
-          <span>canMoveBox: {{ option.canMoveBox }}</span>
-        </label>
-        <label class="c-item">
-          <span>截图框固定大小</span>
-          <input type="checkbox" v-model="option.fixedBox">
-          <span>fixedBox: {{ option.fixedBox }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否输出原图比例的截图</span>
-          <input type="checkbox" v-model="option.full">
-          <span>full: {{ option.full }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否自动生成截图框</span>
-          <input type="checkbox" v-model="option.autoCrop">
-          <span>autoCrop: {{ option.autoCrop }}</span>
-        </label>
-        <label class="c-item">
-          <span>是否根据dpr生成适合屏幕的高清图片</span>
-          <input type="checkbox" v-model="option.high">
-          <span>high: {{ option.high }}</span>
-        </label>
-        <label class="c-item">
-          <span>截图框是否限制在图片里(只有在自动生成截图框时才能生效)</span>
-          <input type="checkbox" v-model="option.centerBox">
-          <span>centerBox: {{ option.centerBox }}</span>
-        </label>
-        <label class="c-item">
-          <p>输出图片格式</p>
-          <label>jpg
-            <input type="radio" name="type" value="jpeg" v-model="option.outputType">
+        <div class="m-5 d-grid gap-3">
+          <button type="button" name="" id="" class="btn btn-danger w-100" @click="finish('blob')">confirm</button>
+          <button type="button" name="" id="" class="btn btn-secondary w-100"
+            @click="$emit('close', openModal)">close</button>
+        </div>
+        <!--  -->
+        <div class="" v-if="false">
+          <label class="c-item">
+            <span>上传图片是否显示原始宽高 (针对大图 可以铺满)</span>
+            <input type="checkbox" v-model="option.original">
+            <span>original: {{ option.original }}</span>
           </label>
-          <label>png
-            <input type="radio" name="type" value="png" v-model="option.outputType">
+          <label class="c-item">
+            <span>能否拖动图片</span>
+            <input type="checkbox" v-model="option.canMove">
           </label>
-          <label>webp
-            <input type="radio" name="type" value="webp" v-model="option.outputType">
+          <label class="c-item">
+            <span>能否拖动截图框</span>
+            <input type="checkbox" v-model="option.canMoveBox">
+            <span>canMoveBox: {{ option.canMoveBox }}</span>
           </label>
-        </label>
+          <label class="c-item">
+            <span>截图框固定大小</span>
+            <input type="checkbox" v-model="option.fixedBox">
+            <span>fixedBox: {{ option.fixedBox }}</span>
+          </label>
+          <label class="c-item">
+            <span>是否输出原图比例的截图</span>
+            <input type="checkbox" v-model="option.full">
+            <span>full: {{ option.full }}</span>
+          </label>
+          <label class="c-item">
+            <span>是否自动生成截图框</span>
+            <input type="checkbox" v-model="option.autoCrop">
+            <span>autoCrop: {{ option.autoCrop }}</span>
+          </label>
+          <label class="c-item">
+            <span>是否根据dpr生成适合屏幕的高清图片</span>
+            <input type="checkbox" v-model="option.high">
+            <span>high: {{ option.high }}</span>
+          </label>
+          <label class="c-item">
+            <span>截图框是否限制在图片里(只有在自动生成截图框时才能生效)</span>
+            <input type="checkbox" v-model="option.centerBox">
+            <span>centerBox: {{ option.centerBox }}</span>
+          </label>
+          <label class="c-item">
+            <p>输出图片格式</p>
+            <label>jpg
+              <input type="radio" name="type" value="jpeg" v-model="option.outputType">
+            </label>
+            <label>png
+              <input type="radio" name="type" value="png" v-model="option.outputType">
+            </label>
+            <label>webp
+              <input type="radio" name="type" value="webp" v-model="option.outputType">
+            </label>
+          </label>
+        </div>
       </div>
     </div>
   </div>
@@ -97,7 +107,10 @@
 <script>
 import { VueCropper } from 'vue-cropper';
 import 'vue-cropper/dist/index.css';
+// import modalMixin from '@/mixins/modalMixin';
+
 export default {
+  // mixins: [modalMixin],
   components: { VueCropper },
   data () {
     return {
@@ -111,8 +124,8 @@ export default {
         }
       ],
       option: {
-        // img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
-        img: 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4', // 套件示範的格式
+        img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
+        // img: 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4', // 套件示範的格式
         // img: this.tempImg,
         size: 1,
         full: false,
@@ -148,10 +161,10 @@ export default {
   },
   watch: {
     tempImg () { //! props傳進來需監聽，才能取到值
-      // console.log('tempImg', this.tempImg.imageUrl);
-      // this.option.img = this.tempImg.imageUrl;
+      // console.log('tempImg', this.tempImg.url);
+      this.option.img = this.tempImg.url;
       //
-      // const imageUrl = this.tempImg.imageUrl;
+      // const imageUrl = this.tempImg.url;
       // 嘗試一 嘗試方向：將雲端的圖片轉成，裁切套件可以使用的圖類型（下方的 uploadImg() 的方法），然後裁切完接著，finish()方法將base64轉檔再上傳
       // const imageUrl = 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg';
       // fetch(imageUrl)
@@ -249,11 +262,20 @@ export default {
       // test.document.body.innerHTML = '图片生成中..'
       if (type === 'blob') {
         this.$refs.cropper.getCropBlob((data) => {
-          console.log(data);
+          const newImg = new File([data], 'croppered.jpg');
+          //  參考上傳圖片做法
+          const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+          this.$http.post(url, newImg).then((res) => {
+            if (res.data.success) {
+              const finishCropper = this.tempImg;
+              finishCropper.url = res.data.imageUrl;
+              this.$emit('confirm-cropper', finishCropper);
+            }
+          });
           //
-          const img = window.URL.createObjectURL(data);
-          this.model = true;
-          this.modelSrc = img;
+          // const img = window.URL.createObjectURL(data);
+          // this.model = true;
+          // this.modelSrc = img;
         });
       } else {
         this.$refs.cropper.getCropData((data) => {
@@ -348,9 +370,9 @@ export default {
 }
 
 .cut {
-  width: 500px;
-  height: 500px;
-  margin: 30px auto;
+  width: 300px;
+  height: 300px;
+  margin: 30px;
 }
 
 .c-item {
@@ -372,7 +394,7 @@ export default {
   justify-content: center;
 }
 
-.btn {
+.btn_2 {
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
@@ -445,7 +467,7 @@ code.language-html {
   position: fixed;
   z-index: 10;
   width: 100vw;
-  height: 100vh;
+  max-height: 50vh;
   overflow: auto;
   top: 0;
   left: 0;

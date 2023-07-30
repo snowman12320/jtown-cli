@@ -33,7 +33,7 @@
               <small class="text-secondary text-end d-block w-100">
                 {{ story.author + ' , ' + $filters.dateAndTime(this.story.create_at) }}
               </small>
-              <p class="" v-html="story.description">
+              <p @click.prevent="handleClick" class="" v-html="story.description">
               </p>
 
               <!-- 避免超出卡片 不需用寬高調整 ~~~~~ -->
@@ -55,7 +55,7 @@
               <img src="@/assets/nbaWeb/CYOKWOiUoAIJGu4.png" class="allstaritem_back img-fluid op-center of-cover" alt="">
               <!-- <div class="allstaritem_back img-fluid bgp-center bgs-cover"
                 style="background-image: url(~@/assets/nbaWeb/1126209.png)"></div> -->
-              <div class="card-body fs-6" v-html="story.content">
+              <div @click.prevent="handleClick" class="card-body fs-6" v-html="story.content">
               </div>
               <a type="button" @click.prevent="getMerchandise()"
                 class="btn btn-nbaBlue rounded-pill fs-4 btnRwd mx-auto mb-4 stretched-link">Visit Merchandise</a>
@@ -141,6 +141,24 @@ export default {
           this.isNotPrev = !(this.storyIndex > 0);
         }
       });
+    },
+    handleClick (event) {
+      if (event.target.tagName === 'A') {
+        this.$swal.fire({
+          // title: 'Are you sure remember it?',
+          text: ' Do you agree to be directed to this link?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // window.location.href = event.target.href; // 转向链接
+            window.open(event.target.href, '_blank').focus();
+          }
+        });
+      }
     }
     // nextStory () {
     //   this.storyIndex++;

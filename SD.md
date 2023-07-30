@@ -71,7 +71,14 @@ https://codyhouse.co/ds/components/app/countup--prefix
 https://element.eleme.io/#/zh-CN/component/color-picker
 瀏覽文章的進度
 https://codyhouse.co/ds/components/app/reading-progressbar
-
+vue char：
+每個月訂單數量比較
+會員帶預設資料，搭配開啟修改的元件：
+> 登入就到這頁 > 會員資料
+> https://vuetifyjs.com/zh-Hans/components/autocompletes/
+> 加上 專門的圓形上傳圖套件（在cropper瀏覽器夾）
+黑暗切換按鈕加上tw：
+https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca-project/
 # 最後 ：
 
 RWD
@@ -90,37 +97,25 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 整理吐司 和甜警告
 側邊和會員就用大的
 其餘都用我的土司
+後台用舊的
 
 # products
 
-
+click.away
 
 裁切圖
 
+上傳圖檔
 
-## coupon
+
 
 # login
 
-會員頁:
-取得訂單列表
-取得某一筆訂單取得單一訂單
 
-> 帶預設資料，搭配開啟修改的元件
-> 登入就到這頁
-> 會員資料
-> https://vuetifyjs.com/zh-Hans/components/autocompletes/
 
 # dashboard
 
 
-
-# rank
-
-# story
-
-
-其他產品頁面圖會有問題 可能要重船 > 沒有url等資料
 
 
 

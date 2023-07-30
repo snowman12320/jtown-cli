@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="text-center my-5 d-flex flex-column flex-md-row justify-content-center">
-      <router-link to="/products-view/products-content"
+      <router-link to="/products-view/products-content/title"
         class="btn btn-outline-dark rounded-pill fs-5 me-md-3 me-0 mb-3 mb-md-0">
         MORE
         PRODUCT

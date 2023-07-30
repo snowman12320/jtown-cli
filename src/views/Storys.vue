@@ -2,7 +2,7 @@
   <div class="w-100">
     <Loading :active="isLoading"></Loading>
     <div class="text-end mt-3">
-      <button class="btn btn-primary" type="button" @click="openModal(true,null)">
+      <button class="btn btn-primary" type="button" @click="openModal(true, null)">
         新增文章
       </button>
     </div>
@@ -152,6 +152,14 @@ export default {
 };
 </script>
 <style lang="scss">
+tr:nth-child(even) {
+  background-color: #eee;
+}
+
+tr:hover {
+  background-color: rgba(0, 81, 255, 0.227)
+}
+
 .single-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -160,7 +168,8 @@ export default {
 }
 
 .multiline-ellipsis {
-  height: 100px !important;/* 太矮會跑版 */
+  height: 100px !important;
+  /* 太矮會跑版 */
 
   p {
     display: -webkit-box;
