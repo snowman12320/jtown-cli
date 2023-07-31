@@ -1,30 +1,34 @@
 https://github.com/snowman12320/hexschool-question
 
-- vue 修改玩都要重新整理? 4.我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
+目的：
+針對目的嘗試：
+預期結果：
+結果（問題）：
 
+ /////////////////////////////////////////////////////////////////////////////////////////////
+- vue 修改玩都要重新整理? 4.我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
   > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
   > Vue.$set())
 
 @click-outside="isCropper = false"
 
--2.在 CropperModal 中，上次提到的是，想將原本上傳的圖片進行裁切，不是上傳並裁切，但直接使用圖片連結去裁切會出現以下錯誤
-Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
-所以在 watch 中嘗試三種方式去處理上述的問題
 
 在ProductModal中
-點出目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
-針對目的所做的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
-預期出現的結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
-出現的結果（問題）：
+目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
+針對目的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
+預期結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
+
+結果（問題）：
 將圖片帶入CropperModal 中的圖片會無法使用，出現CORS錯誤，好像是不能直接使用雲端的資料
 Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
 上述問題嘗試：
 將雲端的圖片下載，模擬本地上傳圖片去裁切，
 CropperModal 中watch，使用fetch去下載成base64data來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
 
-參考：
-(請後端設置 CORS header，CORS) 
+參考文章：
+(請後端設置 CORS header) 
 https://blog.huli.tw/2021/02/19/cors-guide-2/#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E6%B3%95%E8%AB%8B%E5%BE%8C%E7%AB%AF%E8%A8%AD%E7%BD%AE-cors-header
 https://ithelp.ithome.com.tw/articles/10268821
 https://shubo.io/what-is-cors/
