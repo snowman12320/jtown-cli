@@ -81,10 +81,11 @@ vue char：
 https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca-project/
 # 最後 ：
 
-RWD
-整理 SCSS / 拿掉非必要註解 > 繳交時再整理
 結帳頁都改成 英文 > 最後再轉
-圖片檔語意化
+RWD
+
+整理 SCSS / 拿掉非必要註解 > 繳交時再整理
+x 圖片檔語意化
 
 md 中加入各分頁使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
@@ -104,8 +105,6 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 click.away
 
 裁切圖
-
-上傳圖檔
 
 
 

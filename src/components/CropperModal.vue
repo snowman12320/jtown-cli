@@ -167,12 +167,14 @@ export default {
       // const imageUrl = this.tempImg.url;
       // 嘗試一 嘗試方向：將雲端的圖片轉成，裁切套件可以使用的圖類型（下方的 uploadImg() 的方法），然後裁切完接著，finish()方法將base64轉檔再上傳
       // const imageUrl = 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg';
-      // fetch(imageUrl)
+      // const imageUrl = this.tempImg.url;
+      // fetch(imageUrl)// Failed to fetch
       //   .then(response => response.blob())
       //   .then(blob => {
       //     const reader = new FileReader();
       //     reader.onloadend = () => {
       //       const base64data = reader.result;
+      //       this.option.img = base64data;
       //       console.log('base64 data', base64data);
       //     // Use the base64 data here
       //     };
@@ -182,10 +184,10 @@ export default {
       // this.convertImgLinkToBlob(imageUrl).then((blob) => {
       //   // 處理轉換後的blob數據格式
       //   // 在這裡你可以將blob數據傳遞給其他函數或進行其他操作
-      //   console.log(blob);
+      //   console.log(blob);// null
       // });
       // 嘗試三 下載下來再上傳 > 好像需要在後端設置CORS頭，並確保API正確配置等等的設置 > vue.config.js 也有做一些嘗試
-      // this.downloadAndUploadImage(imageUrl);
+      // this.downloadAndUploadImage(imageUrl); //Network Error
     }
   },
   methods: {

@@ -5,36 +5,31 @@ https://github.com/snowman12320/hexschool-question
   > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
   > Vue.$set())
 
-
-
-
-
-- productsModal 中
-  使用 el-upload 元件圖片上傳功能(38 行)，我使用他們的按鈕觸發@change 會出現破圖，偶爾可以正常，需重新整理後，就會出現本來正常的圖破圖，而且會重複上傳，然後最後一張都會是成功的，後來我使用自己的寫的按鈕(47 行)就可以正常上傳，但會沒有載入進度，想了解造成的原因
-
-有嘗試： 1.了解元件內部，查不到 el-upload 的結構，就是想查看 v-model:file-list="fileList"(這應該是一個 props 傳入插槽改寫資料的方式)，想找到插槽結構，並修改樣式及了解問題
-https://github.com/element-plus/element-plus/blob/dev/docs/examples/upload/file-list-with-thumbnail.vue 2.查看文件
-嘗試在屬性中加入 header 和 method，但是非必填，感覺也不是問題點
-https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
-
-> blob:http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4 要再轉
-
--在 productsModal 中
-1.el-upload元件，使用el_handleChange()上傳的檔案連結都會有blob開頭連結，導致破圖，有嘗試兩種轉檔方式也還是一樣，
-上傳一張會重複兩次上傳，第一張blob開頭，第二張才是正常
-blob：http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4
+@click-outside="isCropper = false"
 
 -2.在 CropperModal 中，上次提到的是，想將原本上傳的圖片進行裁切，不是上傳並裁切，但直接使用圖片連結去裁切會出現以下錯誤
 Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
-所以在watch中嘗試三種方式去處理上述的問題
+所以在 watch 中嘗試三種方式去處理上述的問題
 
+在ProductModal中
+點出目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
+針對目的所做的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
+預期出現的結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
+出現的結果（問題）：
+將圖片帶入CropperModal 中的圖片會無法使用，出現CORS錯誤，好像是不能直接使用雲端的資料
+Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+上述問題嘗試：
+將雲端的圖片下載，模擬本地上傳圖片去裁切，
+CropperModal 中watch，使用fetch去下載成base64data來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
+
+參考：
+(請後端設置 CORS header，CORS) 
+https://blog.huli.tw/2021/02/19/cors-guide-2/#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E6%B3%95%E8%AB%8B%E5%BE%8C%E7%AB%AF%E8%A8%AD%E7%BD%AE-cors-header
+https://ithelp.ithome.com.tw/articles/10268821
+https://shubo.io/what-is-cors/
+(官方安全原因，因不同源導致阻擋) https://stackoverflow.com/questions/71016448/error-access-to-xmlhttprequest-at-https-storage-googleapis-com-url-from-origi
 # 已詢問 未整理////////////////////////////
--[x] 1.關於上述提到的警告
-  [Vue Router warn]: No match found for location with path "/products-view/products-content"
-  在回首頁或首頁重新整理就會出現，想了解原因
-  > router-link to不存在連結舊會
-
 
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
 <!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
@@ -621,6 +616,26 @@ reader.readAsBinaryString(files[i]);
 // }
 }
 ```
+
+-[x] productsModal 中
+使用 el-upload 元件圖片上傳功能(38 行)，我使用他們的按鈕觸發@change 會出現破圖，偶爾可以正常，需重新整理後，就會出現本來正常的圖破圖，而且會重複上傳，然後最後一張都會是成功的，後來我使用自己的寫的按鈕(47 行)就可以正常上傳，但會沒有載入進度，想了解造成的原因
+有嘗試： 1.了解元件內部，查不到 el-upload 的結構，就是想查看 v-model:file-list="fileList"(這應該是一個 props 傳入插槽改寫資料的方式)，想找到插槽結構，並修改樣式及了解問題
+https://github.com/element-plus/element-plus/blob/dev/docs/examples/upload/file-list-with-thumbnail.vue 2.查看文件
+嘗試在屬性中加入 header 和 method，但是非必填，感覺也不是問題點
+https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
+
+> blob:http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4 要再轉 -在 productsModal 中
+> 1.el-upload 元件，使用 el_handleChange()上傳的檔案連結都會有 blob 開頭連結，導致破圖，有嘗試兩種轉檔方式也還是一樣，
+> 上傳一張會重複兩次上傳，第一張 blob 開頭，第二張才是正常
+> blob：http://localhost:8080/107fc007-8aa1-489b-a415-cc40d589fff4
+> 由於 el-upload 選擇圖片後本身就會觸發一次上傳（有設置 action 所以知道上傳 API）,而 el-upload 又設定了 on-change，因此觸發了 el_handleChange 上傳
+> 所以會上傳兩次,解決方法可以參考這篇文章https://juejin.cn/post/6958762366561419277#heading-2
+
+-[x] 1.關於上述提到的警告
+
+> [Vue Router warn]: No match found for location with path "/products-view/products-content"
+> 在回首頁或首頁重新整理就會出現，想了解原因
+> router-link to 不存在連結舊會
 
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 

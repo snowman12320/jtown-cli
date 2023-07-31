@@ -33,9 +33,9 @@
                   <i v-show="other_photo" class="fas fa-spinner fa-spin"></i>
                 </label>
               </div>
-              <!-- el元件 -->
-              <el-upload :multiple="true" :limit="5" v-model:file-list="tempProduct.imagesUrl" class="upload-demo"
-                :action="image_add" :on-change="el_handleChange" list-type="picture">
+              <!-- el元件 / 無法更改上傳列表 取消使用 / 但可正常上傳了(action="#")-->
+              <el-upload :multiple="true" :limit="5" v-model:file-list="tempProduct.imagesUrl" class="upload-demo" v-if="false"
+                action="#" :on-change="el_handleChange" list-type="picture">
                 <el-button class="w-100" type="primary">Click to upload</el-button>
                 <template #tip>
                   <div class="el-upload__tip text-center">

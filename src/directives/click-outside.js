@@ -15,3 +15,25 @@ export default function install (Vue) {
     }
   });
 };
+
+// 在 Vue 中註冊自訂指令 (away)
+// import Vue from 'vue';
+
+//   Vue.directives('click-outside', {
+//     bind (el, binding, vnode) {
+//       const onClickOutside = (event) => {
+//         if (el.contains(event.target)) return;
+//         binding.value();
+//       };
+
+//       document.addEventListener('click', onClickOutside);
+
+//       el._clickOutsideCleanup = () => {
+//         document.removeEventListener('click', onClickOutside);
+//       };
+//     },
+//     unbind (el) {
+//       el._clickOutsideCleanup();
+//       delete el._clickOutsideCleanup;
+//     }
+//   });

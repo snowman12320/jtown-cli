@@ -9,35 +9,39 @@
                 </el-icon>
                 <template #title><span class="text-primary mx-1 text-center w-100">{{ username }}</span></template>
             </el-menu-item>
-            <el-menu-item index="2">
-                <el-icon>
-                    <Monitor />
-                </el-icon>
-                <template #title>
-                    <div class="text-center w-100">
-                        <router-link to="/" class="btn btn-nbaBlue text-decoration-none">前台</router-link>
-                    </div>
-                </template>
-            </el-menu-item>
-            <el-menu-item index="3">
-                <el-icon>
-                    <User />
-                </el-icon>
-                <template #title>
-                    <div class="text-center w-100">
-                        <router-link to="/dashboard/members" class="btn btn-nbaRed text-decoration-none">會員</router-link>
-                    </div>
-                </template>
-            </el-menu-item>
+            <router-link to="/" class="">
+                <el-menu-item index="/">
+                    <el-icon>
+                        <Monitor />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100 btn btn-nbaBlue text-decoration-none">
+                            前台
+                        </div>
+                    </template>
+                </el-menu-item>
+            </router-link>
+            <router-link to="/dashboard/members" class="">
+                <el-menu-item index="/dashboard/members">
+                    <el-icon>
+                        <User />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100 btn btn-nbaRed text-decoration-none">
+                            會員
+                        </div>
+                    </template>
+                </el-menu-item>
+            </router-link>
             <router-link to="/dashboard/products" class="text-white  text-decoration-none w-100 ">
-            <el-menu-item route="/dashboard/products" index="/dashboard/products">
-                <el-icon>
-                    <Basketball />
-                </el-icon>
-                <template #title>
-                    <div class="text-center w-100">產品</div>
-                </template>
-            </el-menu-item>
+                <el-menu-item route="/dashboard/products" index="/dashboard/products">
+                    <el-icon>
+                        <Basketball />
+                    </el-icon>
+                    <template #title>
+                        <div class="text-center w-100">產品</div>
+                    </template>
+                </el-menu-item>
             </router-link>
             <router-link to="/dashboard/orders" class="text-white w-100 text-center  text-decoration-none">
                 <el-menu-item index="/dashboard/orders">
