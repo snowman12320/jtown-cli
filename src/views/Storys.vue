@@ -142,6 +142,7 @@ export default {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.tempStory.id}`;
       this.$http.delete(url).then((response) => {
         // console.log(response.data);
+        this.$httpMessageState(response, response.data.message);
         const delComponent = this.$refs.delModal;
         delComponent.hideModal();
         this.getStoryList();

@@ -30,7 +30,8 @@ export default {
           this.$http.post(url, { data: cart }).then((response) => {
             this.isLoading = false;
             this.status.loadingItem = '';
-            this.$httpMessageState(response, '加入購物車');
+            // this.$httpMessageState(response, '加入購物車');
+            this.$toast('success', 'add to cart.');
             this.emitter.emit('customEvent_getCart', this.getCart);
             if (isBuy) {
               this.$router.push('/cart-view/cart-list');

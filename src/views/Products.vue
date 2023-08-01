@@ -142,7 +142,8 @@ export default {
       // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${this.tempProduct.id}`;
       this.$http.delete(url).then((response) => {
-        // console.log(response.data);
+        // console.log(response.data.success);
+        this.$httpMessageState(response, response.data.message);
         const delComponent = this.$refs.delModal;
         delComponent.hideModal();
         this.getProducts();

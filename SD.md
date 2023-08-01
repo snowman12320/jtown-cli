@@ -79,9 +79,12 @@ vue char：
 > 加上 專門的圓形上傳圖套件（在cropper瀏覽器夾）
 黑暗切換按鈕加上tw：
 https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca-project/
+錯誤頁 可用 自己的 404
+https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
 # 最後 ：
 
 結帳頁都改成 英文 > 最後再轉
+
 RWD
 
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
@@ -89,16 +92,13 @@ x 圖片檔語意化
 
 md 中加入各分頁使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
+
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
 改完後，可以都轉成 com API ＋ pinia + vite 正常運作嗎
 
 # home
 
-整理吐司 和甜警告
-側邊和會員就用大的
-其餘都用我的土司
-後台用舊的
 
 # products
 
@@ -120,14 +120,6 @@ click.away
 
 # footer
 
-> 改 keep 截圖那樣 簡單 > 左版權 右彩色小圖
-> x > 關於我們 （左邊
-> x > 聯絡我們 （右邊 icon > 信件 哀居 fb linkdin 履歷
-> x > 寄信給我功能（谷歌 api？ / 訂閱 欄位
-> x > 徵才用彈窗 / 表單驗證 / 上傳文件
 
-https://vuetifyjs.com/zh-Hans/components/footers/
 
-# 錯誤頁 可用 自己的 404
 
-https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue

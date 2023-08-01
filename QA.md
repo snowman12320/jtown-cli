@@ -246,8 +246,16 @@ https://israynotarray.com/vue/20200214/1055437216/
 检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
 可能就要自己手動
 git push origin --delete gh-pages
+<<<<<<< HEAD
 npm run build > cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git main:gh-pages
+=======
+npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
+git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
+>cd ..
+> 有時手動失敗就用自動化的，交互使用，且pages要先切回none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過) 
+> pages成功就會自動切到gh-page
+>>>>>>> 02711e17977c83dfbd75b24c5f3d7b18ddddf6a4
 
 ## CKEditor 5
 

@@ -30,7 +30,7 @@
         </el-row>
       </template>
       <template #footer>
-        <span class="dialog-footer d-flex justify-content-center mx-auto align-items-center p-0">
+        <span class="dialog-footer d-flex flex-column d-md-flex justify-content-center mx-auto align-items-center p-0">
           <el-button class="without" @click="centerDialogVisible = false">shop without offer</el-button>
           <router-link class="el-button--primary" to="/products-view/products-content/search">
             <el-button type="primary" @click="centerDialogVisible = false">
@@ -137,7 +137,7 @@ export default {
 .el-alert_home {
   position: absolute !important;
   top: 100px;
-  width: 700px !important;
+  max-width: 700px !important;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
@@ -181,10 +181,7 @@ export default {
   opacity: 0 !important;
 }
 
-.el-dialog__body {
-  padding-bottom: 0px !important;
-}
-
+// 彈窗
 .el-dialog__footer {
   padding: 0px !important;
   height: 90px !important;
@@ -234,6 +231,20 @@ export default {
   &:hover span {
     text-decoration: underline !important;
     color: #000;
+  }
+}
+
+@media (max-width:768px) {
+  .el-dialog {
+    width: 90% !important;
+  }
+
+  .el-alert_home {
+    display: none !important;
+  }
+
+  .el-button--primary {
+    padding: 0px !important;
   }
 }
 </style>
