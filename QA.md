@@ -246,8 +246,8 @@ https://israynotarray.com/vue/20200214/1055437216/
 检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
 可能就要自己手動
 git push origin --delete gh-pages
-npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
-git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
+npm run build > cd dist > git init > git add . > git commit -m "use hand build" > main or master
+git push -f git@github.com:snowman12320/hexschool-question.git main:gh-pages
 
 ## CKEditor 5
 
