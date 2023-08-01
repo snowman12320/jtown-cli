@@ -139,7 +139,7 @@ export default {
 }
 
 .brand_scale_after {
-  transform: scale(1) translateY(-5px);
+  transform: scale(0.8) translateY(-10px);
 }
 
 .nav_height_after {

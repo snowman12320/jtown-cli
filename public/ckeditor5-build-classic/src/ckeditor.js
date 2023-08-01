@@ -43,7 +43,7 @@ Editor.builtinPlugins = [
   ImageStyle,
   ImageToolbar,
   ImageUpload,
-  Indent,
+  Indent,// 依照套件加入方式再加入看看
   Italic,
   Link,
   List,
@@ -54,7 +54,7 @@ Editor.builtinPlugins = [
   Table,
   TableToolbar,
   TextTransformation,
-    // 將套件加入建構工具列
+  // 將套件加入建構工具列
   Highlight
 ];
 
@@ -80,11 +80,11 @@ Editor.defaultConfig = {
       'undo',
       'redo',
       'sourceEditing',
-    // 將套件放在想要的位置
+      // 將套件放在想要的位置
       'Highlight'
     ]
   },
-  language: 'zh',
+  language: 'zh', //* 中文
   image: {
     toolbar: [
       'imageTextAlternative',
@@ -101,16 +101,17 @@ Editor.defaultConfig = {
       'mergeTableCells'
     ]
   },
-    ckfinder: {
+  ckfinder: {
     // uploadUrl: `${process.env.url}/upload`,
+    // 可能還需要轉成formData
     uploadUrl: `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`,
     // 後端的上傳圖片 API 路徑
     options: {
-      resourceType: "Images"
+      resourceType: 'Images'
       // 限定類型為圖片
     }
   },
-    image: {
+  image: {
   // 設定圖片可選擇的對齊方式
     toolbar: [
       'imageTextAlternative',
@@ -123,7 +124,7 @@ Editor.defaultConfig = {
     ],
     styles: ['full', 'side', 'alignLeft', 'alignCenter', 'alignRight']
   },
-    mediaEmbed: {
+  mediaEmbed: {
     previewsInData: true
     // 設定影片為可見的格式
   }

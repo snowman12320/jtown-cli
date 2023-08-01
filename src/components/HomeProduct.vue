@@ -98,7 +98,7 @@ export default {
 
 @media (max-width:768px) {
   .masonry {
-    column-count: 3
+    column-count: 2
   }
 }
 

@@ -40,7 +40,7 @@
                     <div class="">
                       <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
                         id="S">
-                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'S' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'S' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="S">
                         S
                       </label>
@@ -48,7 +48,7 @@
                     <div class="">
                       <input value="M" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
                         id="M">
-                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'M' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'M' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="M">
                         M
                       </label>
@@ -56,7 +56,7 @@
                     <div class="">
                       <input value="L" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
                         id="L">
-                      <label style="cursor: pointer" :class="{ 'border-2': productSize === 'L' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'L' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="L">
                         L
                       </label>

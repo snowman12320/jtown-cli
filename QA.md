@@ -248,6 +248,9 @@ https://israynotarray.com/vue/20200214/1055437216/
 git push origin --delete gh-pages
 npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
+>cd ..
+> 有時手動失敗就用自動化的，交互使用，且pages要先切回none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過) 
+> pages成功就會自動切到gh-page
 
 ## CKEditor 5
 

@@ -58,7 +58,7 @@
           </button>
         </div>
         <!--  -->
-        <div class="col-md-3 d-flex flex-column justify-content-around text-center">
+        <div class="col-md-4 d-flex flex-column justify-content-around text-center">
           <h1 class="mb-5">{{ product.title }}</h1>
           <!--  -->
           <div class="my-5">
