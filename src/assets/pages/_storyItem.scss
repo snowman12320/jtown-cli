@@ -20,6 +20,7 @@
   width: 90%;
 }
 @include maxpc() {
+
   .imgRwd {
     left: 50%;
     transform: translateX(-50%);

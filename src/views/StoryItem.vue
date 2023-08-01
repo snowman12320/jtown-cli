@@ -4,11 +4,11 @@
     <div id="Ranking"
       class="d-flex justify-content-center align-items-center text-dark border-3 border-nbaBlue border-top pt-5 position-relative"
       style="margin-top: 104px !important">
-      <h2>PLAYER </h2>
+      <h2 class="d-md-block d-none">PLAYER </h2>
       <img src="@/assets/nbaWeb/Lovepik_com-401319703-basketball.png" height="80" alt="storylogo" class="" />
-      <h2>STORY</h2>
+      <h2 class="d-md-block d-none">STORY</h2>
       <!--  -->
-      <nav class="w-100 position-fixed  start-0 end-0 px-7" style="top:20%" aria-label="Page navigation example">
+      <nav class="w-100 position-md-fixed position-absolute  start-0 end-0 px-7" style="top:20%" aria-label="Page navigation example">
         <ul class="pagination w-100 d-flex justify-content-between">
           <li class="page-item"><a class="page-link " :class="{ 'disabled': isNotPrev }" :disabled="isNotPrev"
               @click.prevent="storyIndex--" href="#"> <i class="fa fa-caret-left" aria-hidden="true"></i> Prev </a></li>
@@ -24,7 +24,7 @@
       <!-- 球星個人列表 -->
       <!-- 不需要所有元素都在 container 內 --><!-- <div class="container-xxl"> -->
       <!-- row可用g-5 左右推版(column會上下推) / card內用會推上下  / gutter外 gap內-->
-      <main class="row row-cols-1 row-cols-xl-2 mx-2 g-5 position-relative">
+      <main class="row row-cols-1 row-cols-xl-2 mx-md-2 g-5 position-relative">
         <!-- 必填 -->
         <article class="col col-xl-8 mx-auto mb-xl-5">
           <div class="card shadow">

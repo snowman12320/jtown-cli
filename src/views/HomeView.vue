@@ -30,7 +30,7 @@
         </el-row>
       </template>
       <template #footer>
-        <span class="dialog-footer d-flex flex-column d-md-flex justify-content-center mx-auto align-items-center p-0">
+        <span class="dialog-footer d-flex flex-md-row flex-column  justify-content-center mx-auto align-items-center p-0">
           <el-button class="without" @click="centerDialogVisible = false">shop without offer</el-button>
           <router-link class="el-button--primary" to="/products-view/products-content/search">
             <el-button type="primary" @click="centerDialogVisible = false">

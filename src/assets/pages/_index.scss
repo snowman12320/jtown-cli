@@ -177,6 +177,11 @@
     z-index: 1;
   }
 }
+@include maxpc {
+  .newproduct_img {
+    height: 240px;
+  }
+}
 
 .rank_card {
   // 連動hover 前面不用& 但要用:不能用. 後面不能用 ~
@@ -302,5 +307,3 @@
   opacity: 1;
   transform: translateY(0);
 }
-
-
