@@ -83,19 +83,25 @@ https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca
 https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
 # 最後 ：
 
-結帳頁都改成 英文 > 最後再轉
 
-RWD
 
+內頁的列表的尺寸有問題
 產品內頁收藏土司
 
+click.away
+
 整理 SCSS / 拿掉非必要註解 > 繳交時再整理
+
+結帳頁都改成 英文 > 最後再轉
+
 x 圖片檔語意化
+xRWD
+
+編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
 md 中加入各分頁使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
 
-編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
 改完後，可以都轉成 com API ＋ pinia + vite 正常運作嗎
 
@@ -104,9 +110,7 @@ git readme / gitpages https://github.com/a94s84/Hermosa
 
 # products
 
-click.away
 
-裁切圖
 
 
 

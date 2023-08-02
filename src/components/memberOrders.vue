@@ -5,10 +5,10 @@
     <el-autocomplete :popper-class="'my-autocomplete'" class="my-autocomplete-self" v-model="state"
       :fetch-suggestions="querySearch" placeholder="input order ID" @select="handleSelect">
       <template #default="{ item }">
-        <div class="p-2">
+        <div class="p-2 el-autocomplete-list">
           <div class="d-flex justify-content-between ">
             <div class="name">{{ item.id }}</div>
-            <div class="name"> {{ $filters.dateAndTime(item.create_at) }}</div>
+            <div class="name d-md-table-cell d-none"> {{ $filters.dateAndTime(item.create_at) }}</div>
           </div>
           <div class="d-flex gap-4">
             <span class="addr text-danger">${{ $filters.currency(item.total) }}</span>
@@ -27,7 +27,7 @@
         <thead>
           <th>品名</th>
           <th>數量</th>
-          <th class="text-start">單價</th>
+          <th width="100" class="text-start">單價</th>
         </thead>
         <tbody>
           <tr v-for="item in order.products" :key="item.id">
@@ -58,11 +58,11 @@
             <td>{{ order.user.name }}</td>
           </tr>
           <tr>
-            <th>收件人電話</th>
+            <th>電話</th>
             <td>{{ order.user.tel }}</td>
           </tr>
           <tr>
-            <th>收件人地址</th>
+            <th>地址</th>
             <td>{{ order.user.address }}</td>
           </tr>
           <tr>
@@ -191,6 +191,13 @@ export default {
     .highlighted .addr {
       color: #ddd;
     }
+  }
+}
+
+@media (max-width: 768px) {
+
+  .el-autocomplete-list {
+    max-width: 200px;
   }
 }
 </style>

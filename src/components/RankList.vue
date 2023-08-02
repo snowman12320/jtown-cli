@@ -2,10 +2,10 @@
     <section class="d-flex flex-column justify-content-around align-items-start rankList gap-5">
         <!-- col-12 col-xl-2 多餘的 -->
         <div @click="toStory('-NZGctSZ8Ky-ZDGfYJpf')"
-            class="d-flex rank  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
+            class="d-flex rank flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
-            <div class="">
-                <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
+            <div class="allstar_wrap">
+                <div class="allstar_bg d-flex justify-content-center align-items-center me-xl-0">
                     <img class="of-contain" src="@/assets/nbaWeb/PNG-images-NBA-Players-36png.png" height="200" width="200"
                         alt="" />
                 </div>
@@ -30,10 +30,10 @@
                 </div>
             </div>
         </div>
-        <div class="rank d-flex  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
+        <div class="rank d-flex flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
-            <div class="">
-                <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
+            <div class="allstar_wrap">
+                <div class="allstar_bg d-flex justify-content-center align-items-center me-xl-0">
                     <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-28png.png" height="200"
                         width="200" alt="" />
                 </div>
@@ -55,10 +55,10 @@
                 </div>
             </div>
         </div>
-        <div class="rank d-flex  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
+        <div class="rank d-flex flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
-            <div class="">
-                <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
+            <div class="allstar_wrap">
+                <div class="allstar_bg d-flex justify-content-center align-items-center me-xl-0">
                     <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-1png-removebg-preview.png"
                         height="200" width="200" alt="" />
                 </div>
@@ -80,10 +80,10 @@
                 </div>
             </div>
         </div>
-        <div class="rank d-flex  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
+        <div class="rank d-flex flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
-            <div class="">
-                <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
+            <div class="allstar_wrap">
+                <div class="allstar_bg d-flex justify-content-center align-items-center me-xl-0">
                     <img class="of-cover op-top" src="@/assets/nbaWeb/images-NBA-Players-58png-removebg-preview.png"
                         height="200" width="200" alt="" />
                 </div>
@@ -108,10 +108,10 @@
                 </div>
             </div>
         </div>
-        <div class="rank d-flex  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
+        <div class="rank d-flex flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
-            <div class="">
-                <div class="allstar_bg d-flex justify-content-center align-items-center me-5 me-xl-0">
+            <div class="allstar_wrap">
+                <div class="allstar_bg d-flex justify-content-center align-items-center me-xl-0">
                     <img class="of-cover op-top" src="@/assets/nbaWeb/PNG-images-NBA-Players-60png.png" height="200"
                         width="200" alt="" />
                 </div>
@@ -157,6 +157,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.el-rate__text {
+    color: blue;
+}
+
 .rankList {
     .allstartext_rwd {
 

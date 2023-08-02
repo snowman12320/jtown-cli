@@ -192,7 +192,7 @@ export default {
     handleScroll () {
       // console.log(this.$refs.element.scrollTop, this.$refs.element.clientHeight);
       // console.log(this.$refs.element.scrollHeight);
-      if (Math.ceil(this.$refs.element.scrollTop + this.$refs.element.clientHeight) === this.$refs.element.scrollHeight) {
+      if (Math.ceil(this.$refs.element.scrollTop + this.$refs.element.clientHeight + 50) > this.$refs.element.scrollHeight) {
         this.$emit('my-scroll');
         // console.log(111);
       }

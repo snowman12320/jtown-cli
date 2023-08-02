@@ -10,18 +10,18 @@
       <thead>
         <tr>
           <th>名稱</th>
-          <th>折扣百分比</th>
-          <th>到期日</th>
-          <th>是否啟用</th>
-          <th>編輯</th>
+          <th class="d-md-table-cell d-none">折扣百分比</th>
+          <th class="d-md-table-cell d-none">到期日</th>
+          <th class="d-md-table-cell d-none">是否啟用</th>
+          <th width="150">編輯</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, key) in coupons" :key="key">
           <td>{{ item.title }}</td>
-          <td>{{ item.percent }}%</td>
-          <td>{{ $filters.date(item.due_date) }}</td>
-          <td>
+          <td class="d-md-table-cell d-none">{{ item.percent }}%</td>
+          <td class="d-md-table-cell d-none">{{ $filters.date(item.due_date) }}</td>
+          <td class="d-md-table-cell d-none">
             <span v-if="item.is_enabled === 1" class="text-success">啟用</span>
             <span v-else class="text-muted">未啟用</span>
           </td>

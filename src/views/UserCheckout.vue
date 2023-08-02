@@ -1,9 +1,9 @@
 <template>
-  <div class="">
+  <div class="user_check">
     <Loading :active="isLoading"></Loading>
     <!-- <Header :is-login="isLogin"></Header> -->
     <div class="row content container mx-auto mt-3">
-      <section class="mx-auto">
+      <section class="mx-auto header">
         <div class="d-flex justify-content-center my-5"><img height="130"
             src="@/assets/nbaWeb/1588928235basketball-fire-logo-silhouette-freesvg.org.svg" alt="" />
           <img class="" height="130" src="@/assets/nbaWeb/1506074059.svg" alt="" />
@@ -15,29 +15,32 @@
         <p class="text-center"> 付款完成後，會盡快為您安排出貨！</p>
       </section>
     </div>
-    <div class="my-5 row justify-content-center">
-      <form class="col-md-6" @submit.prevent="payOrder">
-        <table class="table align-middle">
-          <thead>
-            <th>品名</th>
-            <th>數量</th>
-            <th class="text-start">單價</th>
-          </thead>
-          <tbody>
-            <tr v-for="item in order.products" :key="item.id">
-              <td>{{ item.product.title }}</td>
-              <td>{{ item.qty }}/{{ item.product.unit }}</td>
-              <td class="text-start">$ {{ $filters.currency(Math.round(item.final_total)) }}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2" class="text-end">總計</td>
-              <td class="text-end">$ {{ $filters.currency(Math.round(order.total)) }}</td>
-            </tr>
-          </tfoot>
-        </table>
-        <table class="table">
+    <div class="my-5 row justify-content-center container-xl mx-auto">
+      <form class="" @submit.prevent="payOrder">
+        <div class="table_1">
+          <table class="table align-middle">
+            <thead>
+              <th>品名</th>
+              <th>數量</th>
+              <th class="text-start">單價</th>
+            </thead>
+            <tbody>
+              <tr v-for="item in order.products" :key="item.id">
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.qty }}/{{ item.product.unit }}</td>
+                <td class="text-start">$ {{ $filters.currency(Math.round(item.final_total)) }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" class="text-end">總計</td>
+                <td class="text-end">$ {{ $filters.currency(Math.round(order.total) + 120) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!--  -->
+        <table class="table ">
           <tbody>
             <tr>
               <th width="100">訂單時間</th>
@@ -129,3 +132,24 @@ export default {
   }
 };
 </script>
+<style scoped lang="scss">
+.user_check {
+  height: 100vh;
+
+  .header {
+    img {
+      height: 100px !important;
+      width: auto !important;
+    }
+  }
+
+  .table_1 {
+    overflow-x: auto;
+
+    tr {
+      white-space: nowrap;
+    }
+  }
+
+}
+</style>

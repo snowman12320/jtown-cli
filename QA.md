@@ -14,25 +14,7 @@ https://github.com/snowman12320/hexschool-question
 
 
 
-在ProductModal中
-目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
-針對目的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
-預期結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
 
-結果（問題）：
-將圖片帶入CropperModal 中的圖片會無法使用，出現CORS錯誤，好像是不能直接使用雲端的資料
-Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
-
-上述問題嘗試：
-將雲端的圖片下載，模擬本地上傳圖片去裁切，
-CropperModal 中watch，使用fetch去下載成base64data來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
-
-參考文章：
-(請後端設置 CORS header) 
-https://blog.huli.tw/2021/02/19/cors-guide-2/#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E6%B3%95%E8%AB%8B%E5%BE%8C%E7%AB%AF%E8%A8%AD%E7%BD%AE-cors-header
-https://ithelp.ithome.com.tw/articles/10268821
-https://shubo.io/what-is-cors/
-(官方安全原因，因不同源導致阻擋) https://stackoverflow.com/questions/71016448/error-access-to-xmlhttprequest-at-https-storage-googleapis-com-url-from-origi
 # 已詢問 未整理////////////////////////////
 
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
@@ -246,16 +228,11 @@ https://israynotarray.com/vue/20200214/1055437216/
 检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
 可能就要自己手動
 git push origin --delete gh-pages
-<<<<<<< HEAD
-npm run build > cd dist > git init > git add . > git commit -m "use hand build" > main or master
-git push -f git@github.com:snowman12320/hexschool-question.git main:gh-pages
-=======
 npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
 >cd ..
 > 有時手動失敗就用自動化的，交互使用，且pages要先切回none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過) 
 > pages成功就會自動切到gh-page
->>>>>>> 02711e17977c83dfbd75b24c5f3d7b18ddddf6a4
 
 ## CKEditor 5
 
@@ -649,6 +626,28 @@ https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
 > 在回首頁或首頁重新整理就會出現，想了解原因
 > router-link to 不存在連結舊會
 
+-[x]在ProductModal中
+目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
+針對目的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
+預期結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
+
+結果（問題）：
+將圖片帶入CropperModal 中的圖片會無法使用，出現CORS錯誤，好像是不能直接使用雲端的資料
+Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+
+上述問題嘗試：
+將雲端的圖片下載，模擬本地上傳圖片去裁切，
+CropperModal 中watch，使用fetch去下載成base64data來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
+
+參考文章：
+(請後端設置 CORS header) 
+https://blog.huli.tw/2021/02/19/cors-guide-2/#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E6%B3%95%E8%AB%8B%E5%BE%8C%E7%AB%AF%E8%A8%AD%E7%BD%AE-cors-header
+https://ithelp.ithome.com.tw/articles/10268821
+https://shubo.io/what-is-cors/
+(官方安全原因，因不同源導致阻擋) https://stackoverflow.com/questions/71016448/error-access-to-xmlhttprequest-at-https-storage-googleapis-com-url-from-origi
+>由於直接抓雲端資料的圖片來裁切這個做法會產生 CORS 的問題
+因此，會建議將目標改成上傳前就先裁切圖片，上傳後不提供編輯功能
+從這個方向來下手，問題就能夠解決囉～
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---

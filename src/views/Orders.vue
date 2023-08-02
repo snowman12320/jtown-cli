@@ -3,7 +3,7 @@
     <Loading :active="isLoading"></Loading>
     <!--  -->
     <div class="d-flex justify-content-end">
-      <div class="mt-3 d-flex gap-1 flex-nowrap">
+      <div class="mt-3 d-flex flex-column flex-md-row gap-1 flex-nowrap">
         <input v-model="search" type="search" class="form-control " name="" id="" aria-describedby="helpId"
           placeholder="search order ID / DATE">
         <!--  -->
@@ -21,7 +21,7 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th class="d-flex align-items-center justify-content-around"
+          <th class="d-flex align-items-center justify-content-around d-md-flex d-none"
             @click="selectSort = (selectSort === 'Height') ? 'Low' : 'Height'">
             <span>購買時間</span>
             <div class="">
@@ -44,21 +44,21 @@
             </div>
           </th>
           <th>訂單編號</th>
-          <th>姓名</th>
-          <th>Email</th>
-          <th>購買款項</th>
-          <th>應付金額</th>
-          <th>是否付款</th>
-          <th>編輯</th>
+          <th class="d-md-table-cell d-none">姓名</th>
+          <th class="d-md-table-cell d-none">Email</th>
+          <th class="d-md-table-cell d-none">購買款項</th>
+          <th class="d-md-table-cell d-none">應付金額</th>
+          <th class="d-md-table-cell d-none">是否付款</th>
+          <th width="150">編輯</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, key) in filterOrder" :key="key" :class="{ 'text-secondary': !item.is_paid }">
-          <td>{{ $filters.dateAndTime(item.create_at) }}</td>
-          <td>{{ item.id }}</td>
-          <td>{{ item.user.name }}</td>
-          <td><span v-text="item.user.email" v-if="item.user"></span></td>
-          <td>
+          <td class="d-md-table-cell d-none">{{ $filters.dateAndTime(item.create_at) }}</td>
+          <td class="">{{ item.id }}</td>
+          <td class="d-md-table-cell d-none">{{ item.user.name }}</td>
+          <td class="d-md-table-cell d-none"><span v-text="item.user.email" v-if="item.user"></span></td>
+          <td class="d-md-table-cell d-none">
             <ul class="list-unstyled">
               <li v-for="(product, i) in item.products" :key="i">
                 {{ product.product.title }} - 數量：{{ product.qty }}
@@ -66,8 +66,8 @@
               </li>
             </ul>
           </td>
-          <td class="text-right">{{ Math.floor(item.total) }}</td>
-          <td>
+          <td class="text-right d-md-table-cell d-none">{{ Math.floor(item.total) }}</td>
+          <td class="d-md-table-cell d-none">
             <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" :id="`paidSwitch${item.id}`" v-model="item.is_paid"
                 @change="updatePaid(item)" />

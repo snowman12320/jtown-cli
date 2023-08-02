@@ -8,7 +8,7 @@
     <!-- 記得外推 圖才會完整 -->
     <section class="allstar_banner bgp-bottom bgs-cover mb-3"
       :style="{ 'background-image': `url(${require('@/assets/nbaWeb/allstar-2016-011016-top-1.jpg')})` }" style="
-          background-repeat: no-repeat;
+          background-repeat: no-repeat ;
           height: 500px;
           margin-top: 104px !important;
         "></section>
@@ -46,5 +46,6 @@ export default {
 .rankView {
   background-attachment: fixed;
   background-image: url(../assets/nbaWeb/bg-rank.jpg);
+  background-repeat: round;
 }
 </style>

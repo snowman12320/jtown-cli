@@ -155,4 +155,18 @@ export default {
     height: 30px !important;
     width: 30px !important;
 }
+
+@media (max-width: 768px) {
+    .el-menu-vertical-demo {
+        width: 70px !important;
+    }
+
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+        width: 70px;
+    }
+
+    .el-menu-item .text-center {
+        display: none;
+    }
+}
 </style>

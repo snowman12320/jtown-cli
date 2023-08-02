@@ -15,7 +15,7 @@
         </ol>
       </nav>
       <!--  -->
-      <div class="row row-cols-md-2 g-5 mt-5">
+      <div class="row row-cols-md-2 g-5 mt-md-5">
         <div id="carouselExampleIndicators" class="carousel  slide col-md-8" data-bs-ride="carouse">
           <div class="carousel-indicators">
             <!-- 第一個主圖的指標不用程式化，其餘其他圖片的指標用迴圈帶資料 -->
@@ -376,6 +376,23 @@ export default {
 @import "@fancyapps/ui/dist/panzoom/panzoom.css";
 @import "@fancyapps/ui/dist/panzoom/panzoom.pins.css";
 
+@media (max-width: 768px) {
+  .carousel-item {
+    img {
+      width: 100% !important;
+      object-fit: cover !important;
+    }
+  }
+
+  .breadcrumb {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+}
+
 .f-panzoom {
   // margin: 1rem auto 2rem;
   // padding: 1rem;
@@ -396,6 +413,16 @@ export default {
 
 .carousel-inner {
   height: 500px;
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 300px;
+  }
+
+  .carousel-inner {
+    height: 300px;
+  }
 }
 
 .accordion-button:focus {

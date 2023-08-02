@@ -9,30 +9,30 @@
     <table class="table mt-4">
       <thead>
         <tr>
-          <th width="120">分類</th>
+          <th class="d-md-table-cell d-none" width="120">分類</th>
           <th>產品名稱</th>
-          <th width="120">原價</th>
-          <th width="120">售價</th>
-          <th width="100">是否啟用</th>
-          <th width="200">編輯</th>
+          <th class="d-md-table-cell d-none" width="120">原價</th>
+          <th class="d-md-table-cell d-none" width="120">售價</th>
+          <th class="d-md-table-cell d-none" width="100">是否啟用</th>
+          <th width="150">編輯</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="item in products" :key="item.id">
-          <td>{{ item.category }}</td>
+          <td class="d-md-table-cell d-none">{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">
+          <td class="text-right d-md-table-cell d-none">
             <!-- 使用methods/filters自定義的方法去加上千分位 -->
             {{ $filters.currency(item.origin_price) }}
           </td>
-          <td class="text-right">
+          <td class="text-right d-md-table-cell d-none">
             {{ $filters.currency(item.price) }} </td>
-          <td>
+          <td class="d-md-table-cell d-none">
             <span class="text-success" v-if="item.is_enabled">啟用</span>
             <span class="text-muted" v-else>未啟用</span>
           </td>
-          <td>
-            <div class="btn-group">
+          <td class="text-center">
+            <div class="btn-group ">
               <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
               <button class="btn btn-outline-danger btn-sm" @click="openDelProductModal(item)">刪除</button>
             </div>

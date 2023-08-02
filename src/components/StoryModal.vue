@@ -32,12 +32,12 @@
                   <input type="date" class="form-control" id="create_at" v-model="create_at" />
                 </div> -->
                 <!-- 放在底下會失去功能 -->
-                <div class="d-flex align-items-start gap-1">
+                <div class="d-flex flex-column flex-md-row align-items-start gap-1">
                   <p>新增日期</p>
                   <el-date-picker v-model="create_at" type="datetime" placeholder="Select date and time"
                     :shortcuts="shortcuts" />
                 </div>
-                <div class="d-flex gap-1">
+                <div class="d-flex flex-column flex-md-row gap-1">
                   <p>新增標籤</p>
                   <el-tag v-for="tag in dynamicTags" :key="tag" class="mx-1" closable :disable-transitions="false"
                     @close="handleClose(tag)">

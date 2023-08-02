@@ -1,8 +1,8 @@
 <template >
     <div class=" container ">
-        <div class="row mt-5">
-            <memberSide class="col-2"></memberSide>
-            <memberOrders class="col-10"></memberOrders>
+        <div class="row mt-5 gap-3 gap-md-0">
+            <memberSide class="col-md-2"></memberSide>
+            <memberOrders class="col-md-10"></memberOrders>
         </div>
     </div>
 </template>

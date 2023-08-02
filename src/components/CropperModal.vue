@@ -6,6 +6,8 @@
       </div>
     </div> -->
     <div class="d-flex gap-1 justify-content-center align-items-center">
+      <Loading :active="isLoading"></Loading>
+
       <div class="cut">
         <vue-cropper ref="cropper" :img="option.img" :output-size="option.size" :output-type="option.outputType"
           :info="true" :full="option.full" :fixed="fixed" :fixed-number="fixedNumber" :can-move="option.canMove"
@@ -23,28 +25,28 @@
     </div>
     <!--  -->
     <div class="test-button">
-      <button @click="changeImg" class="btn_2">changeImg</button>
+      <!-- <button @click="changeImg" class="btn_2">changeImg</button> -->
       <label class="btn_2" for="uploads">upload</label>
       <input type="file" id="uploads" style="position:absolute; clip:rect(0 0 0 0);"
         accept="image/png, image/jpeg, image/gif, image/jpg" @change="uploadImg($event, 1)">
-      <button @click="startCrop" v-if="!crap" class="btn_2">start</button>
-      <button @click="stopCrop" v-else class="btn_2">stop</button>
+      <!-- <button @click="startCrop" v-if="!crap" class="btn_2">start</button> -->
+      <!-- <button @click="stopCrop" v-else class="btn_2">stop</button> -->
       <button @click="clearCrop" class="btn_2">clear</button>
-      <button @click="refreshCrop" class="btn_2">refresh</button>
+      <!-- <button @click="refreshCrop" class="btn_2">refresh</button> -->
       <button @click="changeScale(1)" class="btn_2">+</button>
       <button @click="changeScale(-1)" class="btn_2">-</button>
       <button @click="rotateLeft" class="btn_2">rotateLeft</button>
       <button @click="rotateRight" class="btn_2">rotateRight</button>
-      <button @click="finish('base64')" class="btn_2">preview(base64)</button>
-      <button @click="finish('blob')" class="btn_2">preview(blob)</button>
+      <!-- <button @click="finish('base64')" class="btn_2">preview(base64)</button> -->
+      <!-- <button @click="finish('blob')" class="btn_2">preview(blob)</button> -->
       <a @click="down('base64')" class="btn_2">download(base64)</a>
       <a @click="down('blob')" class="btn_2">download(blob)</a>
-      <a @click="() => option.img = ''" class="btn_2">清除图片</a>
+      <!-- <a @click="() => option.img = ''" class="btn_2">清除图片</a> -->
       <div style="display:block; width: 100%;">
         <div class="m-5 d-grid gap-3">
           <button type="button" name="" id="" class="btn btn-danger w-100" @click="finish('blob')">confirm</button>
           <button type="button" name="" id="" class="btn btn-secondary w-100"
-            @click="$emit('close', openModal)">close</button>
+            @click.stop="$emit('close', openModal)">close</button>
         </div>
         <!--  -->
         <div class="" v-if="false">
@@ -124,8 +126,8 @@ export default {
         }
       ],
       option: {
-        img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
-        // img: 'https://avatars2.githubusercontent.com/u/15681693?s=460&v=4', // 套件示範的格式
+        // img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
+        img: '', // 套件示範的格式
         // img: this.tempImg,
         size: 1,
         full: false,
@@ -136,7 +138,7 @@ export default {
         canMoveBox: true,
         autoCrop: true,
         // 只有自动截图开启 宽度高度才生效
-        autoCropWidth: 750,
+        autoCropWidth: 350,
         autoCropHeight: 340,
         centerBox: true,
         high: true,
@@ -144,11 +146,13 @@ export default {
       },
       show: true,
       fixed: false,
-      fixedNumber: [75, 34]
+      fixedNumber: [75, 34],
+      //
+      isLoading: false
     };
   },
   props: {
-    tempImg: { //! 需用物件接收，用陣列會空的，若傳tempProduct.imageUrl可能要用字串 > 錯誤
+    tempImg: { //! 需用物件接收，用陣列會空的，若傳tempProduct.imageUrl可能要用字串 > 錯誤 > 需保留才能傳進來覆蓋的圖片位置資料
       type: Object,
       default () {
         return {};
@@ -160,35 +164,35 @@ export default {
     // console.log(this.option.img);
   },
   watch: {
-    tempImg () { //! props傳進來需監聽，才能取到值
-      // console.log('tempImg', this.tempImg.url);
-      this.option.img = this.tempImg.url;
-      //
-      // const imageUrl = this.tempImg.url;
-      // 嘗試一 嘗試方向：將雲端的圖片轉成，裁切套件可以使用的圖類型（下方的 uploadImg() 的方法），然後裁切完接著，finish()方法將base64轉檔再上傳
-      // const imageUrl = 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg';
-      // const imageUrl = this.tempImg.url;
-      // fetch(imageUrl)// Failed to fetch
-      //   .then(response => response.blob())
-      //   .then(blob => {
-      //     const reader = new FileReader();
-      //     reader.onloadend = () => {
-      //       const base64data = reader.result;
-      //       this.option.img = base64data;
-      //       console.log('base64 data', base64data);
-      //     // Use the base64 data here
-      //     };
-      //     reader.readAsDataURL(blob);
-      //   });
-      // 嘗試二
-      // this.convertImgLinkToBlob(imageUrl).then((blob) => {
-      //   // 處理轉換後的blob數據格式
-      //   // 在這裡你可以將blob數據傳遞給其他函數或進行其他操作
-      //   console.log(blob);// null
-      // });
-      // 嘗試三 下載下來再上傳 > 好像需要在後端設置CORS頭，並確保API正確配置等等的設置 > vue.config.js 也有做一些嘗試
-      // this.downloadAndUploadImage(imageUrl); //Network Error
-    }
+    // tempImg () { //! props傳進來需監聽，才能取到值
+    // console.log('tempImg', this.tempImg.url);
+    // this.option.img = this.tempImg.url;
+    //
+    // const imageUrl = this.tempImg.url;
+    // 嘗試一 嘗試方向：將雲端的圖片轉成，裁切套件可以使用的圖類型（下方的 uploadImg() 的方法），然後裁切完接著，finish()方法將base64轉檔再上傳
+    // const imageUrl = 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg';
+    // const imageUrl = this.tempImg.url;
+    // fetch(imageUrl)// Failed to fetch
+    //   .then(response => response.blob())
+    //   .then(blob => {
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => {
+    //       const base64data = reader.result;
+    //       this.option.img = base64data;
+    //       console.log('base64 data', base64data);
+    //     // Use the base64 data here
+    //     };
+    //     reader.readAsDataURL(blob);
+    //   });
+    // 嘗試二
+    // this.convertImgLinkToBlob(imageUrl).then((blob) => {
+    //   // 處理轉換後的blob數據格式
+    //   // 在這裡你可以將blob數據傳遞給其他函數或進行其他操作
+    //   console.log(blob);// null
+    // });
+    // 嘗試三 下載下來再上傳 > 好像需要在後端設置CORS頭，並確保API正確配置等等的設置 > vue.config.js 也有做一些嘗試
+    // this.downloadAndUploadImage(imageUrl); //Network Error
+    // }
   },
   methods: {
     // ? 嘗試轉檔
@@ -259,19 +263,27 @@ export default {
     },
     // ?輸出後，帶出base64並上傳
     finish (type) {
+      this.isLoading = true;
       // 输出
       // var test = window.open('about:blank')
       // test.document.body.innerHTML = '图片生成中..'
       if (type === 'blob') {
+        // console.log(this.$refs.cropper);
         this.$refs.cropper.getCropBlob((data) => {
+          // console.log(data);// blob
           const newImg = new File([data], 'croppered.jpg');
+          // console.log(newImg);// file
           //  參考上傳圖片做法
+          // 要轉formdata
+          const formData = new FormData();//! 放迴圈中才會每次獨立出來
+          formData.append('file-to-upload', newImg);
           const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-          this.$http.post(url, newImg).then((res) => {
+          this.$http.post(url, formData).then((res) => {
             if (res.data.success) {
               const finishCropper = this.tempImg;
               finishCropper.url = res.data.imageUrl;
               this.$emit('confirm-cropper', finishCropper);
+              this.isLoading = false;
             }
           });
           //
@@ -322,12 +334,12 @@ export default {
         });
       }
     },
-    // ? 需轉成這種檔案
+    // ? 需轉成這種檔案 > 這邊只是上船並讀取在裁切框 > 確認紐會再去抓裁切後的去覆蓋舊的
     uploadImg (e, num) {
       // 上传图片
       // this.option.img
       const file = e.target.files[0];
-      console.log('file', typeof (file));
+      // console.log('file', typeof (file), file);
       //
       if (!/\.(gif|jpg|jpeg|png|bmp|GIF|JPG|PNG)$/.test(e.target.value)) {
         alert('图片类型必须是.gif,jpeg,jpg,png,bmp中的一种');
@@ -361,7 +373,7 @@ export default {
     }
   },
   mounted: function () {
-    console.log(window['vue-cropper']);
+    // console.log(window['vue-cropper']);
   }
 };
 </script>
@@ -372,8 +384,8 @@ export default {
 }
 
 .cut {
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
   margin: 30px;
 }
 
@@ -462,7 +474,7 @@ code.language-html {
 }
 
 .test {
-  height: 500px;
+  height: 300px;
 }
 
 .model {
