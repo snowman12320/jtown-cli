@@ -24,10 +24,12 @@
 <script>
 import ProductsSide from '@/components/ProductsSide.vue';
 import ProductsList from '@/components/ProductsList.vue';
+
 export default {
   components: {
     ProductsSide,
     ProductsList
   }
+
 };
 </script>

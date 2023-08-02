@@ -45,6 +45,8 @@
                     </div>
                   </template>
                 </el-upload>
+                <!--  -->
+                <input type="text" class="form-control" id="image" v-model.lazy="tempImagesUrl" placeholder="請輸入圖片連結" />
                 <!-- 多檔上傳/原本寫法 -->
                 <div class="mt-3">
                   <label for="other_photo" class="btn btn-outline-primary btn-sm d-block w-100">
@@ -57,9 +59,8 @@
                     <small class="">(jpg/png files with a size less than 500kb)</small>
                   </div>
                 </div>
-                <input type="text" class="form-control" id="image" v-model="tempImagesUrl" placeholder="請輸入圖片連結" />
                 <!--  多檔圖片 ＋ 拖拉移動順序 -->
-                <div class="     " >
+                <div class="     ">
                   <!-- <div>{{ drag ? 'dragging' : 'drag done' }}</div> -->
                   <draggable style="margin:10px" v-model="tempProduct.imagesUrl" group="group1" @start="drag = true"
                     @end="drag = false" item-key="id" chosen-class="chosen" animation="300">

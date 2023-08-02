@@ -58,7 +58,7 @@
                         id="L">
                       <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'L' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="L">
-                        L
+                        L{{ productSize }}
                       </label>
                     </div>
                     <div class=" slanted-div">

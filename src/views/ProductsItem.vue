@@ -64,28 +64,28 @@
           <div class="my-5">
             <div class="d-flex justify-content-center w-50 mx-auto ">
               <div class="form-check">
-                <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="S">
+                <input value="S" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="S">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="S">
                   S
                 </label>
               </div>
               <div class="form-check">
-                <input value="M" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="M">
+                <input value="M" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="M">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="M">
                   M
                 </label>
               </div>
               <div class="form-check">
-                <input value="L" v-model="productSize" class="form-check-input d-none" type="radio" name="size" id="L">
+                <input value="L" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="L">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="L">
                   L
                 </label>
               </div>
               <div class="form-check slanted-div">
-                <input disabled value="XL" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                <input disabled value="XL" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size"
                   id="XL">
                 <label style="  cursor: not-allowed;" disabled
                   class="form-check-label border border-secondary text-secondary px-3 py-2" for="XL">
@@ -276,37 +276,6 @@ export default {
     this.changeClass();
   },
   methods: {
-    updateFavo (id) {
-      this.checkFavorite = Boolean(localStorage.getItem('favorite').indexOf(id) !== -1); //* 搜尋目標
-      if (this.checkFavorite) { //* 存在就刪除
-        // 比對
-        // console.log(checkFavorite);
-        this.isFavorite = false;//* 改成無收藏按鈕
-        this.emitter.emit('push-message', {
-          style: 'danger',
-          title: '移除我的收藏'
-        });
-        // 刪除
-        this.favoriteData = JSON.parse(localStorage.getItem('favorite'));
-        // console.log(this.favoriteData);
-        const index = this.favoriteData.indexOf(id);
-        // console.log(index);
-        if (index > -1) {
-          this.favoriteData.splice(index, 1);
-          localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
-        }
-      } else { //* 不存在就儲存
-        this.isFavorite = true;//* 改成收藏按鈕
-        this.emitter.emit('push-message', {
-          style: 'success',
-          title: '加入我的收藏'
-        });
-        // 新增
-        this.favoriteData.push(id);
-        localStorage.setItem('favorite', JSON.stringify(this.favoriteData));
-      }
-      this.emitter.emit('customEvent_updateFavorite');//! 觸發收藏表更新
-    },
     getProduct () {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
       this.isLoading = true;
@@ -318,7 +287,6 @@ export default {
         if (response.data.success) {
           this.product = response.data.product;
           this.emitter.emit('customEvent_category', this.product.category);
-          // this.$toast(response, 'getProduct');
         }
       });
     },
