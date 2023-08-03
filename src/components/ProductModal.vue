@@ -147,12 +147,14 @@
                     </label>
                   </div>
                 </div>
+                <!--  -->
+                <input type="email" v-model="text" name="" v-validator="'form-control'" id="">
               </div>
             </div>
           </div>
-          <!--  v-outside="handleClickOutside" -->
+          <!--  v-click-away="onClickAway" -->
           <CropperModal @confirm-cropper="updateImages" @close="openModal" v-if="isCropper" class="cropperModal_open"
-            :class="{ 'cropperModal_close': !isCropper }" :tempImg="tempImg">
+            :class="{ 'cropperModal_close': !isCropper }" :tempImg="tempImg" v-click-away="onClickAway">
           </CropperModal>
           <!--  -->
           <div class="modal-footer">
@@ -215,7 +217,9 @@ export default {
       isCropper: false,
       isLoading: false,
       tempImagesUrl: null,
-      n: 1
+      n: 1,
+      //
+      text: ''
     };
   },
   props: {
@@ -227,23 +231,11 @@ export default {
     }
   },
   directives: {
-    outside: {
-      bind (el, binding, vnode) {
-        if (vnode && vnode.context && binding && binding.value) {
-          el.clickOutsideEvent = function (event) {
-            if (!(el === event.target || el.contains(event.target))) {
-              vnode.context[binding.value](event);
-            }
-          };
-          document.body.addEventListener('click', el.clickOutsideEvent);
-        }
-      },
-      unbind (el) {
-        if (el && el.clickOutsideEvent) {
-          document.body.removeEventListener('click', el.clickOutsideEvent);
-        }
-      }
-    }
+    // 'click-away': {
+    // mounted (el, binding, vnode) {
+    // console.log(el, binding, vnode);
+    // }
+    // }
   },
   created () {
     // console.log(this.tempProduct);
@@ -282,7 +274,8 @@ export default {
     }
   },
   methods: {
-    handleClickOutside () {
+    onClickAway (ev) {
+      // console.log(ev);
       this.isCropper = false;
     },
     // 新增標籤
@@ -377,7 +370,8 @@ export default {
       this.tempImg = img;
       this.isCropper = !this.isCropper;
       if (this.isCropper) {
-        this.$swal.fire('Please', ' Upload new image ,than cropper it', 'info');
+        // this.$swal.fire('Please', ' Upload new image ,than cropper it', 'info');
+        this.$toast('info', ' Upload new image ,than cropper it');
       }
     },
     updateImages (img) {

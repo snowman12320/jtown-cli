@@ -10,7 +10,6 @@ https://github.com/snowman12320/hexschool-question
   > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
   > Vue.$set())
 
-@click-outside="isCropper = false"
 
 
 

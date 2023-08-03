@@ -18,6 +18,11 @@ export default function toast (response = 'success', title = 'update') {
       icon: 'success',
       title: `Success! ${title}`
     });
+  } else if (response === 'info') {
+    Toast.fire({
+      icon: 'info',
+      title: `${title}`
+    });
   } else {
     Toast.fire({
       icon: 'error',

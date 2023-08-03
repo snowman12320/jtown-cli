@@ -1,0 +1,39 @@
+import { createApp } from 'vue';
+import App from '../App.vue';
+const app = createApp(App);
+
+// 註冊指令
+app.directive('validator', {
+  // directive 生命週期
+  mounted (el, binding) {
+    el.focus();
+
+    // 將外部的值改為
+    el.className = binding.value;
+  },
+  updated: function (el, binding, vnode) {
+    // el 元素本體
+    // binding 綁定的資源狀態
+    // vnode 虛擬 DOM 節點
+    console.log('update', el, binding, vnode);
+    const className = binding.value;
+
+    // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
+    const currentModel = Object.keys(binding.instance)[0];
+
+    // 從當前 Model 取值
+    const value = binding.instance[currentModel];
+    console.log(currentModel, value);
+
+    // Email validate
+    const re =
+      // eslint-disable-next-line no-useless-escape
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (!re.test(value)) {
+      el.className = `${className} is-invalid`;
+    } else {
+      el.className = `${className} is-valid`;
+    }
+  }
+});

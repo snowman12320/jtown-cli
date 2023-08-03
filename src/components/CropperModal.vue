@@ -126,8 +126,8 @@ export default {
         }
       ],
       option: {
-        // img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
         img: '', // 套件示範的格式
+        // img: 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=DuRa%2FaTvXVYlqq5DlHjjAzhQ95PcMs3IuJA0iqm0Ma1%2BcEMeyFvmsh3%2FwxGSpe8Z11D32ZlQbr8i8czcj3HRgeWpCxkuNzBYQJhJAJZ40X%2FLm81ddIkktUtRWf7Dqz1UQtZnyItnklxeKqM4%2Bzj2Bc5kujHowfPz%2BZeo95i6fH46ZYv1L6FHVXVm5AsxP4UBYUQagPCNemrsCTA9md9Aj21r%2BKUtIlvE9GnqhNp2U8QPZLV%2BWzuZnC9DTgfI%2B%2Fv9wQipEf0fhMVWb%2FYs%2BWc5PQOKfenkNPTDOOb3cVg8ALRxo27QADbfkfpZhIwDoKHrWH3BkxDFeclL4B1OYVWXlw%3D%3D',
         // img: this.tempImg,
         size: 1,
         full: false,
@@ -137,7 +137,7 @@ export default {
         original: false,
         canMoveBox: true,
         autoCrop: true,
-        // 只有自动截图开启 宽度高度才生效
+        // 只有自动截图开启 宽度高度才生效 / 不要超過 .cut 的大小
         autoCropWidth: 350,
         autoCropHeight: 340,
         centerBox: true,
@@ -161,7 +161,6 @@ export default {
   },
   created () {
     // console.log(this.tempImg);
-    // console.log(this.option.img);
   },
   watch: {
     // tempImg () { //! props傳進來需監聽，才能取到值

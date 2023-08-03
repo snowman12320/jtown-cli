@@ -8,7 +8,6 @@
 網頁可增加互動性內容 (我的最愛、類似品項、優惠券介紹．．．)
 
 # 有關程式功能優先!!! 版型非必要
-
 # 請資深 vue 工程師優化程式碼
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,12 +84,29 @@ https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FEr
 
 
 
-內頁的列表的尺寸有問題 > 產品列表正常 產品內頁裡的列表只有加入購物車失敗但加入收藏正常 明明都是用mixin
-猜側可能 內頁有加入購物 列表也有 導致衝突 但內頁的列表連v-model寫入尺寸都無法就很奇怪
+productsItem中，
+就是產品內頁，下面的列表中，尺寸輸入，加入購物車有問題 
+productList中加入購物俥正常，
+但在產品內頁裡的引入該產品列表元件，加入購物車會失敗
+，但加入收藏正常，明明都有用mixin引入方法
 
-看自訂義教學 改掉 若不行就問
-click.away
+猜側可能，內頁有加入購物，引入的產品列表也有，導致衝突 
+有將v-model改寫不同，productSize_item和productSize_list來取值
+但還是無法寫入尺寸，然後加入購物俥
 
+
+在productModal中，
+使用全域註冊validator事件，嘗試將課程中自訂義valisator加入cli環境中，但會出現
+Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'deep')
+
+我找不到任何東西造成undfined，
+噴錯的位置也跟這個輸入框驗證沒有關連，
+不知道是不是validator.js的寫法有問題
+
+
+-[x]click.away
+> 使用套件即可，幾乎不用自己寫自定義事件
+https://github.com/VinceG/vue-click-away
 
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 

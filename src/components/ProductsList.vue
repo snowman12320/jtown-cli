@@ -38,31 +38,31 @@
                   @show="setClass = index">
                   <div class="d-flex justify-content-center w-100 mx-auto gap-1 ">
                     <div class="">
-                      <input value="S" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                      <input value="S" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
                         id="S">
-                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'S' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'S' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="S">
                         S
                       </label>
                     </div>
                     <div class="">
-                      <input value="M" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                      <input value="M" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
                         id="M">
-                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'M' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'M' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="M">
                         M
                       </label>
                     </div>
                     <div class="">
-                      <input value="L" v-model="productSize" class="form-check-input d-none" type="radio" name="size"
+                      <input value="L" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
                         id="L">
-                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize === 'L' }"
+                      <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'L' }"
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="L">
-                        L{{ productSize }}
+                        L{{ productSize_list }}
                       </label>
                     </div>
                     <div class=" slanted-div">
-                      <input disabled value="XL" v-model="productSize" class="form-check-input d-none" type="radio"
+                      <input disabled value="XL" v-model="productSize_list" class="form-check-input d-none" type="radio"
                         name="size" id="XL">
                       <label style="  cursor: not-allowed;" disabled
                         class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="XL">

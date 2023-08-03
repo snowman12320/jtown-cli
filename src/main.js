@@ -30,6 +30,9 @@ import 'element-plus/dist/index.css'; // 引入element-plus样式
 import 'vue-multiselect/dist/vue-multiselect.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 // import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
+import validator from './directives/validator';// 自定義v-click-outside 的指令
+import VueClickAway from 'vue3-click-away';
+
 import $toast from './methods/toast';//* 定義完程式功能，需全域註冊，$錢字號應該是辨識用，若沒有包其他函式，就錢字號開頭(如$httpMessageState)，反之就(如$filters.currency)
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
@@ -62,55 +65,6 @@ app.config.globalProperties.$filters = {
 // 正常來說不建議太多方法掛Global,這裡可以使provide來處理
 app.config.globalProperties.$httpMessageState = $httpMessageState;
 app.config.globalProperties.$toast = $toast;
-// app.directive('click-outside', {
-//   bind (el, binding, vnode) {
-//     el.clickOutsideEvent = function (event) {
-//       // 判斷點擊事件是否發生在目標元素的外部
-//       if (!(el === event.target || el.contains(event.target))) {
-//         // 呼叫指令綁定時傳入的回呼函式
-//         vnode.context[binding.expression](event);
-//       }
-//     };
-//     document.body.addEventListener('click', el.clickOutsideEvent);
-//   },
-//   unbind (el) {
-//     document.body.removeEventListener('click', el.clickOutsideEvent);
-//   }
-// });
-// 註冊指令
-app.directive('validator', {
-  // directive 生命週期
-  mounted (el, binding) {
-    el.focus();
-
-    // 將外部的值改為
-    el.className = binding.value;
-  },
-  updated: function (el, binding, vnode) {
-    // el 元素本體
-    // binding 綁定的資源狀態
-    // vnode 虛擬 DOM 節點
-    console.log('update', el, binding, vnode);
-    const className = binding.value;
-
-    // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
-    const currentModel = Object.keys(binding.instance)[0];
-
-    // 從當前 Model 取值
-    const value = binding.instance[currentModel];
-    console.log(currentModel, value);
-
-    // Email validate
-    // eslint-disable-next-line no-useless-escape
-    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-    if (!re.test(value)) {
-      el.className = `${className} is-invalid`;
-    } else {
-      el.className = `${className} is-valid`;
-    }
-  }
-});
 
 //! Use plugins and libraries:
 app.use(VueAxios, axios);
@@ -123,6 +77,8 @@ app.use(ElementPlus); // 全局注册element-plus
 // app.use(BootstrapVueIcons);
 app.use(CKEditor);
 // app.use(ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
+app.use(validator);
+app.use(VueClickAway);
 // Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {
 //   app.component(key, component);
 // });

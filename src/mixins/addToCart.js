@@ -8,7 +8,7 @@ export default {
       status: {
         loadingItem: ''
       },
-      productSize: '',
+      productSize_list: '',
       productSize_item: ''
     };
   },
@@ -18,7 +18,7 @@ export default {
         this.$swal.fire('Please', ' Sign in or Sign up first.', 'warning');
         this.$router.push('/login');
       } else {
-        if (!this.productSize && !this.productSize_item) {
+        if (!this.productSize_list && !this.productSize_item) {
           this.$swal.fire('Please', 'Size must be selectd.', 'warning');
         } else {
           this.status.loadingItem = id;
