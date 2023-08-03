@@ -1,7 +1,6 @@
 <template>
   <div class="user_check">
     <Loading :active="isLoading"></Loading>
-    <!-- <Header :is-login="isLogin"></Header> -->
     <div class="row content container mx-auto mt-3">
       <section class="mx-auto header">
         <div class="d-flex justify-content-center my-5"><img height="130"
@@ -10,8 +9,6 @@
           <img class="" height="130" src="@/assets/nbaWeb/05284b30a1fda6bcdc09420b5c1e7127.svg" alt="" />
         </div>
         <p class=" text-center">訂單已完成！</p>
-        <!-- <p class="border  border-bottom border-md border-dark my-5 w-50 text-center mx-auto" >
-        </p> -->
         <p class="text-center"> 付款完成後，會盡快為您安排出貨！</p>
       </section>
     </div>
@@ -126,15 +123,13 @@ export default {
   },
   created () {
     this.orderId = this.$route.params.orderId;
-    // console.log(this.orderId);
     this.getOrder();
-    // this.payOrder();
   }
 };
 </script>
 <style scoped lang="scss">
 .user_check {
-  height: 100vh;
+  min-height: 100vh;
 
   .header {
     img {

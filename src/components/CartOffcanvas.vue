@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    <!-- {{ carts }} -->
     <div ref="offcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
       aria-labelledby="offcanvasRightLabel">
       <Loading :active="isLoading"></Loading>
@@ -87,16 +86,13 @@ export default {
   mounted () {
     this.emitter.on('customEvent_getCart', () => {
       this.getCart();
-      // console.log('mounted', this.carts);
     });
   },
   created () {
-    // console.log('created');
     this.getCart();
   },
   methods: {
     updateCart (item) {
-      // console.log('updateCart');
       this.status.loadingItem = item.id;
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
@@ -111,13 +107,10 @@ export default {
       });
     },
     getCart () {
-      // this.$toast('success', '更新'); // ? 放mixin看看
-
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.$http.get(api).then((res) => {
         this.isLoading = false;
-        // console.log('cart', res.data.data.carts);
         this.carts = res.data.data.carts;
         //* 需先歸零，必需在這計算
         this.sumFinalTotal = 0;
@@ -138,7 +131,6 @@ export default {
       // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${this.tempCart.id}`;
       this.$http.delete(url).then((response) => {
-        // console.log(response.data);
         const delCp = this.$refs.delModal;
         delCp.hideModal();
         this.updateCart(this.tempCart);
@@ -168,9 +160,6 @@ export default {
         this.$swal.fire('Cart was empty.', '', 'warning');
       }
     }
-  },
-  updated () {
-    // console.log('updated');
   }
 };
 </script>

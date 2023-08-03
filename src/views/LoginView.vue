@@ -164,7 +164,6 @@ export default {
       }
     },
     confirmEvent () {
-      // console.log('confirm!');
       localStorage.setItem('VIP', JSON.stringify('testToken'));
       localStorage.setItem('username', JSON.stringify(this.user.username));
       this.$router.push('/dashboard/products');

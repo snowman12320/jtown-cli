@@ -2,9 +2,7 @@
 <template>
   <!-- 上面row響應 下面col也要響應~~~ -->
   <aside class="col-lg-2 lh-lg aside sticky-lg-top shadow align-self-start py-3" style="top:100px">
-    <!-- <h3 class="text-center text-lg-start">Player</h3> -->
     <!--  -->
-    <!-- {{ cacheCategory }} -->
     <div class="my-3">
       <!-- <input type="search" class="form-control rounded-0" name="" id="" aria-describedby="helpId"
         v-model.lazy="cacheSearch" placeholder="Search Player..."> -->
@@ -66,18 +64,6 @@ export default {
       input_all: null,
       options: []
     };
-  },
-  directives: {
-    // 'model-enter': {
-    //   bind (el, binding, vnode) {
-    //     el.addEventListener('keydown', function (event) {
-    //       if (event.key === 'Enter') {
-    //         vnode.context[binding.expression] = el.value;
-    //         vnode.context[binding.value]();
-    //       }
-    //     });
-    //   }
-    // }
   },
   created () {
     this.getProducts();

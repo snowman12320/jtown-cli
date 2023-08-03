@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    <!-- {{ carts }} -->
     <div ref="offcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
       aria-labelledby="offcanvasRightLabel">
       <Loading :active="isLoading"></Loading>
@@ -37,9 +36,6 @@
         <p class="d-flex justify-content-end fs-4 mt-3  ">
           <span class="">TOTAL( {{ favoriteIds.length }} ) </span>
         </p>
-        <!--  -->
-        <!-- <router-link to="/cart-view/cart-list" @click="hideOffcanvas" name="" id=""
-          class="btn btn-outline-nbaRed w-100 mt-5" href="#" role="button">移除全部</router-link> -->
       </div>
     </div>
     <DelModal :item="tempFavorite" ref="delModal" @del-item="delFavorite" />

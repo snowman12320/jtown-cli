@@ -62,30 +62,6 @@ export default {
       this.$router.push(`/products-view/products-item/${id}`);
       window.scrollTo(0, 0);
     }
-    // getProduct (id) { //! 好像只要傳送id即可，
-    //   // console.log(id);
-    //   this.$router.push(`/products-view/products-item/${id}`);
-    //   this.isLoading = true;
-    //   this.isLoading_big = true;
-    //   // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);//! 會報錯，而發現不用跨元件觸發
-    //   const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
-    //   this.$http.get(api).then((res) => {
-    //     this.isLoading = false;
-    //     this.isLoading_big = false;
-    //     // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
-    //     if (res.data.success) {
-    //       this.product = res.data.product;
-    //       // this.emitter.emit('customEvent_getProduct', this.product);
-    //       // 取得所有的carousel-item元素，移除所有carousel-item元素的active類別
-    //       const carouselItems = document.querySelectorAll('.carousel-item');
-    //       carouselItems.forEach(function (item) {
-    //         item.classList.remove('active');
-    //       });
-    //       carouselItems[0].classList.add('active');
-    //       window.scrollTo(0, 0);
-    //     }
-    //   });
-    // }
   }
 };
 </script>

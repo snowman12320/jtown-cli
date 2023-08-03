@@ -88,14 +88,9 @@ https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FEr
 內頁的列表的尺寸有問題 > 產品列表正常 產品內頁裡的列表只有加入購物車失敗但加入收藏正常 明明都是用mixin
 猜側可能 內頁有加入購物 列表也有 導致衝突 但內頁的列表連v-model寫入尺寸都無法就很奇怪
 
+看自訂義教學 改掉 若不行就問
 click.away
 
-整理 SCSS / 拿掉非必要註解 > 繳交時再整理
-
-結帳頁都改成 英文 > 最後再轉
-
-x 圖片檔語意化
-xRWD
 
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 

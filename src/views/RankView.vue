@@ -13,7 +13,6 @@
           margin-top: 104px !important;
         "></section>
     <div class="w-50 mx-auto">
-      <!-- ranking -->
       <RankList></RankList>
     </div>
     <Footer></Footer>

@@ -85,7 +85,6 @@ export default {
       this.$http.get(url, this.tempProduct).then((response) => {
         this.coupons = response.data.coupons;
         this.isLoading = false;
-        // console.log(response);
       });
     },
     updateCoupon (tempCoupon) {

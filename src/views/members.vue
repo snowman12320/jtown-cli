@@ -13,4 +13,3 @@ export default {
   components: { memberOrders, memberSide }
 };
 </script>
-<style lang="scss"></style>

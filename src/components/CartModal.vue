@@ -8,7 +8,7 @@
           <h5 class="modal-title" id="exampleModalLabel">服務條款</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" style="white-space: pre-wrap" @scroll="handleScroll" ref="element">
+        <div class="modal-body" style="white-space: pre-wrap;line-height:2" @scroll="handleScroll" ref="element">
           <div>
             <div>當您開始使用"JTown"的服務時，即表示您已閱讀、瞭解並同意接受本使用條款。如果您不同意接受本使用條款，即無法使用"JTown"的服務。</div>
             <div>1. 您與"JTown"的關係</div>
@@ -194,7 +194,6 @@ export default {
       // console.log(this.$refs.element.scrollHeight);
       if (Math.ceil(this.$refs.element.scrollTop + this.$refs.element.clientHeight + 50) > this.$refs.element.scrollHeight) {
         this.$emit('my-scroll');
-        // console.log(111);
       }
     }
   }

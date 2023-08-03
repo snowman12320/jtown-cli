@@ -77,13 +77,11 @@ export default {
     // !透過頁數取得資料
     getProducts (page = this.temp_current_page) {
       this.temp_current_page = page; //* 有切換頁數就紀錄頁數，沒有就是原本null，不需要再res後再紀錄
-
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products/?page=${this.temp_current_page}`;
       this.isLoading = true;
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         if (res.data.success) {
-          // console.log(res.data);
           this.products = res.data.products;
           this.pagination = res.data.pagination;
         }

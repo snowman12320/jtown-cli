@@ -104,7 +104,6 @@ export default {
     //* 以下進行新增或編輯，使用不同ＡＰＩ
     updateStory (item) {
       this.tempStory = item;
-      // console.log(this.tempStory);
       // 新增
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article`;
       let httpMethod = 'post';
@@ -115,7 +114,6 @@ export default {
       }
       const storyCp = this.$refs.storyModal;
       this.$http[httpMethod](api, { data: this.tempStory }).then((response) => {
-        // console.log(response);
         storyCp.hideModal();
         if (response.data.success) {
           this.getStoryList();
@@ -125,7 +123,6 @@ export default {
           //   title: '更新成功'
           // });
           this.$httpMessageState(response, '更新');
-          // console.log(response.data);
         } else {
           this.$httpMessageState(response, '更新');
         }
@@ -141,7 +138,6 @@ export default {
       // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/article/${this.tempStory.id}`;
       this.$http.delete(url).then((response) => {
-        // console.log(response.data);
         this.$httpMessageState(response, response.data.message);
         const delComponent = this.$refs.delModal;
         delComponent.hideModal();

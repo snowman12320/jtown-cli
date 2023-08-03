@@ -134,7 +134,6 @@ export default {
       } else {
         //! 無法先排序 > 因為上面擋住了！！！( Irregular whitespace not allowed  no-irregular-whitespace)
         return this.ordersAll.filter(order => this.filterOrderByIdAndDate(order)).filter(this.getFilterPaid()).sort(this.getSelectSort());
-        // console.log(filterOrder);
       }
     }
   },
@@ -214,6 +213,7 @@ export default {
           this.tempPage++;
           this.getOrdersAll();
         } else {
+          // 須返回某個數值，不然會噴錯
           console.log('getOrdersAll,random success', new Date(this.ordersAll[11].create_at * 1000).toISOString().split('T')[0]);
           // console.log('getOrdersAll,random success', new Date(new Date(this.ordersAll[11].create_at * 1000).toISOString().split('T')[0]).getTime());
         };

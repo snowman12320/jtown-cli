@@ -88,7 +88,6 @@
               :alt="item.title" />
           </div>
         </div>
-        <!-- </router-link> -->
       </div>
     </div>
     <!--  -->
@@ -199,8 +198,6 @@ export default {
   methods: {
     handleScroll () {
       // this.products_list = this.$refs.products_list.offsetHeight; //! 這邊定義會在切換router時，取不到dom（生命週期沒有重整吧）
-      // console.log(window.scrollY);
-      // console.log(this.products_list);
       if (window.scrollY > this.products_list - 300) {
         //!
         this.pushProducts();
@@ -210,7 +207,6 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/all`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
-          // console.log(res.data);
           this.Filtered = res.data.products;
           // this.pagination = res.data.pagination;
         }
@@ -226,7 +222,6 @@ export default {
         this.isLoading_big = false;
         this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
-          // console.log(res.data);
           this.products = res.data.products;
           this.pagination = res.data.pagination;
         }
@@ -234,21 +229,6 @@ export default {
     },
     //* 捲動更新
     // 將新數據合併到舊數據時，可以使用 concat 方法代替 new Set，避免重複儲存，也不用push推新的陣列物件進去，這樣會有兩個陣列物件，會無法迴圈
-    // pushProducts (page) {
-    //   if (this.pagination.has_next) {
-    //     this.page++;
-    //     const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products/?page=${page}`;
-    //     this.isLoading = true;
-    //     this.$http.get(api).then((res) => {
-    //       this.isLoading = false;
-    //       if (res.data.success) {
-    //         this.pagination = res.data.pagination;
-    //         this.products = [...new Set(this.products.concat(res.data.products))];
-    //         console.log(this.products);
-    //       }
-    //     });
-    //   }
-    // },
     pushProducts () {
       //! 要用this.isLoading阻擋，避免讀取api間隔，持續捲動導致重複讀取資料
       if (!this.isLoading && this.pagination.has_next) {
@@ -290,9 +270,6 @@ export default {
           });
           carouselItems[0].classList.add('active');
           window.scrollTo(0, 0);
-          //
-          // console.log(this.product.category);
-          // this.$emit('update-category');
         }
       });
       // 確認收藏狀態

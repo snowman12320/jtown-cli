@@ -64,29 +64,32 @@
           <div class="my-5">
             <div class="d-flex justify-content-center w-50 mx-auto ">
               <div class="form-check">
-                <input value="S" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="S">
+                <input value="S" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size"
+                  id="S">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="S">
                   S
                 </label>
               </div>
               <div class="form-check">
-                <input value="M" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="M">
+                <input value="M" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size"
+                  id="M">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="M">
                   M
                 </label>
               </div>
               <div class="form-check">
-                <input value="L" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size" id="L">
+                <input value="L" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size"
+                  id="L">
                 <label style="cursor: pointer" class="form-check-label border border-secondary text-secondary px-3 py-2"
                   for="L">
                   L
                 </label>
               </div>
               <div class="form-check slanted-div">
-                <input disabled value="XL" v-model="productSize_item" class="form-check-input d-none" type="radio" name="size"
-                  id="XL">
+                <input disabled value="XL" v-model="productSize_item" class="form-check-input d-none" type="radio"
+                  name="size" id="XL">
                 <label style="  cursor: not-allowed;" disabled
                   class="form-check-label border border-secondary text-secondary px-3 py-2" for="XL">
                   xL
@@ -225,26 +228,6 @@ export default {
       //
       childClass: '',
       //
-      gallery: [
-        {
-          src: 'https://picsum.photos/785/501'
-        },
-        {
-          src: 'https://picsum.photos/785/502'
-        },
-        {
-          src: 'https://picsum.photos/785/503'
-        },
-        {
-          src: 'https://picsum.photos/785/504'
-        },
-        {
-          src: 'https://picsum.photos/785/505'
-        },
-        {
-          src: 'https://picsum.photos/785/506'
-        }
-      ],
       container: null,
       options: {},
       panzoom: null
@@ -527,5 +510,4 @@ export default {
 // 如何在productItem元件中，使用class去隱藏productsList的元素
 .products_sort {
   display: none !important;
-}
-</style>
+}</style>

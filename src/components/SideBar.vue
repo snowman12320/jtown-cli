@@ -99,7 +99,6 @@ export default {
     };
   },
   created () {
-    // console.log(this.$route.path);
     if (!localStorage.getItem('username')) {
       this.$router.push('/login');
     }

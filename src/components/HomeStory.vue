@@ -53,7 +53,6 @@ export default {
         this.isLoading = false;
         if (res.data.success) {
           this.storyList = res.data.articles.filter(story => story.isPublic);
-          // this.storyList = res.data.articles;
         }
       });
     },

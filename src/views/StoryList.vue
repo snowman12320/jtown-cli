@@ -61,7 +61,6 @@ export default {
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         if (res.data.success) {
-          // this.storyList = res.data.articles;
           // This code will create a new array  this.storyList  that contains only the items from  res.data.articles  where  isPublic  is  true .
           this.storyList = res.data.articles.filter(story => story.isPublic);
           this.pagination = res.data.pagination;
@@ -69,20 +68,15 @@ export default {
       });
     },
     getStory (id) { //! 只取一個文章
-      // console.log(id);
       this.$router.push(`/story/item/${id}`);
       this.isLoading = true;
       this.isLoading_big = true;
-      // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http.get(api).then((res) => {
         this.isLoading = false;
         this.isLoading_big = false;
-        // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
         if (res.data.success) {
           this.story = res.data.article;
-          // console.log(this.story);
-          // this.emitter.emit('customEvent_getStory', this.story);
         }
       });
     }

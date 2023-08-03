@@ -4,10 +4,8 @@
     <Header :is-login="isLogin"></Header>
     <HomeCarousel></HomeCarousel>
     <div class="container-xxl">
-      <!-- <HomeBanner></HomeBanner> -->
       <HomeStory></HomeStory>
       <HomeProduct></HomeProduct>
-
     </div>
     <div>
     </div>

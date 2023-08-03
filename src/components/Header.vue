@@ -1,8 +1,8 @@
 <template>
   <div class="">
 
-    <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop py-1" style="z-index:10" ref="header"
-      :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
+    <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop py-1" style="z-index:10"
+      ref="header" :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
       <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">
         <router-link to="/" class="d-flex position-relative text-decoration-none">
           <p class="navbar-brand position-absolute top-0 start-0 end-0 bottom-0 brand_scale"
@@ -113,15 +113,6 @@ export default {
         const favoriteCp = this.$refs.favorite;
         favoriteCp.showOffcanvas();
       }
-    },
-    logOut () {
-    // const api = `${process.env.VUE_APP_API}logout`;
-    // this.$http.post(api, this.user).then((res) => {
-    //   if (res.data.success) {
-    //     this.$router.push('/login');
-    //   }
-    // });
-      confirm('確定從"123"登出?');
     }
   }
 };

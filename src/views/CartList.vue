@@ -1,7 +1,6 @@
 <template>
   <div class="">
     <Loading :active="isLoading"></Loading>
-    <!-- {{ carts }} -->
     <div class="row content container mx-auto mt-0">
       <aside class="col-12 col-lg-4" style="z-index:1">
         <section class="sticky-lg-top border-secondary rounded-3 mb-3 border top-20" style="top: 0px">
@@ -14,10 +13,9 @@
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
                       <p>商品總計</p>
-                      <!-- <p style="    width: 100px; text-align: end;">$ {{ $filters.currency(Math.round(sumFinalTotal /
-                        (couponPercent / 100))) }}</p> -->
-                      <p style="    width: 100px; text-align: end;">$ {{ sumTotal
-                      }}</p>
+                      <!-- <p style="width: 100px; text-align: end;">
+                        $ {{ $filters.currency(Math.round(sumFinalTotal /(couponPercent / 100))) }}</p> -->
+                      <p style="width: 100px; text-align: end;">$ {{ sumTotal }}</p>
                     </div>
                   </div>
                 </div>
@@ -130,8 +128,8 @@
                 <h3>配送方式</h3>
                 <div class="d-flex flex-column">
                   <div>
-                    <input required type="radio" class="shopCarHaul" name="shopCarHaul" id="5" value="120" checked /><label
-                      for="5">宅配
+                    <input required type="radio" class="shopCarHaul" name="shopCarHaul" id="5" value="120"
+                      checked /><label for="5">宅配
                     </label>
                   </div>
                 </div>
@@ -148,7 +146,8 @@
                       for="7">虛擬帳號付款 </label>
                   </div>
                   <div>
-                    <input type="radio" class="shopCarPay" name="shopCarPay" id="8" value="8" /><label for="8">超商付款 </label>
+                    <input type="radio" class="shopCarPay" name="shopCarPay" id="8" value="8" /><label for="8">超商付款
+                    </label>
                   </div>
                 </div>
               </li>
@@ -194,7 +193,6 @@
                   <div class="mt-3">
                     <input type="radio" id="add_person" name="person" checked="" /><label for="add_person">新增收件人 </label>
                     <div class="d-flex flex-column d-none p-1 pb-0">
-                      <!-- {{ errors['email'] }} -->
                       <label for="email">信箱：</label>
                       <Field id="email" name="email" type="email" class="form-control " placeholder="請輸入 Email"
                         rules="email|required"
@@ -231,7 +229,7 @@
               </li>
               <li class="list-group-item">
                 <p class="mb-0">備註</p>
-                <textarea cols="30" rows="1" class="w-100 form-control" placeholder="特別提醒事項..."></textarea>
+                <textarea cols="30" rows="3" class="w-100 form-control" placeholder="特別提醒事項..."></textarea>
               </li>
               <li class="list-group-item">
                 <div class="col-12 ">
@@ -239,8 +237,8 @@
                     <!-- 無法顯示錯誤訊息原因是你沒有透過 :class 的方式去判斷 error-message何時該顯示，
                      另外 Field 後面也要記得利用 v-bind 去綁定 value  -->
                     <!--  check :value="true" 預設應該是false， 口空的 -->
-                    <Field :disabled="!isLookOver" :rules="termCheck" required id="termCheck" name="termCheck" :value="true"
-                      type="checkbox" class="form-check-input"
+                    <Field :disabled="!isLookOver" :rules="termCheck" required id="termCheck" name="termCheck"
+                      :value="true" type="checkbox" class="form-check-input"
                       :class="{ 'is-invalid': errors['termCheck'], 'is-valid': !errors['termCheck'], 'opacity-50': !isLookOver }">
                     </Field>
                     <error-message name="termCheck" class="ms-3 invalid-feedback position-absolute "
@@ -268,11 +266,9 @@
                 </div>
               </li>
               <div class="w-100 my-2">
-                <!-- <router-link to="/cart-view/cart-done"> -->
                 <button type="submit" class="btn btn-primary w-100" id="_cartCheckout">
                   立即結帳
                 </button>
-                <!-- </router-link> -->
               </div>
             </ul>
           </section>
@@ -352,8 +348,6 @@ export default {
   mounted () {
     this.emitter.on('customEvent_getCart', () => {
       this.getCart();
-      // console.log('mounted', this.carts);
-      // this.addCouponCode();
     });
   },
   methods: {
@@ -363,7 +357,6 @@ export default {
 
       this.$http.get(api).then((res) => {
         this.isLoading = false;
-        // console.log('cart', res.data.data.carts[0].coupon.percent);
         this.carts = res.data.data.carts;
         //* 需先歸零，必需在這計算
         this.sumTotal = 0;
@@ -390,7 +383,6 @@ export default {
       // !塞入要刪除的ＩＤ
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
       this.$http.delete(url).then((res) => {
-        // console.log(res.data);
         this.isLoading = false;
         this.$httpMessageState(res, '移除購物車品項');
         this.updateCart(item);
@@ -400,7 +392,6 @@ export default {
       }
     },
     updateCart (item) {
-      // console.log('updateCart');
       this.status.loadingItem = item.id;
       this.isLoading = true;
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${item.id}`;
@@ -415,12 +406,10 @@ export default {
       });
     },
     getProduct (id) { //! 只取一個商品，product.id才能取得商品內頁，不是id
-      // console.log(id);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${id}`;
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.product = res.data.product;
-          // console.log(this.product);
           this.emitter.emit('customEvent_getProduct', this.product);
         }
       });
@@ -431,7 +420,6 @@ export default {
       this.$http.get(url).then((res) => {
         if (res.data.success) {
           this.options = res.data.coupons.filter((coupon) => coupon.is_enabled === 1);
-          // console.log(this.options);
         }
       });
     },
@@ -510,10 +498,8 @@ export default {
     createOrder () {
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       const order = this.form;
-      // console.log(order);
       this.$http.post(url, { data: order })
         .then((res) => {
-          // console.log(res.data.orderId);
           this.emitter.emit('customEvent_getCart', this.getCart); //! 每頁導覽列都要更新購物車
           this.$router.push(`checkout/${res.data.orderId}`);
         });

@@ -8,7 +8,8 @@
       <img src="@/assets/nbaWeb/Lovepik_com-401319703-basketball.png" height="80" alt="storylogo" class="" />
       <h2 class="d-md-block d-none">STORY</h2>
       <!--  -->
-      <nav class="w-100 position-md-fixed position-absolute  start-0 end-0 px-7" style="top:20%" aria-label="Page navigation example">
+      <nav class="w-100 position-md-fixed position-absolute  start-0 end-0 px-7" style="top:20%"
+        aria-label="Page navigation example">
         <ul class="pagination w-100 d-flex justify-content-between">
           <li class="page-item"><a class="page-link " :class="{ 'disabled': isNotPrev }" :disabled="isNotPrev"
               @click.prevent="storyIndex--" href="#"> <i class="fa fa-caret-left" aria-hidden="true"></i> Prev </a></li>
@@ -35,10 +36,8 @@
               </small>
               <p @click.prevent="handleClick" class="" v-html="story.description">
               </p>
-
               <!-- 避免超出卡片 不需用寬高調整 ~~~~~ -->
               <!-- <img class="img-fluid" src="@/assets/nbaWeb/dean-bennett-nFjLHE4vmn4-unsplash.jpg" alt="" /> -->
-              <!--  -->
               <div class="my-3 d-flex gap-3">
                 <el-tag class="ml-2" type="info">#NBA</el-tag>
                 <el-tag class="ml-2" type="info">#ALL STAR</el-tag>
@@ -110,7 +109,6 @@ export default {
   methods: {
     getStory (id = this.id) { //! 只取一個
       this.isLoading_big = true;
-      // this.emitter.emit('customEvent_isLoading_big', this.isLoading_big);
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/article/${id}`;
       this.$http.get(api).then((res) => {
         this.isLoading_big = false;
@@ -160,17 +158,6 @@ export default {
         });
       }
     }
-    // nextStory () {
-    //   this.storyIndex++;
-    //   console.log(this.storyIndex);
-    //   if (this.storyIndex > this.storyList.length - 1) {
-    //     this.storyIndex = 0;
-    //     this.story = this.storyList[this.storyIndex];
-    //   } else {
-    //     this.story = this.storyList[this.storyIndex];
-    //   }
-    // }
-
   }
 };
 </script>

@@ -150,9 +150,9 @@
               </div>
             </div>
           </div>
-          <!--  -->
-          <CropperModal @confirm-cropper="updateImages" @close="openModal" @click-outside="isCropper = false"
-            v-if="isCropper" class="cropperModal_open" :class="{ 'cropperModal_close': !isCropper }" :tempImg="tempImg">
+          <!--  v-outside="handleClickOutside" -->
+          <CropperModal @confirm-cropper="updateImages" @close="openModal" v-if="isCropper" class="cropperModal_open"
+            :class="{ 'cropperModal_close': !isCropper }" :tempImg="tempImg">
           </CropperModal>
           <!--  -->
           <div class="modal-footer">
@@ -214,7 +214,8 @@ export default {
       //
       isCropper: false,
       isLoading: false,
-      tempImagesUrl: null
+      tempImagesUrl: null,
+      n: 1
     };
   },
   props: {
@@ -222,6 +223,25 @@ export default {
       type: Object,
       default () {
         return {};
+      }
+    }
+  },
+  directives: {
+    outside: {
+      bind (el, binding, vnode) {
+        if (vnode && vnode.context && binding && binding.value) {
+          el.clickOutsideEvent = function (event) {
+            if (!(el === event.target || el.contains(event.target))) {
+              vnode.context[binding.value](event);
+            }
+          };
+          document.body.addEventListener('click', el.clickOutsideEvent);
+        }
+      },
+      unbind (el) {
+        if (el && el.clickOutsideEvent) {
+          document.body.removeEventListener('click', el.clickOutsideEvent);
+        }
       }
     }
   },
@@ -262,6 +282,9 @@ export default {
     }
   },
   methods: {
+    handleClickOutside () {
+      this.isCropper = false;
+    },
     // 新增標籤
     addTag (newTag) {
       const tag = {
@@ -299,6 +322,7 @@ export default {
       });
     },
     // 多檔/el元件
+    //! 多檔/el元件 （使用非同步仍會產生多次上傳，且最後一個才會成功）> action 有API所以才會兩次上傳
     el_handleChange (file) {
       const tempFile = file.raw;//* 這個路徑才是與原本元件相同，才能用formdata轉檔
       // console.log(tempFile);//* 與handleChange（）比較上傳的檔案格式
@@ -326,46 +350,10 @@ export default {
         });
       }
     },
-    //! 多檔/el元件 （使用非同步仍會產生多次上傳，且最後一個才會成功）
-    // el_handleChange (file) {
-    //   if (this.other_photo) {
-    //     this.other_photo = false;
-    //     const tempFile = file.raw;
-    //     const name = tempFile.name;
-    //     const uid = Math.floor(Math.random() * 100000);
-    //     const status = 'success';
-
-    //     const formData = new FormData();
-    //     formData.append('file-to-upload', tempFile);
-
-    //     return new Promise((resolve, reject) => {
-    //       setTimeout(() => {
-    //         this.$http.post(this.image_add, formData)
-    //           .then((res) => {
-    //             if (res.data.success) {
-    //               const url = res.data.imageUrl;
-    //               const item = { name, url, uid, status };
-    //               this.tempProduct.imagesUrl.push(item);
-    //               resolve();
-    //             } else {
-    //               // eslint-disable-next-line prefer-promise-reject-errors
-    //               reject();
-    //             }
-    //           })
-    //           .catch((error) => {
-    //             reject(error);
-    //           });
-    //       }, 3000); // 等待3秒钟
-    //     });
-    //   } else {
-    //     return Promise.resolve();
-    //   }
-    // },
     // 多檔/手刻
     uploadFile_more () {
       const uploadedFiles = this.$refs.fileInput_more.files;//* FileList
       // console.log(uploadedFiles[0]);
-      // console.log(uploadedFiles[0].name);
       for (let i = 0; i < uploadedFiles.length; i++) {
         const name = uploadedFiles[i].name; // 圖檔名
         const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid
@@ -380,14 +368,12 @@ export default {
             const item = { name, url, uid, status };
             this.tempProduct.imagesUrl.push(item);
             //
-            // this.tempProduct.imagesUrl.push(res.data.imageUrl);
             this.other_photo = false;
           }
         });
       }
     },
     openModal (img) {
-      // console.log(img);
       this.tempImg = img;
       this.isCropper = !this.isCropper;
       if (this.isCropper) {
@@ -402,8 +388,8 @@ export default {
       croppered.imageUrl = img.url;
       this.$swal.fire('Success', ' Upload new image ', 'success');
     },
+    // 重組過去上傳圖片的結構需要
     resetImages () {
-      // 重組舊圖片的結構需要
       // const tempList = [];
       // for (let i = 0; i < this.tempProduct.imagesUrl.length; i++) {
       //   const url = this.tempProduct.imagesUrl[i];
