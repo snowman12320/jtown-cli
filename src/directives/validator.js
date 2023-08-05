@@ -1,9 +1,7 @@
-import { createApp } from 'vue';
-import App from '../App.vue';
-const app = createApp(App);
-
+// let validator = {};
 // 註冊指令
-app.directive('validator', {
+//* 前面用validator = 會顯示此變數不曾使用的錯誤 且需先定義
+export default {
   // directive 生命週期
   mounted (el, binding) {
     el.focus();
@@ -15,7 +13,7 @@ app.directive('validator', {
     // el 元素本體
     // binding 綁定的資源狀態
     // vnode 虛擬 DOM 節點
-    console.log('update', el, binding, vnode);
+    // console.log('update', el, binding, vnode);
     const className = binding.value;
 
     // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
@@ -23,10 +21,11 @@ app.directive('validator', {
 
     // 從當前 Model 取值
     const value = binding.instance[currentModel];
-    console.log(currentModel, value);
+    // console.log(currentModel, value);
 
     // Email validate
     const re =
+    // ? 無法使用正規表達式
       // eslint-disable-next-line no-useless-escape
       /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
@@ -36,4 +35,4 @@ app.directive('validator', {
       el.className = `${className} is-valid`;
     }
   }
-});
+};

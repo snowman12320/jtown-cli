@@ -20,7 +20,7 @@
             <img class="of-cover op-top w-100 h-100" :src="item.imageUrl" alt="">
           </div>
           <div class=" w-100 p-1 ">
-            <h2 class="fs-6 text-center">{{ item.title }}</h2>
+            <h2 class="fs-6 text-center ellipsis">{{ item.title }}</h2>
             <p class="text-center pt-2 fs-5 mb-0 ">
               <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
                 $filters.currency(item.origin_price)
@@ -183,5 +183,15 @@ export default {
 .product_item:hover {
   background: rgba(172, 121, 255, 0.274);
   transition: all 300ms;
+}
+
+.ellipsis {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  /*  有寬度才能多行  */
+  width: 100%;
+  height: 20px;
 }
 </style>

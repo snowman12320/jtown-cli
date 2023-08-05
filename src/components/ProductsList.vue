@@ -39,33 +39,33 @@
                   <div class="d-flex justify-content-center w-100 mx-auto gap-1 ">
                     <div class="">
                       <input value="S" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
-                        id="S">
+                        id="list_S">
                       <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'S' }"
-                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="S">
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="list_S">
                         S
                       </label>
                     </div>
                     <div class="">
                       <input value="M" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
-                        id="M">
+                        id="list_M">
                       <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'M' }"
-                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="M">
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="list_M">
                         M
                       </label>
                     </div>
                     <div class="">
                       <input value="L" v-model="productSize_list" class="form-check-input d-none" type="radio" name="size"
-                        id="L">
+                        id="list_L">
                       <label style="cursor: pointer" :class="{ 'bg-black text-white': productSize_list === 'L' }"
-                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="L">
-                        L{{ productSize_list }}
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="list_L">
+                        L
                       </label>
                     </div>
                     <div class=" slanted-div">
                       <input disabled value="XL" v-model="productSize_list" class="form-check-input d-none" type="radio"
-                        name="size" id="XL">
+                        name="size" id="list_XL">
                       <label style="  cursor: not-allowed;" disabled
-                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="XL">
+                        class="form-check-label border border-secondary text-secondary fs-6 px-2 py-1" for="list_XL">
                         xL
                       </label>
                     </div>

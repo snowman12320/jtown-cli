@@ -77,7 +77,7 @@ app.use(ElementPlus); // 全局注册element-plus
 // app.use(BootstrapVueIcons);
 app.use(CKEditor);
 // app.use(ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
-app.use(validator);
+app.directive('validator', validator);
 app.use(VueClickAway);
 // Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {
 //   app.component(key, component);

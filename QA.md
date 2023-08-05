@@ -6,12 +6,33 @@ https://github.com/snowman12320/hexschool-question
 結果（問題）：
 
  /////////////////////////////////////////////////////////////////////////////////////////////
-- vue 修改玩都要重新整理? 4.我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
+- vue 修改後都要重新整理? 
+我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
   > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
-  > Vue.$set())
+  > Vue.$set()
 
 
 
+在productModal中，
+使用全域註冊validator事件，嘗試將課程中自訂義valisator加入cli環境中，但會出現
+Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'deep')
+
+我找不到任何東西造成undfined，
+噴錯的位置也跟這個輸入框驗證沒有關連，
+不知道是不是validator.js的寫法有問題
+>
+有修正助教的寫法，但有一些錯誤問題，
+1.開頭的前面用 validator = 會顯示此變數不曾使用的錯誤 且需先定義 所以直接拿掉物件名稱
+2.正則表達式會被eslint阻擋
+嘗試：npm install --save-dev eslint-plugin-security --force
+
+
+
+
+
+-[x]click.away
+> 使用套件即可，幾乎不用自己寫自定義事件
+https://github.com/VinceG/vue-click-away
 
 
 # 已詢問 未整理////////////////////////////
@@ -647,6 +668,17 @@ https://shubo.io/what-is-cors/
 >由於直接抓雲端資料的圖片來裁切這個做法會產生 CORS 的問題
 因此，會建議將目標改成上傳前就先裁切圖片，上傳後不提供編輯功能
 從這個方向來下手，問題就能夠解決囉～
+
+-[x]productsItem中，
+就是產品內頁，下面的列表中，尺寸輸入，加入購物車有問題 
+productList中加入購物俥正常，
+但在產品內頁裡的引入該產品列表元件，加入購物車會失敗
+，但加入收藏正常，明明都有用mixin引入方法
+
+猜側可能，內頁有加入購物，引入的產品列表也有，導致衝突 
+有將v-model改寫不同，productSize_item和productSize_list來取值
+但還是無法寫入尺寸，然後加入購物俥
+> label ID重複
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---

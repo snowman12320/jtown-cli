@@ -13,13 +13,13 @@
         <button type="button" class="btn-close text-reset fs-5" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body ">
-        <div class="d-flex p-2 border border-2 border-light rounded-3 my-2 gap-2" v-for="(item, id) in carts" :key="id">
-          <div class="" style="width:150px !important;height:150px !important">
+        <div class="d-flex p-2 border border-2 border-light rounded-3 my-2 gap-2" style="height: 130px;" v-for="(item, id) in carts" :key="id">
+          <div class=" h-100" style="width:150px">
             <img class="of-cover op-top w-100 h-100" :src="item.product.imageUrl" alt="">
           </div>
           <div class=" w-100 p-1 ">
             <h2 class="fs-6 text-center">{{ item.product.title }}</h2>
-            <p class="text-center pt-2 fs-5 ">
+            <p class="text-center pt-2 fs-5 mb-0">
               <small class="text-secondary  text-decoration-line-through fw-lighter" style="font-size:5px">$ {{
                 $filters.currency(item.product.origin_price)
               }}</small>
