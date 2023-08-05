@@ -6,14 +6,40 @@ https://github.com/snowman12320/hexschool-question
 結果（問題）：
 
  /////////////////////////////////////////////////////////////////////////////////////////////
-- vue 修改後都要重新整理? 
+-[] vue 修改後都要重新整理? 
 我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
+，讓.vue中，template和script修改時，即時更新，如參考的連結中一樣的效果
   > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
   > Vue.$set()
+  >Vue 3.x 版本，則可以使用 Vue CLI 進行開發。Vue CLI 默認使用 webpack 作為打包工具，並提供了一個預設的配置文件 vue.config.js
+  嘗試：
+  安裝套件，但參考連結中，起步分頁有提到， vue cli好像已經內建熱重載這些功能
+  npm install vue-loader vue-template-compiler --save-dev
+    在vue.config.js中加入
+    chainWebpack: (config) => {
+    // 配置 vue-loader
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap((options) => {
+        // 修改選項
+        options.hotReload = true;
+        return options;
+      });
+  }
+
+  熱重載測試是在productItem中
+  切換style中的背景色可以熱重載
+  但註解template和script中某區塊，都需要重新刷新才有效果
+
+參考：
+https://vue-loader.vuejs.org/zh/guide/hot-reload.html#%E7%8A%B6%E6%80%81%E4%BF%9D%E7%95%99%E8%A7%84%E5%88%99
+或在vue.config.js設定
+https://stackoverflow.com/questions/53589853/vue-cli-3-hot-reload-suddenly-not-working-in-browsers
 
 
-
-在productModal中，
+-[]在productModal中，
 使用全域註冊validator事件，嘗試將課程中自訂義valisator加入cli環境中，但會出現
 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'deep')
 
@@ -21,18 +47,25 @@ Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'd
 噴錯的位置也跟這個輸入框驗證沒有關連，
 不知道是不是validator.js的寫法有問題
 >
-有修正助教的寫法，但有一些錯誤問題，
+關於validator.js，有修正為助教的寫法，但有一些錯誤問題，
 1.開頭的前面用 validator = 會顯示此變數不曾使用的錯誤 且需先定義 所以直接拿掉物件名稱
 2.正則表達式會被eslint阻擋
 嘗試：npm install --save-dev eslint-plugin-security --force
+並在.eslintrc.js中加入
+  plugins: [
+    'security',
+  ],
+  rules: {
+    // ...
+    'security/detect-unsafe-regex': 'error',
+  },
+但使用正則表達式還是噴錯
 
 
 
 
 
--[x]click.away
-> 使用套件即可，幾乎不用自己寫自定義事件
-https://github.com/VinceG/vue-click-away
+
 
 
 # 已詢問 未整理////////////////////////////
@@ -679,6 +712,10 @@ productList中加入購物俥正常，
 有將v-model改寫不同，productSize_item和productSize_list來取值
 但還是無法寫入尺寸，然後加入購物俥
 > label ID重複
+
+-[x]click.away
+> 使用套件即可，幾乎不用自己寫自定義事件
+https://github.com/VinceG/vue-click-away
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---

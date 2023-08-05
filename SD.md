@@ -78,8 +78,11 @@ vue char：
 > 加上 專門的圓形上傳圖套件（在cropper瀏覽器夾）
 黑暗切換按鈕加上tw：
 https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca-project/
+＋漸層風格＋漸層logo區塊
+https://laracasts.com/topics/vue
 錯誤頁 可用 自己的 404
 https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
+
 # 最後 ：
 
 
@@ -90,11 +93,28 @@ https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FEr
 
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
 
+注意事項：
+注意：每個最終作業限制檢視三次，講師會在每次檢視後回覆你的剩餘批改次數。
+
+在第一次提交時：
+請提供 GitHub 及 GitHub Page 兩種版本
+確保 GitHub 上的程式碼下載後可正確運行，並修正 Console 所有錯誤
+作品若有求職需求，請務必豐富作品內容，也請務必告知該作品將會當作作品集一部分，否則會審核失敗。
+如果作業希望做為應徵作品集使用，可在回覆時增加：希望作為履歷作品集的一部分
+
+重新提交檢視時：
+請確保修正完講師的所有建議。
+如有疑問可回覆詢問講師（詢問不會算次數）
+若是課程觀念問題請提交至線上問答區。
+
+當完成本任務之後，同學可以和老師或助教索取「求職輔導表單」，當同學填寫完畢求職輔導表單之後我們將會協助同學求職。
+
+
+
 md 中加入各分頁使用的技術
 git readme / gitpages https://github.com/a94s84/Hermosa
 
-
-改完後，可以都轉成 com API ＋ pinia + vite 正常運作嗎
+com API ＋ pinia + vite 
 
 # home
 

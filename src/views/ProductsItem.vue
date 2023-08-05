@@ -327,6 +327,10 @@ export default {
 @import "@fancyapps/ui/dist/panzoom/panzoom.css";
 @import "@fancyapps/ui/dist/panzoom/panzoom.pins.css";
 
+* {
+  // background-color: #78e08f;
+}
+
 @media (max-width: 768px) {
   .carousel-item {
     img {
@@ -510,4 +514,5 @@ export default {
 // 如何在productItem元件中，使用class去隱藏productsList的元素
 .products_sort {
   display: none !important;
-}</style>
+}
+</style>

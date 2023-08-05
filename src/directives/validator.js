@@ -1,3 +1,4 @@
+/* eslint-disable prefer-regex-literals */
 // let validator = {};
 // 註冊指令
 //* 前面用validator = 會顯示此變數不曾使用的錯誤 且需先定義
@@ -5,7 +6,6 @@ export default {
   // directive 生命週期
   mounted (el, binding) {
     el.focus();
-
     // 將外部的值改為
     el.className = binding.value;
   },
@@ -24,10 +24,19 @@ export default {
     // console.log(currentModel, value);
 
     // Email validate
-    const re =
-    // ? 無法使用正規表達式
+    // 1.
+    // const re =
+    // // ? 無法使用正規表達式
+    //   // eslint-disable-next-line no-useless-escape
+    //   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    // 2.
+    // eslint-disable-next-line security/detect-unsafe-regex
+    const re = new RegExp(
       // eslint-disable-next-line no-useless-escape
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      '^(([^<>()\\[\\]\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\.,;:\\s@\"]+)*)|(\".+\"))@(([^<>()\\[\\]\\.,;:\\s@\"]+\\.)+[^<>()\\[\\]\\.,;:\\s@\"]{2,})$',
+      'i'
+    );
 
     if (!re.test(value)) {
       el.className = `${className} is-invalid`;

@@ -30,7 +30,7 @@ import 'element-plus/dist/index.css'; // 引入element-plus样式
 import 'vue-multiselect/dist/vue-multiselect.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 // import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
-import validator from './directives/validator';// 自定義v-click-outside 的指令
+import validator from './directives/validator';
 import VueClickAway from 'vue3-click-away';
 
 import $toast from './methods/toast';//* 定義完程式功能，需全域註冊，$錢字號應該是辨識用，若沒有包其他函式，就錢字號開頭(如$httpMessageState)，反之就(如$filters.currency)
