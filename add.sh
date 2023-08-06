@@ -3,7 +3,7 @@ sleep 2
 
 # git commit -m "create  "
 
-git commit -m "update validator temp 1  "
+git commit -m "update productItem  "
 
 # git commit -m "fixed inline style / view /cp "
 

@@ -134,7 +134,7 @@
         </div>
       </div>
       <!--  -->
-      <div class="row row-cols-md-2">
+      <div class="row row-cols-md-2 flex-column-reverse flex-md-row">
         <div class="col-md-8">
           <h3 class="mt-7">DESCRIPTION</h3>
           <hr>
@@ -171,7 +171,7 @@
           </div>
         </div>
         <!--  -->
-        <div class="col-md-4 sticky-top align-self-start " style="top:10%;z-index:1">
+        <div class="col-md-4 sticky-md-top align-self-start " style="top:10%;z-index:1">
           <div class="accordion d-flex justify-content-center  mt-5" id="accordionPanelsStayOpenExample">
             <div class="accordion-item w-100">
               <h2 class="accordion-header" id="panelsStayOpen-headingOne">
