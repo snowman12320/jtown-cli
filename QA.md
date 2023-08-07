@@ -38,6 +38,12 @@ https://vue-loader.vuejs.org/zh/guide/hot-reload.html#%E7%8A%B6%E6%80%81%E4%BF%9
 或在vue.config.js設定
 https://stackoverflow.com/questions/53589853/vue-cli-3-hot-reload-suddenly-not-working-in-browsers
 
+> 
+同樣測試助教的方式，也無法不刷新更新，
+請問我該去哪裡開啟hotReload設定，若專案都一樣的狀態，助教可以正常熱重載，
+我這邊不行，我懷疑是VScode安裝的套件或本身設定上有問題，有這個可能嗎?
+有沒有哪些VScode套件或設定，是有可能造成熱重載失敗，我可以嘗試刪除或設定看看
+
 
 -[]在productModal中，
 使用全域註冊validator事件，嘗試將課程中自訂義valisator加入cli環境中，但會出現
@@ -61,7 +67,10 @@ Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'd
   },
 但使用正則表達式還是噴錯
 
-
+>
+如截圖中會噴eslint錯誤，
+暫時先用強迫忽略的方式，讓程式碼正常運作，
+註解中有三種寫法，不知道哪一種比較接近正確的?
 
 
 

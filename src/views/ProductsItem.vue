@@ -92,7 +92,7 @@
                   name="size" id="XL">
                 <label style="  cursor: not-allowed;" disabled
                   class="form-check-label border border-secondary text-secondary px-3 py-2" for="XL">
-                  xL
+                  XL
                 </label>
               </div>
             </div>
