@@ -1,7 +1,7 @@
 git add .
 sleep 2
 
-git commit -m "create hotload ask   "
+git commit -m "create validator.js ask   "
 
 # git commit -m "update productItem  "
 

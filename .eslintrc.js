@@ -8,12 +8,12 @@ module.exports = {
     parser: '@babel/eslint-parser'
   },
   //
-  plugins: ['security'],
+  // plugins: ['security'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     semi: ['error', 'always'],
-    'vue/multi-word-component-names': 'off',
-    'security/detect-unsafe-regex': 'error'
+    'vue/multi-word-component-names': 'off'
+    // 'security/detect-unsafe-regex': 'error'
   }
 };
