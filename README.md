@@ -1,24 +1,34 @@
-# hello-world
+# 專案標題
 
-## Project setup
+## 簡介
+
+### Project setup
+
 ```
-npm install --force 
+npm install --force
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+# 表格說明 使用技術
 
-### Lints and fixes files
-```
-npm run lint
-```
+| VUE        | JS  | CSS  |
+| ---------- | --- | ---- |
+| option API | ES6 | SCSS |
+| CLI        | td  | td   |
+| option API | td  | td   |
 
-### Customize configuration
+# gif 圖
+
+### - 列點說明
+
+使用技術：
+運作方式：
+
+# pages 連結
+
 See [Configuration Reference](https://cli.vuejs.org/config/).

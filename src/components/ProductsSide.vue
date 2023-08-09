@@ -1,6 +1,4 @@
-<!-- eslint-disable no-unused-expressions -->
 <template>
-  <!-- 上面row響應 下面col也要響應~~~ -->
   <aside class="col-lg-2 lh-lg aside sticky-lg-top shadow align-self-start py-3" style="top:100px">
     <!--  -->
     <div class="my-3">
@@ -9,7 +7,6 @@
       <multiselect @click="getProducts()" v-model="cacheSearch" :options="options" :custom-label="nameWithLang"
         placeholder="search" label="title" track-by="title"></multiselect>
     </div>
-    <!-- BS內建margin 很多推不到位 可能要設定0 用開發者看會有淡黃區域 -->
     <ul class="list-unstyled d-flex flex-lg-column flex-row flex-wrap  justify-content-center my-3">
       <li class="mx-4 mx-md-0">
         <input ref="all" type="radio" class="d-none" name="side" id="all" value="" v-model="cacheCategory"

@@ -72,6 +72,48 @@ Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'd
 暫時先用強迫忽略的方式，讓程式碼正常運作，
 註解中有三種寫法，不知道哪一種比較接近正確的?
 
+ ///////////////////////////////////////////////temp//////////////////////////////////////////////
+Q: 關於validator.js，取值和驗證
+
+正則表示式可以正常運作了，但該驗證方式一直返回驗證錯誤，經分析，發現老師取得的value的方式，是空物件，想知道原因?
+
+然後老師的正則表示式好像有問題，只能用我寫的簡單正則表示式，才能驗證信箱成功，為何?
+
+( 我在輸入欄寫死輸入值 example_123@example.com )
+
+    // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
+    // const currentModel = Object.keys(binding.instance)[0];
+    // console.log(currentModel);
+    // 從當前 Model 取值
+    // const value = binding.instance[currentModel];
+    // console.log(currentModel, value); //? {}
+
+    // ? 改寫取得的值路徑 (跟老師的範本不同)
+    const value = vnode.dirs[0].value;
+    // console.log('update', vnode.dirs[0]);
+
+    // ? Email validate 範本的驗證都是返回錯
+    // const re =
+    //   /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i;
+    // const re = /^[0-9]+$/;
+    const re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    // const re = /[A-Z0-9._-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/;
+
+    if (!re.test(value)) {
+      el.className = `${className} is-invalid`;
+    } else {
+      el.className = `${className} is-valid`;
+    }
+
+
+
+
+Q: 關於熱重載，我是在最後才發現刷新很煩，才想到有內建才對，我先放棄在此專案使用哈哈，會搬到vite後，再嘗試看看，
+
+關於vite和CLI差別，據我了解，主要差別是環境大小 (大專案用CLI且套件有專屬版本，簡單快速的用vite且vite只編譯修改的，直接使用第三方套件版本)，
+
+使用方式好像差不多，這樣理解沒錯嗎，還是有什麼較大的差異?
+
 
 
 

@@ -1,6 +1,4 @@
-<!-- eslint-disable vue/no-parsing-error -->
 <template>
-  <!-- {{ cacheCategory }} -->
   <div class="">
     <!-- 排序  -->
     <div class="mb-3 d-flex justify-content-end align-items-center" :class="customClass">
@@ -71,7 +69,6 @@
                     </div>
                   </div>
                   <template #reference>
-                    <!-- <el-button class="m-2">Hover to activate</el-button> -->
                     <i @click="addToCart(item.id, qty, isBuy = false)" class="fa fa-cart-plus text-white fs-4"></i>
                   </template>
                 </el-popover>
@@ -208,7 +205,6 @@ export default {
       this.$http.get(api).then((res) => {
         if (res.data.success) {
           this.Filtered = res.data.products;
-          // this.pagination = res.data.pagination;
         }
       });
     },
@@ -275,7 +271,6 @@ export default {
       // 確認收藏狀態
       //! 要用this.id ，用product.id會錯 ，需分清楚差別
       //! 在其他電腦，若先判斷會錯誤
-      // console.log(Boolean(JSON.parse(localStorage.getItem('favorite'))));
       if (JSON.parse(localStorage.getItem('favorite'))) {
         const checkFavorite = Boolean(JSON.parse(localStorage.getItem('favorite')).indexOf(id) !== -1); //* 搜尋目標
         if (checkFavorite) {

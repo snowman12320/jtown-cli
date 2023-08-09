@@ -63,20 +63,10 @@
                 </div>
                 <div class="">
                   <label for="editor1" class="form-label">文章描述</label>
-                  <!-- <textarea type="text" class="form-control" v-model="tempStory.description"
-                    placeholder="請輸入文章內容"></textarea> -->
-                  <!-- <TinyMCE></TinyMCE> -->
-                  <!-- <textarea id="editor1"></textarea> -->
-                  <!-- <v-form-render :form-json="formJson" :form-data="formData.richeditor78915" :option-data="optionData"
-                    ref="vFormRef">
-                  </v-form-render> -->
-                  <!-- <el-button type="primary" @click="submitForm">Submit</el-button> -->
                   <ckeditor :editor="editor" v-model="tempStory.description" :config="editorConfig"></ckeditor>
                 </div>
                 <div class="">
                   <label for="content" class="form-label">球員內容</label>
-                  <!-- <textarea type="text" class="form-control" id="content" v-model="tempStory.content"
-                    placeholder="請輸入文章內容"></textarea> -->
                   <ckeditor :editor="editor" v-model="tempStory.content" :config="editorConfig"></ckeditor>
                 </div>
                 <hr />
@@ -111,17 +101,10 @@
 </template>
 <script>
 import modalMixin from '@/mixins/modalMixin';
-// import TinyMCE from '@/components/TinyMCE.vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';//* 需從public中，換成有取得新增外掛的
-// import { defineComponent } from 'vue';
-// import { NButton } from 'naive-ui';
 
 export default ({
   mixins: [modalMixin],
-  components: {
-    // TinyMCE
-    // NButton
-  },
   data () {
     return {
       modal: {},
@@ -155,10 +138,6 @@ export default ({
       dynamicTags: ['NBA', 'SPORT', 'NEWS'],
       inputVisible: false,
       InputRef: null,
-      //
-      // formJson: { widgetList: [{ key: 108449, type: 'rich-editor', icon: 'rich-editor-field', formItemFlag: true, options: { name: 'richeditor78915', label: '', labelAlign: '', placeholder: '', labelWidth: null, labelHidden: false, columnWidth: '200px', contentHeight: '200px', disabled: false, hidden: false, required: false, requiredHint: '', customRule: '', customRuleHint: '', customClass: [], labelIconClass: null, labelIconPosition: 'rear', labelTooltip: null, minLength: null, maxLength: null, showWordLimit: false, onCreated: '', onMounted: '', onValidate: '' }, id: 'richeditor78915' }], formConfig: { modelName: 'formData', refName: 'vForm', rulesName: 'rules', labelWidth: 80, labelPosition: 'left', size: '', labelAlign: 'label-left-align', cssCode: '', customClass: [], functions: '', layoutType: 'PC', jsonVersion: 3, onFormCreated: '', onFormMounted: '', onFormDataChange: '' } },
-      // formData: {},
-      // optionData: {},
       //
       editor: ClassicEditor,
       // editorData: '<p>Content of the editor.</p>', //* 預設內容
@@ -233,21 +212,6 @@ export default ({
       }
       this.inputVisible = false;
       this.inputValue = '';
-    },
-    // VFORM3 編輯器元件
-    submitForm () {
-      // this.$refs.vFormRef.getFormData().then((formData) => {
-      //   // Form Validation OK
-      //   // alert(JSON.stringify(formData));
-      //   // this.tempStory.content = JSON.stringify(formData.richeditor78915);
-      //   // console.log(formData.richeditor78915);
-      //   // !將 JavaScript 對象表示法 (JSON) 字符串轉換為對象。
-      //   this.tempStory.content = JSON.parse(formData.richeditor78915);
-      //   // alert(JSON.parse(formData));
-      // }).catch(function (error) {
-      //   // Form Validation Failed
-      //   alert(error);
-      // });
     }
   }
 });

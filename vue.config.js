@@ -2,6 +2,7 @@ const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true
 });
+//
 // 熱重載失效，找不到解法，故先註解
 // const { defineConfig } = require('@vue/cli-service');
 // module.exports = defineConfig({

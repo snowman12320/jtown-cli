@@ -264,7 +264,6 @@ export default {
       this.isLoading = true;
       this.isLoading_big = true;
       this.$http.get(api).then((response) => {
-        // console.log(response.data);
         this.isLoading = false;
         this.isLoading_big = false;
         if (response.data.success) {

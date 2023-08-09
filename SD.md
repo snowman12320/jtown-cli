@@ -92,6 +92,7 @@ https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FEr
 
 
 編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
+編譯時覆蓋node中該檔名
 
 注意事項：
 注意：每個最終作業限制檢視三次，講師會在每次檢視後回覆你的剩餘批改次數。

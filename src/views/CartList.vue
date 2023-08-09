@@ -13,7 +13,7 @@
                     data-bs-parent="#accordionExample">
                     <div class="accordion-body d-flex justify-content-between border-bottom p-3 pb-0">
                       <p>商品總計</p>
-                      <!-- <p style="width: 100px; text-align: end;">
+                      <!-- 在這邊算會有問題 <p style="width: 100px; text-align: end;">
                         $ {{ $filters.currency(Math.round(sumFinalTotal /(couponPercent / 100))) }}</p> -->
                       <p style="width: 100px; text-align: end;">$ {{ sumTotal }}</p>
                     </div>
@@ -103,7 +103,6 @@
           <section>
             <ul class="list-group">
               <li class="list-group-item bg-qopink text-black">
-                <!-- snowman12320@gmail.com 已登入 -->
                 {{ tempForm.user.email }} 已登入
                 <i class="bi bi-check-circle-fill text-danger"></i>
               </li>
@@ -399,7 +398,7 @@ export default {
         product_id: item.product_id,
         qty: item.qty
       };
-      this.$http.put(url, { data: cart }).then((response) => {
+      this.$http.put(url, { data: cart }).then(() => {
         this.status.loadingItem = '';
         this.isLoading = false;
         this.getCart();
@@ -448,9 +447,6 @@ export default {
           this.isLoading = false;
         }
       });
-    },
-    onSubmit () {
-      // console.log(this.user);
     },
     isName (value) {
       if (!value) {

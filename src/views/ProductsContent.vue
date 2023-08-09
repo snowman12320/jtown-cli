@@ -8,8 +8,6 @@
       <h2>PRODUCTS</h2>
     </div>
     <div class="container-xxl">
-      <!-- class 中有許多是沒有作用的，例如：row-cols-lg-12 ，row本身就是一列的flex，要變一欄再加上row-cols-1即可-->
-      <!-- 此段下方的 .row-cols-1(本來就一列), col(有一個col-lg-3即可) 皆可以移除 -->
       <main class="row  g-5">
         <!-- 側欄 -->
         <ProductsSide></ProductsSide>

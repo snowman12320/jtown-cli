@@ -29,10 +29,9 @@ import 'element-plus/dist/index.css'; // 引入element-plus样式
 // import Multiselect from 'vue-multiselect';//! 不能全域註冊
 import 'vue-multiselect/dist/vue-multiselect.css';
 import CKEditor from '@ckeditor/ckeditor5-vue';
-// import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令
+// import ClickOutside from './directives/click-outside';// 自定義v-click-outside 的指令 > 依老師建議，不用自己寫，使用現成套件即可 ( VueClickAway  )
 import validator from './directives/validator';
 import VueClickAway from 'vue3-click-away';
-
 import $toast from './methods/toast';//* 定義完程式功能，需全域註冊，$錢字號應該是辨識用，若沒有包其他函式，就錢字號開頭(如$httpMessageState)，反之就(如$filters.currency)
 
 // ! Configuration and initialization: Here, you can configure and initialize any necessary libraries or plugins.
@@ -76,7 +75,7 @@ app.use(ElementPlus); // 全局注册element-plus
 // app.use(BootstrapVue);
 // app.use(BootstrapVueIcons);
 app.use(CKEditor);
-// app.use(ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
+// app.directive('ClickOutside', ClickOutside);// 在 Vue 實例化之後呼叫 install 函式
 app.directive('validator', validator);
 app.use(VueClickAway);
 // Object.entries(ElementPlusIconsVue).forEach(([key, component]) => {

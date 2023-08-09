@@ -128,14 +128,10 @@
                 <hr />
                 <div class="mb-3">
                   <label for="description" class="form-label">產品細節</label>
-                  <!-- <textarea type="text" class="form-control" id="description" v-model="tempProduct.description"
-                    placeholder="請輸入產品描述"></textarea> -->
                   <ckeditor :editor="editor" v-model="tempProduct.description" :config="editorConfig"></ckeditor>
                 </div>
                 <div class="mb-3">
                   <label for="content" class="form-label">說明內容</label>
-                  <!-- <textarea type="text" class="form-control" rows="10" id="content" v-model="tempProduct.content"
-                    placeholder="請輸入說明內容"></textarea> -->
                   <ckeditor :editor="editor" v-model="tempProduct.content" :config="editorConfig"></ckeditor>
                 </div>
                 <div class="mb-3">
@@ -147,8 +143,9 @@
                     </label>
                   </div>
                 </div>
-                <!--  -->
-                <input type="email" v-model="text" name="" v-validator="'form-control'" id="">
+                <!-- 第一個確認 BS樣式是正常的 第二個照理應該驗證通過會加入打勾樣式 有嘗試書寫簡單的信箱驗證去產生驗證通過樣式-->
+                <!-- <input type="email" v-model="text" name="" class="form-control is-valid " id=""> -->
+                <input type="email" v-model="text" name="" class="" v-validator="'form-control'" id="">
               </div>
             </div>
           </div>
@@ -219,7 +216,7 @@ export default {
       tempImagesUrl: null,
       n: 1,
       //
-      text: ''
+      text: 'example_123@example.com'
     };
   },
   props: {
@@ -229,16 +226,6 @@ export default {
         return {};
       }
     }
-  },
-  directives: {
-    // 'click-away': {
-    // mounted (el, binding, vnode) {
-    // console.log(el, binding, vnode);
-    // }
-    // }
-  },
-  created () {
-    // console.log(this.tempProduct);
   },
   watch: {
     //* 監聽傳進來的story，並自動存到暫存區
@@ -275,7 +262,6 @@ export default {
   },
   methods: {
     onClickAway (ev) {
-      // console.log(ev);
       this.isCropper = false;
     },
     // 新增標籤
@@ -302,7 +288,6 @@ export default {
     uploadFile () { //* 主圖上傳 /單獨上傳
       this.main_photo = true;
       const uploadedFile = this.$refs.fileInput.files[0];
-      // console.log(this.$refs.fileInput.files[0].name);
       //
       const formData = new FormData();
       formData.append('file-to-upload', uploadedFile);
@@ -346,7 +331,6 @@ export default {
     // 多檔/手刻
     uploadFile_more () {
       const uploadedFiles = this.$refs.fileInput_more.files;//* FileList
-      // console.log(uploadedFiles[0]);
       for (let i = 0; i < uploadedFiles.length; i++) {
         const name = uploadedFiles[i].name; // 圖檔名
         const uid = Math.floor(Math.random() * 10000000000000); // 隨機產生uid

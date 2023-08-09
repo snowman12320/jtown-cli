@@ -42,19 +42,19 @@
 // });
 
 // 3.
-// export default {
-//   mounted (el, binding, vnode) {
-//     el.clickOutsideEvent = function (event) {
-//       // 判斷點擊事件是否發生在目標元素的外部
-//       if (!(el === event.target || el.contains(event.target))) {
-//         // 呼叫指令綁定時傳入的回呼函式
-//         vnode.context[binding.value](event);
-//         this.isCropper = false;
-//       }
-//     };
-//     document.body.addEventListener('click', el.clickOutsideEvent);
-//   },
-//   unmounted (el) {
-//     document.body.removeEventListener('click', el.clickOutsideEvent);
-//   }
-// };
+export default {
+  mounted (el, binding, vnode) {
+    el.clickOutsideEvent = function (event) {
+      // 判斷點擊事件是否發生在目標元素的外部
+      if (!(el === event.target || el.contains(event.target))) {
+        // 呼叫指令綁定時傳入的回呼函式
+        vnode.context[binding.value](event);
+        this.isCropper = false;
+      }
+    };
+    document.body.addEventListener('click', el.clickOutsideEvent);
+  },
+  unmounted (el) {
+    document.body.removeEventListener('click', el.clickOutsideEvent);
+  }
+};

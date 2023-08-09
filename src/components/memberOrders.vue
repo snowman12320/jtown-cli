@@ -151,7 +151,6 @@ export default {
       });
     },
     payOrder (order) {
-      // console.log(order);
       const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${order.id}`;
       this.$http.post(url)
         .then((res) => {

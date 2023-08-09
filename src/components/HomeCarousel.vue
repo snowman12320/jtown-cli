@@ -2,32 +2,16 @@
   <div class="position-relative">
     <!-- video banner -->
     <div id="carouselExampleIndicators" class="carousel slide carousel-fade " data-bs-ride="carousel" style="z-index:1">
-      <!-- <div class="carousel-indicators">
+      <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
           aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
           aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
           aria-label="Slide 3"></button>
-      </div> -->
+      </div>
       <div class="carousel-inner">
         <div class="carousel-item " data-bs-interval="10000">
-          <!-- 拿掉寬高可以自適應 且不會有上下白邊 -->
-          <!-- width="3000"
-                  height="810" -->
-          <!-- 加寬度100%不錯位跑版 -->
-          <!-- <video
-                  class="w-100"
-                  style="margin-top: 104px !important"
-                  controls
-                  muted
-                  autoplay
-                >
-                  <source
-                    src="./nbaWeb/Miami Heat vs. Memphis Grizzlies Full Game Highlights _ Oct 7 _ 2022 NBA Preseason.mp4"
-                    type="video/mp4"
-                  />
-                </video> -->
           <iframe height="" class="w-100" style="height: 100vh" src="https://www.youtube.com/embed/XWXWTZEY_6c?start=431"
             title="YouTube video player" frameborder="0"
             allow="accelerometer;clipboard-write; encrypted-media; gyroscope; picture-in-picture "

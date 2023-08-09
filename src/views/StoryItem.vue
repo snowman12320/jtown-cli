@@ -23,8 +23,6 @@
         how to become the NBA all star player?
       </p>
       <!-- 球星個人列表 -->
-      <!-- 不需要所有元素都在 container 內 --><!-- <div class="container-xxl"> -->
-      <!-- row可用g-5 左右推版(column會上下推) / card內用會推上下  / gutter外 gap內-->
       <main class="row row-cols-1 row-cols-xl-2 mx-md-2 g-5 position-relative">
         <!-- 必填 -->
         <article class="col col-xl-8 mx-auto mb-xl-5">
@@ -36,8 +34,7 @@
               </small>
               <p @click.prevent="handleClick" class="" v-html="story.description">
               </p>
-              <!-- 避免超出卡片 不需用寬高調整 ~~~~~ -->
-              <!-- <img class="img-fluid" src="@/assets/nbaWeb/dean-bennett-nFjLHE4vmn4-unsplash.jpg" alt="" /> -->
+              <!--  -->
               <div class="my-3 d-flex gap-3">
                 <el-tag class="ml-2" type="info">#NBA</el-tag>
                 <el-tag class="ml-2" type="info">#ALL STAR</el-tag>
@@ -52,8 +49,6 @@
               <img data-num="001" :src="story.imageUrl" height="424"
                 class="of-cover w-100 op-top position-absolute pt-3 imgRwd" alt="..." />
               <img src="@/assets/nbaWeb/CYOKWOiUoAIJGu4.png" class="allstaritem_back img-fluid op-center of-cover" alt="">
-              <!-- <div class="allstaritem_back img-fluid bgp-center bgs-cover"
-                style="background-image: url(~@/assets/nbaWeb/1126209.png)"></div> -->
               <div @click.prevent="handleClick" class="card-body fs-6" v-html="story.content">
               </div>
               <a type="button" @click.prevent="getMerchandise()"

@@ -1,6 +1,5 @@
 <template >
     <section class="d-flex flex-column justify-content-around align-items-start rankList gap-5">
-        <!-- col-12 col-xl-2 多餘的 -->
         <div @click="toStory('-NZGctSZ8Ky-ZDGfYJpf')"
             class="d-flex rank flex-column  flex-md-row  align-items-center justify-content-md-center w-100 gap-md-5 justify-content-around"
             data-aos="zoom-in">
