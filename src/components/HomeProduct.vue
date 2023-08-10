@@ -17,7 +17,7 @@
                 <h6>{{ item.category }}</h6>
                 <h4>{{ item.title }}</h4>
               </div>
-              <img data-num="1" style="height:auto " class="card-img of-cover op-top w-100" :src="item.imageUrl"
+              <img data-num="1" style="height:auto " class="card-img of-cover op-top h-100 w-100" :src="item.imageUrl"
                 :alt="item.title" />
             </div>
           </div>

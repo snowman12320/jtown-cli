@@ -132,6 +132,8 @@ export default {
 </script>
 // ! scoped 會讓子元件吃不到
 <style  lang="scss">
+@import '../assets/helpers/function.scss';
+
 .el-alert_home {
   position: absolute !important;
   top: 100px;
@@ -232,7 +234,7 @@ export default {
   }
 }
 
-@media (max-width:768px) {
+@include maxpad() {
   .el-dialog {
     width: 90% !important;
   }
@@ -242,7 +244,7 @@ export default {
   }
 
   .el-button--primary {
-    padding: 0px !important;
+    padding: 10px !important;
   }
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div class="">
+
     <head class="navbar navbar-expand-md   position-fixed top-0 start-0 end-0 backdrop py-1" style="z-index:10"
       ref="header" :class="{ ' animate__animated  animate__slideInDown  animate__animated bg-white shadow-sm': !atTop }">
       <div class="container-fluid d-flex justify-content-between p-3" :class="{ 'nav_height_after': !atTop }">
@@ -9,12 +10,12 @@
           <h1 class="fs-3 fw-bold mb-0 ms-5 nav_h1  brand_scale " :class="{ 'opacity-0': !atTop }">JTown</h1>
         </router-link>
         <!-- 漢堡 -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" @click="collapse_toggle">
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--  -->
-        <div class="collapse navbar-collapse mb-3 mb-md-0" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse mb-3 mb-md-0" ref="collapse" v-click-away="collapse_hide"
+          :class="{ 'd-none': collapse_none }">
           <!-- margin-start 自動推到底 好用排版方式 -->
           <ul class="navbar-nav ms-auto text-center">
             <li class="nav-item">
@@ -70,6 +71,8 @@
 <script>
 import CartOffcanvas from '@/components/CartOffcanvas.vue';
 import FavoriteOffcanvas from '@/components/FavoriteOffcanvas.vue';
+import Collapse from 'bootstrap/js/dist/collapse';
+
 export default {
   // inject: ['emitter'],
   components: {
@@ -79,7 +82,9 @@ export default {
   data () {
     return {
       nav: 0, //* 初始化 nav 值 atTop: false };
-      atTop: true //* 動態導覽列
+      atTop: true, //* 動態導覽列
+      collapse: null,
+      collapse_none: true
     };
   },
   props: {
@@ -88,8 +93,20 @@ export default {
   mounted () {
     this.nav = this.$refs.header.offsetHeight; //* 在 mounted 階段獲取 header 的高度
     window.addEventListener('scroll', this.handleScroll); //* 監聽滾動事件
+    this.collapse = new Collapse(this.$refs.collapse); //* 繼承一個彈窗，並取得dom去操作
+    setTimeout(() => { // ? 不知道為啥繼承collapase後就會自動開啟手機板導覽列，故設定自動關閉
+      this.collapse_hide(); //* 在 mounted 后触发 collapse_hide 方法
+    }, 500);
   },
   methods: {
+    collapse_toggle () {
+      this.collapse_none = false;
+      this.collapse.toggle();
+    },
+    collapse_hide () {
+      this.collapse_none = false;
+      this.collapse.hide();
+    },
     handleScroll () {
       this.atTop = !(window.scrollY > this.nav + 10); //* 使用this.nav進行操作
     },

@@ -5,7 +5,7 @@ sleep 2
 
 # git commit -m "update productItem  "
 
-git commit -m "fixed inline style / view /cp  --02 "
+git commit -m "fixed inline style / view /cp  --03 "
 
 sleep 2
 git push
