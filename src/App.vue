@@ -1,12 +1,8 @@
-<!-- eslint-disable vue/valid-template-root -->
 <template>
-    <router-view />
+    <div class="">
+        <router-view />
+    </div>
 </template>
 <style lang="scss">
-// @import "@/assets/all.scss";
 @import '@/assets/main.scss';
 </style>
-<script>
-export default {
-};
-</script>

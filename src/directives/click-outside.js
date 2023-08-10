@@ -41,7 +41,7 @@
 //   }
 // });
 
-// 3.
+// 3.錯誤寫法 > 改用現成套件哈哈
 export default {
   mounted (el, binding, vnode) {
     el.clickOutsideEvent = function (event) {

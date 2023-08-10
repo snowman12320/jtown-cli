@@ -1,8 +1,12 @@
+// <!-- 第一個確認 BS樣式是正常的 第二個照理應該驗證通過會加入打勾樣式 有嘗試書寫簡單的信箱驗證去產生驗證通過樣式-->
+// <!-- <input type="email" v-model="text" name="" class="form-control is-valid " id=""> -->
+// <input type="email" v-model="text" name="" class="" v-validator="'form-control'" id=""></input>
+
 // 註冊指令
 //* 前面用validator = 會顯示此變數不曾使用的錯誤 且需先定義
 export default {
   // directive 生命週期
-  mounted (el, binding) {
+  mounted(el, binding) {
     el.focus();
     // 將外部的值改為
     el.className = binding.value;
@@ -29,7 +33,17 @@ export default {
     // const re =
     //   /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i;
     // const re = /^[0-9]+$/;
-    const re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    // const re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    //
+    // 如果要用老師的正則表達式可以把 no-useless-escape 這個規則關掉
+    // 像下面這樣在上一行寫 eslint-disable-next-line no-useless-escape
+    // const re =
+    // // eslint-disable-next-line no-useless-escape
+    //   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    // 或是按照 ESLint 提示的錯誤將多的 '\' 刪除看起來驗證也是正常的
+    const re =
+      // eslint-disable-next-line no-useless-escape
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
 
     if (!re.test(value)) {
       el.className = `${className} is-invalid`;
@@ -46,5 +60,5 @@ export default {
     //   el.classList.remove('is-invalid');
     //   el.classList.add('is-valid');
     // }
-  }
+  },
 };

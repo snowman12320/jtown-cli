@@ -1,5 +1,63 @@
+# 最後 ：
+
+關於批改作業有三次機會
+可以請array助教(如果沒猜錯的話)
+先改option版第一次 ，
+第二次，我會改成cmposition+pinia+vite的版本，給您批改
+
+之後會以composition版批改，
+因為職場感覺以compositon版為主，但還是想知道option大概有哪些錯誤
+
+若可以這樣做或不行改compositon版，請直接幫我改optionAPI版~
+若只能擇一，我就改成comsitiomAPI版後，再通知您
+
+---
+
+編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
+編譯時覆蓋node中該檔名
+
+
+注意事項：
+注意：每個最終作業限制檢視三次，講師會在每次檢視後回覆你的剩餘批改次數。
+
+在第一次提交時：
+請提供 GitHub 及 GitHub Page 兩種版本
+確保 GitHub 上的程式碼下載後可正確運行，並修正 Console 所有錯誤
+作品若有求職需求，請務必豐富作品內容，也請務必告知該作品將會當作作品集一部分，否則會審核失敗。
+如果作業希望做為應徵作品集使用，可在回覆時增加：希望作為履歷作品集的一部分
+
+重新提交檢視時：
+請確保修正完講師的所有建議。
+如有疑問可回覆詢問講師（詢問不會算次數）
+若是課程觀念問題請提交至線上問答區。
+
+當完成本任務之後，同學可以和老師或助教索取「求職輔導表單」，當同學填寫完畢求職輔導表單之後我們將會協助同學求職。
+
+
+
+md 中加入各分頁使用的技術
+git readme / gitpages https://github.com/a94s84/Hermosa
+
+com API ＋ pinia + vite 
+
+加上購物俥數量 如pinia示範
+
+編輯器 上傳圖黨
+
+# home
+
+# products
+
+# login
+
+# dashboard
+
+
+# footer
+
+
 繼續看影片 教到的都要用到
-擴展 mixin 夾(區域)methods 夾(全域) / extend /
+擴展 mixin 夾(區域)methods 夾(全域) extend(權重最小的區域) / slot (元件加入具名或預設停車位) 
 元件溝通 props /emit / mitt /  
 路由器 param / push / path /
 
@@ -10,7 +68,7 @@
 # 有關程式功能優先!!! 版型非必要
 # 請資深 vue 工程師優化程式碼
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////參考網站 或 元件/////////////////////////////////////////////
 好看的鞋
 https://www.bandier.com/collections/shoes
 
@@ -82,62 +140,6 @@ https://vuejsexamples.com/dark-mode-switcher-piece-of-vuejs-scss-code-from-eruca
 https://laracasts.com/topics/vue
 錯誤頁 可用 自己的 404
 https://stackblitz.com/edit/quasarframework-webpack-oyx9lk?file=src%2Fpages%2FErrorNotFound.vue
-
-# 最後 ：
-
-
-
-
-
-
-
-編譯後的檔案(dist)（分支中） 上傳至 Github Pages 和 沒編譯的（原本的），共兩種
-編譯時覆蓋node中該檔名
-
-注意事項：
-注意：每個最終作業限制檢視三次，講師會在每次檢視後回覆你的剩餘批改次數。
-
-在第一次提交時：
-請提供 GitHub 及 GitHub Page 兩種版本
-確保 GitHub 上的程式碼下載後可正確運行，並修正 Console 所有錯誤
-作品若有求職需求，請務必豐富作品內容，也請務必告知該作品將會當作作品集一部分，否則會審核失敗。
-如果作業希望做為應徵作品集使用，可在回覆時增加：希望作為履歷作品集的一部分
-
-重新提交檢視時：
-請確保修正完講師的所有建議。
-如有疑問可回覆詢問講師（詢問不會算次數）
-若是課程觀念問題請提交至線上問答區。
-
-當完成本任務之後，同學可以和老師或助教索取「求職輔導表單」，當同學填寫完畢求職輔導表單之後我們將會協助同學求職。
-
-
-
-md 中加入各分頁使用的技術
-git readme / gitpages https://github.com/a94s84/Hermosa
-
-com API ＋ pinia + vite 
-
-# home
-
-
-# products
-
-
-
-
-
-# login
-
-
-
-# dashboard
-
-
-
-
-
-# footer
-
 
 
 

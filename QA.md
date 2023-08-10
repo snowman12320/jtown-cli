@@ -5,119 +5,7 @@ https://github.com/snowman12320/hexschool-question
 預期結果：
 結果（問題）：
 
- /////////////////////////////////////////////////////////////////////////////////////////////
--[] vue 修改後都要重新整理? 
-我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
-，讓.vue中，template和script修改時，即時更新，如參考的連結中一樣的效果
-  > 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
-  > Vue.$set()
-  >Vue 3.x 版本，則可以使用 Vue CLI 進行開發。Vue CLI 默認使用 webpack 作為打包工具，並提供了一個預設的配置文件 vue.config.js
-  嘗試：
-  安裝套件，但參考連結中，起步分頁有提到， vue cli好像已經內建熱重載這些功能
-  npm install vue-loader vue-template-compiler --save-dev
-    在vue.config.js中加入
-    chainWebpack: (config) => {
-    // 配置 vue-loader
-    config.module
-      .rule('vue')
-      .use('vue-loader')
-      .loader('vue-loader')
-      .tap((options) => {
-        // 修改選項
-        options.hotReload = true;
-        return options;
-      });
-  }
-
-  熱重載測試是在productItem中
-  切換style中的背景色可以熱重載
-  但註解template和script中某區塊，都需要重新刷新才有效果
-
-參考：
-https://vue-loader.vuejs.org/zh/guide/hot-reload.html#%E7%8A%B6%E6%80%81%E4%BF%9D%E7%95%99%E8%A7%84%E5%88%99
-或在vue.config.js設定
-https://stackoverflow.com/questions/53589853/vue-cli-3-hot-reload-suddenly-not-working-in-browsers
-
-> 
-同樣測試助教的方式，也無法不刷新更新，
-請問我該去哪裡開啟hotReload設定，若專案都一樣的狀態，助教可以正常熱重載，
-我這邊不行，我懷疑是VScode安裝的套件或本身設定上有問題，有這個可能嗎?
-有沒有哪些VScode套件或設定，是有可能造成熱重載失敗，我可以嘗試刪除或設定看看
-
-
--[]在productModal中，
-使用全域註冊validator事件，嘗試將課程中自訂義valisator加入cli環境中，但會出現
-Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'deep')
-
-我找不到任何東西造成undfined，
-噴錯的位置也跟這個輸入框驗證沒有關連，
-不知道是不是validator.js的寫法有問題
->
-關於validator.js，有修正為助教的寫法，但有一些錯誤問題，
-1.開頭的前面用 validator = 會顯示此變數不曾使用的錯誤 且需先定義 所以直接拿掉物件名稱
-2.正則表達式會被eslint阻擋
-嘗試：npm install --save-dev eslint-plugin-security --force
-並在.eslintrc.js中加入
-  plugins: [
-    'security',
-  ],
-  rules: {
-    // ...
-    'security/detect-unsafe-regex': 'error',
-  },
-但使用正則表達式還是噴錯
-
->
-如截圖中會噴eslint錯誤，
-暫時先用強迫忽略的方式，讓程式碼正常運作，
-註解中有三種寫法，不知道哪一種比較接近正確的?
-
- ///////////////////////////////////////////////temp//////////////////////////////////////////////
-Q: 關於validator.js，取值和驗證
-
-正則表示式可以正常運作了，但該驗證方式一直返回驗證錯誤，經分析，發現老師取得的value的方式，是空物件，想知道原因?
-
-然後老師的正則表示式好像有問題，只能用我寫的簡單正則表示式，才能驗證信箱成功，為何?
-
-( 我在輸入欄寫死輸入值 example_123@example.com )
-
-    // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
-    // const currentModel = Object.keys(binding.instance)[0];
-    // console.log(currentModel);
-    // 從當前 Model 取值
-    // const value = binding.instance[currentModel];
-    // console.log(currentModel, value); //? {}
-
-    // ? 改寫取得的值路徑 (跟老師的範本不同)
-    const value = vnode.dirs[0].value;
-    // console.log('update', vnode.dirs[0]);
-
-    // ? Email validate 範本的驗證都是返回錯
-    // const re =
-    //   /^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i;
-    // const re = /^[0-9]+$/;
-    const re = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    // const re = /[A-Z0-9._-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/;
-
-    if (!re.test(value)) {
-      el.className = `${className} is-invalid`;
-    } else {
-      el.className = `${className} is-valid`;
-    }
-
-
-
-
-Q: 關於熱重載，我是在最後才發現刷新很煩，才想到有內建才對，我先放棄在此專案使用哈哈，會搬到vite後，再嘗試看看，
-
-關於vite和CLI差別，據我了解，主要差別是環境大小 (大專案用CLI且套件有專屬版本，簡單快速的用vite且vite只編譯修改的，直接使用第三方套件版本)，
-
-使用方式好像差不多，這樣理解沒錯嗎，還是有什麼較大的差異?
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 # 已詢問 未整理////////////////////////////
 
@@ -334,9 +222,10 @@ https://israynotarray.com/vue/20200214/1055437216/
 git push origin --delete gh-pages
 npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
->cd ..
-> 有時手動失敗就用自動化的，交互使用，且pages要先切回none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過) 
-> pages成功就會自動切到gh-page
+
+> cd ..
+> 有時手動失敗就用自動化的，交互使用，且 pages 要先切回 none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過)
+> pages 成功就會自動切到 gh-page
 
 ## CKEditor 5
 
@@ -730,43 +619,123 @@ https://element-plus.org/zh-CN/component/upload.html#%E5%B1%9E%E6%80%A7
 > 在回首頁或首頁重新整理就會出現，想了解原因
 > router-link to 不存在連結舊會
 
--[x]在ProductModal中
-目的：透過產品圖片中的編輯icon，將圖片帶入CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
-針對目的嘗試：使用props傳遞圖片，並用watch更新tempImg的值，就是要裁切的圖片
-預期結果：可以帶入將圖片帶入CropperModal 中，並裁切，然後覆蓋原本圖片
+-[x]在 ProductModal 中
+目的：透過產品圖片中的編輯 icon，將圖片帶入 CropperModal 中 ，並進行裁切，確認後覆蓋原本的圖片
+針對目的嘗試：使用 props 傳遞圖片，並用 watch 更新 tempImg 的值，就是要裁切的圖片
+預期結果：可以帶入將圖片帶入 CropperModal 中，並裁切，然後覆蓋原本圖片
 
 結果（問題）：
-將圖片帶入CropperModal 中的圖片會無法使用，出現CORS錯誤，好像是不能直接使用雲端的資料
+將圖片帶入 CropperModal 中的圖片會無法使用，出現 CORS 錯誤，好像是不能直接使用雲端的資料
 Access to image at 'https://storage.googleapis.com/vue-course-api.appspot.com/william-api/1690362062055.jpg?GoogleAccessId=fi....(省略) from origin 'http://localhost:8080' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 
 上述問題嘗試：
 將雲端的圖片下載，模擬本地上傳圖片去裁切，
-CropperModal 中watch，使用fetch去下載成base64data來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
+CropperModal 中 watch，使用 fetch 去下載成 base64data 來裁切，但一樣是上述的錯誤代碼，所以認為是否是雲端連結有限制之類
 
 參考文章：
-(請後端設置 CORS header) 
+(請後端設置 CORS header)
 https://blog.huli.tw/2021/02/19/cors-guide-2/#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E6%B3%95%E8%AB%8B%E5%BE%8C%E7%AB%AF%E8%A8%AD%E7%BD%AE-cors-header
 https://ithelp.ithome.com.tw/articles/10268821
 https://shubo.io/what-is-cors/
 (官方安全原因，因不同源導致阻擋) https://stackoverflow.com/questions/71016448/error-access-to-xmlhttprequest-at-https-storage-googleapis-com-url-from-origi
->由於直接抓雲端資料的圖片來裁切這個做法會產生 CORS 的問題
-因此，會建議將目標改成上傳前就先裁切圖片，上傳後不提供編輯功能
-從這個方向來下手，問題就能夠解決囉～
 
--[x]productsItem中，
-就是產品內頁，下面的列表中，尺寸輸入，加入購物車有問題 
-productList中加入購物俥正常，
+> 由於直接抓雲端資料的圖片來裁切這個做法會產生 CORS 的問題
+> 因此，會建議將目標改成上傳前就先裁切圖片，上傳後不提供編輯功能
+> 從這個方向來下手，問題就能夠解決囉～
+
+-[x]productsItem 中，
+就是產品內頁，下面的列表中，尺寸輸入，加入購物車有問題
+productList 中加入購物俥正常，
 但在產品內頁裡的引入該產品列表元件，加入購物車會失敗
-，但加入收藏正常，明明都有用mixin引入方法
+，但加入收藏正常，明明都有用 mixin 引入方法
 
-猜側可能，內頁有加入購物，引入的產品列表也有，導致衝突 
-有將v-model改寫不同，productSize_item和productSize_list來取值
+猜側可能，內頁有加入購物，引入的產品列表也有，導致衝突
+有將 v-model 改寫不同，productSize_item 和 productSize_list 來取值
 但還是無法寫入尺寸，然後加入購物俥
-> label ID重複
+
+> label ID 重複
 
 -[x]click.away
+
 > 使用套件即可，幾乎不用自己寫自定義事件
-https://github.com/VinceG/vue-click-away
+> https://github.com/VinceG/vue-click-away
+
+-[x] vue 修改後都要重新整理?
+我發現在開發時，需要一直重新整理才能更新修改，除了有 style 會即時更新，然後編譯完有錯誤也會更新，那不知道有沒有類似 live server 可以自動即時更新
+，讓.vue 中，template 和 script 修改時，即時更新，如參考的連結中一樣的效果
+
+> 好像改夠多就自己更新 也不用一直案儲存 為了整理用並除錯
+> Vue.$set()
+> Vue 3.x 版本，則可以使用 Vue CLI 進行開發。Vue CLI 默認使用 webpack 作為打包工具，並提供了一個預設的配置文件 vue.config.js
+> 嘗試：
+> 安裝套件，但參考連結中，起步分頁有提到， vue cli 好像已經內建熱重載這些功能
+> npm install vue-loader vue-template-compiler --save-dev
+
+    在vue.config.js中加入
+    chainWebpack: (config) => {
+    // 配置 vue-loader
+    config.module
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
+      .tap((options) => {
+        // 修改選項
+        options.hotReload = true;
+        return options;
+      });
+
+}
+
+熱重載測試是在 productItem 中
+切換 style 中的背景色可以熱重載
+但註解 template 和 script 中某區塊，都需要重新刷新才有效果
+
+參考：
+https://vue-loader.vuejs.org/zh/guide/hot-reload.html#%E7%8A%B6%E6%80%81%E4%BF%9D%E7%95%99%E8%A7%84%E5%88%99
+或在 vue.config.js 設定
+https://stackoverflow.com/questions/53589853/vue-cli-3-hot-reload-suddenly-not-working-in-browsers
+
+> 同樣測試助教的方式，也無法不刷新更新，
+> 請問我該去哪裡開啟 hotReload 設定，若專案都一樣的狀態，助教可以正常熱重載，
+> 我這邊不行，我懷疑是 VScode 安裝的套件或本身設定上有問題，有這個可能嗎?
+> 有沒有哪些 VScode 套件或設定，是有可能造成熱重載失敗，我可以嘗試刪除或設定看看
+>
+> 在其他環境(vite 新 cli nuxt.js 都正常)
+> 移轉到 vite
+
+> -[x] 在 productModal 中，
+> 使用全域註冊 validator 事件，嘗試將課程中自訂義 valisator 加入 cli 環境中，但會出現
+> Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'deep')
+
+我找不到任何東西造成 undfined，
+噴錯的位置也跟這個輸入框驗證沒有關連，
+不知道是不是 validator.js 的寫法有問題
+
+> 關於 validator.js，有修正為助教的寫法，但有一些錯誤問題， 1.開頭的前面用 validator = 會顯示此變數不曾使用的錯誤 且需先定義 所以直接拿掉物件名稱 2.正則表達式會被 eslint 阻擋
+> 嘗試：npm install --save-dev eslint-plugin-security --force
+> 並在.eslintrc.js 中加入
+
+```
+plugins: [
+```
+
+    'security',
+
+],
+rules: {
+// ...
+'security/detect-unsafe-regex': 'error',
+},
+
+```
+但使用正則表達式還是噴錯
+
+> 如截圖中會噴 eslint 錯誤，
+> 暫時先用強迫忽略的方式，讓程式碼正常運作，
+> 註解中有三種寫法，不知道哪一種比較接近正確的?
+>
+> validator.js 有解決
+
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
 ---
@@ -794,11 +763,13 @@ https://enterprise.github.com/downloads/en/markdown-cheatsheet.pdf
 - [x] 123
 
 ```
+
 for (let i = 0; i < 10; i++) {
-  setTimeout(function () {
-    console.log('這執行第' + i + '次');
-  }, 0);
+setTimeout(function () {
+console.log('這執行第' + i + '次');
+}, 0);
 }
+
 ```
 
 | thead 1 | thrad 2 | thread 3 |
@@ -810,3 +781,4 @@ for (let i = 0; i < 10; i++) {
 [Google](https://www.google.com.tw/)
 
 ![unsplash 圖片](https://images.unsplash.com/photo-1573900941478-7cc800f708f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)
+```
