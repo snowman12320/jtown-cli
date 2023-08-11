@@ -1,15 +1,24 @@
 # 最後 ：
 
-關於批改作業有三次機會
-可以請array助教(如果沒猜錯的話)
-先改option版第一次 ，
-第二次，我會改成cmposition+pinia+vite的版本，給您批改
+https://github.com/snowman12320/hexschool-question/tree/main
+https://snowman12320.github.io/hexschool-question/
 
-之後會以composition版批改，
+助教麻煩您了，
+該作品，希望作為履歷作品集的一部分，
+
+關於批改作業有三次機會
+想請array助教(如果沒猜錯的話)，
+可以先改 option版 一次 ，
+第二次，我會改成composition+pinia+vite的版本，給您批改
+
+之後會以composition版批改 第三次，
 因為職場感覺以compositon版為主，但還是想知道option大概有哪些錯誤
 
-若可以這樣做或不行改compositon版，請直接幫我改optionAPI版~
-若只能擇一，我就改成comsitiomAPI版後，再通知您
+若上述的想法，
+可以這樣做，或不接受改compositon版，請直接幫我改optionAPI版~
+若只能擇一，我就改成comsitiomAPI版後，會再通知您~
+
+還是說助教有什麼建議呢~
 
 ---
 

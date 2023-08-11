@@ -7,10 +7,11 @@ https://github.com/snowman12320/hexschool-question
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-# 已詢問 未整理////////////////////////////
-
 <!-- <meta http-equiv="Permissions-Policy" content="ch-ua-form-factor=()"> -->
 <!-- https://stackoverflow.com/questions/69619035/error-with-permissions-policy-header-unrecognized-feature-interest-cohort -->
+>  刪掉(編譯前index)原本+上的 content="ch-ua-form-factor=()" ? 應該還是有(編譯後index)
+# 已詢問 未整理////////////////////////////
+
 
 # 技術筆記///////////////////////////////////////////
 
@@ -220,12 +221,20 @@ https://israynotarray.com/vue/20200214/1055437216/
 检查构建和部署优先级：错误消息中提到了一个更高优先级的请求正在等待执行。这可能是由于同时进行了多个构建和部署请求。请确认在您的仓库中是否有其他正在进行的构建和部署任务，并等待它们完成。一旦较高优先级的任务完成，您的任务将会继续执行。
 可能就要自己手動
 git push origin --delete gh-pages
-npm run bulid > cd dist > git init > git add . > git commit -m "use hand build" > main or master
+npm run build >
+cd dist > git init > git add . > git commit -m "use hand build" > main or master
 git push -f git@github.com:snowman12320/hexschool-question.git master:gh-pages
 
 > cd ..
 > 有時手動失敗就用自動化的，交互使用，且 pages 要先切回 none，下次推就先推，不要刪除分支，能覆蓋就覆蓋(自動化去覆蓋有成功過)
 > pages 成功就會自動切到 gh-page
+
+> 查看 github action 錯誤訊息
+> 註解 .md 錯誤
+
+ <!-- If the `str` contains more `a` than `b` / there are unmatched pairs, the first match that was closed will be used. For example, `{{a}}` will match `['{', 'a', '']` and `{a}}` will match `['', 'a', '}']`. -->
+
+> 設定 vue.confing.js 路徑 (用官方的建議方式才能，不用刪分支和 CK 編輯器設定黨，手動自動都可)
 
 ## CKEditor 5
 
@@ -735,6 +744,53 @@ rules: {
 > 註解中有三種寫法，不知道哪一種比較接近正確的?
 >
 > validator.js 有解決
+
+## -[x]
+https://github.com/snowman12320/hexschool-question/tree/gh-pages
+Q：vue CLI 無法部屬上去試過手動部屬
+npm run build > cd dist > git init > git add . > git commit -m "use hand build"
+git push -f git@github.com:snowman12320/hexschool-question.git main:gh-pages
+以及https://github.com/snowman12320/hexschool-question中 main分支，使用sh deploy.sh 自動部屬
+
+但有時候pages，就不會更新或沒有連結....
+不知道是不是vue.config.js有設定錯誤，有參考官方部屬的設定方式，
+也有嘗試'./'目錄寫法 （這是成功數次的寫法）
+官方信件的錯誤提示 ( github的action頁籤分頁 )
+https://github.com/snowman12320/hexschool-question/actions/runs/5822682833/job/15787855841
+
+```
+
+Liquid Exception: Liquid syntax error (line 50): Variable '{{a}' was not properly terminated with regexp: /\}\}/ in ckeditor5-build-classic/node_modules/balanced-match/README.md 872
+
+/usr/local/bundle/gems/liquid-4.0.4/lib/liquid/block_body.rb:136:in `raise_missing_variable_terminator': Liquid syntax error (line 50): Variable '{{a}' was not properly terminated with regexp: /\\}\\}/ (Liquid::SyntaxError)
+
+```
+看來是node_module/中的套件的.md資料夾有錯誤，已註解處理 ( github也檢查太詳細 )
+> 解決流程：
+部屬失敗可至設定的電子信箱中或github action中查看錯誤訊息 (標示紅色叉叉點進去可以看到)，
+也可以看到部屬進度，不用一直重新整理，會有暫存一下下，才會更新 ( index.html中檔案路徑需加上儲存庫的名稱)，
+vue.config.js設定
+```
+
+// vue.config.js
+// vue cli 官方文件中的部屬路徑
+module.exports = defineConfig({
+transpileDependencies: true,
+// publicPath: './'
+publicPath: process.env.NODE_ENV === 'production' ? '/hexschool-question/' : '/'
+});
+
+```
+進行上述手動或自動部屬即可
+
+pages  - 404()
+/hexschool-question > CLI congfig要預設，vite要加base:'...'
+https://www.reddit.com/r/learnprogramming/comments/wv56eo/404_errors_when_using_custom_domain_on_github/?rdt=59694
+https://www.reddit.com/r/Frontend/comments/z5w62s/failed_to_load_resource_the_server_responded_with/
+https://stackoverflow.com/questions/68497926/how-can-i-fix-failing-to-load-resource-status-404-github-pages
+https://www.twblogs.net/a/5ccddc52bd9eee67a77e7697
+
+
 
 # MARKDOWN/////////////////////////////////////////////////////////////////////////////////////////////
 
