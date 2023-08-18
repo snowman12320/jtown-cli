@@ -7,7 +7,7 @@ sleep 2
 
 # git commit -m "fixed inline style / view /cp  --03 "
 
-git commit -m "present homework"
+git commit -m "present homework (jtown-cli)"
 
 sleep 2
 git push
