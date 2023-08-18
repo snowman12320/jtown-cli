@@ -85,6 +85,6 @@ npm run serve
 | ------- | --------- | ------------ |
 | ES6+    | SCSS/SASS | Git          |
 | Node.js | RWD       | Webpack      |
-|         | Bootstrap | NPM          |
+|         | Bootstrap | npm          |
 |         |           | Eslint       |
 |         |           | Vue-devtools |

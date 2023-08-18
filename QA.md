@@ -234,6 +234,7 @@ git push -f git@github.com:snowman12320/hexschool-question.git main:gh-pages
  <!-- If the `str` contains more `a` than `b` / there are unmatched pairs, the first match that was closed will be used. For example, `{{a}}` will match `['{', 'a', '']` and `{a}}` will match `['', 'a', '}']`. -->
 
 > 設定 vue.confing.js 路徑 (用官方的建議方式才能，不用刪分支和 CK 編輯器設定黨，手動自動都可)
+> index.html中的路徑問題，會慢點更新!!!，要看 /dist中的index
 
 ## CKEditor 5
 
